@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const axios = require("axios").default;
+const {Walker } = require('../db')
 
 const router = Router();
 
