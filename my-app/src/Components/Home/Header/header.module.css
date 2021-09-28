@@ -1,0 +1,50 @@
+.container1{
+    height: 750px;
+    background-color: rgb(254,247, 237);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    color: rgb(58,84,180);
+    font-size: 50px;
+}
+.form{
+    margin-top: 150px;
+    margin-left: 300px;
+    grid-column: 1 span;
+}
+
+.form h1{
+    font-family: 'Work Sans', sans-serif;
+    font-size: 120px;
+}
+.form button{
+    background-color:rgb(58,84,180) ;
+    color: white;
+    font-size: 15px;
+    width: 150px;
+    height: 40px;
+    margin-top: 40px;
+    border: none;
+    cursor: pointer;
+}
+.botonP{
+    font-weight:100;
+    letter-spacing: 1px;
+}
+
+.form span{
+    font-weight: 200;
+    font-size: 30px;
+}
+
+.fotoForm{
+    grid-column: 1 span;
+}
+
+.fotoForm img{
+    object-fit: cover;
+    object-position: bottom;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    margin-top: 150px;
+}
