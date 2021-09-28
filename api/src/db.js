@@ -2,6 +2,7 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
+
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 const sequelize = new Sequelize(
@@ -39,15 +40,15 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 
 //TODO
-const { Client, Walker, Post, Complain } = sequelize.models;
+const { Client, User, Post, Complain } = sequelize.models;
 
 // Aca vendrian las relaciones //TODO CREAR RELACIONES
 
-Walker.hasMany(Post);
-Post.belongsTo(Walker);
+User.hasMany(Post);
+Post.belongsTo(User);
 
-Walker.hasMany(Complain)
-Complain.belongsTo(Walker)
+User.hasMany(Complain);
+Complain.belongsTo(User);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
