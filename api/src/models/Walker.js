@@ -38,14 +38,14 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      calendar: {
-        type: DataTypes.DATE,
-        allowNull: false
-      },
-      reputation: {
-        type: DataTypes.ENUM("1", "2", "3", "4", "5"),
-        allowNull: false
-      },
+      // calendar: {
+      //   type: DataTypes.DATE,
+      //   allowNull: false
+      // },
+      // reputation: {
+      //   type: DataTypes.ENUM("1", "2", "3", "4", "5"),
+      //   allowNull: false
+      // },
       carer: {
         type: DataTypes.BOOLEAN,
         allowNull: false
@@ -53,7 +53,18 @@ module.exports = (sequelize) => {
       price: {
         type: DataTypes.INTEGER,
         allowNull: false
-      }
+      },
+      dateofBirth: {
+        type: DataTypes.DATE,
+        allowNull: false
+      },
+      age: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      // dni : {
+
+      // } 
     },
     { timestamps: false }
   );
