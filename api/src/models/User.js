@@ -45,7 +45,7 @@ module.exports = (sequelize) => {
       },
       ubication: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       // calendar: {
       //   type: DataTypes.DATE,
