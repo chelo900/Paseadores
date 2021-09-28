@@ -3,6 +3,18 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
+const [input, setInput] = useState({
+    name : "",
+    surname : "",
+    image : "",
+    phone : "" ,
+    ubication : "",
+    email : "",
+    carer : "",
+    age : "",
+    dateofBirth : "",
+})
+
 return (
     <div className = {style.total}>
         <form >
@@ -20,7 +32,7 @@ return (
                 <input 
                 type = "text"
                 placeholder = "Name"
-                value = {input}
+                value = {input.name}
                 name = "name"
                 />
             </div>
@@ -29,7 +41,7 @@ return (
                 <input 
                 type = "text"
                 placeholder = "SurName"
-                value = {input}
+                value = {input.surname}
                 name = "surname"
                 />
             </div>
@@ -38,7 +50,7 @@ return (
                 <input 
                 type = "text"
                 placeholder = "Age"
-                value = {input}
+                value = {input.age}
                 name = "Age"
                 />
             </div>
@@ -47,7 +59,7 @@ return (
                 <input 
                 type = "text"
                 placeholder = "dd/mm/aa"
-                value = {input}
+                value = {input.dateofBirth}
                 name = "date of birth"
                 />
             </div>
@@ -56,7 +68,7 @@ return (
                 <input 
                 type = "number"
                 placeholder = "ej: +54 11 68525749"
-                value = {input}
+                value = {input.phone}
                 name = "phone"
                 />
             </div>
@@ -65,7 +77,7 @@ return (
                 <input 
                 type = "text"
                 placeholder = "paseador@gmail.com"
-                value = {input}
+                value = {input.email}
                 name = "email"
                 />
             </div>
@@ -83,9 +95,13 @@ return (
                 <input 
                 type = "text"
                 placeholder = "ej: Palermo"
-                value = {input}
+                value = {input.ubication}
                 name = "ubicacion"
                 />
+            </div>
+            <div>
+                <label> Carer : </label>
+                <input />
             </div>
             <Link to = "/home">
                 <button type = "submit"> Create User </button>
