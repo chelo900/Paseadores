@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "walker",
+    "user",
     {
       id: {
         type: DataTypes.UUID,
@@ -18,12 +18,21 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      dni: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      birth_day: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
       image: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       status: {
-        type: DataTypes.ENUM('active', 'inactive'),
+        type: DataTypes.ENUM("active", "inactive"),
+        defaultValue: "active",
         allowNull: false,
       },
       phone: {
@@ -36,24 +45,25 @@ module.exports = (sequelize) => {
       },
       ubication: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
-      calendar: {
-        type: DataTypes.DATE,
-        allowNull: false
-      },
+      // calendar: {
+      //   type: DataTypes.DATE,
+      //   allowNull: false
+      // }
       reputation: {
-        type: DataTypes.ENUM("1", "2", "3", "4", "5"),
-        allowNull: false
+        type: DataTypes.ENUM("0", "1", "2", "3", "4", "5"),
+        defaultValue: "0",
+        allowNull: false,
       },
-      carer: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
+      service: {
+        type: DataTypes.ENUM("Walker", "Carer", "Walker & Carer"),
+        allowNull: false,
       },
       price: {
         type: DataTypes.INTEGER,
-        allowNull: false
-      }
+        allowNull: true,
+      },
     },
     { timestamps: false }
   );
