@@ -1,15 +1,17 @@
 import React from 'react'
 import './App.css'
+import {BrowserRouter as Router} from 'react-router-dom'
+import Routes from './Routes';
 
-import Home from './Components/Home/home'
 
 
 const App = () => {
 
     return (
-        <div className='app'>
-          <Home />
-        </div>
+        <Router>
+          <Routes />
+        </Router>
+  
     )
 }
 
