@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import style from './form.modules.css'
 
 function FormWalker(){
     const dispatch = useDispatch();
