@@ -7,7 +7,9 @@
     overflow: hidden;
     
 }
-
+.container .imagen{
+    transition: all .3s;
+}
 .container .imagen:hover{
     -webkit-transform:scale(1.1);transform:scale(1.1);
 }
