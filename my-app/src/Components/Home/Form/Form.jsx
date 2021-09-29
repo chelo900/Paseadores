@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import style from './Form.module.css'
 
 function FormWalker(){
     const dispatch = useDispatch();
@@ -70,9 +71,10 @@ function handleSubmit(e){
 }
 
 return (
+    <div className = {style.contenedor}>
     <div className = {style.total}>
         <form >
-            <div>
+            <div className = {style.fp} >
                 <label> Image Profile : </label>
                     <input 
                         type="file" 
@@ -80,9 +82,10 @@ return (
                         value = {input.image}
                     />
             </div>
-            <div>
-                <label> Photo of identity document in front : </label>
-                    <select>
+            <div className = {style.df}>
+                <label> Photo of identity document front : </label>
+                    <select className = {style.selectfr}>
+                        <option> Select </option>
                         <option> DNI </option>
                         <option> Cédula de identidad </option>
                         <option> Cédula de ciudadanía </option>
@@ -91,14 +94,16 @@ return (
                         <option> Pasaporte </option>
                     </select>
                 <input 
+                 className = {style.dfb}
                     type="file" 
                     accept=".jpg, .png, .pdf"
                     value = {input.dni}
                 />
             </div>
-            <div>
+            <div className = {style.db}>
                 <label> Photo of Identity document back : </label>
-                    <select>
+                    <select className = {style.selectbc}>
+                        <option> Select </option>
                         <option> DNI </option>
                         <option> Cédula de identidad </option>
                         <option> Cédula de ciudadanía </option>
@@ -107,12 +112,13 @@ return (
                         <option> Pasaporte </option>
                     </select>
                 <input 
+                 className = {style.dfb}
                     type="file" 
                     accept=".jpg, .png, .pdf"
                     value = {input.dni}
                 />
             </div>
-            <div>
+            <div className = {style.nom}>
                 <label> Name : </label>
                     <input 
                     type = "text"
@@ -124,7 +130,7 @@ return (
                         <p> {errors.name} </p>
                     )}
             </div>
-            <div>
+            <div className = {style.ape}>
                 <label> SurName : </label>
                     <input 
                     type = "text"
@@ -133,7 +139,7 @@ return (
                     name = "surname"
                     />
             </div>
-            <div>
+            <div className = {style.cump}>
                 <label> Date of Birth : </label>
                     <input 
                     type = "text"
@@ -142,7 +148,7 @@ return (
                     name = "date of birth"
                     />
             </div>
-            <div>
+            <div className = {style.cel}>
                 <label> Phone : </label>
                     <input 
                     type = "number"
@@ -151,7 +157,7 @@ return (
                     name = "phone"
                     />
             </div>
-            <div>
+            <div className = {style.mail}>
                 <label> Email : </label>
                     <input 
                     type = "text"
@@ -163,7 +169,7 @@ return (
                         <p> {errors.email} </p>
                     )}
             </div>
-            <div>
+            <div className = {style.contra}>
                 <label> Password : </label>
                     <input 
                     type = "text"
@@ -175,7 +181,7 @@ return (
                         <p> {errors.password} </p>
                     )}
             </div>
-            <div>
+            <div className = {style.serv}>
                 <label> Service : </label>
                 <select>
                     <option> Select </option>
@@ -183,11 +189,12 @@ return (
                     <option> Carer </option>
                     <option> Walker and Carer</option>
                 </select>
-            </div>
+            </div >
             <Link to = "/">
-                <button type = "submit"> Create User </button>
+                <button className = {style.btn} type = "submit"> Create User </button>
             </Link>
         </form>
+     </div>
      </div>
 )}
 
