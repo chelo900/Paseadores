@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router";
 import Home from "../Components/Home/home";
 import Log from "../Components/LogIn";
-import Form from "../Components/Home/Form/Form"
+import Prueba from "../Components/Prueba/Prueba"
 
 const index = () => {
     return(

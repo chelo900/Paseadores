@@ -4,6 +4,7 @@ const { User } = require("../db");
 const router = Router();
 
 router.get("/", async (req, res) => {
+<<<<<<< HEAD
   const { page, name } = req.query;
   try {
     const allActiveWalkers = await User.findAll({
@@ -34,6 +35,33 @@ router.get("/", async (req, res) => {
           res.status(200).send(nameSearch);
         } catch (error) {
           console.error(error);
+=======
+
+    try{
+        
+        const allActiveWalkers = await User.findAll({
+            where: {
+                status: "active"
+            }
+        })
+        const allActiveWalkersCards = await allActiveWalkers.map(w=>{
+            return {
+                id: w.id,
+                name: w.name,
+                surname: w.surname,
+                image : w.image,
+                service: w.service ,
+                ubication: w.ubication,
+                reputation: w.reputation,
+                price: w.price,
+            }
+        })
+        if(allActiveWalkersCards){
+
+            res.status(200).send(allActiveWalkersCards)
+        }else{
+        res.status(404).send("Not found");
+>>>>>>> d1101c4 (infinite scroll)
         }
       }
       // PAGINATION
