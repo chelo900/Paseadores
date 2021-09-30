@@ -38,8 +38,8 @@ router.get("/", async (req, res) => {
       }
       // PAGINATION
       const results = 5;
-      const lastElement = Number(page) * Number(results);
-      const firstElement = (Number(page) - 1) * Number(results);
+      const lastElement = Number(page) * results;
+      const firstElement = (Number(page) - 1) * results;
 
       const paginated = allActiveWalkersCards.slice(firstElement, lastElement);
       res.status(200).send(paginated);
