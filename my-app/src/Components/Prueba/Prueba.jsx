@@ -1,69 +1,47 @@
 import React, { useState, useEffect } from "react";
+import { getAllPaseadores } from "../../actions";
 import Card from "../Card/Card"
 import style from "../Prueba/Prueba.module.css"
-
+import { useDispatch,useSelector } from "react-redux";
 
 const Prueba = () => {
 
-    // const [page, setPage] = useState(1);
-    // const [users, setUsers] = useState([]);
-    // const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+    const allWalker = useSelector((state) => state.allPaseadores)
 
-    // const handleScroll = event =>{
-    //     const {scrollTop, clientHeight, scrollHeight} = event.currentTarget;
-    //     if(scrollHeight - scrollTop === clientHeight){
-    //         setPage(prev => prev + 1)
-    //     }
-    // }
+    const [page, setPage] = useState(1);
+    const [users, setUsers] = useState(allWalker);
+    const [loading, setLoading] = useState(true);
 
-    // useEffect(() =>{
-    //     const loadUser = async () => {
-    //         setLoading(true);
-    //         const newUsers = await getUsers(page);
-    //         setUsers(prev => [...prev, ...newUsers]);
-    //         setLoading(false);
-    //     }
-    //     loadUser();
-    // }, [page])
+    useEffect(()=>{
+        dispatch(getAllPaseadores(page))
+    },[])
+
+    const handleScroll = event => {
+        const { scrollTop, clientHeight, scrollHeight } = event.currentTarget;
+        if (scrollHeight - scrollTop === clientHeight) {
+            setPage(prev => prev + 1)
+        }
+    }
+
+    useEffect(() => {
+        const loadUser = async () => {
+            setLoading(true);
+            setUsers(prev => [...prev, ...users]);
+            setLoading(false);
+        }
+        loadUser();
+    }, [page])
 
     return (
         <div className={style.container}>
-            {/* <div>
-                {users && users.map(user => <Card key={user.id} user={user}/>)}
+            <div className={style.userContainer} onScroll={handleScroll}>
+                {users && users.map(user =>
+                    <div className={style.flex}>
+                        <Card key={user.id} user={user} />
+                    </div>)}
             </div>
-            {loading && <div><p>Loading ...</p></div>} */}
-            <div className={style.userContainer}>
-                <div className={style.flex}>
-                <Card></Card>
-                </div>
-                <div className={style.flex}>
-                <Card></Card>
-                </div>
-                <div className={style.flex}>
-                <Card></Card>
-                </div>
-                <div className={style.flex}>
-                <Card></Card>
-                </div>
-                <div className={style.flex}>
-                <Card></Card>
-                </div>
-                <div className={style.flex}>
-                <Card></Card>
-                </div>
-                <div className={style.flex}>
-                <Card></Card>
-                </div>
-                <div className={style.flex}>
-                <Card></Card>
-                </div>
-                <div className={style.flex}>
-                <Card></Card>
-                </div>
-                <div className={style.flex}>
-                <Card></Card>
-                </div>
-            </div>
+            {loading && <div><p>Loading ...</p></div>}
         </div>
     )
 }
