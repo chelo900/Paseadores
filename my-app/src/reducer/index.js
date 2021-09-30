@@ -1,6 +1,8 @@
 const initialState = {
     allPaseadores : [],
-    paseador: []
+    paseador: [],
+    detailWalker:[]
+
 }
 
 function rootReducer(state = initialState, action) {
@@ -20,6 +22,11 @@ function rootReducer(state = initialState, action) {
              return {
                  ...state,
                  paseador: action.payload
+             }
+        case 'GET_PASEADOR_FOR_ID':
+            return{
+                ...state,
+                detailWalker:action.payload
             }
         // case 'NEW_PASEADOR':
         //     return {

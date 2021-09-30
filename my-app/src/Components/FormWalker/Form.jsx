@@ -2,24 +2,9 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import style from './form.modules.css'
+import style from './Form.modules.css'
 
-function FormWalker(){
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const [errors, setError] = useState({});
 
-const [input, setInput] = useState({
-    image : "",
-    dni : "",
-    name : "",
-    surname : "",
-    birth_day : "",
-    phone : "" ,
-    email : "",
-    password : "",
-    service : "",
-})
 
 function validate(input) {
     const errors = {};
@@ -41,6 +26,25 @@ function validate(input) {
     }
     return errors;
 }
+
+const Form = () =>{
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const [errors, setError] = useState({});
+
+const [input, setInput] = useState({
+    image : "",
+    dni : "",
+    name : "",
+    surname : "",
+    birth_day : "",
+    phone : "" ,
+    email : "",
+    password : "",
+    service : "",
+})
+
+
 
 function handleChange(e){
     setInput({
@@ -72,47 +76,47 @@ function handleSubmit(e){
 
 return (
     <div className = {style.total}>
-        <form >
-            <div>
-                <label> Image Profile : </label>
+        <form  onSubmit={handleSubmit}>
+                <div>
+                    <label> Image Profile : </label>
+                        <input 
+                            type="file" 
+                            accept=".jpg, .png, .pdf"
+                            value = {input.image}
+                        />
+                </div>
+                <div>
+                    <label> Photo of identity document in front : </label>
+                        <select>
+                            <option> DNI </option>
+                            <option> Cédula de identidad </option>
+                            <option> Cédula de ciudadanía </option>
+                            <option> Documento único de identidad </option>
+                            <option> Cédula de identidad Civil </option>
+                            <option> Pasaporte </option>
+                        </select>
                     <input 
                         type="file" 
                         accept=".jpg, .png, .pdf"
-                        value = {input.image}
+                        value = {input.dni}
                     />
-            </div>
-            <div>
-                <label> Photo of identity document in front : </label>
-                    <select>
-                        <option> DNI </option>
-                        <option> Cédula de identidad </option>
-                        <option> Cédula de ciudadanía </option>
-                        <option> Documento único de identidad </option>
-                        <option> Cédula de identidad Civil </option>
-                        <option> Pasaporte </option>
-                    </select>
-                <input 
-                    type="file" 
-                    accept=".jpg, .png, .pdf"
-                    value = {input.dni}
-                />
-            </div>
-            <div>
-                <label> Photo of Identity document back : </label>
-                    <select>
-                        <option> DNI </option>
-                        <option> Cédula de identidad </option>
-                        <option> Cédula de ciudadanía </option>
-                        <option> Documento único de identidad </option>
-                        <option> Cédula de identidad Civil </option>
-                        <option> Pasaporte </option>
-                    </select>
-                <input 
-                    type="file" 
-                    accept=".jpg, .png, .pdf"
-                    value = {input.dni}
-                />
-            </div>
+                </div>
+                <div>
+                    <label> Photo of Identity document back : </label>
+                        <select>
+                            <option> DNI </option>
+                            <option> Cédula de identidad </option>
+                            <option> Cédula de ciudadanía </option>
+                            <option> Documento único de identidad </option>
+                            <option> Cédula de identidad Civil </option>
+                            <option> Pasaporte </option>
+                        </select>
+                    <input 
+                        type="file" 
+                        accept=".jpg, .png, .pdf"
+                        value = {input.dni}
+                    />
+                </div>
             <div>
                 <label> Name : </label>
                     <input 
@@ -120,6 +124,7 @@ return (
                     placeholder = "Name"
                     value = {input.name}
                     name = "name"
+                    onChange={e=>handleChange(e)}
                     />
                     {errors.name && (
                         <p> {errors.name} </p>
@@ -132,6 +137,7 @@ return (
                     placeholder = "SurName"
                     value = {input.surname}
                     name = "surname"
+                    onChange={e=>handleChange(e)}
                     />
             </div>
             <div>
@@ -140,7 +146,8 @@ return (
                     type = "text"
                     placeholder = "dd/mm/aa"
                     value = {input.birth_day}
-                    name = "date of birth"
+                    name = "birth_day"
+                    onChange={e=>handleChange(e)}
                     />
             </div>
             <div>
@@ -150,6 +157,7 @@ return (
                     placeholder = "ej: +54 11 68525749"
                     value = {input.phone}
                     name = "phone"
+                    onChange={e=>handleChange(e)}
                     />
             </div>
             <div>
@@ -159,6 +167,7 @@ return (
                     placeholder = "paseador@gmail.com"
                     value = {input.email}
                     name = "email"
+                    onChange={e=>handleChange(e)}
                     />
                     {errors.email && (
                         <p> {errors.email} </p>
@@ -170,7 +179,8 @@ return (
                     type = "text"
                     placeholder = "Password123"
                     value = {input.password}
-                    name = "contraseña"
+                    name = "password"
+                    onChange={e=>handleChange(e)}
                     />
                     {errors.password && (
                         <p> {errors.password} </p>
@@ -192,4 +202,4 @@ return (
      </div>
 )}
 
-export default FormWalker;
+export default Form;
