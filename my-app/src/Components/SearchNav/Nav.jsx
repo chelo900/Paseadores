@@ -26,7 +26,7 @@ function Nav() {
     <nav className={styles.nav}>
       <div>
         <input className={styles.search} type="search" name="name" placeholder="Enter breed..." onChange={handleChange} value={raza.name} />
-        <button className={styles.buttonSearch} onClick={e => { handleOnClick(e) }}>Search </button>
+        <button className={styles.buttonSearch} onClick={e => handleOnClick(e) }>Search </button>
       </div>
     </nav>
   );

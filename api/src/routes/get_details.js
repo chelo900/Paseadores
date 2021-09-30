@@ -12,7 +12,19 @@ router.get("/:id", async (req, res) => {
                     id: id
                 }
             })
-            const detallesDatos = {name : datos.name, surname: datos.surname} 
+            const detallesDatos = {
+                name : datos.name,
+                surname: datos.surname,
+                birth_day:datos.birth_day,
+                image:datos.image,
+                phone:datos.phone,
+                email:datos.email,
+                ubication:datos.ubication,
+                service:datos.service,
+                price:datos.price,
+                description:datos.description,
+                dni:datos.dni
+            } 
             
             if(detallesDatos){
 
