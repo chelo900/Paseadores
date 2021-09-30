@@ -31,3 +31,35 @@ export function getAllPaseadores(){
 //         console.log (error)
 //     }
 // }
+
+ export function putDetailsProfile (id, payload){
+     try {
+         return async function (dispatch){
+             return axios.put ("http://localhost:3001/updateuserProfile/" + id, payload)
+             .then(paseador=>{ 
+                dispatch({
+                     type: 'PUT_DETAILS_PROFILE',
+                     payload: paseador.data
+                 })
+             })
+         }
+     } catch (error) {
+         console.log (error)
+     }
+ }
+
+ export function putDetailsUser(id, payload){
+     try {
+         return async function (dispatch){
+             return axios.put ("http://localhost:3001/updateuser/" + id, payload)
+             .then(paseador=>{ 
+                dispatch({
+                     type: 'PUT_DETAILS_USER',
+                     payload: paseador.data
+                 })
+             })
+         }
+     } catch (error) {
+         console.log (error)
+     }
+ }
