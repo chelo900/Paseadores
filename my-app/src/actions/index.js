@@ -32,21 +32,21 @@ export function getPaseadorForId(id){
 
 }
 
-// export function newPaseador (payload){
-//     try {
-//         return async function (dispatch){
-//             return axios.post ("http://localhost:3001/createuser", payload)
-//             .then(paseador=>{
-//                 dispatch({
-//                     type: 'NEW_PASEADOR',
-//                     payload: paseador.data
-//                 })
-//             })
-//         }
-//     } catch (error) {
-//         console.log (error)
-//     }
-// }
+export function newPaseador (payload){
+    try {
+        return async function (dispatch){
+            return axios.post ("http://localhost:3001/createuser", payload)
+            .then(paseador=>{
+                dispatch({
+                    type: 'NEW_PASEADOR',
+                    payload: paseador.data
+                })
+            })
+        }
+    } catch (error) {
+        console.log (error)
+    }
+}
 
  export function putDetailsProfile (id, payload){
      try {

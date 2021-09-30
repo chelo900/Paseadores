@@ -2,7 +2,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import style from './Form.modules.css'
+import { newPaseador } from "../../actions";
+import style from './Form.module.css'
 
 
 
@@ -14,9 +15,10 @@ function validate(input) {
     if (!input.email) {
         errors.email = "Required";
     }
-    else if (!/\S+@\S+\.\S+/(input.email)) { ///^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test
-      errors.email = "Invalid email address";
-    }
+    if (!(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(input.email))){
+        errors.email = ("Dirección de mail no valida")};
+       
+     
     if (!input.password) {
         errors.password = "Required";
     }
@@ -56,10 +58,9 @@ function handleChange(e){
         [e.target.name] : e.target.value
     }))
 }
-
 function handleSubmit(e){
     e.preventDefault()
-    dispatch((input))
+    dispatch(newPaseador(input))
     alert("")
     setInput({
         image : "",
@@ -74,18 +75,35 @@ function handleSubmit(e){
     })
 }
 
+function handleService (e){
+    setInput({
+        ...input,
+        service: e.target.value
+    })
+}
+
 return (
     <div className = {style.total}>
-        <form  onSubmit={handleSubmit}>
-                <div>
+        <form  onSubmit={e=>handleSubmit(e)}>
+        <div>
+                <label> image : </label>
+                    <input 
+                    type = "text"
+                    placeholder = "image"
+                    value = {input.image}
+                    name = "image"
+                    onChange={e=>handleChange(e)}
+                    />
+            </div>
+                {/* <div>
                     <label> Image Profile : </label>
                         <input 
                             type="file" 
                             accept=".jpg, .png, .pdf"
                             value = {input.image}
                         />
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                     <label> Photo of identity document in front : </label>
                         <select>
                             <option> DNI </option>
@@ -116,7 +134,7 @@ return (
                         accept=".jpg, .png, .pdf"
                         value = {input.dni}
                     />
-                </div>
+                </div> */}
             <div>
                 <label> Name : </label>
                     <input 
@@ -137,6 +155,16 @@ return (
                     placeholder = "SurName"
                     value = {input.surname}
                     name = "surname"
+                    onChange={e=>handleChange(e)}
+                    />
+            </div>
+            <div>
+                <label> Dni : </label>
+                    <input 
+                    type = "text"
+                    placeholder = "Dni"
+                    value = {input.dni}
+                    name = "dni"
                     onChange={e=>handleChange(e)}
                     />
             </div>
@@ -188,16 +216,15 @@ return (
             </div>
             <div>
                 <label> Service : </label>
-                <select>
+                <select onChange={e=>handleService(e)}>
                     <option> Select </option>
                     <option> Walker </option>
                     <option> Carer </option>
                     <option> Walker and Carer</option>
                 </select>
             </div>
-            <Link to = "/">
                 <button type = "submit"> Create User </button>
-            </Link>
+        
         </form>
      </div>
 )}
