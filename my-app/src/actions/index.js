@@ -31,3 +31,19 @@ export function getAllPaseadores(){
 //         console.log (error)
 //     }
 // }
+
+ export function putDetailsProfile (id, payload){
+     try {
+         return async function (dispatch){
+             return axios.put ("http://localhost:3001/updateuserProfile/" + id, payload)
+             .then(paseador=>{ console.log(paseador.data)
+                //dispatch({
+                     //type: 'PUT_DETAILS_PROFILE',
+                    // payload: paseador.data
+                /// })
+             })
+         }
+     } catch (error) {
+         console.log (error)
+     }
+ }
