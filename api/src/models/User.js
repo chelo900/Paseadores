@@ -42,6 +42,11 @@ module.exports = (sequelize) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false
       },
       ubication: {
         type: DataTypes.STRING,
@@ -57,7 +62,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       service: {
-        type: DataTypes.ENUM("Walker", "Carer", "Walker & Carer"),
+        type: DataTypes.ENUM("Walker", "Carer", "Walker and Carer"),
         allowNull: false,
       },
       price: {

@@ -19,9 +19,9 @@ const index = () => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/pre-login" component={PreLogin} />
-        <Route exact path="/login-walkwer" component={Form} />
+        <Route exact path="/login-walkwer" component={FormWalker} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/formWalker" component={FormWalker} />
+        <Route exact path="/formWalker" component={Form} />
         <Route exact path="/selectType" component={SelectType} />
         <Route exact path="/cardsUsers" component={Prueba} />
         <Route exact path="/walker/perfil/:id" component={PerfilWalker} />
