@@ -36,11 +36,27 @@ export function getAllPaseadores(){
      try {
          return async function (dispatch){
              return axios.put ("http://localhost:3001/updateuserProfile/" + id, payload)
-             .then(paseador=>{ console.log(paseador.data)
-                //dispatch({
-                     //type: 'PUT_DETAILS_PROFILE',
-                    // payload: paseador.data
-                /// })
+             .then(paseador=>{ 
+                dispatch({
+                     type: 'PUT_DETAILS_PROFILE',
+                     payload: paseador.data
+                 })
+             })
+         }
+     } catch (error) {
+         console.log (error)
+     }
+ }
+
+ export function putDetailsUser(id, payload){
+     try {
+         return async function (dispatch){
+             return axios.put ("http://localhost:3001/updateuser/" + id, payload)
+             .then(paseador=>{ 
+                dispatch({
+                     type: 'PUT_DETAILS_USER',
+                     payload: paseador.data
+                 })
              })
          }
      } catch (error) {

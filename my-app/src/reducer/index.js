@@ -15,6 +15,12 @@ function rootReducer(state = initialState, action) {
                  ...state,
                  paseador: action.payload
             }
+        case 'PUT_DETAILS_USER':
+            console.log(action.payload)
+             return {
+                 ...state,
+                 paseador: action.payload
+            }
         // case 'NEW_PASEADOR':
         //     return {
         //         ...state
