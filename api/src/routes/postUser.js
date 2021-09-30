@@ -5,7 +5,7 @@ const { User } = require("../db");
 console.log("antes del post");
 
 router.post("/", async (req, res) => {
-  const { name, surname, dni, birth_day, image, phone, email, service } = req.body;
+  const { name, surname, dni, birth_day, image, phone, email, password, service } = req.body;
 
   console.log("dentro del post");
 
@@ -22,6 +22,7 @@ router.post("/", async (req, res) => {
         image: image,
         phone: phone,
         service: service,
+        password: password
       },
     });
     if (!created) {
