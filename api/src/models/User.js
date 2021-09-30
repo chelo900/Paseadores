@@ -63,10 +63,14 @@ module.exports = (sequelize) => {
       price: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        defaultValue: "0",
       },
       description: {
         type: DataTypes.TEXT
       },
+      schedule: {
+        type : DataTypes.TIME
+      }
     },
     { timestamps: false }
   );
