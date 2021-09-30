@@ -8,9 +8,9 @@ const initialState = {
 function rootReducer(state = initialState, action) {
     switch(action.type){
         case 'GET_PASEADORES':
-             return {
-                 ...state,
-                 allPaseadores: action.payload
+            return {
+                ...state,
+                allPaseadores: action.payload
             }
         case 'PUT_DETAILS_PROFILE':
              return {

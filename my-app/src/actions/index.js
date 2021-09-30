@@ -2,8 +2,8 @@ import axios from 'axios';
 
 export function getAllPaseadores(){
     try {
-        return async function(dispatch){
-            return axios.get ('http://localhost:3001/allActiveWalkers?page=1')
+        return async function(dispatch, page){
+            return axios.get (`http://localhost:3001/allActiveWalkers?page=${page}`)
             .then (paseadores=>{
                 dispatch({
                     type: 'GET_PASEADORES',

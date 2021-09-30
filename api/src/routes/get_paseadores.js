@@ -4,15 +4,14 @@ const { User } = require("../db");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { page, name } = req.query;
+  const {name} = req.params
   try {
     const allActiveWalkers = await User.findAll({
       where: {
-        status: "active",
-      },
-    });
-    console.log(allActiveWalkers);
-    const allActiveWalkersCards = await allActiveWalkers.map((w) => {
+        status: "active"
+      }
+    })
+    const allActiveWalkersCards = await allActiveWalkers.map(w => {
       return {
         id: w.id,
         name: w.name,
@@ -22,8 +21,8 @@ router.get("/", async (req, res) => {
         ubication: w.ubication,
         reputation: w.reputation,
         price: w.price,
-      };
-    });
+      }
+    })
     if (allActiveWalkersCards) {
       //GET BY NAME
       if (name) {

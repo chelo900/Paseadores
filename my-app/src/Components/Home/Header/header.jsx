@@ -12,6 +12,7 @@ const Header = () => {
                 <h1>Dog!</h1>
                 <span>Sign up and meet us</span>   
                 <Link to='/pre-login'>
+
                     <div>
                     <button className={style.botonP}>SIGN UP</button> 
                     </div>
