@@ -38,8 +38,8 @@ router.get("/", async (req, res) => {
       }
       // PAGINATION
       const results = 5;
-      const lastElement = Number(page) * Number(results);
-      const firstElement = (Number(page) - 1) * Number(results);
+      const lastElement = Number(page) * results;
+      const firstElement = (Number(page) - 1) * results;
 
       const paginated = allActiveWalkersCards.slice(firstElement, lastElement);
       res.status(200).send(paginated);
@@ -52,3 +52,88 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
+
+router.get("/order/:attribute/:order", async (req, res) =>{
+  const { attribute, order } = req.params;
+  try {
+    if ( order == "DESC") {
+      const allActiveWalkers = await User.findAll({
+        where: {
+          status: "active",
+        },
+        order: [[ attribute, "DESC"]],
+      });
+      res.status(200).json(allActiveWalkers);
+    }
+    if ( order == "ASC") {
+      const allActiveWalkers = await User.findAll({
+        where: {
+          status: "active",
+        },
+        order: [[ attribute, "ASC"]],
+        
+      });
+      res.status(200).json(allActiveWalkers);
+    }
+    } catch (err) {
+        res.json({ error: err });
+  } 
+})
+
+router.get("/filter/:price", async (req, res) => {
+  const { price } = req.params;
+  try {
+    const allActiveWalkers = await User.findAll({
+        where: {
+          price,
+        },
+      });
+      return res.status(200).json(allActiveWalkers);
+    
+  } catch (err) {
+    res.json({ error: err });
+  } 
+});
+
+router.get("/filter/:schedule", async (req, res) => {
+  const { schedule } = req.params;
+  try {
+    const allActiveWalkers = await User.findAll({
+        where: {
+          schedule,
+        },
+      });
+      return res.status(200).json(allActiveWalkers);
+    
+  } catch (err) {
+    res.json({ error: err });
+  } 
+});
+
+router.get("/filter/:ubication", async (req, res) => {
+  const { ubication } = req.params;
+  try {
+    const allActiveWalkers = await User.findAll({
+        where: {
+          ubication,
+        },
+      });
+      return res.status(200).json(allActiveWalkers);
+  } catch (err) {
+    res.json({ error: err });
+  } 
+});
+
+router.get("/filter/:service", async (req, res) => {
+  const { service } = req.params;
+  try {
+    const allActiveWalkers = await User.findAll({
+        where: {
+          service,
+        },
+      });
+      return res.status(200).json(allActiveWalkers);
+  } catch (err) {
+    res.json({ error: err });
+  } 
+});
