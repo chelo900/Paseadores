@@ -1,14 +1,22 @@
 const { Router } = require("express");
 const router = Router();
 const { User } = require("../db");
-const bcryptjs = require('bcryptjs')
-
-console.log("antes del post");
+const bcryptjs = require("bcryptjs");
 
 router.post("/", async (req, res) => {
-  const { name, surname, dni, birth_day, image, phone, email, password, service } = req.body;
+  const {
+    name,
+    surname,
+    dni,
+    birth_day,
+    image,
+    phone,
+    email,
+    password,
+    service,
+  } = req.body;
 
-  let passwordHash = await bcryptjs.hash(password, 8)
+  let passwordHash = await bcryptjs.hash(password, 8);
 
   console.log("dentro del post");
 
@@ -25,7 +33,7 @@ router.post("/", async (req, res) => {
         image: image,
         phone: phone,
         service: service,
-        password: passwordHash
+        password: passwordHash,
       },
     });
     if (!created) {
