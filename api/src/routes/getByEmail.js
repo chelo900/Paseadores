@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { User } = require('../db')
+const bcryptjs = require ('bcryptjs')
 
 const router = Router();
 
@@ -13,12 +14,16 @@ router.get("/", async (req, res) => {
                 }
             })
             const detallesDatos = {email : datos.email, password: datos.password} 
-            
-            if(detallesDatos){
 
-                res.status(200).send(detallesDatos);
+            let compare = await bcryptjs.compare(password, detallesDatos.password )
+
+            console.log(password, detallesDatos.password)
+            
+            if(compare){
+
+                return res.status(200).send(true);
             }else{
-                res.status(404).send("email no registrado");
+               return res.status(404).send(false);
             }
         }
     catch {
