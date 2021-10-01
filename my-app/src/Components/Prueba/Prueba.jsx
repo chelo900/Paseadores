@@ -64,33 +64,34 @@ const Prueba = () => {
             />))
     }
 
-
     if (!users) return <div>No hay usuarios</div>
     return (
-        <div className={style.container} ref={container}>
-            <div className={style.userContainer}>
-                {users && users.map(user => (
-                    <div className={style.flex}>
-                        <Card
-                            key={user.id}
-                            id={user.id}
-                            name={user.name}
-                            surname={user.surname}
-                            image={user.image}
-                            reputation={user.reputation}
-                            service={user.service}
-                            price={user.price}
-                        />
-                    </div>
-                ))}
-                {loading && <div>Loading...</div>}
-                {hasEnded && (
-                    <div className={style.ended}>
-                        <p>Llegaste al final</p>
-                    </div>
-                )}
+        <div>   
+            <div className={style.container} ref={container}>
+                <div className={style.userContainer}>
+                    {users && users.map(user => (
+                        <div className={style.flex}>
+                            <Card
+                                key={user.id}
+                                id={user.id}
+                                name={user.name}
+                                surname={user.surname}
+                                image={user.image}
+                                reputation={user.reputation}
+                                service={user.service}
+                                price={user.price}
+                            />
+                        </div>
+                    ))}
+                    {loading && <div>Loading...</div>}
+                    {hasEnded && (
+                        <div className={style.ended}>
+                            <p>Llegaste al final</p>
+                        </div>
+                    )}
+                </div>
             </div>
-        </div>
+    </div>
     )
 
 }
