@@ -60,14 +60,14 @@ const Log = () => {
   };
 
   // This will turn off the confetti raining down on the screen after 5 seconds of successfull login:
-  useEffect(() => {
-    setTimeout(() => {
-      setState({
-        ...state,
-        confetti: false,
-      });
-    }, 5000);
-  }, [state.profile_loaded]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setState({
+  //       ...state,
+  //       confetti: false,
+  //     });
+  //   }, 5000);
+  // }, [state.profile_loaded]);
 
   return (
     <div className="app">

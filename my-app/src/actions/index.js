@@ -10,6 +10,7 @@ export const FILTER_PRICE = "FILTER_PRICE"
 export const FILTER_SCHEDULE = "FILTER_SCHEDULE"
 export const FILTER_UBICATION = "FILTER_UBICATION"
 export const NEW_PASEADOR = 'NEW_PASEADOR'
+export const GET_EMAIL = 'GET_EMAIL'
 
 export function getAllPaseadores(){
     try {
@@ -138,3 +139,12 @@ export function newPaseador (payload){
         });
     };
   }
+  
+  export const get_email = () => dispatch => {
+    try{
+        return axios.get('http://localhost:3001/email')
+        .then(res => dispatch({type: GET_EMAIL, payload: res.data}))
+    }catch(e) {
+        console.log(e)
+    }
+}

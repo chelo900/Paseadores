@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { User } = require("../db");
+const { User } = require("../db")
 
 const router = Router();
 
@@ -7,11 +7,8 @@ router.get("/", async (req, res) => {
   const { name } = req.params;
   const { page } = req.query;
   try {
-    const allActiveWalkers = await User.findAll({
-      where: {
-        status: "active",
-      },
-    });
+    const allActiveWalkers = await User.findAll();
+    console.log(User)
     const allActiveWalkersCards = await allActiveWalkers.map((w) => {
       return {
         id: w.id,
