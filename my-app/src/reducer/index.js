@@ -7,6 +7,7 @@ ORDER,
 FILTER_PRICE,
 FILTER_SCHEDULE,
 FILTER_UBICATION,
+NEW_PASEADOR
 } from "../actions/index"
 
 const initialState = {
@@ -59,9 +60,10 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 paseador:action.payload
             }
-        // case 'NEW_PASEADOR':
+        // case NEW_PASEADOR:
         //     return {
-        //         ...state
+        //         ...state,
+        //         paseador: action.payload
         //     }
 
     default: return state

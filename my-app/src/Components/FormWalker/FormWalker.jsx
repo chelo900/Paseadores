@@ -61,7 +61,7 @@ const Form = () => {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(newPaseador(input));
-    alert("");
+    alert("User Created successfully");
     setInput({
       image: "",
       dni: "",
