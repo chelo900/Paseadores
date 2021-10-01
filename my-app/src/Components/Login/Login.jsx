@@ -5,47 +5,52 @@ import style from "./Login.module.css"
 import { Link } from "react-router-dom";
 import Log from "./Google_Auth";
 import { useSelector } from "react-redux";
+import { getByEmail } from "../../actions";
 
 
 const Login = () => {
 
-    // const dispatch = useDispatch()
-    // const [values, setValues] = useState({
-    //     email: '',
-    //     password: ''
-    // })
+    const dispatch = useDispatch()
+    const [values, setValues] = useState({
+        email: '',
+        password: ''
+    })
+    
+    const validate = useSelector(state => state.validate)
 
-    // const handleOnChange = ({target : {name, value}}) => setValues({
-    //     ...values,
-    //     [name]: value
-    // })
-    // const handleOnSubmit = e => {
-    //     e.preventDefault()
-    //     console.log('Values:', values)
-    //     dispatch(createUser(values));
-    //     setValues({
-    //         email: '',
-    //         password: ''
-    //     });
-    //     alert('User created successfully')
-    // };
+    const handleOnChange = ({target : {name, value}}) => setValues({
+        ...values,
+        [name]: value
+    })
 
-    const user = useSelector(state => state)
 
-    console.log(user)
+    const handleOnSubmit = e => {
+        e.preventDefault()
+        console.log('Values:', values)
+        const auth = dispatch(getByEmail(values));
+        console.log(auth)
+        setValues({
+            email: '',
+            password: ''
+        });
+       return alert('User created successfully')
+    };
+
+
+    console.log('validate:', validate)
 
     return (
         <div className={style.container}>
             <div className={style.log}>
                 <h1>Login</h1>
-                <form className={style.form}>
+                <form className={style.form} onSubmit={handleOnSubmit}> 
                     <div className={style.field}>
-                        <input type="text" required />
+                        <input name='email' onChange={handleOnChange} type="text" value={values.name} required />
                         <span></span>
                         <label htmlFor="">UserName</label>
                     </div>
                     <div className={style.field}>
-                        <input type="password" required />
+                        <input name='password' onChange={handleOnChange} type="password" value={values.name} required />
                         <span></span>
                         <label htmlFor="">Password</label>
                     </div>
