@@ -79,12 +79,18 @@ router.get("/order/:attribute/:order", async (req, res) => {
   }
 });
 
-router.get("/filter/:price", async (req, res) => {
-  const { price } = req.params;
+router.get("/filter/price", async (req, res) => {
+  const { max, min } = req.body;
   try {
     const allActiveWalkers = await User.findAll({
       where: {
-        price,
+        price : {
+          [Op.and]: 
+          [ 
+            {[Op.gte]: min},
+            {[Op.lte]: max} 
+          ], 
+        }
       },
     });
     return res.status(200).json(allActiveWalkers);

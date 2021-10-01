@@ -1,0 +1,37 @@
+.container{
+    margin-top: 75px;
+    padding-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: rgb(254,247, 237);
+}
+.userContainer{
+    background-color: rgb(254,247, 237);
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    width: 95%;
+}
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loading{
+    text-align: center;
+    background-color: rgb(58,84,180);
+    width: 300px;
+    height: 40px;
+    position: absolute;
+    left: 50%;
+    margin-left: -150px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.p{
+    background-color: rgb(58,84,180);
+    color: rgb(173, 173, 173);
+}
