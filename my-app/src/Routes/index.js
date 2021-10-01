@@ -6,7 +6,7 @@ import FormWalker from "../Components/FormWalker/FormWalker";
 import Home from "../Components/Home/home";
 import PreLogin from "../Components/Home/PreLogin/PreLogin";
 import Login from "../Components/Login/Login.jsx";
-import Prueba from "../Components/Prueba/Prueba";
+import UsersCards from "../Components/UsersCards/UsersCards";
 import Form from "../Components/Home/Form/Form";
 import SelectType from "../Components/SelectType/SelectType";
 import PerfilWalker from "../Components/PerfilWalker/PerfilWalker";
@@ -23,7 +23,7 @@ const index = () => {
         <Route exact path="/login" component={Login} />
         <Route exact path="/formWalker" component={Form} />
         <Route exact path="/selectType" component={SelectType} />
-        <Route exact path="/cardsUsers" component={Prueba} />
+        <Route exact path="/cardsUsers" component={UsersCards} />
         <Route exact path="/walker/perfil/:id" component={PerfilWalker} />
         <Route
           exact
