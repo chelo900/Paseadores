@@ -9,6 +9,7 @@ export const ORDER = "ORDER"
 export const FILTER_PRICE = "FILTER_PRICE"
 export const FILTER_SCHEDULE = "FILTER_SCHEDULE"
 export const FILTER_UBICATION = "FILTER_UBICATION"
+export const NEW_PASEADOR = 'NEW_PASEADOR'
 
 export function getAllPaseadores(){
     try {
