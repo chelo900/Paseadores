@@ -1,3 +1,15 @@
+import {
+GET_PASEADORES,
+GET_PASEADOR_FOR_ID,
+PUT_DETAILS_PROFILE,
+PUT_DETAILS_USER,
+ORDER,
+FILTER_PRICE,
+FILTER_SCHEDULE,
+FILTER_UBICATION,
+NEW_PASEADOR
+} from "../actions/index"
+
 const initialState = {
     allPaseadores : [],
     paseador: [],
@@ -7,30 +19,51 @@ const initialState = {
 
 function rootReducer(state = initialState, action) {
     switch(action.type){
-        case 'GET_PASEADORES':
+        case GET_PASEADORES:
             return {
                 ...state,
                 allPaseadores: action.payload
             }
-        case 'PUT_DETAILS_PROFILE':
+        case PUT_DETAILS_PROFILE:
              return {
                  ...state,
                  paseador: action.payload
             }
-        case 'PUT_DETAILS_USER':
+        case PUT_DETAILS_USER:
             console.log(action.payload)
              return {
                  ...state,
                  paseador: action.payload
              }
-        case 'GET_PASEADOR_FOR_ID':
+        case GET_PASEADOR_FOR_ID:
             return{
                 ...state,
                 detailWalker:action.payload
             }
-        // case 'NEW_PASEADOR':
+        case ORDER:
+            return{
+                ...state,
+                paseador:action.payload
+            }
+        case FILTER_PRICE:
+            return{
+                ...state,
+                paseador:action.payload
+            }
+        case FILTER_SCHEDULE:
+            return{
+                ...state,
+                paseador:action.payload
+            }
+        case FILTER_UBICATION:
+            return{
+                ...state,
+                paseador:action.payload
+            }
+        // case NEW_PASEADOR:
         //     return {
-        //         ...state
+        //         ...state,
+        //         paseador: action.payload
         //     }
 
     default: return state

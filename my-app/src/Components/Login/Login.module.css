@@ -113,3 +113,9 @@
 .create:hover{
     text-decoration: underline;
 }
+.google{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    padding-bottom: 10px;
+}
