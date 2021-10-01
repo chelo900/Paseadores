@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { getAllPaseadores } from "../../actions";
 import Card from "../Card/Card"
-import style from "../Prueba/Prueba.module.css"
-import { useDispatch, useSelector } from "react-redux";
+import style from "../UsersCards/UsersCards.module.css"
 import axios from "axios";
 
-const Prueba = () => {
+const UsersCards = () => {
     const [page, setPage] = useState(1);
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -39,7 +37,6 @@ const Prueba = () => {
         const result = await axios.get(
             `http://localhost:3001/allactivewalkers?page=${page}`
         );
-        console.log(result.data)
         if (result.data.lenght === 0) {
             setHasEnded(true);
         } else {
@@ -49,24 +46,9 @@ const Prueba = () => {
         }
         setLoading(false)
     }
-    console.log(users)
-    const renderCards = () => {
-        users && users.map(user => (
-            <Card
-                key={user.id}
-                id={user.id}
-                name={user.name}
-                surname={user.surname}
-                image={user.image}
-                reputation={user.reputation}
-                service={user.service}
-                price={user.price}
-            />))
-    }
-
     if (!users) return <div>No hay usuarios</div>
     return (
-        <div>   
+        <div>
             <div className={style.container} ref={container}>
                 <div className={style.userContainer}>
                     {users && users.map(user => (
@@ -83,7 +65,6 @@ const Prueba = () => {
                             />
                         </div>
                     ))}
-                    {loading && <div>Loading...</div>}
                     {hasEnded && (
                         <div className={style.ended}>
                             <p>Llegaste al final</p>
@@ -91,31 +72,10 @@ const Prueba = () => {
                     )}
                 </div>
             </div>
-    </div>
+            {loading && <div className={style.loading}><p className={style.p}>Loading...</p></div>}
+        </div>
     )
 
 }
 
-export default Prueba
-
-
-
-    // useEffect(()=>{
-    //     dispatch(getAllPaseadores())
-    // },[])
-
-    // const handleScroll = event => {
-    //     const { scrollTop, clientHeight, scrollHeight } = event.currentTarget;
-    //     if (scrollHeight - scrollTop === clientHeight) {
-    //         setPage(prev => prev + 1)
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     const loadUser = async () => {
-    //         setLoading(true);
-    //         setUsers(prev => [...prev, ...users]);
-    //         setLoading(false);
-    //     }
-    //     loadUser();
-    // }, [page])
+export default UsersCards

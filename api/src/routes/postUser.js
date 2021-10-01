@@ -20,8 +20,6 @@ router.post("/", async (req, res) => {
 
   let passwordHash = await bcryptjs.hash(password, 8);
 
-  console.log("dentro del post");
-
   try {
     const [user, created] = await User.findOrCreate({
       where: {
