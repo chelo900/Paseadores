@@ -7,14 +7,16 @@ ORDER,
 FILTER_PRICE,
 FILTER_SCHEDULE,
 FILTER_UBICATION,
-GET_BY_EMAIL
+GET_BY_EMAIL,
+NEW_PASEADOR
 } from "../actions/index"
 
 const initialState = {
     allPaseadores : [],
     paseador: [],
     detailWalker:[],
-    user: {}
+    user: {},
+    newId: []
 
 }
 
@@ -39,7 +41,8 @@ function rootReducer(state = initialState, action) {
         case GET_PASEADOR_FOR_ID:
             return{
                 ...state,
-                detailWalker:action.payload
+                detailWalker:action.payload,
+                newId: []
             }
         case ORDER:
             return{
@@ -67,6 +70,11 @@ function rootReducer(state = initialState, action) {
                     user: action.payload,
                     
                 };
+        case NEW_PASEADOR:
+            return {
+                ...state,
+                newId: action.payload.id
+            }
 
     default: return state
     }

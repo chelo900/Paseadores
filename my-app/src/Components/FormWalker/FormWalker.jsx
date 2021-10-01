@@ -33,6 +33,14 @@ const Form = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setError] = useState({});
+  const newId = useSelector(state => state.newId)
+  useEffect(() => {
+    if (newId.length !== 0){
+    redirection(newId)
+    }
+  }, [newId])
+  
+  
 
   const [input, setInput] = useState({
     image: "",
@@ -44,6 +52,8 @@ const Form = () => {
     email: "",
     password: "",
     service: "",
+    front_dni: "",
+    back_dni: ""
   });
 
   function handleChange(e) {
@@ -72,8 +82,19 @@ const Form = () => {
       email: "",
       password: "",
       service: "",
+      front_dni: "",
+      back_dni:""
+
     });
+    
+    
+    
   }
+  function redirection(){
+    history.push(`/walker/perfil/${newId}`)
+  }
+  
+  
 
   function handleService(e) {
     setInput({
@@ -85,25 +106,19 @@ const Form = () => {
   return (
     <div className={style.total}>
       <form onSubmit={(e) => handleSubmit(e)}>
+       
         <div>
-          <label> image : </label>
-          <input
-            type="text"
-            placeholder="image"
-            value={input.image}
-            name="image"
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        {/* <div>
                     <label> Image Profile : </label>
                         <input 
                             type="file" 
                             accept=".jpg, .png, .pdf"
                             value = {input.image}
+                            name = "image"
+                            onChange={(e) => handleChange(e)}
+
                         />
-                </div> */}
-        {/* <div>
+                </div>
+        <div>
                     <label> Photo of identity document in front : </label>
                         <select>
                             <option> DNI </option>
@@ -116,7 +131,9 @@ const Form = () => {
                     <input 
                         type="file" 
                         accept=".jpg, .png, .pdf"
-                        value = {input.dni}
+                        value = {input.front_dni}
+                        name = "front_dni"
+                        onChange={(e) => handleChange(e)}
                     />
                 </div>
                 <div>
@@ -132,9 +149,11 @@ const Form = () => {
                     <input 
                         type="file" 
                         accept=".jpg, .png, .pdf"
-                        value = {input.dni}
+                        value = {input.back_dni}
+                        name = "back_dni"
+                        onChange={(e) => handleChange(e)}
                     />
-                </div> */}
+                </div>
         <div>
           <label> Name : </label>
           <input
@@ -210,8 +229,8 @@ const Form = () => {
         </div>
         <div>
           <label> Service : </label>
-          <select onChange={(e) => handleService(e)}>
-            <option> Select </option>
+          <select onChange={(e) => handleService(e)} required>
+            <option value="" req> Select </option>
             <option> Walker </option>
             <option> Carer </option>
             <option> Walker and Carer</option>

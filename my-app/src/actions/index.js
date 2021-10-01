@@ -12,6 +12,7 @@ export const FILTER_UBICATION = "FILTER_UBICATION"
 export const NEW_PASEADOR = 'NEW_PASEADOR'
 export const GET_BY_EMAIL = 'GET_BY_EMAIL'
 
+
 export const getByEmail = (values) => dispatch => {
   try{
       return axios.get('http://localhost:3001/email', ...values)

@@ -27,7 +27,15 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       image: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      front_dni: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      back_dni: {
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       status: {
