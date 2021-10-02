@@ -5,6 +5,8 @@ const bcryptjs = require("bcryptjs");
 
 router.post("/", async (req, res) => {
   const {
+    id,
+    ubication,
     name,
     surname,
     dni,
@@ -26,6 +28,8 @@ router.post("/", async (req, res) => {
         email: email,
       },
       defaults: {
+        schedule:schedule,
+        ubication:ubication,
         name: name,
         dni: dni,
         surname: surname,

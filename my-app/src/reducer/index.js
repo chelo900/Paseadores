@@ -30,13 +30,12 @@ function rootReducer(state = initialState, action) {
         case PUT_DETAILS_PROFILE:
              return {
                  ...state,
-                 paseador: action.payload
+                 detailWalker: action.payload
             }
         case PUT_DETAILS_USER:
-            console.log(action.payload)
              return {
                  ...state,
-                 paseador: action.payload
+                 detailWalker: action.payload
              }
         case GET_PASEADOR_FOR_ID:
             return{

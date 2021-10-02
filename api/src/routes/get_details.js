@@ -13,6 +13,7 @@ router.get("/:id", async (req, res) => {
                 }
             })
             const detallesDatos = {
+                id:datos.id,
                 name : datos.name,
                 surname: datos.surname,
                 birth_day:datos.birth_day,
