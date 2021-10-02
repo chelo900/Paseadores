@@ -50,8 +50,8 @@ Post.belongsTo(User);
 User.hasMany(Complain);
 Complain.belongsTo(User);
 
-User.hasMany(Horarios);
-Horarios.hasOne(User);
+// User.hasMany(Horarios);
+// Horarios.hasOne(User);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

@@ -31,7 +31,7 @@ router.put("/", async (req, res) => {
         }return res.status(404).send(false);
         }
     catch {
-        res.status(500).send("Ecurrió un error");
+        res.status(500).send("Ocurrió un error");
       }
     });
 
