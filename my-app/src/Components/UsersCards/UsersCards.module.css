@@ -35,3 +35,9 @@
     background-color: rgb(58,84,180);
     color: rgb(173, 173, 173);
 }
+
+.costado{
+    border: 2px solid #165480;
+    background-color: rgba(150, 32, 32, 0.397); 
+    width: 220px;
+}
