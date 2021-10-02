@@ -15,7 +15,6 @@ router.put("/:day", async (req, res) => {
         })
         morning_hours && (paseador.morning_hours = morning_hours)
         afternoom_hours && (paseador.afternoom_hours = afternoom_hours)
-        
 
         const paseadorActualizado = await paseador.save()
 
