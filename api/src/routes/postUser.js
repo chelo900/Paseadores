@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
     password,
     service,
     front_dni,
-    back_dni
+    back_dni,
   } = req.body;
 
   let passwordHash = await bcryptjs.hash(password, 8);
@@ -28,8 +28,7 @@ router.post("/", async (req, res) => {
         email: email,
       },
       defaults: {
-        schedule:schedule,
-        ubication:ubication,
+        ubication: ubication,
         name: name,
         dni: dni,
         surname: surname,
@@ -39,7 +38,7 @@ router.post("/", async (req, res) => {
         service: service,
         password: passwordHash,
         front_dni: front_dni,
-        back_dni: back_dni
+        back_dni: back_dni,
       },
     });
     if (!created) {

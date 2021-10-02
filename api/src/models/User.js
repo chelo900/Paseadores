@@ -32,11 +32,11 @@ module.exports = (sequelize) => {
       },
       front_dni: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       back_dni: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       status: {
         type: DataTypes.ENUM("active", "inactive"),
@@ -50,11 +50,11 @@ module.exports = (sequelize) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       ubication: {
         type: DataTypes.STRING,
@@ -72,7 +72,7 @@ module.exports = (sequelize) => {
       service: {
         type: DataTypes.ENUM("Walker", "Carer", "Walker and Carer"),
         allowNull: false,
-        defaultValue: "Walker"
+        defaultValue: "Walker",
       },
       price: {
         type: DataTypes.INTEGER,
@@ -80,11 +80,11 @@ module.exports = (sequelize) => {
         defaultValue: "0",
       },
       description: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
       },
       schedule: {
-        type : DataTypes.TIME
-      }
+        type: DataTypes.TIME,
+      },
     },
     { timestamps: false }
   );
