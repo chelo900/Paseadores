@@ -37,20 +37,20 @@ const Login = () => {
             email: '',
             password: ''
         }) 
-        let auth = await validate
+        let auth = validate
+        let perfil =  id
         
-        console.log(auth)
+        setTimeout(console.log(auth), 1000); 
         
         // console.log('Values:', values)
         if(auth){
-           let perfil =  id
            alert('Welcome')
-           setTimeout(()=>history.push(`/walker/perfil/${perfil}`),3000)
+           setTimeout(()=>history.push(`/walker/perfil/${perfil}`),1000)
 
         } else {
             return alert('Please check your credentials')
 
-        }
+        } 
     };
 
     
