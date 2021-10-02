@@ -5,6 +5,8 @@ const bcryptjs = require("bcryptjs");
 
 router.post("/", async (req, res) => {
   const {
+    id,
+    ubication,
     name,
     surname,
     dni,
@@ -14,11 +16,11 @@ router.post("/", async (req, res) => {
     email,
     password,
     service,
+    front_dni,
+    back_dni
   } = req.body;
 
   let passwordHash = await bcryptjs.hash(password, 8);
-
-  console.log("dentro del post");
 
   try {
     const [user, created] = await User.findOrCreate({
@@ -26,6 +28,8 @@ router.post("/", async (req, res) => {
         email: email,
       },
       defaults: {
+        schedule:schedule,
+        ubication:ubication,
         name: name,
         dni: dni,
         surname: surname,
@@ -34,6 +38,8 @@ router.post("/", async (req, res) => {
         phone: phone,
         service: service,
         password: passwordHash,
+        front_dni: front_dni,
+        back_dni: back_dni
       },
     });
     if (!created) {

@@ -15,6 +15,7 @@ router.get("/", async (req, res) => {
     const allActiveWalkersCards = await allActiveWalkers.map((w) => {
       return {
         id: w.id,
+        email:w.email,
         name: w.name,
         surname: w.surname,
         image: w.image,

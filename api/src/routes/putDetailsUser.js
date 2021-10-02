@@ -17,7 +17,7 @@ const updateUser =  async (req,res)=>{
     }
 
 }
-
+ 
 router.put('/:id',updateUser)
 
 module.exports = router
