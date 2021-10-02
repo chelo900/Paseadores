@@ -3,7 +3,7 @@ const { User } = require("../db");
 
 const router = Router();
 
-router.get("/:name", async (req, res) => {
+router.get("/", async (req, res) => {
   const { name } = req.params;
   const { page } = req.query;
   try {
