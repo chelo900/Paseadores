@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { newPaseador } from "../../actions";
+import { getPaseadorForId, newPaseador } from "../../actions";
 import style from "./Form.module.css";
 
 function validate(input) {
@@ -33,14 +33,13 @@ const Form = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setError] = useState({});
-  const newId = useSelector(state => state.newId)
-  useEffect(() => {
-    if (newId.length !== 0){
-    redirection(newId)
-    }
-  }, [newId])
-  
-  
+  // const newId = useSelector((state) => state.newId);
+  // useEffect(() => {
+  //   console.log(newId);
+  //   if (newId.length !== 0) {
+  //     redirection(newId[0]);
+  //   }
+  // }, [newId]);
 
   const [input, setInput] = useState({
     image: "",
@@ -53,7 +52,7 @@ const Form = () => {
     password: "",
     service: "",
     front_dni: "",
-    back_dni: ""
+    back_dni: "",
   });
 
   function handleChange(e) {
@@ -83,18 +82,14 @@ const Form = () => {
       password: "",
       service: "",
       front_dni: "",
-      back_dni:""
-
+      back_dni: "",
     });
-    
-    
-    
+
+    history.push("/login");
   }
-  function redirection(){
-    history.push(`/walker/perfil/${newId}`)
-  }
-  
-  
+  // function redirection(newId) {
+  //   history.push(`/walker/perfil/${newId}`);
+  // }
 
   function handleService(e) {
     setInput({
@@ -106,54 +101,52 @@ const Form = () => {
   return (
     <div className={style.total}>
       <form onSubmit={(e) => handleSubmit(e)}>
-       
         <div>
-                    <label> Image Profile : </label>
-                        <input 
-                            type="file" 
-                            accept=".jpg, .png, .pdf"
-                            value = {input.image}
-                            name = "image"
-                            onChange={(e) => handleChange(e)}
-
-                        />
-                </div>
+          <label> Image Profile : </label>
+          <input
+            type="file"
+            accept=".jpg, .png, .pdf"
+            value={input.image}
+            name="image"
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
         <div>
-                    <label> Photo of identity document in front : </label>
-                        <select>
-                            <option> DNI </option>
-                            <option> Cédula de identidad </option>
-                            <option> Cédula de ciudadanía </option>
-                            <option> Documento único de identidad </option>
-                            <option> Cédula de identidad Civil </option>
-                            <option> Pasaporte </option>
-                        </select>
-                    <input 
-                        type="file" 
-                        accept=".jpg, .png, .pdf"
-                        value = {input.front_dni}
-                        name = "front_dni"
-                        onChange={(e) => handleChange(e)}
-                    />
-                </div>
-                <div>
-                    <label> Photo of Identity document back : </label>
-                        <select>
-                            <option> DNI </option>
-                            <option> Cédula de identidad </option>
-                            <option> Cédula de ciudadanía </option>
-                            <option> Documento único de identidad </option>
-                            <option> Cédula de identidad Civil </option>
-                            <option> Pasaporte </option>
-                        </select>
-                    <input 
-                        type="file" 
-                        accept=".jpg, .png, .pdf"
-                        value = {input.back_dni}
-                        name = "back_dni"
-                        onChange={(e) => handleChange(e)}
-                    />
-                </div>
+          <label> Photo of identity document in front : </label>
+          <select>
+            <option> DNI </option>
+            <option> Cédula de identidad </option>
+            <option> Cédula de ciudadanía </option>
+            <option> Documento único de identidad </option>
+            <option> Cédula de identidad Civil </option>
+            <option> Pasaporte </option>
+          </select>
+          <input
+            type="file"
+            accept=".jpg, .png, .pdf"
+            value={input.front_dni}
+            name="front_dni"
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+        <div>
+          <label> Photo of Identity document back : </label>
+          <select>
+            <option> DNI </option>
+            <option> Cédula de identidad </option>
+            <option> Cédula de ciudadanía </option>
+            <option> Documento único de identidad </option>
+            <option> Cédula de identidad Civil </option>
+            <option> Pasaporte </option>
+          </select>
+          <input
+            type="file"
+            accept=".jpg, .png, .pdf"
+            value={input.back_dni}
+            name="back_dni"
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
         <div>
           <label> Name : </label>
           <input
@@ -230,7 +223,10 @@ const Form = () => {
         <div>
           <label> Service : </label>
           <select onChange={(e) => handleService(e)} required>
-            <option value="" req> Select </option>
+            <option value="" req>
+              {" "}
+              Select{" "}
+            </option>
             <option> Walker </option>
             <option> Carer </option>
             <option> Walker and Carer</option>
