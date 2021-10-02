@@ -16,15 +16,15 @@ router.put("/", async (req, res) => {
             })
 
             if(datos){
-            const detallesDatos = {email : datos.email, password: datos.password} 
+            const detallesDatos = {email : datos.email, password: datos.password, id: datos.id} 
 
             let compare = await bcryptjs.compare(password, detallesDatos.password )
 
-            console.log(password, detallesDatos.password)
+            console.log(password, detallesDatos)
             
             if(compare){
 
-                return res.status(200).send(true);
+                return res.status(200).json({validate: true, id: detallesDatos.id});
             }else{
                return res.status(404).send(false);
             }

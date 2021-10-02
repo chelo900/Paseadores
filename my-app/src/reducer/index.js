@@ -16,6 +16,7 @@ const initialState = {
   paseador: [],
   detailWalker: [],
   newId: [],
+  id: {},
   validate: {},
 };
 
@@ -67,7 +68,8 @@ function rootReducer(state = initialState, action) {
       console.log("reducer", action.payload);
       return {
         ...state,
-        validate: action.payload,
+        validate: action.payload.validate,
+        id: action.payload.id
       };
     case NEW_PASEADOR:
       return {

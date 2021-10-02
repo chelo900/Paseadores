@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import {useHistory} from 'react-router'
 import style from "./Login.module.css"
 import { Link } from "react-router-dom";
 import Log from "./Google_Auth";
@@ -9,7 +10,7 @@ import { getByEmail } from "../../actions";
 
 
 const Login = () => {
-
+    const history = useHistory()
     const dispatch = useDispatch()
     const [values, setValues] = useState({
         email: '',
@@ -17,15 +18,16 @@ const Login = () => {
     })
     
     
-    const validate = useSelector(state => state.validate)
+    const {validate, id} = useSelector(state => state)
 
     const handleOnChange = ({target : {name, value}}) => setValues({
         ...values,
         [name]: value
     })
+    
 
 
-    const handleOnSubmit = e => {
+    const handleOnSubmit = async e => {
         e.preventDefault()
         // console.log('Values:', values)
         dispatch(getByEmail(values));
@@ -33,15 +35,24 @@ const Login = () => {
             ...values,
             email: '',
             password: ''
-        });
-        if(validate === true){
+        }) 
+        let auth = await validate
 
-            return alert('Welcome')
+        console.log(auth)
+    
+        // console.log('Values:', values)
+        if(auth){
+
+           alert('Welcome')
+           history.push(`/walker/perfil/${auth}`)
+
         } else {
             return alert('Please check your credentials')
+
         }
     };
 
+    
 
     return (
         <div className={style.container}>
