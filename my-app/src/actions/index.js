@@ -37,8 +37,8 @@ export function getAllPaseadores(){
 }
 
 export function getPaseadorForId(id){
-    return (dispatch)=>{
-        try{
+  return (dispatch)=>{
+    try{
             axios.get(`http://localhost:3001/walkers/${id}`)
             .then(response =>dispatch({
                 type:'GET_PASEADOR_FOR_ID',

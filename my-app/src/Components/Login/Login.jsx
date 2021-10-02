@@ -18,33 +18,34 @@ const Login = () => {
     })
     
     
-    const {validate, id} = useSelector(state => state)
-
+    const validate = useSelector(state => state.validate)
+    const id = useSelector(state => state.id)
     const handleOnChange = ({target : {name, value}}) => setValues({
         ...values,
         [name]: value
     })
     
+    console.log( validate, id)
 
 
     const handleOnSubmit = async e => {
         e.preventDefault()
         // console.log('Values:', values)
-        dispatch(getByEmail(values));
+        dispatch(getByEmail(values))
         setValues({
             ...values,
             email: '',
             password: ''
         }) 
         let auth = await validate
-
+        
         console.log(auth)
-    
+        
         // console.log('Values:', values)
         if(auth){
-
+           let perfil =  id
            alert('Welcome')
-           history.push(`/walker/perfil/${auth}`)
+           setTimeout(()=>history.push(`/walker/perfil/${perfil}`),3000)
 
         } else {
             return alert('Please check your credentials')
