@@ -16,6 +16,7 @@ const Login = () => {
         password: ''
     })
     
+    
     const validate = useSelector(state => state.validate)
 
     const handleOnChange = ({target : {name, value}}) => setValues({
@@ -26,18 +27,21 @@ const Login = () => {
 
     const handleOnSubmit = e => {
         e.preventDefault()
-        console.log('Values:', values)
-        const auth = dispatch(getByEmail(values));
-        console.log(auth)
+        // console.log('Values:', values)
+        dispatch(getByEmail(values));
         setValues({
+            ...values,
             email: '',
             password: ''
         });
-       return alert('User created successfully')
+        if(validate === true){
+
+            return alert('Welcome')
+        } else {
+            return alert('Please check your credentials')
+        }
     };
 
-
-    console.log('validate:', validate)
 
     return (
         <div className={style.container}>
