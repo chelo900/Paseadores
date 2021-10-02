@@ -3,7 +3,7 @@ const { User } = require("../db");
 
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.get("/:name", async (req, res) => {
   const { name } = req.params;
   const { page } = req.query;
   try {
@@ -23,6 +23,8 @@ router.get("/", async (req, res) => {
         ubication: w.ubication,
         reputation: w.reputation,
         price: w.price,
+        morning: w.morning,
+        afternoon: w.afternoon
       };
     });
     if (allActiveWalkersCards) {
@@ -100,17 +102,43 @@ router.get("/filter/price", async (req, res) => {
   }
 });
 
-router.get("/filter/:schedule", async (req, res) => {
-  const { schedule } = req.params;
-  try {
-    const allActiveWalkers = await User.findAll({
-      where: {
-        schedule,
-      },
-    });
-    return res.status(200).json(allActiveWalkers);
-  } catch (err) {
-    res.json({ error: err });
+router.get("/filter/:hours", async (req, res) => {
+  const { hours } = req.params;
+  if (hours = "m") {
+    try {
+      const allActiveWalkers = await User.findAll({
+        where: {
+          morning : "active",
+          status: "active"
+        },
+      });
+      return res.status(200).json(allActiveWalkers);
+    } catch (err) {
+      res.json({ error: err });
+    }
+  } if (hours = "a") {
+    try {
+      const allActiveWalkers = await User.findAll({
+        where: {
+          afternoon : "active",
+          status: "active"
+        },
+      });
+      return res.status(200).json(allActiveWalkers);
+    } catch (err) {
+      res.json({ error: err });
+    }
+  } if (hours = "t") {
+    try {
+      const allActiveWalkers = await User.findAll({
+        where: {
+          status: "active",
+        },
+      });
+      return res.status(200).json(allActiveWalkers);
+    } catch (err) {
+      res.json({ error: err });
+    }
   }
 });
 

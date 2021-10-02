@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Card from "../Card/Card"
 import style from "../UsersCards/UsersCards.module.css"
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const UsersCards = () => {
     const [page, setPage] = useState(1);
@@ -71,6 +72,17 @@ const UsersCards = () => {
                 </div>
                 <div>
                     <label> Price : </label>
+                    <div>
+                    <Link> $0 - $200 </Link>
+                    <br/>
+                    <Link> $201 - $400 </Link>
+                    <br/>
+                    <Link> $401 - $600 </Link>
+                    <br/>
+                    <Link> $601 - $800 </Link>
+                    <br/>
+                    <Link> $801 - $1.000 </Link>
+                    </div>
                     <input
                         type= "text"
                         placeholder = " $ Mínimo "
@@ -86,6 +98,7 @@ const UsersCards = () => {
                         value = {input.price}
                         name = "price"
                     />
+                    <button> buscar </button>
                 </div>
                 <div>
                     <label> Ubication : </label>
@@ -96,6 +109,7 @@ const UsersCards = () => {
                             name = "ubication"
                         />
                 </div>
+               
             </div>
             <div className={style.container} ref={container}>
                 <div className={style.userContainer}>

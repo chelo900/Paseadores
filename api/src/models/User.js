@@ -82,8 +82,11 @@ module.exports = (sequelize) => {
       description: {
         type: DataTypes.TEXT,
       },
-      schedule: {
-        type: DataTypes.TIME,
+      morning: {
+        type: DataTypes.ENUM("active", "inactive"),
+      },
+      afternoon: {
+        type: DataTypes.ENUM("active", "inactive"),
       },
     },
     { timestamps: false }

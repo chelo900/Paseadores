@@ -5,7 +5,7 @@ const router = Router();
 
 router.put("/:id", async (req, res) => {
     const {id} = req.params
-    const {status, price, description,schedule} = req.body
+    const {status, price, description, morning, afternoon } = req.body
     
     try{  
         const paseador = await User.findOne({
@@ -13,8 +13,9 @@ router.put("/:id", async (req, res) => {
                 id: id
             }
         })
-        schedule && (paseador.schedule = schedule)
-       status && (paseador.status = status)
+        morning && (paseador.morning = morning)
+        afternoon && (paseador.afternoon = afternoon)
+        status && (paseador.status = status)
         price && (paseador.price = price)
         description && (paseador.description = description)
 
