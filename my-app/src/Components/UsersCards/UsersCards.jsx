@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Card from "../Card/Card"
 import style from "../UsersCards/UsersCards.module.css"
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const UsersCards = () => {
     const [page, setPage] = useState(1);
@@ -11,6 +12,11 @@ const UsersCards = () => {
 
     const container = useRef(null);
 
+    const [input, setInput] = useState({
+        price : "",
+        schedule : "",
+        ubication : "",
+    })
 
     useEffect(() => {
         document.addEventListener("scroll", trackScrolling)
@@ -49,13 +55,69 @@ const UsersCards = () => {
     if (!users) return <div>No hay usuarios</div>
     return (
         <div>
+            <div className = {style.costado}>
+                <div>
+                    <select> 
+                        <option value="order"> Order by Reputation </option>
+                        <option value="DESC"> Higher </option>
+                        <option value="ASC"> Smaller </option>
+                    </select>
+                </div>
+                <div>
+                    <select> 
+                        <option value="order"> Order by Price</option>
+                        <option value="DESC"> Higher </option>
+                        <option value="ASC"> Smaller </option>
+                    </select>
+                </div>
+                <div>
+                    <label> Price : </label>
+                    <div>
+                    <Link> $0 - $200 </Link>
+                    <br/>
+                    <Link> $201 - $400 </Link>
+                    <br/>
+                    <Link> $401 - $600 </Link>
+                    <br/>
+                    <Link> $601 - $800 </Link>
+                    <br/>
+                    <Link> $801 - $1.000 </Link>
+                    </div>
+                    <input
+                        type= "text"
+                        placeholder = " $ Mínimo "
+                        value = {input.price}
+                        name = "price"
+                    />
+                <div>
+                    <label> - </label>
+                </div>
+                    <input
+                        type= "text"
+                        placeholder = " $ Maximo "
+                        value = {input.price}
+                        name = "price"
+                    />
+                    <button> buscar </button>
+                </div>
+                <div>
+                    <label> Ubication : </label>
+                        <input
+                            type= "text"
+                            placeholder = "Zona "
+                            value = {input.price}
+                            name = "ubication"
+                        />
+                </div>
+               
+            </div>
             <div className={style.container} ref={container}>
                 <div className={style.userContainer}>
                     {users && users.map(user => (
                         <div className={style.flex}>
                             <Card
                                 key={user.id}
-                                id={user.id}
+                                // id={user.id}
                                 name={user.name}
                                 surname={user.surname}
                                 image={user.image}

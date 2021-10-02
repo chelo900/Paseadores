@@ -39,6 +39,8 @@ router.post("/", async (req, res) => {
         password: passwordHash,
         front_dni: front_dni,
         back_dni: back_dni,
+        morning: w.morning,
+        afternoon: w.afternoon
       },
     });
     if (!created) {

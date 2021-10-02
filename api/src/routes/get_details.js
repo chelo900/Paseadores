@@ -24,7 +24,9 @@ router.get("/:id", async (req, res) => {
                 service:datos.service,
                 price:datos.price,
                 description:datos.description,
-                dni:datos.dni
+                dni:datos.dni,
+                morning: datos.morning,
+                afternoon: datos.afternoon
             } 
             
             if(detallesDatos){
