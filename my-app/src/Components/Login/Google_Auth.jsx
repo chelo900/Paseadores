@@ -90,7 +90,7 @@ const Log = () => {
             clientId="CLIENT-IDXXXXXXXXXXXXXXXXXXXX"
             buttonText="Login"
             onSuccess={googleResponse}
-            onFailure={onFailure}
+            // onFailure={onFailure}
           />
         </div>
       ) : (
