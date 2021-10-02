@@ -32,7 +32,7 @@ function validate(input) {
 const Form = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [errors, setError] = useState({});
+  const [errors, setError] = useState({a:""});
   // const newId = useSelector((state) => state.newId);
   // useEffect(() => {
   //   console.log(newId);
@@ -69,6 +69,9 @@ const Form = () => {
   }
   function handleSubmit(e) {
     e.preventDefault();
+    if (Object.values(errors).length > 1)
+      alert("Completa la informacion solicitada");
+    else {
     dispatch(newPaseador(input));
     alert("User Created successfully");
     setInput({
@@ -87,6 +90,7 @@ const Form = () => {
 
     history.push("/login");
   }
+  }
   // function redirection(newId) {
   //   history.push(`/walker/perfil/${newId}`);
   // }
@@ -102,7 +106,7 @@ const Form = () => {
     <div className={style.total}>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
-          <label> Image Profile : </label>
+          <label> Foto de Perfil : </label>
           <input
             type="file"
             accept=".jpg, .png, .pdf"
@@ -112,7 +116,7 @@ const Form = () => {
           />
         </div>
         <div>
-          <label> Photo of identity document in front : </label>
+          <label> Tipo de Documento </label>
           <select>
             <option> DNI </option>
             <option> Cédula de identidad </option>
@@ -121,6 +125,7 @@ const Form = () => {
             <option> Cédula de identidad Civil </option>
             <option> Pasaporte </option>
           </select>
+          <label> Foto del Frente del Documento </label>
           <input
             type="file"
             accept=".jpg, .png, .pdf"
@@ -130,15 +135,7 @@ const Form = () => {
           />
         </div>
         <div>
-          <label> Photo of Identity document back : </label>
-          <select>
-            <option> DNI </option>
-            <option> Cédula de identidad </option>
-            <option> Cédula de ciudadanía </option>
-            <option> Documento único de identidad </option>
-            <option> Cédula de identidad Civil </option>
-            <option> Pasaporte </option>
-          </select>
+          <label> Foto del Reverso del Documento </label>
           <input
             type="file"
             accept=".jpg, .png, .pdf"
@@ -148,10 +145,10 @@ const Form = () => {
           />
         </div>
         <div>
-          <label> Name : </label>
+          <label> Nombre : </label>
           <input
             type="text"
-            placeholder="Name"
+            placeholder="Nombre"
             value={input.name}
             name="name"
             onChange={(e) => handleChange(e)}
@@ -159,10 +156,10 @@ const Form = () => {
           {errors.name && <p> {errors.name} </p>}
         </div>
         <div>
-          <label> SurName : </label>
+          <label> Apellido : </label>
           <input
             type="text"
-            placeholder="SurName"
+            placeholder="Apellido"
             value={input.surname}
             name="surname"
             onChange={(e) => handleChange(e)}
@@ -179,7 +176,7 @@ const Form = () => {
           />
         </div>
         <div>
-          <label> Date of Birth : </label>
+          <label> Fecha de Nacimiento : </label>
           <input
             type="text"
             placeholder="dd/mm/aa"
@@ -189,7 +186,7 @@ const Form = () => {
           />
         </div>
         <div>
-          <label> Phone : </label>
+          <label> Teléfono : </label>
           <input
             type="number"
             placeholder="ej: +54 11 68525749"
@@ -210,7 +207,7 @@ const Form = () => {
           {errors.email && <p> {errors.email} </p>}
         </div>
         <div>
-          <label> Password : </label>
+          <label> Contraseña : </label>
           <input
             type="text"
             placeholder="Password123"
@@ -221,18 +218,18 @@ const Form = () => {
           {errors.password && <p> {errors.password} </p>}
         </div>
         <div>
-          <label> Service : </label>
+          <label> Servicio : </label>
           <select onChange={(e) => handleService(e)} required>
             <option value="" req>
               {" "}
-              Select{" "}
+              Elegir...{" "}
             </option>
-            <option> Walker </option>
-            <option> Carer </option>
-            <option> Walker and Carer</option>
+            <option value="Walker"> Paseador </option>
+            <option value="Carer"> Cuidador </option>
+            <option value="Walker and Carer"> Paseador y Cuidador</option>
           </select>
         </div>
-        <button type="submit"> Create User </button>
+        <button type="submit" disabled={Object.values(errors).length > 0}> Crear Usuario </button>
       </form>
     </div>
   );
