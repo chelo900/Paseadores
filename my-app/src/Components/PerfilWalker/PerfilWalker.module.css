@@ -46,10 +46,10 @@
 .personalInformation{
     grid-column: 1span;
     background-color: white;
-    width: 300px;
-    height: 550px;
-    margin-left: 150px;
-    box-shadow: 1px 1px 5px rgb(0, 0, 0);
+    width: 400px;
+    height: 500px;
+    margin-left: 100px;
+    /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
 }
 
 .informacion{
@@ -57,19 +57,48 @@
 }
 
 .informacion h2{
-    margin: 20px 0 20px 0px ;
+    margin: 0px auto 0 auto;
+    width: auto;
     font-family: 'Work Sans', sans-serif;
     color:rgb(58,84,180);
+  
 }
 
-.informacion li{
+.liService{
     margin: 20px 0 20px 0;
-    list-style-image: url("https://img.icons8.com/flat-round/30/000000/phone.png");
+    list-style-image: url("../../media/iconService.png");
+    font-family: 'Nunito', sans-serif;
+}
+.libirth{
+    margin: 20px 0 20px 0;
+    list-style-image: url("../../media/iconBirth.png");
+    font-family: 'Nunito', sans-serif;
+}
+.liPhone{
+    margin: 20px 0 20px 0;
+    list-style-image: url("../../media/iconPhone.png");
+    font-family: 'Nunito', sans-serif;
+}
+.liEmail{
+    margin: 20px 0 20px 0;
+    list-style-image: url("../../media/iconEmail.png");
+    font-family: 'Nunito', sans-serif;
+}
+.liUbication{
+    margin: 20px 0 20px 0;
+    list-style-image: url("../../media/iconUbication.png");
+    font-family: 'Nunito', sans-serif;
+}
+.liDni{
+    margin: 20px 0 20px 0;
+    list-style-image: url("../../media/iconDni.png");
     font-family: 'Nunito', sans-serif;
 }
 
+
 .caracteristicas{
     grid-column: 1span;
+    width: auto;
 }
 
 .descripcion{
@@ -77,7 +106,7 @@
     width: 600px;
     height: auto;
     background-color: white;
-    box-shadow: 1px 1px 5px rgb(0, 0, 0);
+    /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
 }
 .descripcion h2{
     padding: 10px ;
@@ -94,7 +123,7 @@
     width: 600px;
     height: auto;
     background-color: white;
-    box-shadow: 1px 1px 5px rgb(0, 0, 0);
+    /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
 }
 .price h2{
     padding: 10px ;
@@ -111,7 +140,7 @@
     width: 600px;
     height: auto;
     background-color: white;
-    box-shadow: 1px 1px 5px rgb(0, 0, 0);
+    /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
 }
 .reputacion h2{
     padding: 10px ;
@@ -131,7 +160,7 @@
     width: 600px;
     height: auto;
     background-color: white;
-    box-shadow: 1px 1px 5px rgb(0, 0, 0);
+    /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
     padding-bottom: 20px;
 }
 .fotos h2{
@@ -153,9 +182,10 @@
     width: 100px;
     height: 100px;
     margin: 10px;
-    border: solid rgb(58,84,180) 4px;
+    border: solid rgb(58,84,180, 0.5) 4px;
     border-radius: 2px;
     cursor: pointer;
+    transition: all .3s;
 }
 .galeria img:hover{
     -webkit-transform:scale(2);transform:scale(2);
@@ -185,12 +215,14 @@
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    margin-right: 50px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    margin-right: 70px;
 }
 
 .edit{
     width: 100px;
-    height: 30px;
+    height: 25px;
     background-color: rgb(58,84,180);;
     border: none;
     text-decoration: none;
@@ -203,8 +235,8 @@
 }
 
 .editDescription{
-    width: 200px;
-    height: 30px;
+    width: 150px;
+    height: 25px;
     background-color: rgb(58,84,180);;
     border: none;
     text-decoration: none;
@@ -221,4 +253,59 @@
 }
 .edit:hover{
     box-shadow: none;
+}
+
+.calendario{
+    width: 359px;
+    height: 300px;
+}
+
+.textDescription{
+    width:300px ;
+}
+
+.textDescriptionNew{
+ width: 600px;
+ height: auto;
+ overflow-wrap:break-word
+}
+
+.horario{
+    margin: 20px;
+    width: 600px;
+    height: auto;
+    background-color: white;
+}
+
+.table{
+    border: solid rgb(58,84,180) 1px;
+    margin: 10px;
+    font-family: 'Nunito', sans-serif;
+}
+
+.horario h2{
+    padding: 10px ;
+    font-family: 'Work Sans', sans-serif;
+    color:rgb(58,84,180);
+}
+
+.table td{
+    border: solid rgb(58,84,180) 1px;
+    padding: 2px 5px 2px 5px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.editHorario{
+    width: 120px;
+    height: 25px;
+    background-color: rgb(58,84,180);;
+    border: none;
+    text-decoration: none;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+    margin: 5px 20px 10px 0;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }

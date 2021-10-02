@@ -1,10 +1,23 @@
 import React,{useState} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router'
+import { useHistory } from 'react-router'
+import { putDetailsUser } from '../../../actions'
 import style from './Edit.module.css'
 
 const Edit = () => {
+
+    const history = useHistory()
+
+    const dispatch = useDispatch();
+
+    const { id } = useParams();
+
+    // const idNew =useSelector(state => state.detailWalker)
+    
     const [input, setInput] = useState({
         service:'',
-        birthDate:'',
+        birth_day:'',
         phone:'',
         email:'',
         ubication:'',
@@ -13,26 +26,31 @@ const Edit = () => {
     })
     
     const inputChange = (e)=>{
+        e.preventDefault()
         setInput({
             ...input,
             [e.target.name]:e.target.value
         })
     }
+
+    const handlerSubmit =()=>{
+        dispatch(putDetailsUser(id, input))
+        history.push(`/walker/perfil/${id}`)
+    }
     
     return (
         <div className={style.container}>
-            <form className={style.formulario}>
+            <form className={style.formulario} onSubmit={handlerSubmit}>
                 <h1>Information</h1>
+                <select value={input.service} name='service' onChange={inputChange}>
+                    <option>Select Service:</option>
+                    <option value='Walker'>Walker</option>
+                    <option value='Carer'>Carer</option>
+                    <option value='Walker and Carer'>Walker and Carer</option>
+                </select>
                 <input
-                type='text'
-                name='service'
-                value={input.value}
-                placeholder='Service'
-                onChange={e=>inputChange(e)}
-                />
-                <input
-                type='text'
-                name='birthDate'
+                type='date'
+                name='birth_day'
                 value={input.value}
                 placeholder='Date of Birth'
                 onChange={e=>inputChange(e)}/>
@@ -62,9 +80,13 @@ const Edit = () => {
                 onChange={e=>inputChange(e)}/>
                 <div className={style.selectFile}>
                     <label>Select Image</label>
-                    <input type='file' className={style.file} />
+                    <input 
+                    type='file' 
+                    name='image'
+                    value={input.value}
+                    className={style.file} />
                 </div>
-                <button>Editar</button>
+                <button type='submit'>Editar</button>
             </form>
             
         </div>

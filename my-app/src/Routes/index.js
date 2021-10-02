@@ -1,7 +1,5 @@
 import React from "react";
 import { Route, Switch } from "react-router";
-import EditPrice from "../Components/EditWalker/EditPrice/Edit.jsx";
-import EditDescription from "../Components/EditWalker/EditDescription/Edit";
 import FormWalker from "../Components/FormWalker/FormWalker";
 import Home from "../Components/Home/home";
 import PreLogin from "../Components/Home/PreLogin/PreLogin";
@@ -11,6 +9,9 @@ import Form from "../Components/Home/Form/Form";
 import SelectType from "../Components/SelectType/SelectType";
 import PerfilWalker from "../Components/PerfilWalker/PerfilWalker";
 import EditInformation from "../Components/EditWalker/EditInformation/Edit.jsx";
+import EditPrice from "../Components/EditWalker/EditPrice/Edit.jsx";
+import EditDescription from "../Components/EditWalker/EditDescription/Edit";
+import EditHorarios from "../Components/EditWalker/editHr/Edit";
 
 const index = () => {
   return (
@@ -25,19 +26,12 @@ const index = () => {
         <Route exact path="/selectType" component={SelectType} />
         <Route exact path="/cardsUsers" component={UsersCards} />
         <Route exact path="/walker/perfil/:id" component={PerfilWalker} />
-        <Route
-          exact
-          path="/walker/editDescription"
-          component={EditDescription}
-        />
-        <Route exact path="/walker/editPrice" component={EditPrice} />
-        <Route
-          exact
-          path="/walker/editInformation"
-          component={EditInformation}
-        />
+        <Route exact path="/walker/editDescription/:id" component={EditDescription}/>
+        <Route exact path="/walker/editPrice/:id" component={EditPrice} />
+        <Route exact path="/walker/editInformation/:id" component={EditInformation}/>
+        <Route exact path="/walker/edithr/:id" component={EditHorarios}/>
       </Switch>
     </div>
   );
-};
+}
 export default index;
