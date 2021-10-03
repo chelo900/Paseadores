@@ -80,23 +80,24 @@ const UsersCards = () => {
     if (!users) return <div>No hay usuarios</div>
     return (
         <div className={style.container} ref={container}>
+
             <div className = {style.costado}>
-                <div>
+              
                     <select className = {style.rep}> 
                         <option value="order"> Order by Reputation </option>
                         <option value="DESC"> Higher </option>
                         <option value="ASC"> Smaller </option>
                     </select>
-                </div>
-                <div>
+               
+                
+                    <label className = {style.pri}> Price : </label>
                     <select className = {style.pre} > 
                         <option value="order"> Order by Price</option>
                         <option value="DESC"> Higher </option>
                         <option value="ASC"> Smaller </option>
                     </select>
-                </div>
-                <div>
-                    <label className = {style.pri}> Price : </label>
+               
+               
                     <div className = {style.opciones}>
                     <Link className = {style.dos}> $0 - $200 </Link>
                     
@@ -108,7 +109,7 @@ const UsersCards = () => {
                     
                     <Link className = {style.diez}> $801 - $1.000 </Link>
 
-                </div>
+               
                     <input
                         className = {style.min}
                         type= "text"
@@ -117,9 +118,9 @@ const UsersCards = () => {
                         name = "price"
                         onChange = {e => handleChange(e)}
                     />
-                <div>
+               
                     <label> - </label>
-                </div>
+               
                     <input
                         className = {style.max}
                         type= "text"
@@ -165,8 +166,8 @@ const UsersCards = () => {
                         </div>
                     )}
                 </div>
-            </div>
             {loading && <div className={style.loading}><p className={style.p}>Loading...</p></div>}
+            </div>
         </div>
     )
 
