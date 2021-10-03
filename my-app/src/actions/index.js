@@ -149,13 +149,6 @@ export function FilterPrice ( payload ) {
   }
 }
 
-export function FilterSchedule ( payload ) {
-  return {
-    type: "FILTER_SCHEDULE",
-    payload
-  }
-}
-
 export function FilterUbication( payload ) {
   return {
     type: "FILTER_UBICATION",

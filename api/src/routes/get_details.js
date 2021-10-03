@@ -5,7 +5,6 @@ const router = Router();
 
 router.get("/:id", async (req, res) => {
     const {id} = req.params
-
     try{  
             const datos = await User.findOne({
                 where: {
@@ -30,7 +29,6 @@ router.get("/:id", async (req, res) => {
             } 
             
             if(detallesDatos){
-
                 res.status(200).send(detallesDatos);
             }else{
                 res.status(404).send("No se encontró al paseador");

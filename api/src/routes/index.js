@@ -5,6 +5,8 @@ const putDetailsUser = require ("./putDetailsUser")
 const putDetailsProfile = require ("./putDetailsProfile")
 const get_paseadores = require("./get_paseadores");
 const getByEmail = require ("./getByEmail")
+const get_horarios = require ("./get_horarios")
+const putHorarios = require ("./putHorarios")
 
 const router = Router();
 
@@ -14,6 +16,8 @@ router.use("/createUser", postUser);
 router.use("/updateuser", putDetailsUser)
 router.use("/updateuserProfile", putDetailsProfile)
 router.use("/email", getByEmail)
+router.use("/walkers", get_horarios)
+router.use("/walkers", putHorarios)
 
 
 module.exports = router;
