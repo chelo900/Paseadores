@@ -14,12 +14,14 @@ const Login = () => {
     const dispatch = useDispatch()
     const [values, setValues] = useState({
         email: '',
-        password: ''
+        password: '',
+        id: ''
     })
     
     
     const validate = useSelector(state => state.validate)
     const id = useSelector(state => state.id)
+
     const handleOnChange = ({target : {name, value}}) => setValues({
         ...values,
         [name]: value
@@ -45,7 +47,8 @@ const Login = () => {
         // console.log('Values:', values)
         if(auth){
            alert('Welcome')
-           setTimeout(()=>history.push(`/walker/perfil/${perfil}`),1000)
+           console.log("PERFIL:", perfil)
+           setTimeout(()=>history.push(`/walker/perfil/${perfil}`),3000)
 
         } else {
             return alert('Please check your credentials')
