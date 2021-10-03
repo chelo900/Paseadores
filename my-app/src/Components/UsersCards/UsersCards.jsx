@@ -3,6 +3,10 @@ import Card from "../Card/Card"
 import style from "../UsersCards/UsersCards.module.css"
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Order, 
+        FilterUbication, 
+        FilterPrice   } from "../../actions/index"
 
 const UsersCards = () => {
     const [page, setPage] = useState(1);
@@ -10,6 +14,7 @@ const UsersCards = () => {
     const [loading, setLoading] = useState(true);
     const [hasEnded, setHasEnded] = useState(false);
 
+    const dispatch = useDispatch()
     const container = useRef(null);
 
     const [input, setInput] = useState({
@@ -17,6 +22,26 @@ const UsersCards = () => {
         schedule : "",
         ubication : "",
     })
+
+    // function handleOrder(e) {
+    //     e.preventDefault();
+    //     dispatch(Order(e.target.value))
+    // }
+
+    // function handleFilterPrice(e) {
+    //     dispatch(FilterPrice(e.target.value))
+    // }
+
+    // function handleFilterUbication(e) {
+    //     dispatch(FilterUbication(e.target.value))
+    // }
+
+    function handleChange(e){
+        setInput({
+            ...input,
+            [e.target.name] : e.target.value
+        })
+    }
 
     useEffect(() => {
         document.addEventListener("scroll", trackScrolling)
@@ -54,64 +79,71 @@ const UsersCards = () => {
     }
     if (!users) return <div>No hay usuarios</div>
     return (
-        <div>
+        <div className={style.container} ref={container}>
             <div className = {style.costado}>
                 <div>
-                    <select> 
+                    <select className = {style.rep}> 
                         <option value="order"> Order by Reputation </option>
                         <option value="DESC"> Higher </option>
                         <option value="ASC"> Smaller </option>
                     </select>
                 </div>
                 <div>
-                    <select> 
+                    <select className = {style.pre} > 
                         <option value="order"> Order by Price</option>
                         <option value="DESC"> Higher </option>
                         <option value="ASC"> Smaller </option>
                     </select>
                 </div>
                 <div>
-                    <label> Price : </label>
-                    <div>
-                    <Link> $0 - $200 </Link>
-                    <br/>
-                    <Link> $201 - $400 </Link>
-                    <br/>
-                    <Link> $401 - $600 </Link>
-                    <br/>
-                    <Link> $601 - $800 </Link>
-                    <br/>
-                    <Link> $801 - $1.000 </Link>
-                    </div>
+                    <label className = {style.pri}> Price : </label>
+                    <div className = {style.opciones}>
+                    <Link className = {style.dos}> $0 - $200 </Link>
+                    
+                    <Link className = {style.cuatro}> $201 - $400 </Link>
+                    
+                    <Link className = {style.seis}> $401 - $600 </Link>
+                    
+                    <Link className = {style.ocho}> $601 - $800 </Link>
+                    
+                    <Link className = {style.diez}> $801 - $1.000 </Link>
+
+                </div>
                     <input
+                        className = {style.min}
                         type= "text"
                         placeholder = " $ Mínimo "
                         value = {input.price}
                         name = "price"
+                        onChange = {e => handleChange(e)}
                     />
                 <div>
                     <label> - </label>
                 </div>
                     <input
+                        className = {style.max}
                         type= "text"
                         placeholder = " $ Maximo "
                         value = {input.price}
                         name = "price"
+                        onChange = {e => handleChange(e)}
                     />
-                    <button> buscar </button>
+                    <button className = {style.btn} > buscar </button>
                 </div>
                 <div>
-                    <label> Ubication : </label>
+                    <label className = {style.ubi}> Ubication : </label>
                         <input
+                            className = {style.zon}
                             type= "text"
                             placeholder = "Zona "
-                            value = {input.price}
+                            value = {input.ubication}
                             name = "ubication"
                         />
+                         <button className = {style.btn} > buscar </button>
                 </div>
                
             </div>
-            <div className={style.container} ref={container}>
+            <div >
                 <div className={style.userContainer}>
                     {users && users.map(user => (
                         <div className={style.flex}>

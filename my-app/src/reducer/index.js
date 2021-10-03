@@ -5,7 +5,6 @@ import {
   PUT_DETAILS_USER,
   ORDER,
   FILTER_PRICE,
-  FILTER_SCHEDULE,
   FILTER_UBICATION,
   GET_BY_EMAIL,
   NEW_PASEADOR,
@@ -47,22 +46,17 @@ function rootReducer(state = initialState, action) {
     case ORDER:
       return {
         ...state,
-        paseador: action.payload,
+        allPaseadores: action.payload,
       };
     case FILTER_PRICE:
       return {
         ...state,
-        paseador: action.payload,
-      };
-    case FILTER_SCHEDULE:
-      return {
-        ...state,
-        paseador: action.payload,
+        allPaseadores: action.payload,
       };
     case FILTER_UBICATION:
       return {
         ...state,
-        paseador: action.payload,
+        allPaseadores: action.payload,
       };
     case GET_BY_EMAIL:
       console.log("reducer", action.payload);

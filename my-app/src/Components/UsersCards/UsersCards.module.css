@@ -1,6 +1,6 @@
 .container{
-    margin-top: 75px;
-    padding-top: 25px;
+    /* margin-top: 75px;
+    padding-top: 25px; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,7 +11,7 @@
     background-color: rgb(254,247, 237);
     display: grid;
     grid-template-columns: repeat(2,1fr);
-    width: 95%;
+    
 }
 .flex{
     display: flex;
@@ -40,4 +40,50 @@
     border: 2px solid #165480;
     background-color: rgba(150, 32, 32, 0.397); 
     width: 220px;
+    height: 572px;
+    margin-left: 10px;
+}
+
+.opciones{
+    text-decoration: none;
+    color: black;
+}
+
+.rep{
+    margin-bottom: 30px;
+}
+.pre{
+    margin-bottom: 30px;
+}
+
+.dos,
+.cuatro,
+.seis,
+.ocho,
+.diez{
+    margin: 40px;
+}
+
+.pri{
+    font-size: 24px;
+}
+
+.min{
+    margin-top: 14px;
+} 
+
+.max{
+   margin-bottom: 10px;
+}
+
+.btn{
+    margin-bottom: 30px;
+}
+
+.ubi{
+    font-size: 24px;
+}
+
+.zon{
+    margin: 12px;
 }

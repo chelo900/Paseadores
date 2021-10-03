@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { User } = require("../db");
+const { Op } = require("sequelize");
 
 const router = Router();
 
@@ -102,45 +103,45 @@ router.get("/filter/price", async (req, res) => {
   }
 });
 
-router.get("/filter/:hours", async (req, res) => {
-  const { hours } = req.params;
-  if (hours = "m") {
-    try {
-      const allActiveWalkers = await User.findAll({
-        where: {
-          morning : "active",
-          status: "active"
-        },
-      });
-      return res.status(200).json(allActiveWalkers);
-    } catch (err) {
-      res.json({ error: err });
-    }
-  } if (hours = "a") {
-    try {
-      const allActiveWalkers = await User.findAll({
-        where: {
-          afternoon : "active",
-          status: "active"
-        },
-      });
-      return res.status(200).json(allActiveWalkers);
-    } catch (err) {
-      res.json({ error: err });
-    }
-  } if (hours = "t") {
-    try {
-      const allActiveWalkers = await User.findAll({
-        where: {
-          status: "active",
-        },
-      });
-      return res.status(200).json(allActiveWalkers);
-    } catch (err) {
-      res.json({ error: err });
-    }
-  }
-});
+// router.get("/filter/:Horarios", async (req, res) => {
+//   const { Horarios } = req.params;
+//   if (Horarios = "m") {
+//     try {
+//       const allActiveWalkers = await User.findAll({
+//         where: {
+//           morning : "active",
+//           status: "active"
+//         },
+//       });
+//       return res.status(200).json(allActiveWalkers);
+//     } catch (err) {
+//       res.json({ error: err });
+//     }
+//   } if (Horarios = "a") {
+//     try {
+//       const allActiveWalkers = await User.findAll({
+//         where: {
+//           afternoon : "active",
+//           status: "active"
+//         },
+//       });
+//       return res.status(200).json(allActiveWalkers);
+//     } catch (err) {
+//       res.json({ error: err });
+//     }
+//   } if (Horarios = "t") {
+//     try {
+//       const allActiveWalkers = await User.findAll({
+//         where: {
+//           status: "active",
+//         },
+//       });
+//       return res.status(200).json(allActiveWalkers);
+//     } catch (err) {
+//       res.json({ error: err });
+//     }
+//   }
+// });
 
 router.get("/filter/:ubication", async (req, res) => {
   const { ubication } = req.params;

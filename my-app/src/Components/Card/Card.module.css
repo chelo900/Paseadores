@@ -1,60 +1,131 @@
-*,
+/* *,
 *::before,
 *::after{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: sans-serif;
-}
-.card {
-    height: 80%;
-    max-width: 98em;
+} */
+/* .card {
+    height: 360px;
+    width: 480px;
     padding: 5rem;
     margin: 20px 40px;
     background-color: rgb(58,84,180);
     display: flex;
     align-items: center;
-    /* justify-content: center; */
+    justify-content: center;
     border-radius: .5rem;
-}
-.imageContainer{
-    min-width: 18rem;
-    max-width: 18rem;
+} */
+/* .imageContainer{
+    min-width: 16rem;
+    max-width: 16rem;
     height: 14rem;
     transform: translateX(-7rem);
-}
-.image{
+    margin-left: -30px;
+} */
+/* .image{
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
     border-radius: .5rem;
+    margin-left: 60px;
 }
 .infoContainer{
     border-radius: 20px;
     color: rgb(58,84,180);
     background-color: rgb(173, 173, 173);
+    width: 300px;
+    height: 00px;
 }
 .link {
     text-decoration: none;
 }
-.title,
+.title, 
 .name{
     background-color: rgb(173, 173, 173);
     color: rgb(58,84,180);
-    font-size: 2.5rem;
-    margin: 1.5rem 0 2rem;
+    font-size: 26px;
+    margin: 12px;
     text-transform: uppercase;
-}
-.name{
+}  */
+/* .name{
     border-bottom: 1px solid rgb(58,84,180);
 }
-.service,
-.reputation,
+.service{
+     color: rgb(58,84,180);
+    background-color: rgb(173, 173, 173);
+    margin: 12px;
+    font-size: 20px;
+}
+.reputation{
+     color: rgb(58,84,180);
+    background-color: rgb(173, 173, 173);
+    margin: 12px ;
+    font-size: 20px;
+}
 .price{
     color: rgb(58,84,180);
     background-color: rgb(173, 173, 173);
-    margin-bottom: 3rem;
-    font-size: 1.4rem;
-    font-weight: 400;
+    margin: 12px;
+    font-size: 20px;
+}  */
+
+.card {
+    border: 1px solid black;
+    width: 520px;
+    height: 260px;
+    display: flex;
+    justify-content: space-between;
+    margin: 26px;
+    background-color: rgb(58,84,180);
+}
+
+.link{
+    text-decoration: none;
+}
+
+.image{
+    border-radius: .5rem;
+    width: 240px;
+    height: 200px;
+    margin: 30px;
+}
+
+.infoContainer{
+    text-align: center;
+    border: 2px solid rgb(173, 173, 173);
+    border-radius: 20px;
+    height: 200px;
+    width: 170px;
+    margin: 30px;
+    text-align: center;
+    background-color: rgb(173, 173, 173);
+}
+
+.name{
+    border-bottom: 1px solid rgb(58,84,180); 
+    color: rgb(58,84,180);
+    font-size: 24px;
+    margin: 10px;
+    text-transform: uppercase;
+}
+
+.service{
+    color: rgb(58,84,180);
+    font-size: 18px;
+    margin: 10px; 
+}
+
+.price{
+    color: rgb(58,84,180);
+    font-size: 20px;
+    margin: 10px; 
+}
+
+.reputation{
+    color: rgb(58,84,180);
+    font-size: 20px;
+    margin: 10px; 
 }
