@@ -4,6 +4,7 @@
     background-color: rgb(254,247, 237);
 }
 .userContainer{
+    margin-left: 250px;
     align-items: center;
     justify-content: center;
     background-color: rgb(254,247, 237);
@@ -35,6 +36,8 @@
 }
 
 .costado{
+    position: fixed;
+    float: left;
     align-items: center;
     justify-content: center;
     border: 2px solid #165480;
