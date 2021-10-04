@@ -40,19 +40,12 @@ const PerfilWalker = () => {
         addImage(file)
     }
 
+    
+
     const handleLogout = (event) => {
         event.preventDefault();
         history.push("/");
       };
-
-    // const upLoadImage=(base64EncodeImage)=>{
-    //     console.log(base64EncodeImage)
-    // }
-    
-
-    
-
-
 
 
     return (
@@ -152,28 +145,26 @@ const PerfilWalker = () => {
                         <p> * * * * *</p>
                     </div>
                     <div className={style.fotos}>
+                      <div className={style.fondoFotos}>
                         <h2>Fotos</h2>
-                        { Walker.images?.map(i=>
-                        <div className={style.galeria} key={i.public_id}>
-                        <img src={i.imageURL ? i.imageURL : foto1} alt='a'/>
-                        
-                    </div>)
-                            
-                        }
-                        
-                        <form  action={`http://localhost:3001/postimages/${id}`} method="POST" encType="multipart/form-data">
-                            <input type="file" name="image" />
-                            <button type="submit">Subir</button>
-                        </form>
+                            { Walker.images?.map(i=>
+                            <div className={style.galeria} key={i.public_id}>
+                            <img src={i.imageURL ? i.imageURL : foto1} alt='a'/>
+                            </div>)
+                            }
+                            <form  action={`http://localhost:3001/postimages/${id}`} method="POST" encType="multipart/form-data">
+                                <input type="file" name="image" />
+                                <button type="submit">Subir</button>
+                            </form>
+                      </div>
+                        <div className={style.containerCheckout}>
+                       <button  className={style.checkout} onClick={handleLogout}> CERRAR SESION </button>
+                       </div> 
                     </div>
                 </div>
                 {/* <div className={style.notificaciones}>
                     <iframe className={style.calendario}src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FArgentina%2FCordoba&showPrint=0&title=Mi%20Calendario&src=ODlhNGhoZDkwNHI1ajRsZXJkbnZldTA5YmNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%23D81B60"></iframe>
                 </div> */}
-            </div>
-            <div className={style.containerCheckout}>
-
-            <button  className={style.checkout} onClick={handleLogout}> CERRAR SESION </button>
             </div>
         </div>
     )

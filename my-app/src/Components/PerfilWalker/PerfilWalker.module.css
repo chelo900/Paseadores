@@ -1,6 +1,6 @@
 .container{
     background-color: rgb(254,247, 237);
-    height: auto;
+    height: 100%;
 
 }
 
@@ -40,7 +40,7 @@
 .containerPerfil{
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    height: 77vh;
+    height: 100%;
 }
 
 .personalInformation{
@@ -159,9 +159,11 @@
     margin: 20px;
     width: 600px;
     height: auto;
-    background-color: white;
     /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
     
+}
+.fondoFotos{
+    background-color: white;
 }
 .fotos h2{
     padding: 10px ;
@@ -325,6 +327,7 @@
     display: flex;
     justify-content: center;
     padding-bottom: 20px;
+    margin: 20px 0 20px 0;
 
 }
 .checkout:hover{
