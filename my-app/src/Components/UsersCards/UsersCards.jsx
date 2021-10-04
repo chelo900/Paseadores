@@ -4,30 +4,38 @@ import style from "../UsersCards/UsersCards.module.css"
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Order, 
+import { getAllPaseadores,
+        Order, 
         FilterUbication, 
-        FilterPrice,
-        ubicationMatch   } from "../../actions/index"
+        FilterPrice,   } from "../../actions/index"
 
 const UsersCards = () => {
     const [page, setPage] = useState(1);
+    const [order, setOrder] = useState("");
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [hasEnded, setHasEnded] = useState(false);
 
     const dispatch = useDispatch()
-    const ubica = useSelector(state => state.ubication)
+    // const ubica = useSelector(state => state.ubication)
     const container = useRef(null);
+    
+    // useEffect(() =>{  
+    //     dispatch(getAllPaseadores()); 
+    // },[dispatch])
 
     const [input, setInput] = useState({
-        price : "",
-        schedule : "",
-        ubication : "",
+        max : "",
+        min : "",
+        service : "",
+        ubication : ""
     })
 
     // function handleOrder(e) {
     //     e.preventDefault();
     //     dispatch(Order(e.target.value))
+    //     setPage(1);
+    //     setOrder(`Ordenado ${e.target.value}`)
     // }
 
     // function handleFilterPrice(e) {
@@ -45,14 +53,19 @@ const UsersCards = () => {
         })
     }
 
+    function handleClick(e) {
+        e.preventDefault()
+        dispatch(getAllPaseadores())
+    }
+
     useEffect(() => {
         document.addEventListener("scroll", trackScrolling)
     }, [users])
-    useEffect(()=>{
-        
-        dispatch(ubicationMatch(input.ubication))
-        
-    },  [input.ubication])
+
+    // useEffect(()=>{
+    //     dispatch(ubicationMatch(input.ubication))
+    // },  [input.ubication])
+
     useEffect(() => {
         if (!hasEnded) {
             fetch()
@@ -85,26 +98,26 @@ const UsersCards = () => {
         setLoading(false)
     }
     if (!users) return <div>No hay usuarios</div>
+
     return (
         <div className={style.container} ref={container}>
-
             <div className = {style.costado}>
-              
-                    <select className = {style.rep}> 
-                        <option value="order"> Order by Reputation </option>
-                        <option value="DESC"> Higher </option>
-                        <option value="ASC"> Smaller </option>
+                <div >
+                    <select onChange = {(e) => handleOrder(e)} className = {style.rep}> 
+                        <option value="order"> Ordenar por Reputacion </option>
+                        <option value="DESC"> Alto </option>
+                        <option value="ASC"> Bajo </option>
                     </select>
-               
-                
-                    <label className = {style.pri}> Price : </label>
-                    <select className = {style.pre} > 
-                        <option value="order"> Order by Price</option>
-                        <option value="DESC"> Higher </option>
-                        <option value="ASC"> Smaller </option>
+                </div>
+                <div>
+                    <select  className = {style.pre} > 
+                        <option value="order"> Ordenar por Precio</option>
+                        <option value="DESC"> Alto </option>
+                        <option value="ASC"> Bajo </option>
                     </select>
-               
-               
+                </div>
+                <div>
+                    <label className = {style.pri}> Precio : </label>
                     <div className = {style.opciones}>
                     <Link className = {style.dos}> $0 - $200 </Link>
                     
@@ -115,49 +128,58 @@ const UsersCards = () => {
                     <Link className = {style.ocho}> $601 - $800 </Link>
                     
                     <Link className = {style.diez}> $801 - $1.000 </Link>
-
-               
+                </div>
                     <input
                         className = {style.min}
-                        type= "number"
+                        type= "text"
                         placeholder = " $ Mínimo "
-                        value = {input.price}
-                        name = "price"
+                        value = {input.min}
+                        name = "min"
                         onChange = {e => handleChange(e)}
                     />
-               
+                <div>
                     <label> - </label>
-               
+                </div>
                     <input
                         className = {style.max}
-                        type= "number"
+                        type= "text"
                         placeholder = " $ Maximo "
-                        value = {input.price}
-                        name = "price"
+                        value = {input.max}
+                        name = "max"
                         onChange = {e => handleChange(e)}
                     />
                     <button className = {style.btn} > buscar </button>
                 </div>
                 <div>
-                <form autocomplete="off">
-                    <label className = {style.ubi}> Ubication : </label>
+                    <label className = {style.ubi}> Ubicacion : </label>
                         <input
                             className = {style.zon}
-                            type= "search"
+                            type= "text"
                             placeholder = "Zona "
                             value = {input.ubication}
                             name = "ubication"
-                            list = "ubi"
-                            onChange = {e => handleChange(e)}
                         />
-                        <datalist id="ubi">
-                            { ubica.length && ubica.map(t => {
-                            return <option key={t} value={t}></option>} )}
-                        </datalist>
                          <button className = {style.btn} > buscar </button>
-                         </form>
                 </div>
-               
+                <div>
+                        <select className = {style.hora}> 
+                            <option value="order"> Filtrar por Horario </option>
+                            <option value="m"> Mañana </option>
+                            <option value="a"> Tarde </option>
+                            <option value="t"> Todos </option>
+                        </select>
+                </div>
+                <div>
+                        <select className = {style.serv}> 
+                            <option value="order"> Filtrar por Servicio </option>
+                            <option value="p"> Paseador </option>
+                            <option value="c"> Cuidador </option>
+                            <option value="pyc"> Paseador y Cuidador </option>
+                        </select>
+                </div>
+                <div>
+                    <button className = {style.atc} onClick = {e => handleClick(e)}> Todos los Paseadores </button>
+                </div>
             </div>
             <div >
                 <div className={style.userContainer}>

@@ -40,17 +40,16 @@
     float: left;
     align-items: center;
     justify-content: center;
-    border: 2px solid #165480;
-    background-color: rgba(150, 32, 32, 0.397); 
+    border: 1px solid rgb(58, 84, 180, 0.74);
+    background-color:  rgb(219, 219, 219); 
     width: 220px;
-    height: 572px;
+    height: 600px;
     margin-left: 10px;
-    margin-top: 25px;
+    margin-top: 12px;
+    text-align: center;
 }
 
 .opciones{
-    position: relative;
-    justify-content: center;
     text-decoration: none;
     color: black;
 }
@@ -67,7 +66,8 @@
 .seis,
 .ocho,
 .diez{
-    margin: 40px;
+    margin: 60px;
+    text-align: center;
 }
 
 .pri{
@@ -75,11 +75,12 @@
 }
 
 .min{
-    margin-top: 14px;
+    margin-top: 18px;
 } 
 
 .max{
    margin-bottom: 10px;
+   margin-left: 10px;
 }
 
 .btn{
@@ -92,4 +93,8 @@
 
 .zon{
     margin: 12px;
+}
+
+.serv{
+    margin: 26px;
 }

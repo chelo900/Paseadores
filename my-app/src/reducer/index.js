@@ -5,10 +5,9 @@ import {
   PUT_DETAILS_USER,
   ORDER,
   FILTER_PRICE,
-  FILTER_UBICATION,
   GET_BY_EMAIL,
   NEW_PASEADOR,
-  UBICATION_MATCH,
+  FILTER_SERVICE
 } from "../actions/index";
 
 const initialState = {
@@ -18,7 +17,6 @@ const initialState = {
   newId: [],
   id: {},
   validate: {},
-  ubication: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -55,7 +53,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         allPaseadores: action.payload,
       };
-    case FILTER_UBICATION:
+    case FILTER_SERVICE:
       return {
         ...state,
         allPaseadores: action.payload,
@@ -72,8 +70,8 @@ function rootReducer(state = initialState, action) {
         ...state,
         newId: action.payload.id,
       };
-    case UBICATION_MATCH:
-      return {...state, ubication : action.payload}
+    // case UBICATION_MATCH:
+    //   return {...state, ubication : action.payload}
 
     default:
       return state;
