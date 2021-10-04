@@ -160,10 +160,9 @@ const PerfilWalker = () => {
                         </form>
                     </div>
                 </div>
-
-                <div className={style.notificaciones}>
+                {/* <div className={style.notificaciones}>
                     <iframe className={style.calendario}src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FArgentina%2FCordoba&showPrint=0&title=Mi%20Calendario&src=ODlhNGhoZDkwNHI1ajRsZXJkbnZldTA5YmNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%23D81B60"></iframe>
-                </div>
+                </div> */}
             </div>
             
         </div>

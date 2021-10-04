@@ -1,18 +1,52 @@
-.contenedor {
-    background-image: url("../../media/foto1Service.jpg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: left;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* color: rgb(58,84,180); */
 }
-
+.tt{
+    height: 100vh;
+    width: 100%;
+    background-color: #fff;
+    opacity: 0.8;
+    background-image:  linear-gradient(30deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(150deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(30deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(150deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(60deg, #fef7ed77 25%, transparent 25.5%, transparent 75%, #fef7ed77 75%, #fef7ed77), linear-gradient(60deg, #fef7ed77 25%, transparent 25.5%, transparent 75%, #fef7ed77 75%, #fef7ed77);
+    background-size: 20px 35px;
+    background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .total {
-    background-color: rgba(58, 84, 180, 0.596);
-    border: 2px solid #FEFBF3;
-    width: 600px;
-    margin-left: 400px;
-    margin-top: 60px;
+    background-color: rgb(219, 219, 219);
+    padding: 20px 20px;
+    max-width: 60%;
+    height: 80%;
     font-family: 'Work Sans', sans-serif;
-   
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+.form{
+    font-weight: 600;
+    color: rgb(58,84,180);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+}
+.form div{
+    padding-bottom: 10px;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgb(58,84,180);
+    height: 50px;
+}
+.err{
+    color: red;
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
 .fp{
