@@ -11,6 +11,7 @@ export const FILTER_SCHEDULE = "FILTER_SCHEDULE"
 export const FILTER_UBICATION = "FILTER_UBICATION"
 export const NEW_PASEADOR = 'NEW_PASEADOR'
 export const GET_BY_EMAIL = "GET_BY_EMAIL"
+export const UBICATION_MATCH= "UBICATION_MATCH"
 
 export function getByEmail(payload){
   return async function(dispatch){
@@ -155,3 +156,20 @@ export function FilterUbication( payload ) {
     payload
   }
 }
+
+export function ubicationMatch(ubication){
+  console.log(ubication)
+  return async function(dispatch){
+      let json;
+      
+      try{
+      
+          json = await axios.get(`http://localhost:3001/ubication?ubication=${ubication}`)
+      
+      console.log(json.data)
+      return dispatch({ type: UBICATION_MATCH, payload: json.data });
+      }catch(error){
+          return dispatch({ type: UBICATION_MATCH, payload: error });
+      }
+  }
+} 
