@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {useHistory} from 'react-router'
 import style from "./Login.module.css"
@@ -15,22 +15,37 @@ const Login = () => {
     const [values, setValues] = useState({
         email: '',
         password: '',
-        id: ''
+        //id: ''
     })
     
     
     const validate = useSelector(state => state.validate)
     const id = useSelector(state => state.id)
-
+    let perfil =  id
     const handleOnChange = ({target : {name, value}}) => setValues({
         ...values,
         [name]: value
     })
     
-    console.log( validate, id)
+    //console.log("aaaaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"+ perfil)
+    useEffect(() => {
+        console.log("aaaaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"+validate)
+       // if(validate.length){
+        if(validate === true){
+            alert('Welcome')
+            //console.log("PERFIL:", perfil)
+            
+            history.push(`/walker/perfil/${id}`)
+     
+         } else if(validate === false) {
+            alert('Please check your credentials')
+     
+         } 
+        //}  
+    }, [validate])
 
-
-    const handleOnSubmit = async e => {
+    
+    const handleOnSubmit = async e   => {
         e.preventDefault()
         // console.log('Values:', values)
         dispatch(getByEmail(values))
@@ -39,21 +54,11 @@ const Login = () => {
             email: '',
             password: ''
         }) 
-        let auth = validate
-        let perfil =  id
+        //let auth = validate
         
-        setTimeout(console.log(auth), 1000); 
+        //setTimeout(console.log(auth), 1000); 
         
         // console.log('Values:', values)
-        if(auth){
-           alert('Welcome')
-           console.log("PERFIL:", perfil)
-           setTimeout(()=>history.push(`/walker/perfil/${perfil}`),3000)
-
-        } else {
-            return alert('Please check your credentials')
-
-        } 
     };
 
     
