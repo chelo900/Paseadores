@@ -8,6 +8,7 @@ import {
   FILTER_UBICATION,
   GET_BY_EMAIL,
   NEW_PASEADOR,
+  UBICATION_MATCH,
 } from "../actions/index";
 
 const initialState = {
@@ -15,8 +16,9 @@ const initialState = {
   paseador: [],
   detailWalker: [],
   newId: [],
-  id: [],
-  validate: [],
+  id: {},
+  validate: {},
+  ubication: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -70,6 +72,8 @@ function rootReducer(state = initialState, action) {
         ...state,
         newId: action.payload.id,
       };
+    case UBICATION_MATCH:
+      return {...state, ubication : action.payload}
 
     default:
       return state;

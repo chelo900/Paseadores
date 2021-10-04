@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
-import {getPaseadorForId} from '../../actions/index'
+import {addImage, getPaseadorForId} from '../../actions/index'
 import fotoPortada from '../../media/foto1.jpg'
 import style from './PerfilWalker.module.css'
 import foto1 from '../../media/foto1Service.jpg'
@@ -22,6 +22,28 @@ const PerfilWalker = () => {
     useEffect(()=>{
         dispatch(getPaseadorForId(id))
     },[dispatch])
+
+
+    
+    const[file, setFile] = useState ('')
+    const handleInputChange = (e) => {
+        setFile(e.target.files[0])
+    };
+    
+    const handleSubmitImage= (e)=>{
+        e.preventDefault();
+        if (!file) return;
+        console.log('file',file)
+        // upLoadImage(previewSource)
+        addImage(file)
+    }
+
+    // const upLoadImage=(base64EncodeImage)=>{
+    //     console.log(base64EncodeImage)
+    // }
+    
+
+    
 
 
 
@@ -124,20 +146,18 @@ const PerfilWalker = () => {
                     </div>
                     <div className={style.fotos}>
                         <h2>Fotos</h2>
-                        <div className={style.galeria}>
-                            <img  src={foto1} alt='a'/>
-                            <img src={foto1} alt='a'/>
-                            <img src={foto1} alt='a'/>
-                            <img src={foto1} alt='a'/>
-                            <img src={foto1} alt='a'/>
-                            <img src={foto1} alt='a'/>
-                            <img src={foto1} alt='a'/>
-                            <img src={foto1} alt='a'/>
-                            <img src={foto1} alt='a'/>
-                            <img src={foto1} alt='a'/>
-                            <img src={foto1} alt='a'/>
-                            <img src={foto1} alt='a'/>
-                        </div>
+                        { Walker.images?.map(i=>
+                        <div className={style.galeria} key={i.public_id}>
+                        <img src={i.imageURL ? i.imageURL : foto1} alt='a'/>
+                        
+                    </div>)
+                            
+                        }
+                        
+                        <form  action={`http://localhost:3001/postimages/${id}`} method="POST" encType="multipart/form-data">
+                            <input type="file" name="image" />
+                            <button type="submit">Subir</button>
+                        </form>
                     </div>
                 </div>
 

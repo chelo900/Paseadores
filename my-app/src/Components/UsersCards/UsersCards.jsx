@@ -3,10 +3,11 @@ import Card from "../Card/Card"
 import style from "../UsersCards/UsersCards.module.css"
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Order, 
         FilterUbication, 
-        FilterPrice   } from "../../actions/index"
+        FilterPrice,
+        ubicationMatch   } from "../../actions/index"
 
 const UsersCards = () => {
     const [page, setPage] = useState(1);
@@ -15,6 +16,7 @@ const UsersCards = () => {
     const [hasEnded, setHasEnded] = useState(false);
 
     const dispatch = useDispatch()
+    const ubica = useSelector(state => state.ubication)
     const container = useRef(null);
 
     const [input, setInput] = useState({
@@ -46,6 +48,11 @@ const UsersCards = () => {
     useEffect(() => {
         document.addEventListener("scroll", trackScrolling)
     }, [users])
+    useEffect(()=>{
+        
+        dispatch(ubicationMatch(input.ubication))
+        
+    },  [input.ubication])
     useEffect(() => {
         if (!hasEnded) {
             fetch()
@@ -112,7 +119,7 @@ const UsersCards = () => {
                
                     <input
                         className = {style.min}
-                        type= "text"
+                        type= "number"
                         placeholder = " $ Mínimo "
                         value = {input.price}
                         name = "price"
@@ -123,7 +130,7 @@ const UsersCards = () => {
                
                     <input
                         className = {style.max}
-                        type= "text"
+                        type= "number"
                         placeholder = " $ Maximo "
                         value = {input.price}
                         name = "price"
@@ -132,15 +139,23 @@ const UsersCards = () => {
                     <button className = {style.btn} > buscar </button>
                 </div>
                 <div>
+                <form autocomplete="off">
                     <label className = {style.ubi}> Ubication : </label>
                         <input
                             className = {style.zon}
-                            type= "text"
+                            type= "search"
                             placeholder = "Zona "
                             value = {input.ubication}
                             name = "ubication"
+                            list = "ubi"
+                            onChange = {e => handleChange(e)}
                         />
+                        <datalist id="ubi">
+                            { ubica.length && ubica.map(t => {
+                            return <option key={t} value={t}></option>} )}
+                        </datalist>
                          <button className = {style.btn} > buscar </button>
+                         </form>
                 </div>
                
             </div>
@@ -174,3 +189,12 @@ const UsersCards = () => {
 }
 
 export default UsersCards
+/*
+<input
+                            className = {style.zon}
+                            type= "search"
+                            placeholder = "Zona "
+                            value = {input.ubication}
+                            name = "ubication"
+                            list = "ubi"
+                        />*/
