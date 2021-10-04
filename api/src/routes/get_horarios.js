@@ -36,3 +36,5 @@ router.get("/:id", async (req, res) => {
     console.error(error);
   }
 });
+
+module.exports = router;

@@ -60,10 +60,6 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      // calendar: {
-      //   type: DataTypes.DATE,
-      //   allowNull: false
-      // }
       reputation: {
         type: DataTypes.ENUM("0", "1", "2", "3", "4", "5"),
         defaultValue: "0",

@@ -5,10 +5,10 @@ import {
   PUT_DETAILS_USER,
   ORDER,
   FILTER_PRICE,
-  FILTER_SCHEDULE,
   FILTER_UBICATION,
   GET_BY_EMAIL,
   NEW_PASEADOR,
+  UBICATION_MATCH,
 } from "../actions/index";
 
 const initialState = {
@@ -18,6 +18,7 @@ const initialState = {
   newId: [],
   id: {},
   validate: {},
+  ubication: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -47,22 +48,17 @@ function rootReducer(state = initialState, action) {
     case ORDER:
       return {
         ...state,
-        paseador: action.payload,
+        allPaseadores: action.payload,
       };
     case FILTER_PRICE:
       return {
         ...state,
-        paseador: action.payload,
-      };
-    case FILTER_SCHEDULE:
-      return {
-        ...state,
-        paseador: action.payload,
+        allPaseadores: action.payload,
       };
     case FILTER_UBICATION:
       return {
         ...state,
-        paseador: action.payload,
+        allPaseadores: action.payload,
       };
     case GET_BY_EMAIL:
       console.log("reducer", action.payload);
@@ -76,6 +72,8 @@ function rootReducer(state = initialState, action) {
         ...state,
         newId: action.payload.id,
       };
+    case UBICATION_MATCH:
+      return {...state, ubication : action.payload}
 
     default:
       return state;
