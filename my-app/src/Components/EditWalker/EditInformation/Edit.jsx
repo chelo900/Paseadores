@@ -16,13 +16,13 @@ const Edit = () => {
     const paseador =useSelector(state => state.detailWalker)
     
     const [input, setInput] = useState({
-        service:'',
-        birth_day:'',
-        phone:'',
-        email:'',
-        ubication:'',
-        dni:'',
-        image:''
+        service:paseador.service,
+        birth_day:paseador.birth_day,
+        phone:paseador.phone,
+        email:paseador.email,
+        ubication:paseador.ubication,
+        dni:paseador.dni,
+        image:paseador.image
     })
     
     const inputChange = (e)=>{
@@ -37,6 +37,25 @@ const Edit = () => {
         event.preventDefault();
         history.push(`/walker/perfil/${id}`);
       };
+
+      const uploadImage = async e => {
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'projectimages') 
+        const res = await fetch(
+          'https://api.cloudinary.com/v1_1/dvmrhxfht/image/upload',
+          {
+            method: 'POST',
+            body: data
+          }
+        )
+        const file = await res.json()
+        setInput(values => ({
+        ...values,
+        image: file.secure_url,
+    }))
+    }
 
     const handlerSubmit =()=>{
         dispatch(putDetailsUser(id, input))
@@ -59,43 +78,46 @@ const Edit = () => {
                 name='birth_day'
                 // defaultValue={paseador.birth_day}
                 value={input.value}
-                placeholder='Fecha de Nacimiento'
+                placeholder={paseador.birth_day}
                 onChange={e=>inputChange(e)}/>
                 <input
                 type='text'
                 name='phone'
                 // defaultValue={paseador.phone}
                 value={input.value}
-                placeholder='Telefono'
+                placeholder={paseador.phone}
                 onChange={e=>inputChange(e)}/>
                 <input
                 type='text'
                 name='email'
                 // defaultValue={paseador.email}
                 value={input.value}
-                placeholder='Email'
+                placeholder={paseador.email}
                 onChange={e=>inputChange(e)}/>
                 <input
                 type='text'
                 name='ubication'
                 // defaultValue={paseador.ubication}
                 value={input.value}
-                placeholder='Ubicacion'
+                placeholder= {paseador.ubication?  paseador.ubication : "Ubicación"}
                 onChange={e=>inputChange(e)}/>
                 <input
                 type='text'
                 name='dni'
                 // defaultValue={paseador.dni}
                 value={input.value}
-                placeholder='DNI'
+                placeholder={paseador.dni}
                 onChange={e=>inputChange(e)}/>
                 <div className={style.selectFile}>
-                    <label>Selecciona una imagen de perfil</label>
-                    <input 
-                    type='file' 
-                    name='image'
-                    value={input.value}
-                    className={style.file} />
+                    <div className={style.selectFile}>
+                        <label>Selecciona una imagen de perfil</label>
+                        <input 
+                        type='file' 
+                        name='image'
+                        className={style.file}
+                        onChange={uploadImage}
+                        />
+                    </div>
                 </div>
                 <button type='submit'>Editar</button>
             </form>

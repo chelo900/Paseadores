@@ -267,7 +267,7 @@ const Form = () => {
         <div>
           <label> Contraseña : </label>
           <input
-            type="text"
+            type="password"
             placeholder="Password123"
             value={input.password}
             name="password"
