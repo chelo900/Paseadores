@@ -8,10 +8,10 @@ import style from "./Form.module.css";
 function validate(input) {
   const errors = {};
   if (!input.name) {
-    errors.name = "Required";
+    errors.name = "Requerido";
   }
   if (!input.email) {
-    errors.email = "Required";
+    errors.email = "Requerido";
   }
   if (
     !/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(
@@ -22,9 +22,9 @@ function validate(input) {
   }
 
   if (!input.password) {
-    errors.password = "Required";
+    errors.password = "Requerido";
   } else if (`${input.password}`.length < 7) {
-    errors.password = "Password must be larger than 7 characters";
+    errors.password = "La contraseña debe ser de al menos 7 caracteres";
   }
   return errors;
 }
@@ -32,7 +32,7 @@ function validate(input) {
 const Form = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [errors, setError] = useState({a:""});
+  const [errors, setError] = useState({ a: "" });
   // const newId = useSelector((state) => state.newId);
   // useEffect(() => {
   //   console.log(newId);
@@ -130,24 +130,24 @@ const Form = () => {
     if (Object.values(errors).length > 1)
       alert("Completa la informacion solicitada");
     else {
-    dispatch(newPaseador(input));
-    alert("User Created successfully");
-    setInput({
-      image: "",
-      dni: "",
-      name: "",
-      surname: "",
-      birth_day: "",
-      phone: "",
-      email: "",
-      password: "",
-      service: "",
-      front_dni: "",
-      back_dni: "",
-    });
+      dispatch(newPaseador(input));
+      alert("User Created successfully");
+      setInput({
+        image: "",
+        dni: "",
+        name: "",
+        surname: "",
+        birth_day: "",
+        phone: "",
+        email: "",
+        password: "",
+        service: "",
+        front_dni: "",
+        back_dni: "",
+      });
 
-    history.push("/login");
-  }
+      history.push("/login");
+    }
   }
   // function redirection(newId) {
   //   history.push(`/walker/perfil/${newId}`);
@@ -161,8 +161,9 @@ const Form = () => {
   }
 
   return (
+  <div className={style.tt}>
     <div className={style.total}>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
         <div>
           <label> Foto de Perfil : </label>
           <input
@@ -182,6 +183,8 @@ const Form = () => {
             <option> Cédula de identidad Civil </option>
             <option> Pasaporte </option>
           </select>
+          </div>
+          <div>
           <label> Foto del Frente del Documento </label>
           <input
             type="file"
@@ -208,7 +211,7 @@ const Form = () => {
             name="name"
             onChange={(e) => handleChange(e)}
           />
-          {errors.name && <p> {errors.name} </p>}
+          {errors.name && <p className={style.err}> {errors.name} </p>}
         </div>
         <div>
           <label> Apellido : </label>
@@ -259,7 +262,7 @@ const Form = () => {
             name="email"
             onChange={(e) => handleChange(e)}
           />
-          {errors.email && <p> {errors.email} </p>}
+          {errors.email && <p className={style.err}> {errors.email} </p>}
         </div>
         <div>
           <label> Contraseña : </label>
@@ -270,7 +273,7 @@ const Form = () => {
             name="password"
             onChange={(e) => handleChange(e)}
           />
-          {errors.password && <p> {errors.password} </p>}
+          {errors.password && <p className={style.err}> {errors.password} </p>}
         </div>
         <div>
           <label> Servicio : </label>
@@ -287,6 +290,8 @@ const Form = () => {
         <button type="submit" disabled={Object.values(errors).length > 0}> Crear Usuario </button>
       </form>
     </div>
+  </div>
+  
   );
 };
 

@@ -1,6 +1,6 @@
 .container{
     background-color: rgb(254,247, 237);
-    height: 750px;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

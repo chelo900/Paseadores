@@ -12,16 +12,16 @@ const PreLogin = () => {
                 <hr></hr>
                 <div className={style.botones}>
                     <Link to='/login-walkwer' > 
-                        <button className={style.boton}>Paseador / Cuidador</button>
+                        <button className={style.boton}><p>Paseador / Cuidador</p></button>
                     </Link>
                     <Link>
-                        <button  className={style.boton} >Dueno de mascota</button>
+                        <button  className={style.boton} ><p>Dueno de mascota</p></button>
                     </Link>
                 </div>
                 <div className={style.count}>
-                    <p>Do you already have an account?  </p>
-                    <Link to ='/login'>
-                        <a href='#'>  Sign In</a>
+                    <p>Do you already have an account?</p>
+                    <Link className={style.link} to ='/login'>
+                        <p>  Sign In</p>
                     </Link>
                 </div>
 
