@@ -45,3 +45,17 @@
     box-shadow: none;
   }
   
+  .volver{
+    border: none;
+    background-color: green;
+    color: white;
+    height: 30px;
+    width: 150px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
+
+.volver:hover {
+  box-shadow: none;
+}

@@ -4,7 +4,7 @@ import {addImage, getPaseadorForId} from '../../actions/index'
 import fotoPortada from '../../media/foto1.jpg'
 import style from './PerfilWalker.module.css'
 import foto1 from '../../media/foto1Service.jpg'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useHistory } from 'react-router-dom'
 
 
 
@@ -13,6 +13,8 @@ const PerfilWalker = () => {
     const { id } = useParams();
 
     const dispatch = useDispatch()
+
+    const history = useHistory()
 
     const Walker = useSelector(state => state.detailWalker)
 
@@ -37,6 +39,11 @@ const PerfilWalker = () => {
         // upLoadImage(previewSource)
         addImage(file)
     }
+
+    const handleLogout = (event) => {
+        event.preventDefault();
+        history.push("/");
+      };
 
     // const upLoadImage=(base64EncodeImage)=>{
     //     console.log(base64EncodeImage)
@@ -164,7 +171,10 @@ const PerfilWalker = () => {
                     <iframe className={style.calendario}src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FArgentina%2FCordoba&showPrint=0&title=Mi%20Calendario&src=ODlhNGhoZDkwNHI1ajRsZXJkbnZldTA5YmNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%23D81B60"></iframe>
                 </div> */}
             </div>
-            
+            <div className={style.containerCheckout}>
+
+            <button  className={style.checkout} onClick={handleLogout}> CERRAR SESION </button>
+            </div>
         </div>
     )
 }

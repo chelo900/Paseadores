@@ -19,9 +19,15 @@ const PreLogin = () => {
                     </Link>
                 </div>
                 <div className={style.count}>
+<<<<<<< HEAD
                     <p>Do you already have an account?</p>
                     <Link className={style.link} to ='/login'>
                         <p>  Sign In</p>
+=======
+                    <p>Ya tienes una cuenta ?  </p>
+                    <Link to ='/login'>
+                        <a href='#'>  Sign In</a>
+>>>>>>> 6241be1 (redirecciones perfil)
                     </Link>
                 </div>
 
