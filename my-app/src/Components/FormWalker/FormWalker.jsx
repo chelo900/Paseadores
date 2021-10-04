@@ -161,139 +161,137 @@ const Form = () => {
   }
 
   return (
-    <div className={style.tt}>
-      <div className={style.total}>
-        <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
-          <div>
-            <label> Foto de Perfil: </label>
-            <input
-              type="file"
-              accept=".jpg, .png, .pdf"
-              value={input.image}
-              name="image"
-              onChange={(e) => handleChange(e)}
-            />
+  <div className={style.tt}>
+    <div className={style.total}>
+      <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
+        <div>
+          <label> Foto de Perfil : </label>
+          <input
+            type="file"
+            accept=".jpg, .png, .pdf"
+            name="file"
+            onChange={uploadImage}
+          />
+        </div>
+        <div>
+          <label> Tipo de Documento </label>
+          <select>
+            <option> DNI </option>
+            <option> Cédula de identidad </option>
+            <option> Cédula de ciudadanía </option>
+            <option> Documento único de identidad </option>
+            <option> Cédula de identidad Civil </option>
+            <option> Pasaporte </option>
+          </select>
           </div>
           <div>
-            <label> Tipo de Documento </label>
-            <select>
-              <option> DNI </option>
-              <option> Cédula de identidad </option>
-              <option> Cédula de ciudadanía </option>
-              <option> Documento único de identidad </option>
-              <option> Cédula de identidad Civil </option>
-              <option> Pasaporte </option>
-            </select>
-          </div>
-          <div>
-            <label> Foto del Frente del Documento </label>
-            <input
-              type="file"
-              accept=".jpg, .png, .pdf"
-              value={input.front_dni}
-              name="front_dni"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-          <div>
-            <label> Foto del Reverso del Documento </label>
-            <input
-              type="file"
-              accept=".jpg, .png, .pdf"
-              value={input.back_dni}
-              name="back_dni"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-          <div>
-            <label> Nombre : </label>
-            <input
-              type="text"
-              placeholder="Nombre"
-              value={input.name}
-              name="name"
-              onChange={(e) => handleChange(e)}
-            />
-            {errors.name && <p className={style.err}> {errors.name} </p>}
-          </div>
-          <div>
-            <label> Apellido : </label>
-            <input
-              type="text"
-              placeholder="Apellido"
-              value={input.surname}
-              name="surname"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-          <div>
-            <label> Dni : </label>
-            <input
-              type="text"
-              placeholder="Dni"
-              value={input.dni}
-              name="dni"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-          <div>
-            <label> Fecha de Nacimiento : </label>
-            <input
-              type="text"
-              placeholder="dd/mm/aa"
-              value={input.birth_day}
-              name="birth_day"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-          <div>
-            <label> Teléfono : </label>
-            <input
-              type="number"
-              placeholder="ej: +54 11 68525749"
-              value={input.phone}
-              name="phone"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-          <div>
-            <label> Email : </label>
-            <input
-              type="text"
-              placeholder="paseador@gmail.com"
-              value={input.email}
-              name="email"
-              onChange={(e) => handleChange(e)}
-            />
-            {errors.email && <p className={style.err}> {errors.email} </p>}
-          </div>
-          <div>
-            <label> Contraseña : </label>
-            <input
-              type="password"
-              placeholder="Password123"
-              value={input.password}
-              name="password"
-              onChange={(e) => handleChange(e)}
-            />
-            {errors.password && <p className={style.err}> {errors.password} </p>}
-          </div>
-          <div>
-            <label> Servicio : </label>
-            <select onChange={(e) => handleService(e)} required>
-              <option value="" req>
-                {" "}
-                Elegir...{" "}
-              </option>
-              <option value="Walker"> Paseador </option>
-              <option value="Carer"> Cuidador </option>
-              <option value="Walker and Carer"> Paseador y Cuidador</option>
-            </select>
-          </div>
-          <button type="submit" disabled={Object.values(errors).length > 0}> Crear Usuario </button>
-        </form>
-      </div >
-    </div >
+          <label> Foto del Frente del Documento </label>
+          <input
+            type="file"
+            accept=".jpg, .png, .pdf"
+            name="front"
+            onChange={uploadFront}
+          />
+        </div>
+        <div>
+          <label> Foto del Reverso del Documento </label>
+          <input
+            type="file"
+            accept=".jpg, .png, .pdf"
+            name="back"
+            onChange={uploadBack}
+          />
+        </div>
+        <div>
+          <label> Nombre : </label>
+          <input
+            type="text"
+            placeholder="Nombre"
+            value={input.name}
+            name="name"
+            onChange={(e) => handleChange(e)}
+          />
+          {errors.name && <p className={style.err}> {errors.name} </p>}
+        </div>
+        <div>
+          <label> Apellido : </label>
+          <input
+            type="text"
+            placeholder="Apellido"
+            value={input.surname}
+            name="surname"
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+        <div>
+          <label> Dni : </label>
+          <input
+            type="text"
+            placeholder="Dni"
+            value={input.dni}
+            name="dni"
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+        <div>
+          <label> Fecha de Nacimiento : </label>
+          <input
+            type="text"
+            placeholder="dd/mm/aa"
+            value={input.birth_day}
+            name="birth_day"
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+        <div>
+          <label> Teléfono : </label>
+          <input
+            type="number"
+            placeholder="ej: +54 11 68525749"
+            value={input.phone}
+            name="phone"
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+        <div>
+          <label> Email : </label>
+          <input
+            type="text"
+            placeholder="paseador@gmail.com"
+            value={input.email}
+            name="email"
+            onChange={(e) => handleChange(e)}
+          />
+          {errors.email && <p className={style.err}> {errors.email} </p>}
+        </div>
+        <div>
+          <label> Contraseña : </label>
+          <input
+            type="text"
+            placeholder="Password123"
+            value={input.password}
+            name="password"
+            onChange={(e) => handleChange(e)}
+          />
+          {errors.password && <p className={style.err}> {errors.password} </p>}
+        </div>
+        <div>
+          <label> Servicio : </label>
+          <select onChange={(e) => handleService(e)} required>
+            <option value="" req>
+              {" "}
+              Elegir...{" "}
+            </option>
+            <option value="Walker"> Paseador </option>
+            <option value="Carer"> Cuidador </option>
+            <option value="Walker and Carer"> Paseador y Cuidador</option>
+          </select>
+        </div>
+        <button type="submit" disabled={Object.values(errors).length > 0}> Crear Usuario </button>
+      </form>
+    </div>
+  </div>
+  
   );
 };
 
