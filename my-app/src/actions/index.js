@@ -162,3 +162,19 @@ export function FilterUbication( payload ) {
     payload
   }
 }
+
+export function addImage( payload ) {
+  return async function (dispatch){
+    return axios.post ("http://localhost:3001/postimages/:id", payload)
+    .then(image=>{
+      dispatch({
+        type: "ADD_IMAGE",
+        payload: image.data 
+      })
+      console.log(payload)
+    })
+  }
+}
+
+
+

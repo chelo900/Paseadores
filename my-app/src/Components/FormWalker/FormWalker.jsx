@@ -37,7 +37,7 @@ const Form = () => {
   // useEffect(() => {
   //   console.log(newId);
   //   if (newId.length !== 0) {
-  //     redirection(newId[0]);
+  //     redirection(newId);
   //   }
   // }, [newId]);
 
@@ -54,6 +54,64 @@ const Form = () => {
     front_dni: "",
     back_dni: "",
   });
+
+
+
+  const uploadImage = async e => {
+    const files = e.target.files
+    const data = new FormData()
+    data.append('file', files[0])
+    data.append('upload_preset', 'projectimages') 
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/dvmrhxfht/image/upload',
+      {
+        method: 'POST',
+        body: data
+      }
+    )
+    const file = await res.json()
+    setInput(values => ({
+      ...values,
+      image: file.secure_url,
+    }))
+  }
+  const uploadFront = async e => {
+    const files = e.target.files
+    const data = new FormData()
+    data.append('file', files[0])
+    data.append('upload_preset', 'projectimages') 
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/dvmrhxfht/image/upload',
+      {
+        method: 'POST',
+        body: data
+      }
+    )
+    const front = await res.json()
+    setInput(values => ({
+      ...values,
+      front_dni: front.secure_url,
+    }))
+  }
+  const uploadBack = async e => {
+    const files = e.target.files
+    const data = new FormData()
+    data.append('file', files[0])
+    data.append('upload_preset', 'projectimages') 
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/dvmrhxfht/image/upload',
+      {
+        method: 'POST',
+        body: data
+      }
+    )
+    const back = await res.json()
+    setInput(values => ({
+      ...values,
+      back_dni: back.secure_url,
+    }))
+  }
+
 
   function handleChange(e) {
     setInput({
@@ -110,9 +168,8 @@ const Form = () => {
           <input
             type="file"
             accept=".jpg, .png, .pdf"
-            value={input.image}
-            name="image"
-            onChange={(e) => handleChange(e)}
+            name="file"
+            onChange={uploadImage}
           />
         </div>
         <div>
@@ -129,9 +186,8 @@ const Form = () => {
           <input
             type="file"
             accept=".jpg, .png, .pdf"
-            value={input.front_dni}
-            name="front_dni"
-            onChange={(e) => handleChange(e)}
+            name="front"
+            onChange={uploadFront}
           />
         </div>
         <div>
@@ -139,9 +195,8 @@ const Form = () => {
           <input
             type="file"
             accept=".jpg, .png, .pdf"
-            value={input.back_dni}
-            name="back_dni"
-            onChange={(e) => handleChange(e)}
+            name="back"
+            onChange={uploadBack}
           />
         </div>
         <div>
