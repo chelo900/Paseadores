@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
     destination: path.join(__dirname, 'public/uploads'),
     filename: (req, file, cb)=>{
         cb(null, new Date().getTime() + path.extname(file.originalname))
-    }
+    } 
 })
 
 cloudinary.config({ 
