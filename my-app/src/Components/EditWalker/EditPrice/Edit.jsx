@@ -11,6 +11,9 @@ const Edit = () => {
     // const { id } = useParams();
     const idNew =useSelector(state => state.detailWalker.id)
 
+    // const paseador =useSelector(state => state.detailWalker)
+
+
     const dispatch = useDispatch();
 
     const history = useHistory();
@@ -22,8 +25,14 @@ const Edit = () => {
         })
     }
 
+    const handleLogout = (event) => {
+        event.preventDefault();
+        history.push(`/walker/perfil/${idNew}`);
+      };
+
     const handlerSubmit = ()=>{
         dispatch(putDetailsProfile(idNew, input))
+        alert('Cambios Efectuados')
         history.push(`/walker/perfil/${idNew}`)
 
     }
@@ -31,15 +40,18 @@ const Edit = () => {
     return (
         <div className={style.container}>
             <form onSubmit={handlerSubmit} className={style.formulario}>
-                <h1>Price</h1>
+                <h1>Precio</h1>
                 <input 
                 type='text'
                 name='price'
                 value={input.value}
-                placeholder='Price..'
+                placeholder='Precio..'
                 onChange={e=>inputChange(e)}/>
                 <button type='submit'>Editar</button>
             </form>        
+            <br/>
+            <br/>
+            <button className={style.volver} onClick={handleLogout}> Volver </button>
         </div>
     )
 }
