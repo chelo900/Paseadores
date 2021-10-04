@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { User } = require('../db')
+const { User, Image } = require('../db')
 
 const router = Router();
 
@@ -7,9 +7,14 @@ router.get("/:id", async (req, res) => {
     const {id} = req.params
     try{  
             const datos = await User.findOne({
+                
                 where: {
                     id: id
+                },
+                include: {
+                    model: Image
                 }
+                
             })
             const detallesDatos = {
                 id:datos.id,
@@ -25,7 +30,8 @@ router.get("/:id", async (req, res) => {
                 description:datos.description,
                 dni:datos.dni,
                 morning: datos.morning,
-                afternoon: datos.afternoon
+                afternoon: datos.afternoon,
+                images: datos.images
             } 
             
             if(detallesDatos){
