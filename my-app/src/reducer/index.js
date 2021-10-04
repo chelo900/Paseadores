@@ -15,8 +15,8 @@ const initialState = {
   paseador: [],
   detailWalker: [],
   newId: [],
-  id: {},
-  validate: {},
+  id: [],
+  validate: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -59,7 +59,7 @@ function rootReducer(state = initialState, action) {
         allPaseadores: action.payload,
       };
     case GET_BY_EMAIL:
-      console.log("reducer", action.payload);
+      console.log("reducerrrrrr", action.payload.id);
       return {
         ...state,
         validate: action.payload.validate,
