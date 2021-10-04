@@ -14,9 +14,9 @@ const SelectType = () => {
                     <Link to='/FormWalker'>
                         <button className={style.boton}>Paseador / Cuidador</button>
                     </Link>
-                    <Link>
+                    
                         <button  className={style.boton} >Dueno de mascota</button>
-                    </Link>
+                    
                 </div>
                 <div className={style.count}>
                     <p>Do you already have an account?  </p>

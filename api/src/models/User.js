@@ -78,12 +78,12 @@ module.exports = (sequelize) => {
       description: {
         type: DataTypes.TEXT,
       },
-      morning: {
-        type: DataTypes.ENUM("active", "inactive"),
-      },
-      afternoon: {
-        type: DataTypes.ENUM("active", "inactive"),
-      },
+      // morning: {
+      //   type: DataTypes.ENUM("active", "inactive"),
+      // },
+      // afternoon: {
+      //   type: DataTypes.ENUM("active", "inactive"),
+      // },
     },
     { timestamps: false }
   );
