@@ -47,9 +47,8 @@
 .containerPerfil{
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    height: 100%;
+    height: auto;
 }
-
 
 .personalInformation{
     grid-column: 1span;
@@ -72,7 +71,6 @@
     width: auto;
     font-family: 'Work Sans', sans-serif;
     color:rgb(58,84,180);
-  
 }
 
 .liService{
