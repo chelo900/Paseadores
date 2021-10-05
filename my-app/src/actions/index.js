@@ -187,9 +187,3 @@ export function addImage( payload ) {
     })
   }
 }
-
-
-
-
-
-
