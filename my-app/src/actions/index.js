@@ -429,7 +429,7 @@ export function postUserFavorite(payload) {
 export function deleteUserFavorite(payload) {
   return async function (dispatch) {
     try {
-    var result = await axios.put("/quitFav/" , payload);
+      var result = await axios.put("/quitFav/", payload);
       return dispatch({
         type: "DELETE_USER_FAVORITE",
         payload: result.data,
