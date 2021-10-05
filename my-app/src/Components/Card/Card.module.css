@@ -73,13 +73,13 @@
 }  */
 
 .card {
-    border: 1px solid black;
+    border: 1px solid rgba(58, 84, 180, 0.74);
     width: 520px;
     height: 260px;
     display: flex;
     justify-content: space-between;
-    margin: 26px;
-    background-color: rgb(58,84,180);
+    margin: 12px;
+    background-color: rgb(219, 219, 219);
 }
 
 .link{
@@ -101,7 +101,7 @@
     width: 170px;
     margin: 30px;
     text-align: center;
-    background-color: rgb(173, 173, 173);
+    background-color: white;
 }
 
 .name{

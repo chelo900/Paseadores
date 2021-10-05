@@ -1,8 +1,23 @@
 const { Router } = require("express");
-const { User } = require("../db");
+const { User } = require("../../db");
 const { Op } = require("sequelize");
 
 const router = Router();
+
+router.get("/filter/:ubication", async (req, res) => {
+  const { ubication } = req.params;
+  try {
+    const allActiveWalkers = await User.findAll({
+      where: {
+        ubication,
+      },
+    });
+    return res.status(200).json(allActiveWalkers);
+  } catch (err) {
+    res.json({ error: err });
+  }
+});
+
 
 router.get("/", async (req, res) => {
     const ubication = req.query.ubication
