@@ -5,13 +5,13 @@ export const GET_PASEADOR_FOR_ID = "GET_PASEADOR_FOR_ID";
 // export const NEW_PASEADOR = "NEW_PASEADOR"
 export const PUT_DETAILS_PROFILE = "PUT_DETAILS_PROFILE";
 export const PUT_DETAILS_USER = "PUT_DETAILS_USER";
-export const ORDER = "ORDER";
-export const FILTER_PRICE = "FILTER_PRICE";
-export const FILTER_SCHEDULE = "FILTER_SCHEDULE";
-export const FILTER_UBICATION = "FILTER_UBICATION";
 export const NEW_PASEADOR = "NEW_PASEADOR";
 export const GET_BY_EMAIL = "GET_BY_EMAIL";
 export const UBICATION_MATCH = "UBICATION_MATCH";
+export const FILTER_SERVICE = "FILTER_SERVICE"
+export const ORDER = "ORDER";
+export const FILTER_PRICE = "FILTER_PRICE";
+export const FILTER_UBICATION = "FILTER_UBICATION";
 
 export function getByEmail(payload) {
   return async function (dispatch) {
@@ -99,73 +99,53 @@ export function putDetailsUser(payload, user) {
   };
 }
 
-//  export function Order(order, attribute) {
-//     return async function (dispatch) {
-//       return axios .get(`http://localhost:3001/allActiveWalkers/${attribute}/${order}`)
-//         .then((paseador) => {
-//           dispatch({
-//             type: "ORDER",
-//             payload: paseador.data,
-//           });
-//         });
-//     };
-//   }
+export function Order( attribute, order,) {
+    return async function (dispatch) {
+      return axios.get(`http://localhost:3001/cardsUsers/order/${attribute}/${order}`)
+        .then((paseador) => {
+          dispatch({
+            type: "ORDER",
+            payload: paseador.data,
+          });
+        });
+    };
+  }
+  
+  export function FilterPrice (input) {
+    return async function (dispatch) {
+      return axios.get(`http://localhost:3001/cardsUsers/filter/price`, input)
+        .then((paseador) => {
+          dispatch({
+            type: "FILTER_PRICE",
+            payload: paseador.data,
+          });
+        });
+    };
+  }
 
-//   export function FilterPrice ( price ) {
-//     return async function (dispatch) {
-//       return axios .get(`http://localhost:3001/allActiveWalkers/filter/${price}`)
-//         .then((paseador) => {
-//           dispatch({
-//             type: "FILTER_PRICE",
-//             payload: paseador.data,
-//           });
-//         });
-//     };
-//   }
+  // export function FilterUbication( ubication ) {
+  //   return async function (dispatch) {
+  //     return axios .get(`http://localhost:3001/allActiveWalkers/filter/${ubication}`)
+  //       .then((paseador) => {
+  //         dispatch({
+  //           type: "FILTER_UBICATION",
+  //           payload: paseador.data,
+  //         });
+  //       });
+  //   };
+  // }
 
-//   export function FilterSchedule ( schedule ) {
-//     return async function (dispatch) {
-//       return axios .get(`http://localhost:3001/allActiveWalkers/filter/${schedule}`)
-//         .then((paseador) => {
-//           dispatch({
-//             type: "FILTER_SCHEDULE",
-//             payload: paseador.data,
-//           });
-//         });
-//     };
-//   }
-
-//   export function FilterUbication( ubication ) {
-//     return async function (dispatch) {
-//       return axios .get(`http://localhost:3001/allActiveWalkers/filter/${ubication}`)
-//         .then((paseador) => {
-//           dispatch({
-//             type: "FILTER_UBICATION",
-//             payload: paseador.data,
-//           });
-//         });
-//     };
-//   }
-export function Order(payload) {
-  return {
-    type: "ORDER",
-    payload,
-  };
-}
-
-export function FilterPrice(payload) {
-  return {
-    type: "FILTER_PRICE",
-    payload,
-  };
-}
-
-export function FilterUbication(payload) {
-  return {
-    type: "FILTER_UBICATION",
-    payload,
-  };
-}
+  export function FilterServicio( service ) {
+    return async function (dispatch) {
+      return axios.get(`http://localhost:3001/cardsUsers/filter/${service}`)
+        .then((paseador) => {
+          dispatch({
+            type: "FILTER_SERVICE",
+            payload: paseador.data,
+          });
+        });
+    };
+  }
 
 export function ubicationMatch(ubication) {
   console.log(ubication);
@@ -184,6 +164,7 @@ export function ubicationMatch(ubication) {
     }
   };
 }
+
 export function addImage(payload) {
   return async function (dispatch) {
     return axios

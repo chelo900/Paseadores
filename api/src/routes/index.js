@@ -5,12 +5,15 @@ const putDetailsUser = require("./putDetailsUser");
 const putDetailsProfile = require("./putDetailsProfile");
 const get_paseadores = require("./get_paseadores");
 const login = require("./login");
-const get_horarios = require("./get_horarios");
 const putHorarios = require("./putHorarios");
-const get_ubication = require("./get_ubication");
 const postImages = require("./postImages");
 const forgotPassword = require ("./forgotPassword")
 const newPassword = require ("./newPassword")
+const get_horarios = require ("../routes/FilterOrder/get_horarios")
+const get_ubication = require ("../routes/FilterOrder/get_ubication")
+const get_price = require ("../routes/FilterOrder/getPrice")
+const get_order = require ("../routes/FilterOrder/getOrder")
+const get_service = require ("../routes/FilterOrder/getService")
 
 
 const router = Router();
@@ -24,6 +27,9 @@ router.use("/login", login);
 router.use("/walkers", get_horarios);
 router.use("/walkers", putHorarios);
 router.use("/ubication", get_ubication);
+router.use("/", get_price)
+router.use("/", get_order)
+router.use("/", get_service)
 router.use("/postimages", postImages);
 router.use("/forgotPassword",forgotPassword)
 router.use("/newPassword", newPassword)

@@ -3,12 +3,13 @@ import {
   GET_PASEADOR_FOR_ID,
   PUT_DETAILS_PROFILE,
   PUT_DETAILS_USER,
-  ORDER,
-  FILTER_PRICE,
-  FILTER_UBICATION,
   GET_BY_EMAIL,
   NEW_PASEADOR,
   UBICATION_MATCH,
+  ORDER,
+  FILTER_PRICE,
+  FILTER_UBICATION,
+  FILTER_SERVICE
 } from "../actions/index";
 
 const initialState = {
@@ -53,6 +54,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         allPaseadores: action.payload,
       };
+    case FILTER_SERVICE:
+      return {
+        ...state,
+        allPaseadores: action.payload,
+      };
     case FILTER_UBICATION:
       return {
         ...state,
@@ -74,8 +80,9 @@ function rootReducer(state = initialState, action) {
         newId: action.payload.id,
       };
     case UBICATION_MATCH:
-      return { ...state, ubication: action.payload };
-
+      return { 
+        ...state, ubication: action.payload 
+      };
     default:
       return state;
   }
