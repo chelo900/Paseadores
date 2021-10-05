@@ -24,7 +24,7 @@ const PerfilWalker = () => {
         dispatch(getPaseadorForId(id))
     }, [dispatch])
 
-
+// Comentario choto
 
     const [file, setFile] = useState('')
     const handleInputChange = (e) => {
