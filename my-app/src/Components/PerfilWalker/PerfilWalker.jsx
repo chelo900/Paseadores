@@ -11,37 +11,32 @@ import Nav from './nav/nav';
 
 
 const PerfilWalker = () => {
+  const { id } = useParams();
 
-    const { id } = useParams();
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch()
+  const history = useHistory();
 
-    const history = useHistory()
+  const Walker = useSelector((state) => state.detailWalker);
 
-    const Walker = useSelector(state => state.detailWalker)
+  useEffect(() => {
+    dispatch(getPaseadorForId(id));
+  }, [id, dispatch]);
 
-    
+  const [file, setFile] = useState("");
+  const handleInputChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
+  const handleSubmitImage = (e) => {
+    e.preventDefault();
+    if (!file) return;
+    console.log("file", file);
+    // upLoadImage(previewSource)
+    addImage(file);
+  };
 
-    useEffect(()=>{
-        dispatch(getPaseadorForId(id))
-    },[dispatch])
-
-
-    
-    const[file, setFile] = useState ('')
-    const handleInputChange = (e) => {
-        setFile(e.target.files[0])
-    };
-    
-    const handleSubmitImage= (e)=>{
-        e.preventDefault();
-        if (!file) return;
-        console.log('file',file)
-        // upLoadImage(previewSource)
-        addImage(file)
-    }
-
+  
     
 
     const handleLogout = (event) => {
@@ -129,5 +124,4 @@ const PerfilWalker = () => {
         </div>
     )
 }
-
-export default PerfilWalker
+export default PerfilWalker;
