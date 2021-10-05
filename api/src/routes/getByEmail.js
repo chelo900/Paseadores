@@ -11,7 +11,7 @@ router.put("/", async (req, res) => {
     
    try{  
         
-           const datos = await User.findOne({
+           const user = await User.findOne({
                 where: {
                     email: email
                 }
