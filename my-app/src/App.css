@@ -1,5 +1,10 @@
 .app{
   font-family: 'Roboto', sans-serif;
+<<<<<<< HEAD
   height: 100vh !important;
   background-color: rgb(254,247, 237) !important;
+=======
+  height: 100% !important;
+  background-color: rgb(254,247, 237);
+>>>>>>> 5bdcf8a (.)
 }

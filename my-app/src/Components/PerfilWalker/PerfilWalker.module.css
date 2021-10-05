@@ -48,7 +48,7 @@
     display: grid;
     grid-template-columns: repeat(3,1fr);
     height: 100%;
-padding: 0;}
+}
 
 .personalInformation{
     grid-column: 1span;

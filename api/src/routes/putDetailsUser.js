@@ -18,6 +18,6 @@ const updateUser =  async (req,res)=>{
 
 }
  
-router.put('/updateuser/:id',updateUser)
+router.put('/:id',updateUser)
 
 module.exports = router
