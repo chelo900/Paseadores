@@ -25,17 +25,19 @@ export function getByEmail(payload) {
   };
 }
 
-export function getAllPaseadores() {
-  return async function (dispatch, page) {
-    return axios
-      .get(`http://localhost:3001/allActiveWalkers?page=${page}`)
-      .then((paseadores) => {
-        dispatch({
-          type: "GET_PASEADORES",
-          payload: paseadores.data,
-        });
-      });
-  };
+
+export function getAllPaseadores(page, limit){
+        return async function(dispatch){
+            try{
+              let result = await axios.get(`http://localhost:3001/allActiveWalkers?page=${page}&limit=${limit}`)
+              return dispatch({
+                type: 'GET_PASEADORES',
+                payload: result.data
+              })
+            } catch(err){
+              console.log(err)
+            }
+        }
 }
 
 export function getPaseadorForId(id) {
