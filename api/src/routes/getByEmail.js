@@ -1,6 +1,8 @@
-const { Router } = require('express');
-const { User } = require('../db')
-const bcryptjs = require ('bcryptjs')
+const { Router } = require("express");
+const { User } = require("../db");
+const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { SECRET } = process.env;
 
 const router = Router();
 
@@ -15,24 +17,31 @@ router.put("/", async (req, res) => {
                 }
             })
 
-            if(datos){
-            const detallesDatos = {email : datos.email, password: datos.password, id: datos.id} 
+    if (user) {
+      const userData = {
+        id: user.id,
+        email: user.email,
+      };
 
-            let compare = await bcryptjs.compare(password, detallesDatos.password )
+      let isValid = await bcryptjs.compare(password, user.password);
 
-            console.log(password, detallesDatos)
-            
-            if(compare){
+      if (isValid) {
+        const token = jwt.sign(userData, SECRET);
 
-                return res.status(200).json({validate: true, id: detallesDatos.id});
-            }else{
-               return res.status(404).send(false);
-            }
-        }return res.status(404).send(false);
-        }
-    catch {
-        res.status(500).send("Ocurrió un error");
+        return res.status(200).send({
+          validate: true,
+          id: userData.id,
+          email: userData.email,
+          token,
+        });
+      } else {
+        return res.status(401).json({ error: "E-mail o contraseña inválido" });
       }
-    });
+    }
+    return res.status(401).json({ error: "E-mail o contraseña inválido" });
+  } catch {
+    res.status(500).send("Ocurrió un error");
+  }
+});
 
-    module.exports = router
+module.exports = router;

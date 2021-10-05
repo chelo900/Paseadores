@@ -50,8 +50,10 @@ export function getPaseadorForId(id){
         
         }
     }
+  };
 
-}
+
+
 
 export function newPaseador (payload){
         return async function (dispatch){
@@ -77,17 +79,23 @@ export function newPaseador (payload){
          }
  }
 
- export function putDetailsUser(id, payload){
-         return async function (dispatch){
-             return axios.put ("http://localhost:3001/updateuser/" + id, payload)
-             .then(paseador=>{ 
-                dispatch({
-                     type: 'PUT_DETAILS_USER',
-                     payload: paseador.data
-                 })
-             })
-         }
- }
+ export function putDetailsUser(payload, user) {
+  console.log(user.token);
+  return async function (dispatch) {
+    return axios
+      .put(`walkers/updateuser/${user.id}`, payload, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((paseador) => {
+        dispatch({
+          type: "PUT_DETAILS_USER",
+          payload: paseador.data,
+        });
+      });
+  };
+}
 
 //  export function Order(order, attribute) {
 //     return async function (dispatch) {
@@ -100,7 +108,7 @@ export function newPaseador (payload){
 //         });
 //     };
 //   }
-  
+
 //   export function FilterPrice ( price ) {
 //     return async function (dispatch) {
 //       return axios .get(`http://localhost:3001/allActiveWalkers/filter/${price}`)
@@ -139,22 +147,22 @@ export function newPaseador (payload){
 export function Order(payload) {
   return {
     type: "ORDER",
-    payload
-  }
+    payload,
+  };
 }
 
-export function FilterPrice ( payload ) {
+export function FilterPrice(payload) {
   return {
     type: "FILTER_PRICE",
-    payload
-  }
+    payload,
+  };
 }
 
-export function FilterUbication( payload ) {
+export function FilterUbication(payload) {
   return {
     type: "FILTER_UBICATION",
-    payload
-  }
+    payload,
+  };
 }
 
 export function ubicationMatch(ubication){
@@ -174,7 +182,6 @@ export function ubicationMatch(ubication){
   }
 
 }
-
 export function addImage( payload ) {
   return async function (dispatch){
     return axios.post ("http://localhost:3001/postimages/:id", payload)

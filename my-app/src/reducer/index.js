@@ -16,9 +16,8 @@ const initialState = {
   paseador: [],
   detailWalker: [],
   newId: [],
-  id: {},
-  validate: {},
-  ubication: []
+  user: {},
+  ubication: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -39,7 +38,6 @@ function rootReducer(state = initialState, action) {
         detailWalker: action.payload,
       };
     case GET_PASEADOR_FOR_ID:
-      console.log("entro al reducer");
       return {
         ...state,
         detailWalker: action.payload,
@@ -61,11 +59,14 @@ function rootReducer(state = initialState, action) {
         allPaseadores: action.payload,
       };
     case GET_BY_EMAIL:
-      console.log("reducerrrrrr", action.payload.id);
+      const { token, validate, id } = action.payload;
       return {
         ...state,
-        validate: action.payload.validate,
-        id: action.payload.id
+        user: {
+          token,
+          validate,
+          id,
+        },
       };
     case NEW_PASEADOR:
       return {
@@ -73,7 +74,7 @@ function rootReducer(state = initialState, action) {
         newId: action.payload.id,
       };
     case UBICATION_MATCH:
-      return {...state, ubication : action.payload}
+      return { ...state, ubication: action.payload };
 
     default:
       return state;
