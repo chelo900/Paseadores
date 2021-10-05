@@ -47,7 +47,7 @@
 .containerPerfil{
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    height: 100%;
+    height: auto;
 }
 
 .personalInformation{
@@ -71,7 +71,6 @@
     width: auto;
     font-family: 'Work Sans', sans-serif;
     color:rgb(58,84,180);
-  
 }
 
 .liService{
@@ -165,7 +164,12 @@
     padding: 5px;
     font-family: 'Nunito', sans-serif;
 }
-
+.con{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 .fotos{
     margin: 20px;
     width: 600px;
@@ -182,27 +186,40 @@
     font-family: 'Work Sans', sans-serif;
     color:rgb(58,84,180);
 }
-
-.galeria{
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    width: 500px;
+.list{
+    width: 90%;
+    margin: auto;
+    list-style:none;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
 }
-
-.galeria img{
-    grid-column: 1span;
-    width: 100px;
+.listItem{
+    margin: 5px;
+}
+.img{
+    width: 150px;
     height: 100px;
-    margin: 10px;
-    border: solid rgb(58,84,180, 0.5) 4px;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: all .3s;
-    object-fit: cover;
-    object-position: center;
 }
-.galeria img:hover{
-    -webkit-transform:scale(2);transform:scale(2);
+.litleImg{
+    border: 2px solid rgb(58,84,180) ;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4px;
+}
+.imgSelected{
+    margin-top: 20px;
+    border: 2px solid rgb(58,84,180);
+    width: 150%;
+    height: 500px;
+    text-align: center;
+}
+.selected{
+    width: 100%;
+    height: 100%;
 }
 
 .notificaciones{
@@ -283,9 +300,9 @@
 } 
 
 .textDescriptionNew{
- width: 600px;
- height: auto;
- overflow-wrap:break-word
+    width: 600px;
+    height: auto;
+    overflow-wrap:break-word
 }
 
 .horario{

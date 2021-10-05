@@ -6,17 +6,32 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   const { name } = req.params;
-  const { page } = req.query;
+
+  const pageN = Number.parseInt(req.query.page)
+  const pageL = Number.parseInt(req.query.limit)
+
+  let page = 0;
+  if (!Number.isNaN(pageN) && pageN > 0) {
+    page = pageN
+  }
+
+  let limit = 10;
+  if (!Number.isNaN(pageL) && pageL > 0 && pageL < 20) {
+    limit = pageL;
+  }
+
   try {
-    const allActiveWalkers = await User.findAll({
+    const allActiveWalkers = await User.findAndCountAll({
+      limit: limit,
+      offset: page * limit,
       where: {
         status: "active",
       },
     });
-    const allActiveWalkersCards = await allActiveWalkers.map((w) => {
+    const allActiveWalkersCards = await allActiveWalkers.rows.map((w) => {
       return {
         id: w.id,
-        email:w.email,
+        email: w.email,
         name: w.name,
         surname: w.surname,
         image: w.image,
@@ -32,7 +47,7 @@ router.get("/", async (req, res) => {
       //GET BY NAME
       if (name) {
         try {
-          const nameSearch = allActiveWalkersCards.filter(
+          const nameSearch = allActiveWalkersCards.rows.filter(
             (user) => user.name.includes(name) || user.surname.includes(name)
           );
           res.status(200).send(nameSearch);
@@ -41,12 +56,10 @@ router.get("/", async (req, res) => {
         }
       }
       // PAGINATION
-      const results = 5;
-      const lastElement = Number(page) * results;
-      const firstElement = (Number(page) - 1) * results;
-
-      const paginated = allActiveWalkersCards.slice(firstElement, lastElement);
-      res.status(200).send(paginated);
+      res.json({
+        content: allActiveWalkers.rows,
+        totalPages: Math.ceil(allActiveWalkers.count / limit)
+      })
     } else {
       res.status(404).send("Not found");
     }
@@ -88,12 +101,12 @@ router.get("/filter/price", async (req, res) => {
   try {
     const allActiveWalkers = await User.findAll({
       where: {
-        price : {
-          [Op.and]: 
-          [ 
-            {[Op.gte]: min},
-            {[Op.lte]: max} 
-          ], 
+        price: {
+          [Op.and]:
+            [
+              { [Op.gte]: min },
+              { [Op.lte]: max }
+            ],
         }
       },
     });
