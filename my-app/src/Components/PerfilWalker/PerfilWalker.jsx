@@ -44,6 +44,11 @@ const PerfilWalker = () => {
 
     
 
+    const handleLogout = (event) => {
+        event.preventDefault();
+        history.push("/");
+      };
+
 
     return (
         <div className={style.container}>
@@ -102,19 +107,19 @@ const PerfilWalker = () => {
                     <div className={style.fotos}>
                       <div className={style.fondoFotos}>
                         <h2>Fotos</h2>
-                        <div className={style.galeria}>
                             { Walker.images?.map(i=>
-                            <div  key={i.public_id} className={style.textDescription}>
-                                <img src={i.imageURL ? i.imageURL : foto1} alt='a'/>
+                            <div className={style.galeria} key={i.public_id}>
+                            <img src={i.imageURL ? i.imageURL : foto1} alt='a'/>
                             </div>)
                             }
-                        </div>
-                           
                             <form  action={`http://localhost:3001/postimages/${id}`} method="POST" encType="multipart/form-data">
                                 <input type="file" name="image" />
-                                <button type="submit"  className={style.file}>Publicar</button>
+                                <button type="submit">Subir</button>
                             </form>
                       </div>
+                        <div className={style.containerCheckout}>
+                       <button  className={style.checkout} onClick={handleLogout}> CERRAR SESION </button>
+                       </div> 
                     </div>
                 </div>
                 {/* <div className={style.notificaciones}>
