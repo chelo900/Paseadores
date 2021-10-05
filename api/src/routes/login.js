@@ -9,7 +9,7 @@ const router = Router();
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
 
- try {
+  try {
     const user = await User.findOne({
       where: {
         email: email,
