@@ -4,7 +4,7 @@ const { Op } = require("sequelize");
 
 const router = Router();
 
-router.get("/ubication", async (req, res) => {
+router.get("/", async (req, res) => {
     const ubication = req.query.ubication
     console.log(ubication)
     let ubicationSearch =[];

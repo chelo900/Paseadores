@@ -3,7 +3,7 @@ const router = Router();
 const { User } = require("../db");
 const bcryptjs = require("bcryptjs");
 
-router.post("/createUser", async (req, res) => {
+router.post("/", async (req, res) => {
   const {
     id,
     ubication,

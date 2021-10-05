@@ -3,7 +3,7 @@ const { User } = require("../db");
 
 const router = Router();
 
-router.put("/updateuserProfile/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
     const {id} = req.params
     const {status, price, description } = req.body
     

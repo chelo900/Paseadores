@@ -21,7 +21,7 @@ cloudinary.config({
 
 router.use(multer({storage}).single('image'))
 
-router.post("/postimages/:id",  async (req,res)=>{
+router.post("/:id",  async (req,res)=>{
     const {id} = req.params;
     try {
     const result = await cloudinary.uploader.upload(req.file.path);
