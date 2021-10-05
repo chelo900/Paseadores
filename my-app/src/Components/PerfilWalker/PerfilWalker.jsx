@@ -19,10 +19,6 @@ const PerfilWalker = () => {
 
   const Walker = useSelector((state) => state.detailWalker);
 
-    const Walker = useSelector(state => state.detailWalker)
-
-
-    const [selectedImg, setSelectedImg] = useState(Walker.images[0])
 
     useEffect(() => {
         dispatch(getPaseadorForId(id))
@@ -167,19 +163,9 @@ const PerfilWalker = () => {
                                             key={index}
                                             src={image.imageURL ? image.imageURL : foto1}
                                             alt='a'
-                                            onClick={() => setSelectedImg(image.imageURL)}
                                         />
                                     )
                                     )}
-                                </div>
-                                <div className={style.imgSelected}>
-                                    <img
-                                        src={selectedImg}
-                                        alt="Selected"
-                                        className={style.selected}
-                                        width="300px"
-                                        height="300px"
-                                    />
                                 </div>
                                 <form action={`http://localhost:3001/postimages/${id}`} method="POST" encType="multipart/form-data">
                                     <input type="file" name="image" />
