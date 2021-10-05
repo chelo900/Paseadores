@@ -1,5 +1,5 @@
 .app{
   font-family: 'Roboto', sans-serif;
-  height: 100% !important;
-  background-color: rgb(254,247, 237);
+  height: 100vh !important;
+  background-color: rgb(254,247, 237) !important;
 }

@@ -13,14 +13,14 @@ const postImages = require ("./postImages")
 const router = Router();
 
 router.use("/walkers", get_details);
-router.use("/allActiveWalkers", get_paseadores);
-router.use("/createUser", postUser);
-router.use("/updateuser", putDetailsUser)
-router.use("/updateuserProfile", putDetailsProfile)
-router.use("/email", getByEmail)
+router.use("/walkers", get_paseadores);
+router.use("/walkers", postUser);
+router.use("/wlakers", putDetailsUser)
+router.use("/walkers", putDetailsProfile)
+router.use("/walkers", getByEmail)
 router.use("/walkers", get_horarios)
 router.use("/walkers", putHorarios)
-router.use("/ubication", get_ubication)
-router.use("/postimages",postImages)
+router.use("/walkers", get_ubication)
+router.use("/walkers",postImages)
 
 module.exports = router;

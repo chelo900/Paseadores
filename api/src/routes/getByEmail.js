@@ -4,7 +4,7 @@ const bcryptjs = require ('bcryptjs')
 
 const router = Router();
 
-router.put("/", async (req, res) => {
+router.put("/email", async (req, res) => {
     const {email, password} = req.body;
     
    try{  

@@ -1,10 +1,11 @@
 .container{
     background-color: rgb(254,247, 237);
     height: 100%;
+    margin: 0;
 
 }
 
-.containerPortada{
+/* .containerPortada{
     height: 200px;
     width: 100%;
 }
@@ -14,16 +15,22 @@
     object-fit: cover;
     object-position: center;
     border-bottom: rgb(58,84,180) solid 4px;
-}
+} */
 
 .fotoPerfil{
-    height: 210px;
-    width: 210px;
+    height: 212px;
+    width: 212px;
     border-radius: 50%;
     background-color: white;
     position: absolute;
-    top:100px;
+    top:90px;
     left: 200px;
+    z-index: 1;
+}
+.borderFoto{
+    background-color: rgb(58,84,180, 0.2);
+    width: 100%;
+    height: 330px;
 }
 
 .fotoPerfil img {
@@ -31,8 +38,8 @@
     width: 200px;
     border-radius: 50%;
     position: relative;
-    top:5px;
-    left: 5px;
+    top:6px;
+    left: 6px;
     object-fit: cover;
     object-position: center;
 }
@@ -41,19 +48,22 @@
     display: grid;
     grid-template-columns: repeat(3,1fr);
     height: 100%;
-}
+padding: 0;}
 
 .personalInformation{
     grid-column: 1span;
     background-color: white;
     width: 400px;
-    height: 500px;
+    height: 100%;
     margin-left: 100px;
-    /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
 }
 
 .informacion{
-    margin: 120px 0 0 25%;
+    margin: 30px 0 0 25%;
+}
+.informacion ul{
+    width: 300px;
+
 }
 
 .informacion h2{
@@ -98,11 +108,11 @@
 
 .caracteristicas{
     grid-column: 1span;
-    width: auto;
+    width: 100%;
 }
 
 .descripcion{
-    margin: 0px 20px 20px 20px;
+    margin: 100px 20px 0 20px;
     width: 600px;
     height: auto;
     background-color: white;
@@ -140,6 +150,7 @@
     width: 600px;
     height: auto;
     background-color: white;
+    padding-bottom: 10PX;
     /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
 }
 .reputacion h2{
@@ -164,6 +175,7 @@
 }
 .fondoFotos{
     background-color: white;
+    height: auto ;
 }
 .fotos h2{
     padding: 10px ;
@@ -175,8 +187,6 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     width: 500px;
-
-
 }
 
 .galeria img{
@@ -188,6 +198,8 @@
     border-radius: 2px;
     cursor: pointer;
     transition: all .3s;
+    object-fit: cover;
+    object-position: center;
 }
 .galeria img:hover{
     -webkit-transform:scale(2);transform:scale(2);
@@ -217,7 +229,7 @@
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 0px;
     margin-right: 70px;
 }
@@ -263,8 +275,12 @@
 }
 
 .textDescription{
-    width:300px ;
-}
+    width:570px ;
+    /* background-color: rgb(58,84,180, 0.2);
+    border-radius: 5px; */
+    /* margin: 10px;
+    font-weight: bold*/
+} 
 
 .textDescriptionNew{
  width: 600px;
@@ -331,5 +347,20 @@
 
 }
 .checkout:hover{
+    box-shadow: none;
+}
+
+.file{
+    border:none;
+    background-color:rgb(58,84,180);
+    color: white;
+    width: 100px;;
+    height: 25px;
+    margin: 20px;
+    cursor: pointer;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
+
+.file:hover {
     box-shadow: none;
 }

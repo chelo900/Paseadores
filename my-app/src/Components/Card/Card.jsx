@@ -7,6 +7,7 @@ import styles from "./Card.module.css"
 
 function Card({ id, name, surname, image, reputation, service, price }) {
   return (
+    
     <div className={styles.card} >
       <div className={styles.imageContainer}>
         <Link className={styles.link} to={`/home/${id}`}>

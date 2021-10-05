@@ -4,7 +4,7 @@ const { Op } = require("sequelize");
 
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.get("/allActiveWalkers", async (req, res) => {
   const { name } = req.params;
   const { page } = req.query;
   try {
