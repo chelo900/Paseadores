@@ -26,6 +26,11 @@ function validate(input) {
   } else if (`${input.password}`.length < 7) {
     errors.password = "La contraseña debe ser de al menos 7 caracteres";
   }
+  if (!input.password2) {
+    errors.password2 = "Requerido";
+  } else if (input.password !== input.password2) {
+    errors.password2 = "Las contraseñas no coinciden"
+  }
   return errors;
 }
 
@@ -50,6 +55,7 @@ const Form = () => {
     phone: "",
     email: "",
     password: "",
+    password2: "",
     service: "",
     front_dni: "",
     back_dni: "",
@@ -141,6 +147,7 @@ const Form = () => {
         phone: "",
         email: "",
         password: "",
+        password2: "",
         service: "",
         front_dni: "",
         back_dni: "",
@@ -164,45 +171,16 @@ const Form = () => {
   <div className={style.tt}>
     <div className={style.total}>
       <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          <label> Foto de Perfil : </label>
-          <input
-            type="file"
-            accept=".jpg, .png, .pdf"
-            name="file"
-            onChange={uploadImage}
-          />
-        </div>
-        <div>
-          <label> Tipo de Documento </label>
-          <select>
-            <option> DNI </option>
-            <option> Cédula de identidad </option>
-            <option> Cédula de ciudadanía </option>
-            <option> Documento único de identidad </option>
-            <option> Cédula de identidad Civil </option>
-            <option> Pasaporte </option>
-          </select>
-          </div>
-          <div>
-          <label> Foto del Frente del Documento </label>
-          <input
-            type="file"
-            accept=".jpg, .png, .pdf"
-            name="front"
-            onChange={uploadFront}
-          />
-        </div>
-        <div>
-          <label> Foto del Reverso del Documento </label>
-          <input
-            type="file"
-            accept=".jpg, .png, .pdf"
-            name="back"
-            onChange={uploadBack}
-          />
-        </div>
-        <div>
+
+        <h1>Regístrese</h1>
+        
+         
+        
+        
+         
+          
+        
+        
           <label> Nombre : </label>
           <input
             type="text"
@@ -212,8 +190,8 @@ const Form = () => {
             onChange={(e) => handleChange(e)}
           />
           {errors.name && <p className={style.err}> {errors.name} </p>}
-        </div>
-        <div>
+        
+        
           <label> Apellido : </label>
           <input
             type="text"
@@ -222,8 +200,27 @@ const Form = () => {
             name="surname"
             onChange={(e) => handleChange(e)}
           />
-        </div>
-        <div>
+        
+        <label> Foto de Perfil : </label>
+          <div>
+          <input
+            type="file"
+            accept=".jpg, .png, .pdf"
+            name="file"
+            onChange={uploadImage}
+            />
+            </div>
+
+            <label> Tipo de Documento </label>
+          <select>
+            <option> DNI </option>
+            <option> Cédula de identidad </option>
+            <option> Cédula de ciudadanía </option>
+            <option> Documento único de identidad </option>
+            <option> Cédula de identidad Civil </option>
+            <option> Pasaporte </option>
+          </select>
+
           <label> Dni : </label>
           <input
             type="text"
@@ -232,18 +229,38 @@ const Form = () => {
             name="dni"
             onChange={(e) => handleChange(e)}
           />
-        </div>
+        
+          
+        <label> Frente del Documento </label>
+          <div>
+          <input
+            type="file"
+            accept=".jpg, .png, .pdf"
+            name="front"
+            onChange={uploadFront}
+            />
+            </div>
+        
+          <label> Reverso del Documento </label>
         <div>
+          <input
+            type="file"
+            accept=".jpg, .png, .pdf"
+            name="back"
+            onChange={uploadBack}
+            />
+        </div>
+        
           <label> Fecha de Nacimiento : </label>
           <input
             type="text"
-            placeholder="dd/mm/aa"
+            placeholder="mm/dd/aaaa"
             value={input.birth_day}
             name="birth_day"
             onChange={(e) => handleChange(e)}
           />
-        </div>
-        <div>
+        
+        
           <label> Teléfono : </label>
           <input
             type="number"
@@ -252,8 +269,8 @@ const Form = () => {
             name="phone"
             onChange={(e) => handleChange(e)}
           />
-        </div>
-        <div>
+        
+        
           <label> Email : </label>
           <input
             type="text"
@@ -263,8 +280,8 @@ const Form = () => {
             onChange={(e) => handleChange(e)}
           />
           {errors.email && <p className={style.err}> {errors.email} </p>}
-        </div>
-        <div>
+        
+        
           <label> Contraseña : </label>
           <input
             type="password"
@@ -274,8 +291,19 @@ const Form = () => {
             onChange={(e) => handleChange(e)}
           />
           {errors.password && <p className={style.err}> {errors.password} </p>}
-        </div>
-        <div>
+        
+        
+          <label> Repetir Contraseña : </label>
+          <input
+            type="password"
+            placeholder="Password123"
+            value={input.password2}
+            name="password2"
+            onChange={(e) => handleChange(e)}
+          />
+          {errors.password2 && <p className={style.err}> {errors.password2} </p>}
+        
+        
           <label> Servicio : </label>
           <select onChange={(e) => handleService(e)} required>
             <option value="" req>
@@ -286,7 +314,7 @@ const Form = () => {
             <option value="Carer"> Cuidador </option>
             <option value="Walker and Carer"> Paseador y Cuidador</option>
           </select>
-        </div>
+        
         <button type="submit" disabled={Object.values(errors).length > 0}> Crear Usuario </button>
       </form>
     </div>
