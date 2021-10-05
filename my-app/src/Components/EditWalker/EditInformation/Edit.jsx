@@ -6,7 +6,7 @@ import style from "./Edit.module.css";
 
 const Edit = () => {
   const user = useSelector((state) => state.user);
-  
+
   const history = useHistory();
 
   const dispatch = useDispatch();
@@ -56,6 +56,7 @@ const Edit = () => {
   };
 
   const handlerSubmit = () => {
+    console.log(user);
     dispatch(putDetailsUser(input, user));
     alert("Cambios Efectuados");
     history.push(`/walker/perfil/${user.id}`);

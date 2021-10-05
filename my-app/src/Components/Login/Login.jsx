@@ -14,12 +14,10 @@ const Login = () => {
   const [values, setValues] = useState({
     email: "",
     password: "",
-    //id: ''
   });
 
   const user = useSelector((state) => state.user);
-  // const id = useSelector((state) => state.id);
-  // let perfil = id;
+
   const handleOnChange = ({ target: { name, value } }) =>
     setValues({
       ...values,
@@ -27,33 +25,22 @@ const Login = () => {
     });
 
   useEffect(() => {
-    console.log("validate" + user.validate);
-    // if(user.validate.length){
     if (user.validate === true) {
       alert("Welcome");
-      //console.log("PERFIL:", perfil)
-
       history.push(`/walker/perfil/${user.id}`);
     } else if (user.validate === false) {
       alert("Please check your credentials");
     }
-    //}
   }, [user.validate]);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    // console.log('Values:', values)
     dispatch(getByEmail(values));
     setValues({
       ...values,
       email: "",
       password: "",
     });
-    //let auth = validate
-
-    //setTimeout(console.log(auth), 1000);
-
-    // console.log('Values:', values)
   };
 
   return (

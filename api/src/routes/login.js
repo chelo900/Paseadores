@@ -6,16 +6,15 @@ const { SECRET } = process.env;
 
 const router = Router();
 
-router.put("/", async (req, res) => {
-    const {email, password} = req.body;
-    
-   try{  
-        
-           const user = await User.findOne({
-                where: {
-                    email: email
-                }
-            })
+router.post("/", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({
+      where: {
+        email: email,
+      },
+    });
 
     if (user) {
       const userData = {
