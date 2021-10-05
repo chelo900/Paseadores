@@ -16,7 +16,7 @@ export const UBICATION_MATCH= "UBICATION_MATCH"
 export function getByEmail(payload){
   return async function(dispatch){
   try{
-      return axios.put("http://localhost:3001/email", payload)
+      return axios.put("/walkers/email", payload)
       .then(res => dispatch({type: GET_BY_EMAIL, payload: res.data}))
   }catch(e) {
       console.log(e)
@@ -27,7 +27,7 @@ export function getByEmail(payload){
 
 export function getAllPaseadores(){
         return async function(dispatch, page){
-            return axios.get (`http://localhost:3001/allActiveWalkers?page=${page}`)
+            return axios.get (`/walkers/allActiveWalkers?page=${page}`)
             .then (paseadores=>{
                 dispatch({
                     type: 'GET_PASEADORES',
@@ -40,7 +40,7 @@ export function getAllPaseadores(){
 export function getPaseadorForId(id){
   return (dispatch)=>{
     try{
-            axios.get(`http://localhost:3001/walkers/${id}`)
+            axios.get(`/walkers/${id}`)
             .then(response =>dispatch({
                 type:'GET_PASEADOR_FOR_ID',
                 payload:response.data
@@ -55,7 +55,7 @@ export function getPaseadorForId(id){
 
 export function newPaseador (payload){
         return async function (dispatch){
-            return axios.post ("http://localhost:3001/createuser", payload)
+            return axios.post ("/walkers/createuser", payload)
             .then(paseador=>{
                 dispatch({
                     type: 'NEW_PASEADOR',
@@ -67,7 +67,7 @@ export function newPaseador (payload){
 
  export function putDetailsProfile (id, payload){
          return async function (dispatch){
-             return axios.put ("http://localhost:3001/updateuserProfile/" + id, payload)
+             return axios.put ("/walkers/updateuserProfile/" + id, payload)
              .then(paseador=>{ 
                 dispatch({
                      type: 'PUT_DETAILS_PROFILE',
@@ -79,7 +79,7 @@ export function newPaseador (payload){
 
  export function putDetailsUser(id, payload){
          return async function (dispatch){
-             return axios.put ("http://localhost:3001/updateuser/" + id, payload)
+             return axios.put ("/walkers/updateuser/" + id, payload)
              .then(paseador=>{ 
                 dispatch({
                      type: 'PUT_DETAILS_USER',
@@ -91,7 +91,7 @@ export function newPaseador (payload){
 
 //  export function Order(order, attribute) {
 //     return async function (dispatch) {
-//       return axios .get(`http://localhost:3001/allActiveWalkers/${attribute}/${order}`)
+//       return axios .get(`/walkers/allActiveWalkers/${attribute}/${order}`)
 //         .then((paseador) => {
 //           dispatch({
 //             type: "ORDER",
@@ -103,7 +103,7 @@ export function newPaseador (payload){
   
 //   export function FilterPrice ( price ) {
 //     return async function (dispatch) {
-//       return axios .get(`http://localhost:3001/allActiveWalkers/filter/${price}`)
+//       return axios .get(`/walkers/allActiveWalkers/filter/${price}`)
 //         .then((paseador) => {
 //           dispatch({
 //             type: "FILTER_PRICE",
@@ -115,7 +115,7 @@ export function newPaseador (payload){
 
 //   export function FilterSchedule ( schedule ) {
 //     return async function (dispatch) {
-//       return axios .get(`http://localhost:3001/allActiveWalkers/filter/${schedule}`)
+//       return axios .get(`/walkers/allActiveWalkers/filter/${schedule}`)
 //         .then((paseador) => {
 //           dispatch({
 //             type: "FILTER_SCHEDULE",
@@ -127,7 +127,7 @@ export function newPaseador (payload){
 
 //   export function FilterUbication( ubication ) {
 //     return async function (dispatch) {
-//       return axios .get(`http://localhost:3001/allActiveWalkers/filter/${ubication}`)
+//       return axios .get(`/walkers/allActiveWalkers/filter/${ubication}`)
 //         .then((paseador) => {
 //           dispatch({
 //             type: "FILTER_UBICATION",
@@ -164,7 +164,7 @@ export function ubicationMatch(ubication){
       
       try{
       
-          json = await axios.get(`http://localhost:3001/ubication?ubication=${ubication}`)
+          json = await axios.get(`/walkers/ubication?ubication=${ubication}`)
       
       console.log(json.data)
       return dispatch({ type: UBICATION_MATCH, payload: json.data });
@@ -177,7 +177,7 @@ export function ubicationMatch(ubication){
 
 export function addImage( payload ) {
   return async function (dispatch){
-    return axios.post ("http://localhost:3001/postimages/:id", payload)
+    return axios.post ("/walkers/postimages/:id", payload)
     .then(image=>{
       dispatch({
         type: "ADD_IMAGE",
