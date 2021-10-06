@@ -11,13 +11,18 @@ import {
   FILTER_UBICATION,
   FILTER_SERVICE,
   RECOVER_PASSWORD,
-  NEW_PASSWORD
+  NEW_PASSWORD,
+  GET_CLIENTE_FOR_ID,
+  PUT_DETAILS_CLIENT,
+  PUT_DETAILS_PROFILE_CLIENTE
 } from "../actions/index";
 
 const initialState = {
   allPaseadores: [],
   paseador: [],
   detailWalker: [],
+  detailCliente: [],
+  newIdCliente: [],
   newId: [],
   user: {},
   ubication: [],
@@ -94,6 +99,23 @@ function rootReducer(state = initialState, action) {
     case NEW_PASSWORD:
       return { 
         ...state, mensaje: action.payload 
+      };
+      // CLIENTE :
+    case GET_CLIENTE_FOR_ID:
+      return {
+        ...state,
+        detailCliente: action.payload,
+        newIdCliente: [],
+      };
+    case PUT_DETAILS_PROFILE_CLIENTE:
+      return {
+        ...state,
+        detailCliente: action.payload,
+      };
+    case PUT_DETAILS_CLIENT:
+      return {
+        ...state,
+        detailCliente: action.payload,
       };
     default:
       return state;
