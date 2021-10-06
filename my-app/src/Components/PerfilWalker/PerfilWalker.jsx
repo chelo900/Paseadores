@@ -48,10 +48,6 @@ const PerfilWalker = () => {
     //     console.log(base64EncodeImage)
     // }
 
-
-
-
-
     return (
         <div className={style.container}>
             <div className={style.containerPortada}>
@@ -63,7 +59,7 @@ const PerfilWalker = () => {
                         {Walker.image ? <img src={Walker.image} alt='' /> : <img src="https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg" alt='' />}
                     </div>
                     <div className={style.informacion}>
-                        <h2>{Walker.name} {Walker.surname}</h2>
+                        {/* <h2>{Client.name} {Client.surname}</h2> */}
                         <ul >
                             <li className={style.liService}>{Walker.service}</li>
                             <li className={style.libirth}>{Walker.birth_day}</li>

@@ -15,7 +15,9 @@ const get_price = require ("../routes/FilterOrder/getPrice")
 const get_order = require ("../routes/FilterOrder/getOrder")
 const get_service = require ("../routes/FilterOrder/getService")
 const postClient = require ("./Client/postClient")
-// const putCliente = require ("../routes/Client/putCliente")
+const putClientePerfil = require ("../routes/Client/putClientePerfil")
+const putCliente = require ("../routes/Client/putClient")
+const detailsClient = require("../routes/Client/getDetailsCliente")
 
 const router = Router();
 
@@ -35,7 +37,8 @@ router.use("/postimages", postImages);
 router.use("/forgotPassword",forgotPassword);
 router.use("/newPassword", newPassword);
 router.use("/createClient", postClient);
-// router.use("/updatecliente", putCliente);
-
+router.use("/updateClientProfile", putClientePerfil);
+router.use("/updateCliente", putCliente);
+router.use("/Cliente", detailsClient);
 
 module.exports = router;

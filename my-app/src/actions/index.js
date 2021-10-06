@@ -14,6 +14,9 @@ export const FILTER_PRICE = "FILTER_PRICE";
 export const FILTER_UBICATION = "FILTER_UBICATION";
 export const RECOVER_PASSWORD = "RECOVER_PASSWORD";
 export const NEW_PASSWORD = "NEW_PASSWORD";
+export const GET_CLIENTE_FOR_ID = "GET_CLIENTE_FOR_ID";
+export const PUT_DETAILS_CLIENT = "PUT_DETAILS_CLIENT";
+export const PUT_DETAILS_PROFILE_CLIENTE = "PUT_DETAILS_PROFILE_CLIENTE"
 
 export function getByEmail(payload) {
   return async function (dispatch) {
@@ -45,7 +48,8 @@ export function getAllPaseadores(page, limit){
 export function getPaseadorForId(id) {
   return (dispatch) => {
     try {
-      axios.get(`http://localhost:3001/walkers/${id}`).then((response) =>
+      axios.get(`http://localhost:3001/walkers/${id}`)
+      .then((response) =>
         dispatch({
           type: "GET_PASEADOR_FOR_ID",
           payload: response.data,
@@ -206,6 +210,8 @@ export function newPassword(token ,payload) {
   };
 }
 
+//    CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE 
+
 export function newClient(payload){
   return async function (dispatch){
     return axios
@@ -217,5 +223,48 @@ export function newClient(payload){
         })
       })
   }
+}
+
+export function getClienteForId(id) {
+  return (dispatch) => {
+      axios.get(`http://localhost:3001/Cliente/${id}`)
+      .then((response) =>
+        dispatch({
+          type: "GET_CLIENTE_FOR_ID",
+          payload: response.data,
+        })
+      );
+  };
+}
+
+export function putDetailsProfileCliente (id, payload) {
+  return async function (dispatch) {
+    return axios
+      .put("http://localhost:3001/updateClientProfile/" + id, payload)
+      .then((paseador) => {
+        dispatch({
+          type: "PUT_DETAILS_PROFILE_CLIENTE",
+          payload: paseador.data,
+        });
+      });
+  };
+}
+
+export function putDetailsCliente(payload, client) {
+  console.log("token: ", client.token);
+  return async function (dispatch) {
+    return axios
+      .put(`http://localhost:3001/updateCliente/${client.id}`, payload, {
+        headers: {
+          Authorization: `Bearer ${client.token}`,
+        },
+      })
+      .then((paseador) => {
+        dispatch({
+          type: "PUT_DETAILS_CLIENT",
+          payload: paseador.data,
+        });
+      });
+  };
 }
 

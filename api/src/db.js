@@ -54,7 +54,7 @@ User.hasMany(Client);
 Client.belongsTo(User)
 
 // User.hasMany(Horarios);
-// Horarios.hasOne(User);
+// Horarios.belongsTo(User);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
