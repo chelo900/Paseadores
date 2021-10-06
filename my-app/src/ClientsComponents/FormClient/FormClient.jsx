@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { getPaseadorForId, newPaseador } from "../../actions";
+import {  newClient } from "../../actions";
 import style from "./FormClient.module.css";
 
 function validate(input) {
@@ -55,6 +55,7 @@ const FormClient = () => {
     email: "",
     password: "",
     password2: "",
+    description: ""
   });
 
 
@@ -77,45 +78,9 @@ const FormClient = () => {
       image: file.secure_url,
     }))
   }
-  const uploadFront = async e => {
-    const files = e.target.files
-    const data = new FormData()
-    data.append('file', files[0])
-    data.append('upload_preset', 'projectimages') 
-    const res = await fetch(
-      'https://api.cloudinary.com/v1_1/dvmrhxfht/image/upload',
-      {
-        method: 'POST',
-        body: data
-      }
-    )
-    const front = await res.json()
-    setInput(values => ({
-      ...values,
-      front_dni: front.secure_url,
-    }))
-  }
-  const uploadBack = async e => {
-    const files = e.target.files
-    const data = new FormData()
-    data.append('file', files[0])
-    data.append('upload_preset', 'projectimages') 
-    const res = await fetch(
-      'https://api.cloudinary.com/v1_1/dvmrhxfht/image/upload',
-      {
-        method: 'POST',
-        body: data
-      }
-    )
-    const back = await res.json()
-    setInput(values => ({
-      ...values,
-      back_dni: back.secure_url,
-    }))
-  }
-
-
-  function handleChange(e) {
+  
+  
+    function handleChange(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -132,7 +97,7 @@ const FormClient = () => {
     if (Object.values(errors).length > 1)
       alert("Completa la informacion solicitada");
     else {
-      dispatch(newPaseador(input));
+      dispatch(newClient(input));
       alert("User Created successfully");
       setInput({
         image: "",
@@ -143,6 +108,7 @@ const FormClient = () => {
         email: "",
         password: "",
         password2: "",
+        description: ""
       });
 
       history.push("/login");
@@ -152,12 +118,7 @@ const FormClient = () => {
   //   history.push(`/walker/perfil/${newId}`);
   // }
 
-  function handleService(e) {
-    setInput({
-      ...input,
-      service: e.target.value,
-    });
-  }
+  
 
   return (
   <div className={style.tt}>
@@ -166,104 +127,108 @@ const FormClient = () => {
 
         <h1>Regístrese</h1>
         
-         
-        
-        
-         
-          
-        
-        
-          <label> Nombre : </label>
-          <input
+        <label> Nombre : </label>
+        <input
             type="text"
             placeholder="Nombre"
             value={input.name}
             name="name"
             onChange={(e) => handleChange(e)}
-          />
-          {errors.name && <p className={style.err}> {errors.name} </p>}
+        />
+        {errors.name && <p className={style.err}> {errors.name} </p>}
         
         
-          <label> Apellido : </label>
-          <input
+        <label> Apellido : </label>
+        <input
             type="text"
             placeholder="Apellido"
             value={input.surname}
             name="surname"
             onChange={(e) => handleChange(e)}
-          />
+        />
         
         <label> Foto de Perfil : </label>
-          <div>
+        <div>
           <input
             type="file"
             accept=".jpg, .png, .pdf"
             name="file"
             onChange={uploadImage}
             />
-            </div>
+        </div>
 
-            <label> Tipo de Documento </label>
-          <select>
+        <label> Descripción  : </label>
+        <textarea
+            type="number"
+            placeholder="Cantidad de perro, tamaño..."
+            value={input.description}
+            name="description"
+            onChange={(e) => handleChange(e)}
+            rows="10" cols="50"
+        />
+      
+
+        <label> Tipo de Documento </label>
+        <select>
             <option> DNI </option>
             <option> Cédula de identidad </option>
             <option> Cédula de ciudadanía </option>
             <option> Documento único de identidad </option>
             <option> Cédula de identidad Civil </option>
             <option> Pasaporte </option>
-          </select>
+        </select>
 
-          <label> Dni : </label>
-          <input
+        <label> Dni : </label>
+        <input
             type="text"
             placeholder="Dni"
             value={input.dni}
             name="dni"
             onChange={(e) => handleChange(e)}
-          />
+        />
         
           
         <label> Teléfono : </label>
-          <input
+        <input
             type="number"
             placeholder="ej: +54 11 68525749"
             value={input.phone}
             name="phone"
             onChange={(e) => handleChange(e)}
-          />
+        />
         
         
-          <label> Email : </label>
-          <input
+        <label> Email : </label>
+        <input
             type="text"
             placeholder="paseador@gmail.com"
             value={input.email}
             name="email"
             onChange={(e) => handleChange(e)}
-          />
-          {errors.email && <p className={style.err}> {errors.email} </p>}
+        />
+        {errors.email && <p className={style.err}> {errors.email} </p>}
         
         
-          <label> Contraseña : </label>
-          <input
+        <label> Contraseña : </label>
+        <input
             type="password"
             placeholder="Password123"
             value={input.password}
             name="password"
             onChange={(e) => handleChange(e)}
-          />
-          {errors.password && <p className={style.err}> {errors.password} </p>}
+        />
+        {errors.password && <p className={style.err}> {errors.password} </p>}
         
         
-          <label> Repetir Contraseña : </label>
-          <input
+        <label> Repetir Contraseña : </label>
+        <input
             type="password"
             placeholder="Password123"
             value={input.password2}
             name="password2"
             onChange={(e) => handleChange(e)}
-          />
-          {errors.password2 && <p className={style.err}> {errors.password2} </p>}
+        />
+        {errors.password2 && <p className={style.err}> {errors.password2} </p>}
         
         
         <button type="submit" disabled={Object.values(errors).length > 0}> Crear Usuario </button>
