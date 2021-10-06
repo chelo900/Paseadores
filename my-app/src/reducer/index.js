@@ -68,13 +68,14 @@ function rootReducer(state = initialState, action) {
         allPaseadores: action.payload,
       };
     case GET_BY_EMAIL:
-      const { token, validate, id } = action.payload;
+      const { token, validate, id, walker} = action.payload;
       return {
         ...state,
         user: {
           token,
           validate,
           id,
+          walker
         },
       };
     case NEW_PASEADOR:

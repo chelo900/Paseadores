@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const { User } = require("../db");
+const { User, Client } = require("../db");
 const bcryptjs = require("bcryptjs");
 
 router.post("/", async (req, res) => {
@@ -23,6 +23,12 @@ router.post("/", async (req, res) => {
   let passwordHash = await bcryptjs.hash(password, 8);
 
   try {
+    const verificacion = await Client.findOne({
+    where: {
+      email: email,
+    },
+  });
+  if(!verificacion){
     const [user, created] = await User.findOrCreate({
       where: {
         email: email,
@@ -43,11 +49,16 @@ router.post("/", async (req, res) => {
     });
     if (!created) {
       return res
-        .status(200)
+        .status(400)
         .json({ message: "Your email adress is already registered" });
     }
 
     res.status(201).json(user);
+
+  }else{ return res
+    .status(400)
+    .json({ message: "Your email adress is already registered" });}
+
   } catch (error) {
     console.error(error);
   }
