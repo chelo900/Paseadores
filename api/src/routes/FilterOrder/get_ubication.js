@@ -21,7 +21,6 @@ router.get("/filter/:ubication", async (req, res) => {
 
 router.get("/", async (req, res) => {
     const ubication = req.query.ubication
-    console.log(ubication)
     let ubicationSearch =[];
   try {
     const allActiveWalkers = await User.findAll({
