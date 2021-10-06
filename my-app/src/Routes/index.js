@@ -4,6 +4,8 @@ import FormWalker from "../Components/FormWalker/FormWalker";
 import Home from "../Components/Home/home";
 import PreLogin from "../Components/Home/PreLogin/PreLogin";
 import Login from "../Components/Login/Login.jsx";
+import recoverPassword from "../Components/Login/RecoverPassword";
+import NewPassword from "../Components/Login/NewPassword";
 import UsersCards from "../Components/UsersCards/UsersCards";
 import Form from "../Components/Home/Form/Form";
 import SelectType from "../Components/SelectType/SelectType";
@@ -12,6 +14,7 @@ import EditInformation from "../Components/EditWalker/EditInformation/Edit.jsx";
 import EditPrice from "../Components/EditWalker/EditPrice/Edit.jsx";
 import EditDescription from "../Components/EditWalker/EditDescription/Edit";
 import EditHorarios from "../Components/EditWalker/editHr/Edit";
+
 
 const index = () => {
   return (
@@ -22,6 +25,8 @@ const index = () => {
         <Route exact path="/pre-login" component={PreLogin} />
         <Route exact path="/login-walkwer" component={FormWalker} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/login/recoverPassword" component={recoverPassword} />
+        <Route exact path="/new-password/:token" component={NewPassword} />
         <Route exact path="/formWalker" component={Form} />
         <Route exact path="/selectType" component={SelectType} />
         <Route exact path="/cardsUsers" component={UsersCards} />

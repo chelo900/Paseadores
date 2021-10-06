@@ -12,6 +12,8 @@ export const FILTER_SERVICE = "FILTER_SERVICE"
 export const ORDER = "ORDER";
 export const FILTER_PRICE = "FILTER_PRICE";
 export const FILTER_UBICATION = "FILTER_UBICATION";
+export const RECOVER_PASSWORD = "RECOVER_PASSWORD";
+export const NEW_PASSWORD = "NEW_PASSWORD";
 
 export function getByEmail(payload) {
   return async function (dispatch) {
@@ -148,7 +150,6 @@ export function Order( attribute, order,) {
   }
 
 export function ubicationMatch(ubication) {
-  console.log(ubication);
   return async function (dispatch) {
     let json;
 
@@ -157,7 +158,6 @@ export function ubicationMatch(ubication) {
         `http://localhost:3001/ubication?ubication=${ubication}`
       );
 
-      console.log(json.data);
       return dispatch({ type: UBICATION_MATCH, payload: json.data });
     } catch (error) {
       return dispatch({ type: UBICATION_MATCH, payload: error });
@@ -167,6 +167,7 @@ export function ubicationMatch(ubication) {
 
 export function addImage(payload) {
   return async function (dispatch) {
+    console.log(payload)
     return axios
       .post("http://localhost:3001/postimages/:id", payload)
       .then((image) => {
@@ -175,6 +176,31 @@ export function addImage(payload) {
           payload: image.data,
         });
         console.log(payload);
+      });
+  };
+}
+
+export function recoverPassword(payload) {
+  return async function (dispatch) {
+    return axios
+      .put("http://localhost:3001/forgotPassword" , payload)
+      .then((paseador) => {
+        dispatch({
+          type: "RECOVER_PASSWORD",
+          payload: paseador.data,
+        });
+      });
+  };
+}
+export function newPassword(token ,payload) {
+  return async function (dispatch) {
+    return axios
+      .put(`http://localhost:3001/newPassword/${token}` , payload)
+      .then((paseador) => {
+        dispatch({
+          type: "NEW_PASSWORD",
+          payload: paseador.data,
+        });
       });
   };
 }

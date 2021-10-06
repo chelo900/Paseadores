@@ -70,8 +70,8 @@ const Login = () => {
             <span></span>
             <label htmlFor="">Password</label>
           </div>
-          <span className={style.pass}>Forgot password?</span>
-          <input className={style.login} type="submit" value="login"></input>
+          <Link to="/login/recoverPassword"> <span className={style.pass}>Forgot password?</span> </Link>
+           <input className={style.login} type="submit" value="login"></input>
           <div className={style.link}>
             <span>
               Not registered?

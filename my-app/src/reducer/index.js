@@ -9,7 +9,9 @@ import {
   ORDER,
   FILTER_PRICE,
   FILTER_UBICATION,
-  FILTER_SERVICE
+  FILTER_SERVICE,
+  RECOVER_PASSWORD,
+  NEW_PASSWORD
 } from "../actions/index";
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
   newId: [],
   user: {},
   ubication: [],
+  mensaje:""
 };
 
 function rootReducer(state = initialState, action) {
@@ -82,6 +85,14 @@ function rootReducer(state = initialState, action) {
     case UBICATION_MATCH:
       return { 
         ...state, ubication: action.payload 
+      };
+    case RECOVER_PASSWORD:
+      return { 
+        ...state, mensaje: action.payload 
+      };
+    case NEW_PASSWORD:
+      return { 
+        ...state, mensaje: action.payload 
       };
     default:
       return state;

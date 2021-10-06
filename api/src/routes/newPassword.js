@@ -5,9 +5,10 @@ const bcryptjs = require("bcryptjs");
 const router = Router();
 
 router.put("/:token", async (req, res) => {
-    const {newPassword} = req.body
+    const {password} = req.body
     const {token} = req.params
-        if(!token || !newPassword){
+    console.log(token,password);
+        if(!token || !password){
         res.status(400).send({message: "faltan datos"});
     }
     
@@ -18,11 +19,11 @@ router.put("/:token", async (req, res) => {
             }
         })
 
-        let passwordHash = await bcryptjs.hash(newPassword, 8);
+        let passwordHash = await bcryptjs.hash(password, 8);
         paseador.password = passwordHash
         const paseadorActualizado = await paseador.save()
 
-        res.status(200).send(paseadorActualizado);
+        res.status(200).send("nueva contraseña");
     }catch{
         res.status(500).send("Ecurrió un error");
     }

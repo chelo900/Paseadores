@@ -20,7 +20,7 @@ const UsersCards = () => {
     const [limitPerPage, setLimitPerPage] = useState(5);
     const [order, setOrder] = useState("");
 
-    // const ubica = useSelector(state => state.ubication)
+     const ubica = useSelector(state => state.ubication)
 
     console.log(page)
     console.log(limitPerPage)
@@ -69,9 +69,9 @@ const UsersCards = () => {
         dispatch(getAllPaseadores())
     }
 
-    // useEffect(() => {
-    //     dispatch(ubicationMatch(input.ubication))
-    // }, [input.ubication])
+     useEffect(() => {
+         dispatch(ubicationMatch(input.ubication))
+     }, [input.ubication])
 
 
     return (
@@ -131,7 +131,12 @@ const UsersCards = () => {
                             value={input.ubication}
                             name="ubication"
                             onChange={e => handleChange(e)}
+                            list="ubi"
                         />
+                        <datalist id="ubi">
+                            { ubica?.map(t => {
+                                return <option key={t} value={t}></option>} )}
+                        </datalist>
                         <button className={style.btn} > buscar </button>
                     </form>
                     <div>
