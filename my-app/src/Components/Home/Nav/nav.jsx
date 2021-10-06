@@ -8,22 +8,23 @@ const Nav = () => {
     return (
         <nav className={style.navBar}>
             <div className={style.container}>
-                <h3 className={style.logo}>Happy Dog!</h3>
-                <a href='#home'>Home</a>
-                <a href='#about'>About</a>
-                <a href='#services'>Services</a>
-                <a href='#contact'>Contact</a>
+                <div className={style.title}>
+                    <h3 className={style.logo}>Happy Dog!</h3>
+                </div>
+                <div className={style.containerA}>
+                    <a href='#home'>Home</a>
+                    <a href='#about'>Sobre Nosotros</a>
+                    <a href='#services'>Servicios</a>
+                    <a href='#contact'>Contacto</a>
+                </div>
                 <Link to='/login' className={style.login} >
                     <div className={style.containerLogin}>
                         <span className={style.icon} class="material-icons-outlined">account_circle</span>
-                        <span>Log In</span>
+                        <span className={style.log}>Iniciar Sesión</span>
                     </div>
                 </Link>
-
             </div>
-
         </nav>
-
     )
 }
 export default Nav

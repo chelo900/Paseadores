@@ -32,7 +32,15 @@
     width: 100%;
     height: 330px;
 }
-
+.containerPortada{
+    height: 35vh;
+    width: 100%;
+    object-fit:contain;
+}
+.fotoPortada{
+    /* height: 100%;
+    width: 100%; */
+}
 .fotoPerfil img {
     height: 200px;
     width: 200px;
@@ -361,8 +369,8 @@
     justify-content: center;
     padding-bottom: 20px;
     margin: 20px 0 20px 0;
-
 }
+
 .checkout:hover{
     box-shadow: none;
 }

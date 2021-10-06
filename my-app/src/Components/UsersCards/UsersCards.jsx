@@ -21,10 +21,15 @@ const UsersCards = () => {
     const [limitPerPage, setLimitPerPage] = useState(5);
     const [order, setOrder] = useState("");
 
+<<<<<<< HEAD
      const ubica = useSelector(state => state.ubication)
 
     console.log(page)
     console.log(limitPerPage)
+=======
+    // const ubica = useSelector(state => state.ubication)
+    console.log(allUsers)
+>>>>>>> a7a24d8 (css fix)
     useEffect(() => {
         dispatch(getAllPaseadores(page, limitPerPage))
     }, [page])
@@ -161,7 +166,6 @@ const UsersCards = () => {
                     </div>
                 </div>
             </div>
-
             <div>
                 {
                     allUsers.content?.length > 0 ? allUsers.content.map(el => {
