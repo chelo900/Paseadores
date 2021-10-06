@@ -14,6 +14,7 @@ import EditInformation from "../Components/EditWalker/EditInformation/Edit.jsx";
 import EditPrice from "../Components/EditWalker/EditPrice/Edit.jsx";
 import EditDescription from "../Components/EditWalker/EditDescription/Edit";
 import EditHorarios from "../Components/EditWalker/editHr/Edit";
+import FormClient from "../ClientsComponents/FormClient/FormClient"
 
 
 const index = () => {
@@ -35,6 +36,11 @@ const index = () => {
         <Route exact path="/walker/editPrice/:id" component={EditPrice} />
         <Route exact path="/walker/editInformation/:id" component={EditInformation}/>
         <Route exact path="/walker/edithr/:id" component={EditHorarios}/>
+
+
+
+        {/* Rutas del cliente  */}
+        <Route exact path= "/login-client" component={FormClient}/>
       </Switch>
     </div>
   );

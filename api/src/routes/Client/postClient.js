@@ -12,7 +12,8 @@ router.post("/", async (req, res) => {
     image,
     phone,
     email,
-    password
+    password,
+    description
   } = req.body;
 
   let passwordHash = await bcryptjs.hash(password, 8);
@@ -30,6 +31,7 @@ router.post("/", async (req, res) => {
         image: image,
         phone: phone,
         password: passwordHash,
+        description: description
       },
     });
     if (!created) {

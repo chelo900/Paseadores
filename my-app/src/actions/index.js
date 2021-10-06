@@ -205,3 +205,17 @@ export function newPassword(token ,payload) {
       });
   };
 }
+
+export function newClient(payload){
+  return async function (dispatch){
+    return axios
+      .post("http://localhost:3001/createClient", payload)
+      .then((client)=>{
+        dispatch({
+          type: "NEW_CLIENT",
+          payload: client.data,
+        })
+      })
+  }
+}
+
