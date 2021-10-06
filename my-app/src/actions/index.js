@@ -103,19 +103,20 @@ export function putDetailsUser(payload, user) {
 
 export function Order( attribute, order,) {
     return async function (dispatch) {
-      return axios.get(`http://localhost:3001/cardsUsers/order/${attribute}/${order}`)
+      return axios.get(`http://localhost:3001/order/${attribute}/${order}`)
         .then((paseador) => {
           dispatch({
             type: "ORDER",
             payload: paseador.data,
+            
           });
-        });
+        });  
     };
   }
-  
+
   export function FilterPrice (input) {
     return async function (dispatch) {
-      return axios.get(`http://localhost:3001/cardsUsers/filter/price`, input)
+      return axios.get(`http://localhost:3001/filter/price`, input)
         .then((paseador) => {
           dispatch({
             type: "FILTER_PRICE",
@@ -139,7 +140,7 @@ export function Order( attribute, order,) {
 
   export function FilterServicio( service ) {
     return async function (dispatch) {
-      return axios.get(`http://localhost:3001/cardsUsers/filter/${service}`)
+      return axios.get(`http://localhost:3001/filter/${service}`)
         .then((paseador) => {
           dispatch({
             type: "FILTER_SERVICE",

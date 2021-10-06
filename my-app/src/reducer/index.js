@@ -53,7 +53,7 @@ function rootReducer(state = initialState, action) {
         allPaseadores: action.payload,
       };
     case FILTER_PRICE:
-      return {
+      return { 
         ...state,
         allPaseadores: action.payload,
       };

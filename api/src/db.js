@@ -50,6 +50,9 @@ Complain.belongsTo(User);
 User.hasMany(Image);
 Image.belongsTo(User);
 
+User.hasMany(Client);
+Client.belongsTo(User)
+
 // User.hasMany(Horarios);
 // Horarios.hasOne(User);
 

@@ -14,6 +14,7 @@ import {
 const UsersCards = () => {
     const dispatch = useDispatch();
     const allUsers = useSelector((state) => state.allPaseadores);
+    console.log("todos",allUsers)
 
     // Paginado
     const [page, setPage] = useState(0);
@@ -26,7 +27,6 @@ const UsersCards = () => {
     console.log(limitPerPage)
     useEffect(() => {
         dispatch(getAllPaseadores(page, limitPerPage))
-        console.log(allUsers)
     }, [page])
 
     const [input, setInput] = useState({
@@ -53,8 +53,9 @@ const UsersCards = () => {
     }
 
     function handleOrder(e) {
+        console.log(e.target.name)
         e.preventDefault();
-        dispatch(Order(e.target.name, e.target.value))
+        dispatch(Order(e.target.value, e.target.name))
     }
 
     function handleChange(e) {
