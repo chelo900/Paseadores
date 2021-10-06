@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { Client } = require("../db");
-const { getTokenValidation } = require("../utils/utils");
+const { getTokenValidation } = require("../../utils/utils");
 
 const router = Router();
 
@@ -44,7 +44,7 @@ router.put("/:id", async (req, res) => {
             .json({ error: "Token no existente o invalido" });
         }
 
-        await User.update(detail, {
+        await Client.update(detail, {
           where: {
             id,
           },
