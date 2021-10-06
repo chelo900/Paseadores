@@ -1,0 +1,129 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* color: rgb(58,84,180); */
+}
+.tt{
+    height: 100vh;
+    width: 100%;
+    background-color: #fff;
+    opacity: 0.8;
+    background-image:  linear-gradient(30deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(150deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(30deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(150deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(60deg, #fef7ed77 25%, transparent 25.5%, transparent 75%, #fef7ed77 75%, #fef7ed77), linear-gradient(60deg, #fef7ed77 25%, transparent 25.5%, transparent 75%, #fef7ed77 75%, #fef7ed77);
+    background-size: 20px 35px;
+    background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.total {
+    background-color: rgb(219, 219, 219);
+    text-align: left;
+    padding: 20px 20px;
+    max-width: 60%;
+    height: 90%;
+    font-family: 'Work Sans', sans-serif;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+.form{
+    color: rgb(58,84,180);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+    font-size: 15px;
+}
+
+.form h1 {
+
+    text-align: center;
+}
+
+.form div{
+    padding-bottom: 10px;
+    width: 100%;
+    text-align: left;
+    height: 50px;
+}
+
+.form input {
+    border-radius: 5px;
+}
+.err{
+    color: red;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.fp{
+    margin: 16px;
+}
+
+.df{
+    margin: 16px;
+}
+
+.fpb {
+    margin-top: 16px;
+}
+
+.dfb {
+    margin-top: 16px;
+}
+
+.db {
+    margin: 16px;
+}
+
+.nom{
+    margin: 16px;
+    cursor: pointer;
+}
+
+.ape{
+    margin: 16px;
+    cursor: pointer;
+}
+
+.cump{
+    margin: 16px;
+    cursor: pointer;
+}
+
+.cel{
+    margin: 16px;
+    cursor: pointer;
+}
+
+.mail {
+    margin:  16px;
+    cursor: pointer;
+}
+
+.contra{
+    margin: 16px;
+    cursor: pointer;
+}
+
+.serv {
+    margin: 16px;
+    cursor: pointer;
+}
+
+.form button{
+    background-color: rgb(58,84,180);;
+    margin: 16px;
+    border-radius: 8px;
+    padding: 6px 6px;
+    margin-left: 250px;
+    font-family: 'Work Sans', sans-serif;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.form button:hover{
+    background-color: #ffffff
+}

@@ -14,7 +14,7 @@ const PreLogin = () => {
                     <Link to='/login-walkwer' > 
                         <button className={style.boton}><p>Paseador / Cuidador</p></button>
                     </Link>
-                    <Link>
+                    <Link to='/login-client'>
                         <button  className={style.boton} ><p>Dueno de mascota</p></button>
                     </Link>
                 </div>
