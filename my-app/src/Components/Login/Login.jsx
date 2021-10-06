@@ -17,21 +17,26 @@ const Login = () => {
   });
 
   const user = useSelector((state) => state.user);
-
+  
   const handleOnChange = ({ target: { name, value } }) =>
     setValues({
       ...values,
       [name]: value,
     });
+    
 
   useEffect(() => {
+    
     if (user.validate === true) {
       alert("Welcome");
+      if(user.walker){
       history.push(`/walker/perfil/${user.id}`);
+      }else{history.push(`/cardsUsers`);}
     } else if (user.validate === false) {
       alert("Please check your credentials");
+      window.location.reload();;
     }
-  }, [user.validate]);
+  }, [user.validate, user.walker]);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
