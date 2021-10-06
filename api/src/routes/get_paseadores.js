@@ -1,20 +1,21 @@
 const { Router } = require("express");
 const { User } = require("../db");
 const { Op } = require("sequelize");
+const { filterAndSortWalkers } = require("../utils/filterAndSort");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
   const { name } = req.params;
+  const { filters, sortData } = req.body;
+  const pageN = Number.parseInt(req.query.page);
+  const pageL = Number.parseInt(req.query.limit);
 
-  const { attribute, order } = req.params;
-
-  const pageN = Number.parseInt(req.query.page)
-  const pageL = Number.parseInt(req.query.limit)
+  console.log("filters: ", filters, "sortData: ", sortData);
 
   let page = 0;
   if (!Number.isNaN(pageN) && pageN > 0) {
-    page = pageN
+    page = pageN;
   }
 
   let limit = 10;
@@ -43,7 +44,7 @@ router.get("/", async (req, res) => {
         price: w.price,
         morning: w.morning,
         afternoon: w.afternoon,
-        premium : w.premium
+        premium: w.premium,
       };
     });
     if (allActiveWalkersCards) {
@@ -58,11 +59,17 @@ router.get("/", async (req, res) => {
           console.error(error);
         }
       }
-      // PAGINATION
+
+      const filteredWalkers = filterAndSortWalkers({
+        walkers: allActiveWalkersCards,
+        filters,
+        sortData,
+      });
+
       res.json({
-        content: allActiveWalkers.rows,
-        totalPages: Math.ceil(allActiveWalkers.count / limit)
-      })
+        content: filteredWalkers,
+        totalPages: Math.ceil(filteredWalkers.length / limit),
+      });
     } else {
       res.status(404).send("Not found");
     }
@@ -72,7 +79,3 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
-
-
-
-

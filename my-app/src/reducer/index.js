@@ -15,7 +15,7 @@ import {
   GET_CLIENTE_FOR_ID,
   PUT_DETAILS_CLIENT,
   PUT_DETAILS_PROFILE_CLIENTE,
-  CLEAR_USER
+  CLEAR_USER,
 } from "../actions/index";
 
 const initialState = {
@@ -28,7 +28,7 @@ const initialState = {
   newId: [],
   user: {},
   ubication: [],
-  mensaje:""
+  mensaje: "",
 };
 
 function rootReducer(state = initialState, action) {
@@ -55,12 +55,13 @@ function rootReducer(state = initialState, action) {
         newId: [],
       };
     case ORDER:
+      console.log("reducer payload: ", action.payload);
       return {
         ...state,
         allPaseadores: action.payload,
       };
     case FILTER_PRICE:
-      return { 
+      return {
         ...state,
         allPaseadores: action.payload,
       };
@@ -75,14 +76,14 @@ function rootReducer(state = initialState, action) {
         allPaseadores: action.payload,
       };
     case GET_BY_EMAIL:
-      const { token, validate, id, walker} = action.payload;
+      const { token, validate, id, walker } = action.payload;
       return {
         ...state,
         user: {
           token,
           validate,
           id,
-          walker
+          walker,
         },
       };
     case NEW_PASEADOR:
@@ -91,18 +92,21 @@ function rootReducer(state = initialState, action) {
         newId: action.payload.id,
       };
     case UBICATION_MATCH:
-      return { 
-        ...state, ubication: action.payload 
+      return {
+        ...state,
+        ubication: action.payload,
       };
     case RECOVER_PASSWORD:
-      return { 
-        ...state, mensaje: action.payload 
+      return {
+        ...state,
+        mensaje: action.payload,
       };
     case NEW_PASSWORD:
-      return { 
-        ...state, mensaje: action.payload 
+      return {
+        ...state,
+        mensaje: action.payload,
       };
-      // CLIENTE :
+    // CLIENTE :
     case GET_CLIENTE_FOR_ID:
       return {
         ...state,
@@ -134,7 +138,7 @@ function rootReducer(state = initialState, action) {
     //       id,
     //       cliente
     //     },
-      // };
+    // };
     default:
       return state;
   }

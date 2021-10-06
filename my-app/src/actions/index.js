@@ -2,7 +2,6 @@ import axios from "axios";
 
 export const GET_PASEADORES = "GET_PASEADORES";
 export const GET_PASEADOR_FOR_ID = "GET_PASEADOR_FOR_ID";
-// export const NEW_PASEADOR = "NEW_PASEADOR"
 export const PUT_DETAILS_PROFILE = "PUT_DETAILS_PROFILE";
 export const PUT_DETAILS_USER = "PUT_DETAILS_USER";
 export const NEW_PASEADOR = "NEW_PASEADOR";
@@ -107,7 +106,7 @@ export function putDetailsUser(payload, user) {
   };
 }
 
-export function Order(attribute, order) {
+export function filterAndSort(attribute, order) {
   return async function (dispatch) {
     return axios.get(`/order/${attribute}/${order}`).then((paseador) => {
       dispatch({
