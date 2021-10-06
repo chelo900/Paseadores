@@ -6,7 +6,7 @@ import style from "./Login.module.css";
 import { Link } from "react-router-dom";
 import Log from "./Google_Auth";
 import { useSelector } from "react-redux";
-import { getByEmail } from "../../actions";
+import { login } from "../../actions";
 
 const Login = () => {
   const history = useHistory();
@@ -55,7 +55,7 @@ const Login = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    dispatch(getByEmail(values));
+    dispatch(login(values));
     setValues({
       ...values,
       email: "",

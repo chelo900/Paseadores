@@ -6,7 +6,7 @@ export const GET_PASEADOR_FOR_ID = "GET_PASEADOR_FOR_ID";
 export const PUT_DETAILS_PROFILE = "PUT_DETAILS_PROFILE";
 export const PUT_DETAILS_USER = "PUT_DETAILS_USER";
 export const NEW_PASEADOR = "NEW_PASEADOR";
-export const GET_BY_EMAIL = "GET_BY_EMAIL";
+export const LOGIN = "LOGIN";
 export const UBICATION_MATCH = "UBICATION_MATCH";
 export const FILTER_SERVICE = "FILTER_SERVICE";
 export const ORDER = "ORDER";
@@ -32,12 +32,12 @@ export const GET_FOR_LIST_FAV = "GET_FOR_LIST_FAV";
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES";
 
-export function getByEmail(payload) {
+export function login(payload) {
   return async function (dispatch) {
     try {
       return axios
         .post("/login", payload)
-        .then((res) => dispatch({ type: "GET_BY_EMAIL", payload: res.data }));
+        .then((res) => dispatch({ type: LOGIN, payload: res.data }));
     } catch (e) {
       console.log(e);
     }

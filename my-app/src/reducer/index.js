@@ -3,7 +3,7 @@ import {
   GET_PASEADOR_FOR_ID,
   PUT_DETAILS_PROFILE,
   PUT_DETAILS_USER,
-  GET_BY_EMAIL,
+  LOGIN,
   NEW_PASEADOR,
   UBICATION_MATCH,
   FILTER_PRICE,
@@ -95,9 +95,8 @@ function rootReducer(state = initialState, action) {
         ...state,
         allPaseadores: action.payload,
       };
-    case GET_BY_EMAIL:
+    case LOGIN:
       const { token, validate, id, walker, admin } = action.payload;
-
       return {
         ...state,
         user: {

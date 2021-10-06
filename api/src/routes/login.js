@@ -60,7 +60,7 @@ router.post("/", async (req, res) => {
     }
 
     if (isValid) {
-      const token = jwt.sign(userData, SECRET);
+      const token = jwt.sign(userData, SECRET, { expiresIn: 60 * 60 * 24 });
 
       return res.status(200).send({
         validate: true,
