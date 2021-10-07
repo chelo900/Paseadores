@@ -16,6 +16,7 @@ import EditDescription from "../Components/EditWalker/EditDescription/Edit";
 import EditHorarios from "../Components/EditWalker/editHr/Edit";
 import FormClient from "../ClientsComponents/FormClient/FormClient"
 import PerfilCliente from "../ClientsComponents/perfilCliente/PerfilCliente";
+import PerfilWalkerParaCliente from "../Components/PerfilWalker/PerfilWalkerParaCliente";
 
 
 const index = () => {
@@ -38,6 +39,7 @@ const index = () => {
         <Route exact path="/walker/editInformation/:id" component={EditInformation}/>
         <Route exact path="/walker/edithr/:id" component={EditHorarios}/>
         <Route exact path="/Cliente/:id" component={PerfilCliente}/>
+        <Route exact path="/walker/perfil/contacto/:id" component={PerfilWalkerParaCliente}/>
 
 
         {/* Rutas del cliente  */}
