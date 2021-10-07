@@ -45,7 +45,7 @@ return (
                 <div className={style.descripcion} >
                     <h2> Description </h2>
                     <div className={style.textDescription} >
-                        {Client.description ? <p  className={style.textDescriptionNew}> {Client.description} </p> 
+                        {Client.description ? <p  className={style.textDescriptionNew} > {Client.description} </p> 
                         : <p> Agrega una descripcion </p>}
                     </div>
                     <Link to={`/Cliente/editDescription/${id}`}  className={style.editContainer} >
