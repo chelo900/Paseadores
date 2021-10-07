@@ -22,7 +22,7 @@ export function getByEmail(payload) {
   return async function (dispatch) {
     try {
       return axios
-        .post("http://localhost:3001/login", payload)
+        .post("/login", payload)
         .then((res) => dispatch({ type: GET_BY_EMAIL, payload: res.data }));
     } catch (e) {
       console.log(e);
@@ -34,7 +34,7 @@ export function getByEmail(payload) {
 export function getAllPaseadores(page, limit){
         return async function(dispatch){
             try{
-              let result = await axios.get(`http://localhost:3001/allActiveWalkers?page=${page}&limit=${limit}`)
+              let result = await axios.get(`/allActiveWalkers?page=${page}&limit=${limit}`)
               return dispatch({
                 type: 'GET_PASEADORES',
                 payload: result.data
@@ -48,7 +48,7 @@ export function getAllPaseadores(page, limit){
 export function getPaseadorForId(id) {
   return (dispatch) => {
     try {
-      axios.get(`http://localhost:3001/walkers/${id}`)
+      axios.get(`/walkers/${id}`)
       .then((response) =>
         dispatch({
           type: "GET_PASEADOR_FOR_ID",
@@ -64,7 +64,7 @@ export function getPaseadorForId(id) {
 export function newPaseador(payload) {
   return async function (dispatch) {
     return axios
-      .post("http://localhost:3001/createUser", payload)
+      .post("/createUser", payload)
       .then((paseador) => {
         dispatch({
           type: "NEW_PASEADOR",
@@ -77,7 +77,7 @@ export function newPaseador(payload) {
 export function putDetailsProfile(id, payload) {
   return async function (dispatch) {
     return axios
-      .put("http://localhost:3001/updateuserProfile/" + id, payload)
+      .put("/updateuserProfile/" + id, payload)
       .then((paseador) => {
         dispatch({
           type: "PUT_DETAILS_PROFILE",
@@ -91,7 +91,7 @@ export function putDetailsUser(payload, user) {
   console.log("token: ", user.token);
   return async function (dispatch) {
     return axios
-      .put(`http://localhost:3001/updateuser/${user.id}`, payload, {
+      .put(`/updateuser/${user.id}`, payload, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -107,7 +107,7 @@ export function putDetailsUser(payload, user) {
 
 export function Order( attribute, order,) {
     return async function (dispatch) {
-      return axios.get(`http://localhost:3001/order/${attribute}/${order}`)
+      return axios.get(`/order/${attribute}/${order}`)
         .then((paseador) => {
           dispatch({
             type: "ORDER",
@@ -120,7 +120,7 @@ export function Order( attribute, order,) {
 
   export function FilterPrice (input) {
     return async function (dispatch) {
-      return axios.get(`http://localhost:3001/filter/price`, input)
+      return axios.get(`/filter/price`, input)
         .then((paseador) => {
           dispatch({
             type: "FILTER_PRICE",
@@ -132,7 +132,7 @@ export function Order( attribute, order,) {
 
   // export function FilterUbication( ubication ) {
   //   return async function (dispatch) {
-  //     return axios .get(`http://localhost:3001/allActiveWalkers/filter/${ubication}`)
+  //     return axios .get(`/allActiveWalkers/filter/${ubication}`)
   //       .then((paseador) => {
   //         dispatch({
   //           type: "FILTER_UBICATION",
@@ -144,7 +144,7 @@ export function Order( attribute, order,) {
 
   export function FilterServicio( service ) {
     return async function (dispatch) {
-      return axios.get(`http://localhost:3001/filter/${service}`)
+      return axios.get(`/filter/${service}`)
         .then((paseador) => {
           dispatch({
             type: "FILTER_SERVICE",
@@ -160,7 +160,7 @@ export function ubicationMatch(ubication) {
 
     try {
       json = await axios.get(
-        `http://localhost:3001/ubication?ubication=${ubication}`
+        `/ubication?ubication=${ubication}`
       );
 
       return dispatch({ type: UBICATION_MATCH, payload: json.data });
@@ -174,7 +174,7 @@ export function addImage(payload) {
   return async function (dispatch) {
     console.log(payload)
     return axios
-      .post("http://localhost:3001/postimages/:id", payload)
+      .post("/postimages/:id", payload)
       .then((image) => {
         dispatch({
           type: "ADD_IMAGE",
@@ -188,7 +188,7 @@ export function addImage(payload) {
 export function recoverPassword(payload) {
   return async function (dispatch) {
     return axios
-      .put("http://localhost:3001/forgotPassword" , payload)
+      .put("/forgotPassword" , payload)
       .then((paseador) => {
         dispatch({
           type: "RECOVER_PASSWORD",
@@ -200,7 +200,7 @@ export function recoverPassword(payload) {
 export function newPassword(token ,payload) {
   return async function (dispatch) {
     return axios
-      .put(`http://localhost:3001/newPassword/${token}` , payload)
+      .put(`/newPassword/${token}` , payload)
       .then((paseador) => {
         dispatch({
           type: "NEW_PASSWORD",
@@ -215,7 +215,7 @@ export function newPassword(token ,payload) {
 export function newClient(payload){
   return async function (dispatch){
     return axios
-      .post("http://localhost:3001/createClient", payload)
+      .post("/createClient", payload)
       .then((client)=>{
         dispatch({
           type: "NEW_CLIENT",
@@ -227,7 +227,7 @@ export function newClient(payload){
 
 export function getClienteForId(id) {
   return (dispatch) => {
-      axios.get(`http://localhost:3001/Cliente/${id}`)
+      axios.get(`/Cliente/${id}`)
       .then((response) =>
         dispatch({
           type: "GET_CLIENTE_FOR_ID",
@@ -240,7 +240,7 @@ export function getClienteForId(id) {
 export function putDetailsProfileCliente (id, payload) {
   return async function (dispatch) {
     return axios
-      .put("http://localhost:3001/updateClientProfile/" + id, payload)
+      .put("/updateClientProfile/" + id, payload)
       .then((paseador) => {
         dispatch({
           type: "PUT_DETAILS_PROFILE_CLIENTE",
@@ -254,7 +254,7 @@ export function putDetailsCliente(payload, client) {
   console.log("token: ", client.token);
   return async function (dispatch) {
     return axios
-      .put(`http://localhost:3001/updateCliente/${client.id}`, payload, {
+      .put(`/updateCliente/${client.id}`, payload, {
         headers: {
           Authorization: `Bearer ${client.token}`,
         },
