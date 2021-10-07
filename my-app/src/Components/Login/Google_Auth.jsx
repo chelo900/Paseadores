@@ -25,7 +25,7 @@ const Log = () => {
     // Check if a token was recieved and send it to our API:
     if (response.tokenId) {
       const googleResponse = await axios.post(
-        "http://localhost:3001/api/v1/user-auth",
+        "/api/v1/user-auth",
         { token: response.tokenId }
       );
       // Check if we have some result:
