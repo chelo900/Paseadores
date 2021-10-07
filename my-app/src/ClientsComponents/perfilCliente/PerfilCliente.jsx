@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import style from './PerfilCliente.module.css'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { getClienteForId } from "../../actions/index"
-// import fotoPortada from '../../media/foto1.jpg'
 import Nav from './nav/nav';
 
 const PerfilCliente = () => {
