@@ -63,15 +63,8 @@ const PerfilWalker = () => {
                         {/* <h2>{Client.name} {Client.surname}</h2> */}
                         <ul >
                             <li className={style.liService}>{Walker.service}</li>
-                            <li className={style.libirth}>{Walker.birth_day}</li>
-                            <li className={style.liPhone}>{Walker.phone}</li>
-                            <li className={style.liEmail}>{Walker.email}</li>
                             <li className={style.liUbication}>{Walker.ubication}</li>
-                            <li className={style.liDni}>{Walker.dni}</li>
                         </ul>
-                        <Link to={`/walker/editInformation/${id}`} className={style.editContainerInfo}>
-                            <button className={style.editDescription}>Editar Informacion</button>
-                        </Link>
                     </div>
                 </div>
 
@@ -81,18 +74,12 @@ const PerfilWalker = () => {
                         <div className={style.textDescription}>
                             {Walker.description? <p className={style.textDescriptionNew}>{Walker.description}</p> : <p>Agrega una descripcion</p> }
                         </div>
-                        <Link to={`/walker/editDescription/${id}`} className={style.editContainer}>
-                            <button className={style.editDescription}>Editar Descripcion</button>
-                        </Link>
                     </div>
                     <div className={style.price}>
                         <h2>Price per Hour</h2>
                         <div className={style.textDescription}>
                              {Walker.price != 0? <p>{Walker.price}  x Hour</p> : <p>Ponle un precio a tu servicio</p>}
                         </div>
-                        <Link to={`/walker/editPrice/${id}`} className={style.editContainer}>
-                            <button className={style.edit}>Editar Precio</button>
-                        </Link>
                     </div>
                     <div className={style.reputacion}>
                         <h2>Reputacion</h2>
@@ -110,10 +97,7 @@ const PerfilWalker = () => {
                             </div>)
                             }
                            </div>
-                            <form  action={`http://localhost:3001/postimages/${id}`} method="POST" encType="multipart/form-data">
-                                <input type="file" name="image" />
-                                <button  className={style.subir} type="submit">Subir</button>
-                            </form>
+                            
                       </div>
                     </div>
                 </div>

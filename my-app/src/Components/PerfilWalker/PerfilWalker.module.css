@@ -1,20 +1,9 @@
 .container{
     background-color: rgb(254,247, 237);
-    height: 100%;
+    height: auto;
     margin: 0;
 }
 
-/* .containerPortada{
-    height: 200px;
-    width: 100%;
-}
-.containerPortada img{
-    height: 200px;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-    border-bottom: rgb(58,84,180) solid 4px;
-} */
 
 .fotoPerfil{
     height: 212px;
@@ -31,15 +20,7 @@
     width: 100%;
     height: 330px;
 }
-.containerPortada{
-    height: 35vh;
-    width: 100%;
-    object-fit:contain;
-}
-.fotoPortada{
-    /* height: 100%;
-    width: 100%; */
-}
+
 .fotoPerfil img {
     height: 200px;
     width: 200px;
@@ -61,7 +42,7 @@
     grid-column: 1span;
     background-color: white;
     width: 400px;
-    height: 100%;
+    height: 750px;
     margin-left: 100px;
 }
 
@@ -86,27 +67,27 @@
     font-family: 'Nunito', sans-serif;
 }
 .libirth{
-    margin: 20px 0 20px 0;
+    margin: 10px 0 20px 0;
     list-style-image: url("../../media/iconBirth.png");
     font-family: 'Nunito', sans-serif;
 }
 .liPhone{
-    margin: 20px 0 20px 0;
+    margin: 10px 0 20px 0;
     list-style-image: url("../../media/iconPhone.png");
     font-family: 'Nunito', sans-serif;
 }
 .liEmail{
-    margin: 20px 0 20px 0;
+    margin: 10px 0 20px 0;
     list-style-image: url("../../media/iconEmail.png");
     font-family: 'Nunito', sans-serif;
 }
 .liUbication{
-    margin: 20px 0 20px 0;
+    margin: 10px 0 20px 0;
     list-style-image: url("../../media/iconUbication.png");
     font-family: 'Nunito', sans-serif;
 }
 .liDni{
-    margin: 20px 0 20px 0;
+    margin: 10px 0 20px 0;
     list-style-image: url("../../media/iconDni.png");
     font-family: 'Nunito', sans-serif;
 }
@@ -171,12 +152,32 @@
     padding: 5px;
     font-family: 'Nunito', sans-serif;
 }
-.con{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.galeria{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    overflow: hidden;
 }
+
+.galeria img{
+   grid-column: 1 span;
+   width: 100px;
+   height: 100px;
+   margin: 10px;
+   border: solid rgb(58,84,180) 4px;
+   object-fit: cover;
+    object-position: center;
+    cursor: pointer;
+}
+
+.galeria img:hover{
+    width: 400px;
+    height: auto;
+    position: absolute;
+    top:100px;
+    left: 600px;
+    -webkit-transform:scale(1.0);transform:scale(1.0);
+}
+
 .fotos{
     margin: 20px;
     width: 600px;
@@ -219,7 +220,7 @@
 }
 .imgSelected{
     margin-top: 20px;
-    border: 2px solid rgb(58,84,180);
+    border: 2px solid rgb(58,84,180,0.8);
     width: 150%;
     height: 500px;
     text-align: center;
@@ -253,7 +254,7 @@
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    margin-top: 30px;
+    margin-top: 50px;
     margin-bottom: 0px;
     margin-right: 70px;
 }
@@ -261,7 +262,7 @@
 .edit{
     width: 100px;
     height: 25px;
-    background-color: rgb(58,84,180);;
+    background-color: rgb(58,84,180,0.8);;
     border: none;
     text-decoration: none;
     box-shadow: 1px 1px 2px rgb(0, 0, 0);
@@ -275,7 +276,7 @@
 .editDescription{
     width: 150px;
     height: 25px;
-    background-color: rgb(58,84,180);;
+    background-color: rgb(58,84,180,0.8);;
     border: none;
     text-decoration: none;
     box-shadow: 1px 1px 2px rgb(0, 0, 0);
@@ -312,45 +313,6 @@
     overflow-wrap:break-word
 }
 
-.horario{
-    margin: 20px;
-    width: 600px;
-    height: auto;
-    background-color: white;
-}
-
-.table{
-    border: solid rgb(58,84,180) 1px;
-    margin: 10px;
-    font-family: 'Nunito', sans-serif;
-}
-
-.horario h2{
-    padding: 10px ;
-    font-family: 'Work Sans', sans-serif;
-    color:rgb(58,84,180);
-}
-
-.table td{
-    border: solid rgb(58,84,180) 1px;
-    padding: 2px 5px 2px 5px;
-    font-size: 15px;
-    text-align: center;
-}
-
-.editHorario{
-    width: 120px;
-    height: 25px;
-    background-color: rgb(58,84,180);;
-    border: none;
-    text-decoration: none;
-    box-shadow: 1px 1px 2px rgb(0, 0, 0);
-    margin: 5px 20px 10px 0;
-    color: white;
-    cursor: pointer;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-}
 
 .checkout{
     border: none;
@@ -374,17 +336,20 @@
     box-shadow: none;
 }
 
-.file{
-    border:none;
-    background-color:rgb(58,84,180);
-    color: white;
-    width: 100px;;
+.subir{
+    width: 90px;
     height: 25px;
-    margin: 20px;
-    cursor: pointer;
+    background-color: rgb(58,84,180,0.8);;
+    border: none;
+    text-decoration: none;
     box-shadow: 1px 1px 2px rgb(0, 0, 0);
+    margin: 5px 20px 10px 0;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
-.file:hover {
-    box-shadow: none;
+.subir:hover{
+    box-shadow:none; 
 }
