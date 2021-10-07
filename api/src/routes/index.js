@@ -16,12 +16,18 @@ const get_order = require ("../routes/FilterOrder/getOrder")
 const get_service = require ("../routes/FilterOrder/getService")
 const postClient = require ("./Client/postClient")
 <<<<<<< HEAD
+<<<<<<< HEAD
 const putClientePerfil = require ("../routes/Client/putClientePerfil")
 const putCliente = require ("../routes/Client/putClient")
 const detailsClient = require("../routes/Client/getDetailsCliente")
 =======
 // const putCliente = require ("../routes/Client/putCliente")
 >>>>>>> 0dd0c56 (.)
+=======
+const putClientePerfil = require ("../routes/Client/putClientePerfil")
+const putCliente = require ("../routes/Client/putClient")
+const detailsClient = require("../routes/Client/getDetailsCliente")
+>>>>>>> 3c20baa (.)
 
 const router = Router();
 
@@ -42,6 +48,7 @@ router.use("/forgotPassword",forgotPassword);
 router.use("/newPassword", newPassword);
 router.use("/createClient", postClient);
 <<<<<<< HEAD
+<<<<<<< HEAD
 router.use("/updateClientProfile", putClientePerfil);
 router.use("/updateCliente", putCliente);
 router.use("/Cliente", detailsClient);
@@ -49,5 +56,10 @@ router.use("/Cliente", detailsClient);
 // router.use("/updatecliente", putCliente);
 
 >>>>>>> 0dd0c56 (.)
+=======
+router.use("/updateClientProfile", putClientePerfil);
+router.use("/updateCliente", putCliente);
+router.use("/Cliente", detailsClient);
+>>>>>>> 3c20baa (.)
 
 module.exports = router;
