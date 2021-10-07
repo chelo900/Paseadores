@@ -10,8 +10,8 @@ const Nav = (props) => {
       function handleOnClick(e) {
         localStorage.clear();
         history.push(`/login`);
+    
       }
-      
     return (
         <div className={style.container}>
             <div className={style.serviceContainer}>
