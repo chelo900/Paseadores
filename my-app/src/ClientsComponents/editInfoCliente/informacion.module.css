@@ -28,7 +28,15 @@
     height: 50px;
     border: solid rgb(192, 192, 192) 1px;
   }
-
+  .formulario select{
+    margin: 10px 20px 10px 20px;
+    padding: 10px;
+    width: 90%;
+    height: 50px;
+    border: solid rgb(192, 192, 192) 1px;
+  }
+  
+  
   .formulario button{
     width: 100px;
     height: 30px;
@@ -40,7 +48,6 @@
     box-shadow: 1px 1px 2px rgb(0, 0, 0);
     cursor: pointer;
   }
-  
   .formulario button:hover{
     box-shadow: none;
   }

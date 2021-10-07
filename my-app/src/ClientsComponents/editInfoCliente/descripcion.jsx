@@ -1,16 +1,16 @@
 import React, { useState }  from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
-import { putDetailsProfile } from '../../../actions'
+import { putDetailsCliente } from "../../actions/index"
 
-import style from './Edit.module.css'
+import style from './descripcion.module.css'
 
-const Edit = () => {
+const EditDescripcion = () => {
 
-    const [input, setInput] = useState({description:''})
+    const [input, setInput] = useState({
+        description: '' })
 
-    // const { id } = useParams();
-    const idNew =useSelector(state => state.detailWalker.id)
+    const newIdCliente =useSelector(state => state.detailCliente.id)
 
     const dispatch = useDispatch();
 
@@ -23,36 +23,27 @@ const Edit = () => {
         })
     }
 
-    const handleLogout = (event) => {
-        event.preventDefault();
-        history.push(`/walker/perfil/${idNew}`);
-      };
-
     const handlerSubmit = ()=>{
-       
-        dispatch(putDetailsProfile(idNew, input))
+        dispatch(putDetailsCliente(newIdCliente, input))
+        console.log("cambios")
         alert('Cambios Efectuados')
-        history.push(`/walker/perfil/${idNew}`)
+        history.push(`/Cliente/perfil/${newIdCliente}`)
 
     }
     return (
         <div className={style.container}>
-            {console.log(idNew)}
             <form className={style.formulario} onSubmit={handlerSubmit}>
                 <h1>Descripcion</h1>
                 <textarea 
                 type='text'
                 name='description'
-                value={input.value}
+                value={input.description}
                 placeholder='Descripcion..'
                 onChange={e=>inputChange(e)}/>
                 <button type='submit'>Editar</button>
             </form>
-            <br/>
-            <br/>
-            <button className={style.volver} onClick={handleLogout}> Volver </button>
         </div>
     )
 }
 
-export default Edit
+export default EditDescripcion

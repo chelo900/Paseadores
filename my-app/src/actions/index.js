@@ -16,14 +16,15 @@ export const RECOVER_PASSWORD = "RECOVER_PASSWORD";
 export const NEW_PASSWORD = "NEW_PASSWORD";
 export const GET_CLIENTE_FOR_ID = "GET_CLIENTE_FOR_ID";
 export const PUT_DETAILS_CLIENT = "PUT_DETAILS_CLIENT";
-export const PUT_DETAILS_PROFILE_CLIENTE = "PUT_DETAILS_PROFILE_CLIENTE"
+export const PUT_DETAILS_PROFILE_CLIENTE = "PUT_DETAILS_PROFILE_CLIENTE";
+// export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 
 export function getByEmail(payload) {
   return async function (dispatch) {
     try {
       return axios
         .post("/login", payload)
-        .then((res) => dispatch({ type: GET_BY_EMAIL, payload: res.data }));
+        .then((res) => dispatch({ type: "GET_BY_EMAIL", payload: res.data }));
     } catch (e) {
       console.log(e);
     }
@@ -228,10 +229,10 @@ export function newClient(payload){
 export function getClienteForId(id) {
   return (dispatch) => {
       axios.get(`/Cliente/${id}`)
-      .then((response) =>
+      .then((cliente) =>
         dispatch({
           type: "GET_CLIENTE_FOR_ID",
-          payload: response.data,
+          payload: cliente.data,
         })
       );
   };
@@ -241,10 +242,10 @@ export function putDetailsProfileCliente (id, payload) {
   return async function (dispatch) {
     return axios
       .put("/updateClientProfile/" + id, payload)
-      .then((paseador) => {
+      .then((cliente) => {
         dispatch({
           type: "PUT_DETAILS_PROFILE_CLIENTE",
-          payload: paseador.data,
+          payload: cliente.data,
         });
       });
   };
@@ -253,18 +254,28 @@ export function putDetailsProfileCliente (id, payload) {
 export function putDetailsCliente(payload, client) {
   console.log("token: ", client.token);
   return async function (dispatch) {
-    return axios
-      .put(`/updateCliente/${client.id}`, payload, {
+    return axios.put(`/updateCliente/${client.id}`, payload, {
         headers: {
           Authorization: `Bearer ${client.token}`,
         },
       })
-      .then((paseador) => {
+      .then((cliente) => {
         dispatch({
           type: "PUT_DETAILS_CLIENT",
-          payload: paseador.data,
+          payload: cliente.data,
         });
       });
   };
 }
+
+// export function getByEmailCliente (payload) {
+//   return async function (dispatch) {
+//       return axios.post("/login", payload)
+//       .then((reclientes) => 
+//         dispatch({ 
+//           type: "GET_BY_EMAIL_CLIENTE", 
+//           payload: cliente.data 
+//         }));
+//   };
+// }
 

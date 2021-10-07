@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import {useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
-const nav = () => {
+const Nav = () => {
 
     
     const history = useHistory();
@@ -46,4 +46,4 @@ const nav = () => {
     )
 }
 
-export default nav
+export default Nav
