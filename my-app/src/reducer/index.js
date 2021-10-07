@@ -14,7 +14,8 @@ import {
   NEW_PASSWORD,
   GET_CLIENTE_FOR_ID,
   PUT_DETAILS_CLIENT,
-  PUT_DETAILS_PROFILE_CLIENTE
+  PUT_DETAILS_PROFILE_CLIENTE,
+  GET_BY_EMAIL_CLIENTE
 } from "../actions/index";
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
   detailWalker: [],
   detailCliente: [],
   newIdCliente: [],
+  cliente: {},
   newId: [],
   user: {},
   ubication: [],
@@ -102,6 +104,7 @@ function rootReducer(state = initialState, action) {
       };
       // CLIENTE :
     case GET_CLIENTE_FOR_ID:
+    
       return {
         ...state,
         detailCliente: action.payload,
@@ -117,6 +120,17 @@ function rootReducer(state = initialState, action) {
         ...state,
         detailCliente: action.payload,
       };
+    // case GET_BY_EMAIL_CLIENTE:
+    //   const { token, validate, id, cliente} = action.payload;
+    //    return {
+    //     ...state,
+    //     cliente : {
+    //       token,
+    //       validate,
+    //       id,
+    //       cliente
+    //     },
+      // };
     default:
       return state;
   }
