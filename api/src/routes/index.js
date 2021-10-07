@@ -15,9 +15,13 @@ const get_price = require ("../routes/FilterOrder/getPrice")
 const get_order = require ("../routes/FilterOrder/getOrder")
 const get_service = require ("../routes/FilterOrder/getService")
 const postClient = require ("./Client/postClient")
+<<<<<<< HEAD
 const putClientePerfil = require ("../routes/Client/putClientePerfil")
 const putCliente = require ("../routes/Client/putClient")
 const detailsClient = require("../routes/Client/getDetailsCliente")
+=======
+// const putCliente = require ("../routes/Client/putCliente")
+>>>>>>> 0dd0c56 (.)
 
 const router = Router();
 
@@ -37,8 +41,13 @@ router.use("/postimages", postImages);
 router.use("/forgotPassword",forgotPassword);
 router.use("/newPassword", newPassword);
 router.use("/createClient", postClient);
+<<<<<<< HEAD
 router.use("/updateClientProfile", putClientePerfil);
 router.use("/updateCliente", putCliente);
 router.use("/Cliente", detailsClient);
+=======
+// router.use("/updatecliente", putCliente);
+
+>>>>>>> 0dd0c56 (.)
 
 module.exports = router;
