@@ -1,3 +1,82 @@
+.container{
+    background-color:  rgb(254,247, 237);
+    height: 100%;
+}
+
+.containerDOS{
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+}
+
+.costado{
+    grid-column: 1 span;
+    border:none;
+
+    background-color:  rgb(254,247, 237);
+    width: 220px;
+    height: 600px;
+    margin: 125px 20px 0 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+}
+
+.cards{
+    flex-grow: 2;
+    margin-top: 100px;
+    grid-column: 6 span;
+    display: flex;
+    flex-direction: column;   
+    align-items: center;
+    text-decoration: none;
+}
+.rep{
+    margin-bottom: 15px;
+    border: none;
+    border-bottom: rgb(58,84,180) solid 3px;
+    background-color:  rgb(254,247, 237);
+    cursor: pointer;  
+    outline: 0;
+    width: 170px;
+    height: 30px;
+}
+
+.pre{
+    margin-bottom: 15px;
+    border: none;
+    border-bottom: rgb(58,84,180) solid 3px;
+    background-color:  rgb(254,247, 237);
+    cursor: pointer;  
+    outline: 0;
+    height: 30px;
+    width: 170px;
+}
+
+.pri{
+    margin-bottom: 40px;
+    border: none;
+    /* border-bottom: black solid 3px; */
+    cursor: pointer;  
+    font-size: 25px;
+    outline: 0;
+    height: 30px;
+    /* border-bottom: solid 3px rgb(58,84,180); */
+    /* margin-bottom: 10px; */
+}
+
+.precio hr{
+    height: 3px;
+    background-color: rgb(58,84,180);
+    width: 80px;
+    margin-left: 70px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .userContainer{
     margin-left: 250px;
     align-items: center;
@@ -18,68 +97,147 @@
     color: rgb(173, 173, 173);
 }
 
-.costado{
-    position: fixed;
-    float: left;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgb(58, 84, 180, 0.74);
-    background-color:  rgb(219, 219, 219); 
-    width: 220px;
-    height: 600px;
-    margin-left: 10px;
-    margin-top: 12px;
-    text-align: center;
-}
-
 .opciones{
     text-decoration: none;
-    color: black;
 }
-
-.rep{
-    margin-bottom: 30px;
-}
-.pre{
-    margin-bottom: 30px;
-}
-
-.dos,
-.cuatro,
-.seis,
-.ocho,
-.diez{
-    margin: 60px;
+.opciones p{
     text-align: center;
+    font-size: 17px;
+    margin-bottom: 7px;
+    font-weight: 500;
 }
 
-.pri{
-    font-size: 24px;
-    margin: 20px;
+
+.dos{
+    text-decoration: none;
 }
+
+.dos:hover{
+    color:black;
+    font-weight: 500;  
+    border-bottom: solid blue 1px;  
+}
+
+
+
+
 
 .min{
     margin-top: 18px;
+    border:none;
+    border-bottom: solid rgb(58,84,180) 2px ;
+    background-color: rgb(254,247, 237);
+    width: 170px;   
+    margin-bottom: 10px;
+    overflow: none;
 } 
 
 .max{
    margin-bottom: 10px;
-   margin-left: 10px;
+   border:none;
+    border-bottom: solid rgb(58,84,180) 2px ;
+    background-color: rgb(254,247, 237);
+    width: 170px;
+    overflow: none;
 }
 
 .btn{
+    width: 100px;
     margin-bottom: 30px;
+    border:none;
+    background-color: rgb(58,84,180);
+    color: white;
+    height: 20px;
+    box-shadow: 1px 1px 3px rgb(0, 0, 0);
+    cursor: pointer;
 }
 
+.btn:hover{
+    box-shadow: none;
+}
 .ubi{
     font-size: 24px;
+    border-bottom: solid 3px rgb(58,84,180);
 }
 
 .zon{
     margin: 12px;
+    border:none;
+    border-bottom: solid rgb(58,84,180) 2px ;
+    background-color: rgb(254,247, 237);
+    width: 170px;
+    overflow: none;
+}
+
+.hora{
+    margin-top: 0px;
+    border:none;
+    border-bottom: solid rgb(58,84,180) 2px ;
+    background-color: rgb(254,247, 237);
+    width: 170px;   
+    margin-bottom: 10px;
+    overflow: none;
+    cursor: pointer;
 }
 
 .serv{
-    margin: 26px;
+    margin-top: 18px;
+    border:none;
+    border-bottom: solid rgb(58,84,180) 2px ;
+    background-color: rgb(254,247, 237);
+    width: 170px;   
+    margin-bottom: 10px;
+    overflow: none;
+    cursor: pointer;
+}
+.atc{
+    width: 200px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    border:none;
+    background-color: rgb(58,84,180);
+    color: white;
+    height: 20px;
+    box-shadow: 1px 1px 3px rgb(0, 0, 0);
+    cursor: pointer;
 }
 
+.atc:hover{
+    box-shadow: none;
+}
+
+.pagination{
+    display: flex;
+    flex-direction: row;
+}
+
+.prev{
+    width: 50px;
+    font-size: 15px;
+    height: 20px;
+    border:  none;
+    margin: 10px 10px 20px 0;
+    color:white;
+    background-color: rgb(58,84,180);
+    box-shadow: 1px 1px 3px rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.next{
+    width: 50px;
+    font-size: 15px;
+    height: 20px;
+    border:  none;
+    margin: 10px 10px 20px 0;
+    color:white;
+    background-color: rgb(58,84,180);
+    cursor: pointer;
+    box-shadow: 1px 1px 3px rgb(0, 0, 0);
+}
+
+.next:hover{
+    box-shadow: none
+}
+.prev:hover{
+    box-shadow: none
+}

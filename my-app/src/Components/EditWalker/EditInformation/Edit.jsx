@@ -3,9 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { putDetailsUser } from "../../../actions";
 import style from "./Edit.module.css";
+import { useParams } from "react-router";
 
 const Edit = () => {
   const user = useSelector((state) => state.user);
+
+  const { id } = useParams();
 
   const history = useHistory();
 
@@ -33,7 +36,7 @@ const Edit = () => {
 
   const handleLogout = (event) => {
     event.preventDefault();
-    history.push(`/walker/perfil/${user.id}`);
+    history.push(`/walker/perfil/${id}`);
   };
 
   const uploadImage = async (e) => {
@@ -59,7 +62,7 @@ const Edit = () => {
     console.log(user);
     dispatch(putDetailsUser(input, user));
     alert("Cambios Efectuados");
-    history.push(`/walker/perfil/${user.id}`);
+    history.push(`/walker/perfil/${id}`);
   };
 
   return (

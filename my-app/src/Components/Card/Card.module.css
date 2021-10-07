@@ -73,59 +73,131 @@
 }  */
 
 .card {
-    border: 1px solid rgba(58, 84, 180, 0.74);
-    width: 520px;
-    height: 260px;
+    border: none;
+    width: 1000px;
+    height: 350px;
     display: flex;
-    justify-content: space-between;
-    margin: 12px;
-    background-color: rgb(219, 219, 219);
-}
-
-.link{
+    margin: 0 0 20px 100px;
+    background-color:white;
+    box-shadow: 1px 2px 10px rgb(0, 0, 0);
     text-decoration: none;
+
 }
 
+.title{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    overflow: hidden;
+    
+}
+
+.title hr{
+    width: 90%;
+    background-color: rgb(58,84,180);
+    height: 3px;
+    margin-bottom: 10px;
+}
+
+.title h3{
+    margin-bottom: 20px;
+}
+.imageContainer{
+    background-color: rgb(58,84,180, 0.2);
+}
+
+.imageContainer ul{
+    margin:  0 0 0 10px;
+    display: flex;
+    justify-content:space-around;
+
+}
+
+.reputacion{
+    display: flex;
+    justify-content: space-around;
+}
+.good{
+    background-color: transparent;
+    border: none;
+    font-size:x-large;
+    cursor: pointer;
+}
+
+.bad{
+    background-color: transparent;
+    border: none;
+    font-size:x-large;
+    cursor: pointer;
+}
 .image{
-    border-radius: .5rem;
-    width: 240px;
+    border-radius: 50%;
+    width: 200px;
     height: 200px;
-    margin: 30px;
-}
-
-.infoContainer{
-    text-align: center;
-    border: 2px solid rgb(173, 173, 173);
-    border-radius: 20px;
-    height: 200px;
-    width: 170px;
-    margin: 30px;
-    text-align: center;
-    background-color: white;
+    margin: 20px 30px 10px 30px;
+    object-fit: cover;
+    object-position: center;
+    border: solid white 4px;
 }
 
 .name{
-    border-bottom: 1px solid rgb(58,84,180); 
-    color: rgb(58,84,180);
-    font-size: 24px;
-    margin: 10px;
-    text-transform: uppercase;
+    color:rgb(58,84,180);
+    letter-spacing: 2px;
+    margin: 30px;
+    font-size: 'Work Sans', sans-serif;
+    text-transform: capitalize;
+    font-size:50px ;
+    margin-bottom: 10px;
+ 
+    
 }
 
-.service{
-    color: rgb(58,84,180);
-    font-size: 18px;
-    margin: 10px; 
+.description{
+    width: 200px;
 }
 
-.price{
-    color: rgb(58,84,180);
-    font-size: 20px;
-    margin: 10px; 
+.title span{
+    margin: 0px 20px 10px 20px ;
+    height: 100px;
+    letter-spacing: 1px;
+    font-size: large;
+    overflow: hidden;
+    text-overflow: ellipsis;
+   
+
 }
 
-.reputation{
-    color: rgb(58,84,180);
-    font-size: 20px;
-    margin: 10px; 
+.boton button{
+    border: none;
+    background-color: green;
+    color: white;
+    font-size: 15px;  
+
+    width: 130px;
+    height: 30px;
+    box-shadow: 1px 1px 3px rgb(0, 0, 0);
+    cursor: pointer;
+}
+.boton{
+    padding-bottom: 15px;
+}
+
+.boton button:hover{
+    
+    box-shadow:none
+}
+
+.falta{
+    text-overflow: ".";
+}
+
+.prueba{
+    margin: 20px 20px 0 0 ;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
