@@ -6,8 +6,6 @@ const router = Router();
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
-  console.log("hola", id)
-
   try {
     const dato = await Client.findOne({
       where: {
