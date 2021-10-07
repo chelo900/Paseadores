@@ -15,6 +15,13 @@ const Login = () => {
     email: "",
     password: "",
   });
+  var walker =localStorage.getItem("userWalker");
+  
+  useEffect(() => {
+    if(walker === "false" || walker === "true"){
+      history.push(`/cardsUsers`)
+    }
+}, [])
 
   const user = useSelector((state) => state.user);
   
@@ -29,8 +36,13 @@ const Login = () => {
     
     if (user.validate === true) {
       alert("Welcome");
-      if(user.walker){
+      localStorage.clear();
+      localStorage.setItem("userValidate", user.validate )
+      localStorage.setItem("userToken", user.token )
+      localStorage.setItem("userId", user.id )
+      localStorage.setItem("userWalker", user.walker )
       history.push(`/walker/perfil/${user.id}`);
+      if(user.walker){
       }else{history.push(`/cardsUsers`);}
     } else if (user.validate === false) {
       alert("Please check your credentials");
