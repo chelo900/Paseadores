@@ -11,7 +11,7 @@ function Card({ id, name, surname, image, reputation, service, price }) {
     <div className={styles.card} >
       <div className={styles.imageContainer}>
         <Link className={styles.link} to={`/home/${id}`}>
-          <img className={styles.image} src='https://areajugones.sport.es/wp-content/uploads/2021/06/pikachu-pokemon.jpeg' alt="foto paseador" width="220px" height="150px" />
+          <img className={styles.image} src={image} alt="foto paseador" width="220px" height="150px" />
         </Link>
       </div>
       <div className={styles.infoContainer}>

@@ -161,7 +161,6 @@ const UsersCards = () => {
                     </div>
                 </div>
             </div>
-
             <div>
                 {
                     allUsers.content?.length > 0 ? allUsers.content.map(el => {

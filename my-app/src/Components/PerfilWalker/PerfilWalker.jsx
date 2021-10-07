@@ -51,7 +51,10 @@ const PerfilWalker = () => {
     return (
         <div className={style.container}>
             <div className={style.containerPortada}>
-                <img src={fotoPortada} alt='foto' />
+                <img 
+                className={style.fotoPortada} 
+                src={fotoPortada}
+                alt='foto' />
             </div>
             <div className={style.containerPerfil}>
                 <div className={style.personalInformation}>

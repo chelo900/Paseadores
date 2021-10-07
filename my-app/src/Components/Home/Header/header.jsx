@@ -10,10 +10,10 @@ const Header = () => {
             <div className={style.form}>
                 <h1>Happy</h1>
                 <h1>Dog!</h1>
-                <span>Sign up and meet us</span>   
+                <span>Regístrate y conócenos</span>   
                 <Link to='/pre-login'>
                     <div>
-                    <button className={style.botonP}>SIGN UP</button> 
+                    <button className={style.botonP}>REGISTRARSE</button> 
                     </div>
                 </Link> 
             </div>

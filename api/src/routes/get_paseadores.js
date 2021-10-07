@@ -7,6 +7,8 @@ const router = Router();
 router.get("/", async (req, res) => {
   const { name } = req.params;
 
+  const { attribute, order } = req.params;
+
   const pageN = Number.parseInt(req.query.page)
   const pageL = Number.parseInt(req.query.limit)
 
