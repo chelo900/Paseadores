@@ -6,7 +6,7 @@ const { filterAndSortWalkers } = require("../utils/filterAndSort");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { name } = req.params;
+  const { name, ubication } = req.params;
   const { filters, sortData } = req.body;
   const pageN = Number.parseInt(req.query.page);
   const pageL = Number.parseInt(req.query.limit);
@@ -52,7 +52,9 @@ router.get("/", async (req, res) => {
       if (name) {
         try {
           const nameSearch = allActiveWalkersCards.rows.filter(
-            (user) => user.name.includes(name) || user.surname.includes(name)
+            (user) =>
+              user.name.toLowerCase().startsWith(name.toLowerCase()) ||
+              user.surname.toLowerCase().startsWith(name.toLowerCase())
           );
           res.status(200).send(nameSearch);
         } catch (error) {
