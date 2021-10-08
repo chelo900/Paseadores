@@ -33,6 +33,7 @@
     "nodemon": "^2.0.13",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.4",
+    "query-string": "^7.0.1",
     "react-confetti": "^6.0.1",
     "react-google-login": "^5.2.2",
     "react-redux": "^7.2.5",

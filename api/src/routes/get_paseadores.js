@@ -2,16 +2,20 @@ const { Router } = require("express");
 const { User } = require("../db");
 const { Op } = require("sequelize");
 const { filterAndSortWalkers } = require("../utils/filterAndSort");
+const queryString = require("query-string");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
   const { name, ubication } = req.params;
-  const { filters, sortData } = req.body;
-  const pageN = Number.parseInt(req.query.page);
-  const pageL = Number.parseInt(req.query.limit);
+  const { currentPage, limitPerPage, filters, sortData } = req.query;
+  const parsedFilters = queryString.parse(filters);
+  const parsedSortData = queryString.parse(sortData);
 
   console.log("filters: ", filters, "sortData: ", sortData);
+
+  const pageN = Number.parseInt(currentPage);
+  const pageL = Number.parseInt(limitPerPage);
 
   let page = 0;
   if (!Number.isNaN(pageN) && pageN > 0) {
@@ -51,7 +55,7 @@ router.get("/", async (req, res) => {
       //GET BY NAME
       if (name) {
         try {
-          const nameSearch = allActiveWalkersCards.rows.filter(
+          const nameSearch = allActiveWalkersCards.filter(
             (user) =>
               user.name.toLowerCase().startsWith(name.toLowerCase()) ||
               user.surname.toLowerCase().startsWith(name.toLowerCase())
@@ -61,17 +65,22 @@ router.get("/", async (req, res) => {
           console.error(error);
         }
       }
-
-      const filteredWalkers = filterAndSortWalkers({
-        walkers: allActiveWalkersCards,
-        filters,
-        sortData,
-      });
-
-      res.json({
-        content: filteredWalkers,
-        totalPages: Math.ceil(filteredWalkers.length / limit),
-      });
+      if (sortData) {
+        const filteredWalkers = filterAndSortWalkers({
+          walkers: allActiveWalkersCards,
+          parsedFilters,
+          parsedSortData,
+        });
+        res.json({
+          content: filteredWalkers,
+          totalPages: Math.ceil(filteredWalkers.length / limit),
+        });
+      } else {
+        res.json({
+          content: allActiveWalkersCards,
+          totalPages: Math.ceil(allActiveWalkersCards.length / limit),
+        });
+      }
     } else {
       res.status(404).send("Not found");
     }

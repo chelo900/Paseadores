@@ -19,7 +19,8 @@ import {
 } from "../actions/index";
 
 const initialState = {
-  allPaseadores: [],
+  allPaseadores: {},
+  // filtersAndSort: { filters: [], sortData: {} },
   paseador: [],
   detailWalker: [],
   detailCliente: [],
@@ -34,6 +35,7 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case GET_PASEADORES:
+      console.log("reducer getpaseadores payload", action.payload.content);
       return {
         ...state,
         allPaseadores: action.payload,

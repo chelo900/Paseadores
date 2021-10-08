@@ -1,4 +1,5 @@
 import axios from "axios";
+const queryString = require("query-string");
 
 export const GET_PASEADORES = "GET_PASEADORES";
 export const GET_PASEADOR_FOR_ID = "GET_PASEADOR_FOR_ID";
@@ -35,11 +36,17 @@ export function clearUser(payload) {
 
 }
 
-export function getAllPaseadores(page, limit) {
+export function getAllPaseadores(page, limit, filters, sortData) {
   return async function (dispatch) {
     try {
       let result = await axios.get(
-        `/allActiveWalkers?page=${page}&limit=${limit}`
+        `/allActiveWalkers?page=${page}&limit=${limit}`,
+        {
+          params: {
+            filters: queryString.stringify(filters),
+            sortData: queryString.stringify(sortData),
+          },
+        }
       );
       return dispatch({
         type: "GET_PASEADORES",
