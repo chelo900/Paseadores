@@ -2,16 +2,20 @@ import React from 'react'
 import style from './nav.module.css'
 import { Link } from 'react-router-dom'
 import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
+import { clearUser } from "../../../actions/index";
 
 const Nav = (props) => {
 
     const history = useHistory();
 
-      function handleOnClick(e) {
-        localStorage.clear();
-        history.push(`/login`);
-    
-      }
+    const dispatch = useDispatch();
+
+    function handleOnClick(e) {
+      localStorage.clear();
+      history.push(`/login`);
+      dispatch(clearUser({}))
+    }
     return (
         <div className={style.container}>
             <div className={style.serviceContainer}>

@@ -14,7 +14,8 @@ import {
   NEW_PASSWORD,
   GET_CLIENTE_FOR_ID,
   PUT_DETAILS_CLIENT,
-  PUT_DETAILS_PROFILE_CLIENTE
+  PUT_DETAILS_PROFILE_CLIENTE,
+  CLEAR_USER
 } from "../actions/index";
 
 const initialState = {
@@ -117,6 +118,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         detailCliente: action.payload,
+      };
+    case CLEAR_USER:
+      return {
+        ...state,
+        user: action.payload,
       };
     // case GET_BY_EMAIL_CLIENTE:
     //   const { token, validate, id, cliente} = action.payload;

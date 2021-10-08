@@ -1,18 +1,20 @@
 import React from 'react'
 import style from './nav.module.css'
 import { Link } from 'react-router-dom'
-import {useSelector } from "react-redux";
+import {useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import { clearUser } from "../../../actions/index";
 
 const Nav = () => {
 
     
     const history = useHistory();
+    const dispatch = useDispatch();
     
-      function handleOnClick(e) {
+    function handleOnClick(e) {
         localStorage.clear();
         history.push(`/login`);
-    
+        dispatch(clearUser({}))
       }
 
     var id = localStorage.getItem("userId");

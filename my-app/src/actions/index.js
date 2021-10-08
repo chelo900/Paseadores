@@ -17,6 +17,7 @@ export const NEW_PASSWORD = "NEW_PASSWORD";
 export const GET_CLIENTE_FOR_ID = "GET_CLIENTE_FOR_ID";
 export const PUT_DETAILS_CLIENT = "PUT_DETAILS_CLIENT";
 export const PUT_DETAILS_PROFILE_CLIENTE = "PUT_DETAILS_PROFILE_CLIENTE";
+export const CLEAR_USER = "CLEAR_USER";
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 
 export function getByEmail(payload) {
@@ -29,6 +30,10 @@ export function getByEmail(payload) {
       console.log(e);
     }
   };
+}
+export function clearUser(payload) {
+  return { type: "CLEAR_USER", payload: payload }
+
 }
 
 
