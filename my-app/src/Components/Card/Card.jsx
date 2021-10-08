@@ -21,8 +21,9 @@ function Card({ id, name, surname, image, reputation, service, price, descriptio
     
     
   }
-  const user = useSelector((state) => state.user);
-
+  //const user = useSelector((state) => state.user);
+  var walker =localStorage.getItem("userWalker");
+  
   return (
   
     
@@ -30,7 +31,7 @@ function Card({ id, name, surname, image, reputation, service, price, descriptio
       
       <div className={styles.imageContainer}>
           <img className={styles.image} src={image} alt="foto paseador" width="220px" height="150px" />
-         {!user.walker && 
+         {walker==="false" && 
           <div className={styles.reputacion}>
             <button className={styles.good}  >
               <img src={god} alt="" />
@@ -52,7 +53,7 @@ function Card({ id, name, surname, image, reputation, service, price, descriptio
           <span>Este usuario no tiene cargada infomacion cargada.
              Para saber mas sobre este usuario oprima boton  "Saber mas", este te llevara directo a su perfil. Muchas gracias !</span>
              }
-      {!user.walker &&      
+      {walker==="false" &&      
       <div className={styles.boton}>
       
         <Link to ={`/walker/perfil/contacto/${id}`}>
@@ -62,7 +63,7 @@ function Card({ id, name, surname, image, reputation, service, price, descriptio
       </div>
       }
       </div>
-      {!user.walker &&   
+      {walker==="false" &&   
       <button className={styles.prueba} onClick={e=>handlerFavorite(e)}>
         {(fav === true)? <img src={favorito} alt='sas'/> : <img src={estrella} alt='' />}
         </button>

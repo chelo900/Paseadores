@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import style from './PerfilCliente.module.css'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { getClienteForId } from "../../actions/index"
-// import fotoPortada from '../../media/foto1.jpg'
 import Nav from './nav/nav';
 
 const PerfilCliente = () => {
@@ -46,7 +45,7 @@ return (
                 <div className={style.descripcion} >
                     <h2> Description </h2>
                     <div className={style.textDescription} >
-                        {Client.description ? <p> className={style.textDescriptionNew} {Client.description} </p> 
+                        {Client.description ? <p  className={style.textDescriptionNew} > {Client.description} </p> 
                         : <p> Agrega una descripcion </p>}
                     </div>
                     <Link to={`/Cliente/editDescription/${id}`}  className={style.editContainer} >

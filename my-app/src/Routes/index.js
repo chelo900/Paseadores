@@ -17,7 +17,8 @@ import EditHorarios from "../Components/EditWalker/editHr/Edit";
 import FormClient from "../ClientsComponents/FormClient/FormClient"
 import PerfilCliente from "../ClientsComponents/perfilCliente/PerfilCliente";
 import PerfilWalkerParaCliente from "../Components/PerfilWalker/PerfilWalkerParaCliente";
-
+import descripcion from "../ClientsComponents/editInfoCliente/descripcion";
+import informacion from "../ClientsComponents/editInfoCliente/informacion";
 
 const index = () => {
   return (
@@ -44,6 +45,9 @@ const index = () => {
 
         {/* Rutas del cliente  */}
         <Route exact path= "/login-client" component={FormClient}/>
+        <Route exact path="/Cliente/perfil/:id" component={PerfilCliente}/>
+        <Route exact path="/Cliente/editDescription/:id" component={descripcion}/>
+        <Route exact path="/Cliente/editInformation/:id" component={informacion}/>
       </Switch>
     </div>
   );
