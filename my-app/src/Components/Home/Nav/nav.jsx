@@ -4,6 +4,8 @@ import style from './nav.module.css'
 
 const Nav = () => {
 
+    var id =localStorage.getItem("userId");
+
 
     return (
         <nav className={style.navBar}>
