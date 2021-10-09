@@ -42,7 +42,8 @@ router.get("/", async (req, res) => {
         reputation: w.reputation,
         price: w.price,
         morning: w.morning,
-        afternoon: w.afternoon
+        afternoon: w.afternoon,
+        premium : w.premium
       };
     });
     if (allActiveWalkersCards) {
