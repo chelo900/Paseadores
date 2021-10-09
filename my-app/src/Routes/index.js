@@ -45,7 +45,7 @@ const index = () => {
 
         {/* Rutas del cliente  */}
         <Route exact path= "/login-client" component={FormClient}/>
-        <Route exact path="/Cliente/perfil/:id" component={PerfilCliente}/>
+        <Route exact path="/Cliente/:id" component={PerfilCliente}/>
         <Route exact path="/Cliente/editDescription/:id" component={Descripcion}/>
         <Route exact path="/Cliente/editInformation/:id" component={Informacion}/>
       </Switch>
