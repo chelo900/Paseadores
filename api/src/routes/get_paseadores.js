@@ -1,20 +1,45 @@
 const { Router } = require("express");
 const { User } = require("../db");
 const { Op } = require("sequelize");
+const { filterAndSortWalkers } = require("../utils/filterAndSort");
+const queryString = require("query-string");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
   const { name } = req.params;
+  const { currentPage, limitPerPage, inputFilters, selectFilters, sortData } =
+    req.query;
+  const parsedFilters = queryString.parse(inputFilters);
+  const parsedSelectFilters = queryString.parse(selectFilters);
+  const parsedSortData = queryString.parse(sortData);
 
-  const { attribute, order } = req.params;
+  const filtersArray = parsedFilters
+    ? Object.entries(parsedFilters).map((filter) => {
+        return {
+          [filter[0]]:
+            filter[0] === "min" || filter[0] === "max"
+              ? Number(filter[1])
+              : filter[1],
+        };
+      })
+    : [];
 
-  const pageN = Number.parseInt(req.query.page)
-  const pageL = Number.parseInt(req.query.limit)
+  const selectFiltersArray = Object.entries(parsedSelectFilters).map(
+    (filter) => {
+      return { [filter[0]]: filter[1] };
+    }
+  );
+  parsedSortData.isSortAscending === "true"
+    ? (parsedSortData.isSortAscending = true)
+    : (parsedSortData.isSortAscending = false);
+
+  const pageN = Number.parseInt(currentPage);
+  const pageL = Number.parseInt(limitPerPage);
 
   let page = 0;
   if (!Number.isNaN(pageN) && pageN > 0) {
-    page = pageN
+    page = pageN;
   }
 
   let limit = 10;
@@ -43,26 +68,40 @@ router.get("/", async (req, res) => {
         price: w.price,
         morning: w.morning,
         afternoon: w.afternoon,
-        premium : w.premium
+        premium: w.premium,
       };
     });
     if (allActiveWalkersCards) {
       //GET BY NAME
       if (name) {
         try {
-          const nameSearch = allActiveWalkersCards.rows.filter(
-            (user) => user.name.includes(name) || user.surname.includes(name)
+          const nameSearch = allActiveWalkersCards.filter(
+            (user) =>
+              user.name.toLowerCase().startsWith(name.toLowerCase()) ||
+              user.surname.toLowerCase().startsWith(name.toLowerCase())
           );
           res.status(200).send(nameSearch);
         } catch (error) {
           console.error(error);
         }
       }
-      // PAGINATION
-      res.json({
-        content: allActiveWalkers.rows,
-        totalPages: Math.ceil(allActiveWalkers.count / limit)
-      })
+      if (sortData || filtersArray.length || selectFiltersArray.length) {
+        const filteredWalkers = filterAndSortWalkers({
+          walkers: allActiveWalkersCards,
+          filtersArray,
+          selectFiltersArray,
+          parsedSortData,
+        });
+        res.json({
+          content: filteredWalkers,
+          totalPages: Math.ceil(filteredWalkers.length / limit),
+        });
+      } else {
+        res.json({
+          content: allActiveWalkersCards,
+          totalPages: Math.ceil(allActiveWalkersCards.length / limit),
+        });
+      }
     } else {
       res.status(404).send("Not found");
     }
@@ -72,7 +111,3 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
-
-
-
-
