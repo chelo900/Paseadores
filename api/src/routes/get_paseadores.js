@@ -7,12 +7,32 @@ const queryString = require("query-string");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { name, ubication } = req.params;
-  const { currentPage, limitPerPage, filters, sortData } = req.query;
-  const parsedFilters = queryString.parse(filters);
+  const { name } = req.params;
+  const { currentPage, limitPerPage, inputFilters, selectFilters, sortData } =
+    req.query;
+  const parsedFilters = queryString.parse(inputFilters);
+  const parsedSelectFilters = queryString.parse(selectFilters);
   const parsedSortData = queryString.parse(sortData);
 
-  console.log("filters: ", filters, "sortData: ", sortData);
+  const filtersArray = parsedFilters
+    ? Object.entries(parsedFilters).map((filter) => {
+        return {
+          [filter[0]]:
+            filter[0] === "min" || filter[0] === "max"
+              ? Number(filter[1])
+              : filter[1],
+        };
+      })
+    : [];
+
+  const selectFiltersArray = Object.entries(parsedSelectFilters).map(
+    (filter) => {
+      return { [filter[0]]: filter[1] };
+    }
+  );
+  parsedSortData.isSortAscending === "true"
+    ? (parsedSortData.isSortAscending = true)
+    : (parsedSortData.isSortAscending = false);
 
   const pageN = Number.parseInt(currentPage);
   const pageL = Number.parseInt(limitPerPage);
@@ -65,10 +85,11 @@ router.get("/", async (req, res) => {
           console.error(error);
         }
       }
-      if (sortData) {
+      if (sortData || filtersArray.length || selectFiltersArray.length) {
         const filteredWalkers = filterAndSortWalkers({
           walkers: allActiveWalkersCards,
-          parsedFilters,
+          filtersArray,
+          selectFiltersArray,
           parsedSortData,
         });
         res.json({

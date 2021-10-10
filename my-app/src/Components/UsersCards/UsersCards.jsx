@@ -1,36 +1,35 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import Card from "../Card/Card";
 import Nav from "./Nav/nav";
 import style from "../UsersCards/UsersCards.module.css";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { ubicationMatch, getAllPaseadores } from "../../actions/index";
+import { getAllPaseadores } from "../../actions/index";
 
 const UsersCards = () => {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allPaseadores);
 
-  //Filtrado y Ordenamiento
-  const [filters, setFilters] = useState([]);
+  const [inputFilters, setInputFilters] = useState({});
+  const [selectFilters, setSelectFilters] = useState({});
   const [sortData, setSortData] = useState({});
 
   // Paginado
   const [page, setPage] = useState(0);
-  const [limitPerPage, setLimitPerPage] = useState(5);
+  const [pageSize, setLimitPerPage] = useState(5);
 
   const ubica = useSelector((state) => state.ubication);
 
   useEffect(() => {
-    console.log("Use effect: ", filters, sortData);
-    dispatch(getAllPaseadores(page, limitPerPage, filters, sortData));
-  }, [page, limitPerPage, filters, sortData, dispatch]);
-
-  const [input, setInput] = useState({
-    max: "",
-    min: "",
-    service: "",
-    ubication: "",
-  });
+    dispatch(
+      getAllPaseadores({
+        page,
+        pageSize,
+        inputFilters,
+        selectFilters,
+        sortData,
+      })
+    );
+  }, [page, pageSize, selectFilters, sortData, dispatch]);
 
   function handleNextPage(e) {
     e.preventDefault();
@@ -44,32 +43,37 @@ const UsersCards = () => {
     setPage(page - 1);
   }
 
-  function handleSort(e) {
-    // console.log(e.target.name);
-    e.preventDefault();
-    console.log("handleSort: ", sortData);
-
+  function handleSort(event) {
+    event.preventDefault();
     setSortData({
-      sortField: e.target.name,
-      isSortAscending: e.target.value === "ASC" ? true : false,
+      ...sortData,
+      sortField: event.target.name,
+      isSortAscending: event.target.value === "ASC" ? true : false,
     });
   }
 
-  function handleChange(e) {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
+  function handleFiltersOnChange(event) {
+    const { value, name } = event.target;
+    setInputFilters({ ...inputFilters, [name]: value });
   }
 
-  function handleClick(e) {
-    e.preventDefault();
-    dispatch(getAllPaseadores(page, limitPerPage, filters, sortData));
+  function handleFiltersSubmit(event) {
+    event.preventDefault();
+    dispatch(
+      getAllPaseadores({
+        page,
+        pageSize,
+        inputFilters,
+        selectFilters,
+        sortData,
+      })
+    );
   }
 
-  useEffect(() => {
-    dispatch(ubicationMatch(input.ubication));
-  }, [input.ubication]);
+  function handleSelectFilters(event) {
+    const { value, name } = event.target;
+    setSelectFilters({ ...selectFilters, [name]: value });
+  }
 
   return (
     <div className={style.container}>
@@ -94,39 +98,41 @@ const UsersCards = () => {
               <option value="ASC"> Menor precio </option>
             </select>
           </div>
-          <div className={style.precio}>
-            <label className={style.pri}> Precio : </label>
-            <hr></hr>
-            <input
-              className={style.min}
-              type="number"
-              placeholder=" $ Mínimo "
-              value={input.min}
-              name="min"
-              //   onChange={}
-            />
+          <form onSubmit={handleFiltersSubmit} name={"price"}>
+            <div className={style.precio}>
+              <label className={style.pri}> Precio : </label>
+              <hr></hr>
+              <input
+                className={style.min}
+                type="number"
+                placeholder=" $ Mínimo "
+                name="min"
+                onChange={handleFiltersOnChange}
+              />
 
-            <input
-              className={style.max}
-              type="number"
-              placeholder=" $ Maximo "
-              value={input.max}
-              name="max"
-              //   onChange={}
-            />
-            <button className={style.btn}> Buscar </button>
-          </div>
+              <input
+                className={style.max}
+                type="number"
+                placeholder=" $ Maximo "
+                name="max"
+                onChange={handleFiltersOnChange}
+              />
+              <button className={style.btn}> Buscar </button>
+            </div>
+          </form>
           <div>
-            <form autocomplete="off" className={style.precio}>
+            <form
+              autocomplete="off"
+              className={style.precio}
+              onSubmit={handleFiltersSubmit}
+            >
               <label className={style.ubi}> Ubicacion : </label>
-              {/* <hr></hr> */}
               <input
                 className={style.zon}
                 type="search"
                 placeholder="Zona "
-                value={input.ubication}
                 name="ubication"
-                // onChange={}
+                onChange={handleFiltersOnChange}
                 list="ubi"
               />
               <datalist id="ubi">
@@ -137,26 +143,31 @@ const UsersCards = () => {
               <button className={style.btn}> Buscar </button>
             </form>
             <div>
-              <select className={style.hora}>
-                <option value="order"> Filtrar por Horario </option>
-                <option value="m"> Mañana </option>
-                <option value="a"> Tarde </option>
-                <option value="t"> Todos </option>
+              <select
+                className={style.hora}
+                onChange={handleSelectFilters}
+                name={"horario"}
+              >
+                <option> Filtrar por Horario </option>
+                <option value="morning"> Mañana </option>
+                <option value="afternoon"> Tarde </option>
+                <option value="all"> Todos </option>
               </select>
             </div>
             <div>
-              <select className={style.serv}>
-                <option value="order"> Filtrar por Servicio </option>
-                <option value="p"> Paseador </option>
-                <option value="c"> Cuidador </option>
-                <option value="pyc"> Paseador y Cuidador </option>
+              <select
+                className={style.serv}
+                onChange={handleSelectFilters}
+                name={"service"}
+              >
+                <option> Filtrar por Servicio </option>
+                <option value="walker"> Paseador </option>
+                <option value="carer"> Cuidador </option>
+                <option value="walker and carer"> Paseador y Cuidador </option>
               </select>
             </div>
             <div>
-              <button className={style.atc} onClick={(e) => handleClick(e)}>
-                {" "}
-                Todos los Paseadores{" "}
-              </button>
+              <button className={style.atc}> Todos los Paseadores </button>
             </div>
           </div>
         </div>

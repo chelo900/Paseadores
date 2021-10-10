@@ -32,18 +32,24 @@ export function getByEmail(payload) {
   };
 }
 export function clearUser(payload) {
-  return { type: "CLEAR_USER", payload: payload }
-
+  return { type: "CLEAR_USER", payload: payload };
 }
 
-export function getAllPaseadores(page, limit, filters, sortData) {
+export function getAllPaseadores({
+  page,
+  pageSize,
+  inputFilters,
+  selectFilters,
+  sortData,
+}) {
   return async function (dispatch) {
     try {
       let result = await axios.get(
-        `/allActiveWalkers?page=${page}&limit=${limit}`,
+        `/allActiveWalkers?page=${page}&pageSize=${pageSize}`,
         {
           params: {
-            filters: queryString.stringify(filters),
+            inputFilters: queryString.stringify(inputFilters),
+            selectFilters: queryString.stringify(selectFilters),
             sortData: queryString.stringify(sortData),
           },
         }
@@ -113,51 +119,6 @@ export function putDetailsUser(payload, user) {
   };
 }
 
-export function filterAndSort(attribute, order) {
-  return async function (dispatch) {
-    return axios.get(`/order/${attribute}/${order}`).then((paseador) => {
-      dispatch({
-        type: "ORDER",
-        payload: paseador.data,
-      });
-    });
-  };
-}
-
-export function FilterPrice(input) {
-  return async function (dispatch) {
-    return axios.get(`/filter/price`, input).then((paseador) => {
-      dispatch({
-        type: "FILTER_PRICE",
-        payload: paseador.data,
-      });
-    });
-  };
-}
-
-// export function FilterUbication( ubication ) {
-//   return async function (dispatch) {
-//     return axios .get(`/allActiveWalkers/filter/${ubication}`)
-//       .then((paseador) => {
-//         dispatch({
-//           type: "FILTER_UBICATION",
-//           payload: paseador.data,
-//         });
-//       });
-//   };
-// }
-
-export function FilterServicio(service) {
-  return async function (dispatch) {
-    return axios.get(`/filter/${service}`).then((paseador) => {
-      dispatch({
-        type: "FILTER_SERVICE",
-        payload: paseador.data,
-      });
-    });
-  };
-}
-
 export function ubicationMatch(ubication) {
   return async function (dispatch) {
     let json;
@@ -174,13 +135,11 @@ export function ubicationMatch(ubication) {
 
 export function addImage(payload) {
   return async function (dispatch) {
-    console.log(payload);
     return axios.post("/postimages/:id", payload).then((image) => {
       dispatch({
         type: "ADD_IMAGE",
         payload: image.data,
       });
-      console.log(payload);
     });
   };
 }

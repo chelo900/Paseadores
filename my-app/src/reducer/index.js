@@ -56,12 +56,7 @@ function rootReducer(state = initialState, action) {
         detailWalker: action.payload,
         newId: [],
       };
-    case ORDER:
-      console.log("reducer payload: ", action.payload);
-      return {
-        ...state,
-        allPaseadores: action.payload,
-      };
+
     case FILTER_PRICE:
       return {
         ...state,
