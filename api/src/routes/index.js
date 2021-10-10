@@ -18,6 +18,7 @@ const postClient = require ("./Client/postClient")
 const putClientePerfil = require ("../routes/Client/putClientePerfil")
 const putCliente = require ("../routes/Client/putClient")
 const detailsClient = require("../routes/Client/getDetailsCliente")
+const postPremium = require("./postPremium")
 
 const router = Router();
 
@@ -40,5 +41,6 @@ router.use("/createClient", postClient);
 router.use("/updateClientProfile", putClientePerfil);
 router.use("/updateCliente", putCliente);
 router.use("/Cliente", detailsClient);
+router.use("/updatePremium", postPremium);
 
 module.exports = router;
