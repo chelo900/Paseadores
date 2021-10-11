@@ -32,12 +32,8 @@ const initialState = {
   newId: [],
   user: {},
   ubication: [],
-<<<<<<< HEAD
-  mensaje: "",
-=======
   mensaje:"",
   favorites:[]
->>>>>>> 9e03a7c (Favoritos)
 };
 
 function rootReducer(state = initialState, action) {
