@@ -353,3 +353,14 @@
 .subir:hover{
     box-shadow:none; 
 }
+
+.calendar{
+   
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: text-bottom;
+
+}

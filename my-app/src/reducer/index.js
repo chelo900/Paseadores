@@ -27,7 +27,10 @@ const initialState = {
   newId: [],
   user: {},
   ubication: [],
-  mensaje:""
+  mensaje:"",
+  ordensPaseador:[],
+  ordensCliente:[],
+  idOrden:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -87,7 +90,7 @@ function rootReducer(state = initialState, action) {
     case NEW_PASEADOR:
       return {
         ...state,
-        newId: action.payload.id,
+        // newId: action.payload.id,
       };
     case UBICATION_MATCH:
       return { 
@@ -118,6 +121,26 @@ function rootReducer(state = initialState, action) {
         ...state,
         detailCliente: action.payload,
       };
+      case "NEW_ORDEN":
+        return{
+          ...state,
+          idOrden: action.payload.id  
+        }
+      case "GET_ORDENSUSER_PASEADOR":
+        return{
+          ...state,
+          ordensPaseador: action.payload
+        }
+        case "GET_ORDENSUSER_CLIENTE":
+          return{
+            ...state,
+            ordensCliente: action.payload
+          }
+        case "NEW_CLIENT":
+          return {
+            ...state,
+            newId: action.payload.id,
+          };
     // case GET_BY_EMAIL_CLIENTE:
     //   const { token, validate, id, cliente} = action.payload;
     //    return {

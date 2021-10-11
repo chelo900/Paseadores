@@ -18,6 +18,9 @@ const postClient = require ("./Client/postClient")
 const putClientePerfil = require ("../routes/Client/putClientePerfil")
 const putCliente = require ("../routes/Client/putClient")
 const detailsClient = require("../routes/Client/getDetailsCliente")
+const sendOrden = require ("./sendOrden")
+const getOrden = require ("./getOrden")
+const answerOrden = require("./answerOrden")
 
 const router = Router();
 
@@ -40,5 +43,8 @@ router.use("/createClient", postClient);
 router.use("/updateClientProfile", putClientePerfil);
 router.use("/updateCliente", putCliente);
 router.use("/Cliente", detailsClient);
+router.use("/sendOrden", sendOrden)
+router.use('/getOrden', getOrden)
+router.use('/ordenAnswer', answerOrden)
 
 module.exports = router;

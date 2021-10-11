@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addImage, getPaseadorForId } from '../../actions/index'
+import { addImage, clientSendOrden, getOrden, getOrdenCliente, getOrdenPaseador, getPaseadorForId, ordenAnswer } from '../../actions/index'
 
 import style from './PerfilWalker.module.css'
 import foto1 from '../../media/foto1Service.jpg'
 import { Link, useParams, useHistory } from 'react-router-dom'
 import Nav from './nav/nav';
+
+import FullCalendar from '@fullcalendar/react' // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
+import listPlugin from '@fullcalendar/list';
+import esLocale from '@fullcalendar/core/locales/es';
+
 
 
 
@@ -19,34 +27,67 @@ const PerfilWalker = () => {
 
   const Walker = useSelector((state) => state.detailWalker);
 
+  const ordensCliente = useSelector(state => state.ordensCliente)
+
 
     useEffect(() => {
         dispatch(getPaseadorForId(id))
     }, [dispatch])
 
-// Comentario choto
+    useEffect(() => {
+        dispatch(getOrdenCliente(id))
+    }, [dispatch])
 
-    // const [file, setFile] = useState('')
-    // const handleInputChange = (e) => {
-    //     setFile(e.target.files[0])
-    // };
 
-    // const handleSubmitImage = (e) => {
-    //     e.preventDefault();
-    //     if (!file) return;
-    //     console.log('file', file)
-    //     // upLoadImage(previewSource)
-    //     addImage(file)
+
+    const handleDateSelect = (selectInfo) => {
+        let calendarApi = selectInfo.view.calendar
+        let title = prompt(`Confirma reserva con ${Walker.name}`)
+        
+        calendarApi.unselect() // clear date selection
+    
+        if (title) {
+          calendarApi.addEvent({ // will render immediately. will call handleEventAdd
+            title,
+            start: selectInfo.startStr,
+            end: selectInfo.endStr,
+            // allDay: selectInfo.allDay
+          }, true) // temporary=true, will get overwritten when reducer gives new events
+        }
+        dispatch(clientSendOrden({
+            fecha: selectInfo.startStr,
+            userId: id,
+        }))
+    }
+    
+    
+
+    // const handleEventClick = (clickInfo) => {
+    //     dispatch(ordenAnswer({
+    //         title: clickInfo.event.title
+    //     })) 
+    //     console.log(clickInfo.event.title)
+    //     if (prompt(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+    //       clickInfo.event.remove() // will render immediately. will call handleEventRemove
+    //     }
+        
     // }
 
-    // const handleLogout = (event) => {
-    //     event.preventDefault();
-    //     history.push("/");
-    // };
+    const handleEventClick = (clickInfo) => {
+        if(clickInfo.event.extendedProps.estadoReserva === 'pendiente'){
+            console.log(clickInfo.event.extendedProps.idOrden)
+            prompt(`Confirmar la orden? ubicacion: ${clickInfo.event.extendedProps.ubicacion}` ) 
+            dispatch(ordenAnswer({
+                id: clickInfo.event.extendedProps.idOrden
+            }))}
+            
+        else  {
+          return clickInfo.event.title // will render immediately. will call handleEventRemove
+        }
+    }
 
-    // const upLoadImage=(base64EncodeImage)=>{
-    //     console.log(base64EncodeImage)
-    // }
+    
+    
 
     return (
         <div className={style.container}>
@@ -115,6 +156,32 @@ const PerfilWalker = () => {
                                 <button  className={style.subir} type="submit">Subir</button>
                             </form>
                       </div>
+                      <FullCalendar eventClassNames={style.calendar}
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin  ]}
+            headerToolbar={{
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+              }}
+              
+            initialView="timeGridWeek"
+            locale = {esLocale}
+            editable={false}
+            selectable= {false}
+            selectMirror={false}
+            dayMaxEvents={true}
+            select={handleDateSelect}
+            eventClick={handleEventClick}
+            contentHeight= "auto"
+            slotDuration = '01:00'
+            events = {ordensCliente}
+            slotMinTime = '06:00:00'
+            slotMaxTime = '23:00:00'
+            allDaySlot = {false}
+            
+            
+            />
+            
                     </div>
                 </div>
             </div>
