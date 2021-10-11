@@ -237,7 +237,6 @@ export function putDetailsCliente(payload, client) {
 //   };
 // }
 
-<<<<<<< HEAD
 export function getWalkers(email){
   return async function(dispatch){
     var result;
@@ -330,7 +329,6 @@ export function firstAdmin(payload){
       }
   }
 }
-=======
 export function getUserFavorites (idclient) {
   return async function (dispatch) {
     {console.log(idclient, 'payload')}
@@ -364,4 +362,3 @@ export function deleteUserFavorite (payload) {
       return deleteFav
   }
 }
->>>>>>> 9e03a7c (Favoritos)

@@ -15,7 +15,6 @@ const postClient = require ("./Client/postClient")
 const putClientePerfil = require ("../routes/Client/putClientePerfil")
 const putCliente = require ("../routes/Client/putClient")
 const detailsClient = require("../routes/Client/getDetailsCliente")
-<<<<<<< HEAD
 const postPremium = require("./postPremium")
 const getWalkers = require("../routes/Administrator/getWalkers")
 const getClients = require("../routes/Administrator/getClients")
@@ -23,12 +22,10 @@ const makeAdmin = require("../routes/Administrator/makeAdmin")
 const deleteUserAccount = require("../routes/Administrator/deleteUserAccount")
 const resetPassword = require("../routes/Administrator/resetPassword")
 const firstAdmin = require("../routes/Administrator/firstAdmin")
-=======
 const addFavorite =require("./addFavorite")
 const getFavorite = require("./getFavorite")
 const deleteFavorite =require("./deleteFavorite")
 
->>>>>>> 9e03a7c (Favoritos)
 
 const router = Router();
 
