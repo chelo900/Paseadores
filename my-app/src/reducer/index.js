@@ -32,11 +32,26 @@ const initialState = {
   newId: [],
   user: {},
   ubication: [],
+<<<<<<< HEAD
   mensaje: "",
+=======
+  mensaje:"",
+  favorites:[]
+>>>>>>> 9e03a7c (Favoritos)
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case "GET_USER_FAVORITES":
+            return {
+                ...state,
+                favorites: action.payload
+            }
+            case "ADD_FAVORITES":
+              return {
+                  ...state,
+                  favorites: action.payload
+              }
     case GET_PASEADORES:
       console.log("reducer getpaseadores payload", action.payload.content);
       return {

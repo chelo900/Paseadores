@@ -4,6 +4,7 @@ import style from './PerfilCliente.module.css'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { getClienteForId } from "../../actions/index"
 import Nav from './nav/nav';
+import Footer from './footer/Footer';
 
 const PerfilCliente = () => {
     const { id } = useParams();
@@ -18,15 +19,14 @@ const PerfilCliente = () => {
     }, [dispatch])
 
 
-    return (
-        <div className={style.container}>
-            <Nav />
-            <div className={style.containerPerfil} >
-                <div className={style.personalInformation} >
-                    <div className={style.borderFoto} >
-                        <div className={style.fotoPerfil} >
-                            {Client.image ? <img src={Client.image} /> : <img src="https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg" />}
-                        </div>
+return (
+    <div className = {style.container}>
+        <Nav id={id}/>
+        <div className={style.containerPerfil} >
+            <div className={style.personalInformation} >
+                <div className={style.borderFoto} >
+                    <div className={style.fotoPerfil} >
+                        {Client.image ? <img src={Client.image} /> : <img src="https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg" />}
                     </div>
                     <div className={style.informacion} >
                         <h2>{Client.name} {Client.surname}</h2>
@@ -60,6 +60,8 @@ const PerfilCliente = () => {
                 </div>
             </div>
         </div>
+        {/* <Footer /> */}
+    </div>
     )
 }
 

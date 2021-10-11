@@ -5,6 +5,7 @@ import style from './PerfilWalker.module.css'
 import foto1 from '../../media/foto1Service.jpg'
 import { Link, useParams, useHistory } from 'react-router-dom'
 import Nav from './nav/nav';
+import Footer from './footer/Footer';
 
 const PerfilWalker = () => {
   const { id } = useParams();
@@ -120,6 +121,7 @@ const PerfilWalker = () => {
                 </div>
                 
             </div>
+            {/* <Footer /> */}
         </div>
     )
 }

@@ -5,7 +5,7 @@ import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { clearUser } from "../../../actions/index";
 
-const Nav = (props) => {
+const Nav = ({id}) => {
 
     const history = useHistory();
 
@@ -22,7 +22,7 @@ const Nav = (props) => {
                 <h2 className={style.service}>Happy Dog!</h2>
             </div>
            <div className={style.log}>
-                <Link to='/cardsUsers' className={style.home}>
+                <Link to={`/cardsUsers/${id}`}className={style.home}>
                 <span class="material-icons-outlined">home</span>
                 <span>Home</span>
                 </Link>
