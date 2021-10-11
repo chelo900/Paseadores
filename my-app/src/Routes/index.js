@@ -35,7 +35,7 @@ const index = () => {
         <Route exact path="/new-password/:token" component={NewPassword} />
         <Route exact path="/formWalker" component={Form} />
         <Route exact path="/selectType" component={SelectType} />
-        <Route  path="/cardsUsers" component={UsersCards} />
+        <Route exact path="/cardsUsers" component={UsersCards} />
         <Route exact path="/walker/perfil/:id" component={PerfilWalker} />
         <Route exact path="/walker/editDescription/:id" component={EditDescription}/>
         <Route exact path="/walker/editPrice/:id" component={EditPrice} />

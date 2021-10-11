@@ -22,7 +22,7 @@ const Nav = ({id}) => {
                 <h2 className={style.service}>Happy Dog!</h2>
             </div>
            <div className={style.log}>
-                <Link to={`/cardsUsers/${id}`}className={style.home}>
+                <Link to={`/cardsUsers`}className={style.home}>
                 <span class="material-icons-outlined">home</span>
                 <span>Home</span>
                 </Link>
