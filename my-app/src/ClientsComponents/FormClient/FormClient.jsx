@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import {  newClient } from "../../actions";
+import { newClient } from "../../actions";
 import style from "./FormClient.module.css";
 
 function validate(input) {
@@ -64,7 +64,7 @@ const FormClient = () => {
     const files = e.target.files
     const data = new FormData()
     data.append('file', files[0])
-    data.append('upload_preset', 'projectimages') 
+    data.append('upload_preset', 'projectimages')
     const res = await fetch(
       'https://api.cloudinary.com/v1_1/dvmrhxfht/image/upload',
       {
@@ -78,9 +78,9 @@ const FormClient = () => {
       image: file.secure_url,
     }))
   }
-  
-  
-    function handleChange(e) {
+
+
+  function handleChange(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -118,124 +118,139 @@ const FormClient = () => {
   //   history.push(`/walker/perfil/${newId}`);
   // }
 
-  
+
 
   return (
-  <div className={style.tt}>
-    <div className={style.total}>
-      <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
-
-        <h1>Regístrese</h1>
-        
-        <label> Nombre : </label>
-        <input
-            type="text"
-            placeholder="Nombre"
-            value={input.name}
-            name="name"
-            onChange={(e) => handleChange(e)}
-        />
-        {errors.name && <p className={style.err}> {errors.name} </p>}
-        
-        
-        <label> Apellido : </label>
-        <input
-            type="text"
-            placeholder="Apellido"
-            value={input.surname}
-            name="surname"
-            onChange={(e) => handleChange(e)}
-        />
-        
-        <label> Foto de Perfil : </label>
-        <div>
-          <input
-            type="file"
-            accept=".jpg, .png, .pdf"
-            name="file"
-            onChange={uploadImage}
-            />
+    <div className={style.tt}>
+      <div className={style.total}>
+        <h1 className={style.title}>Registrarse</h1>
+        <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
+          <div className={style.izquierda}>
+            <div className={style.container}>
+              <label className={style.label}> Nombre : </label>
+              <input
+                className={style.inputComun}
+                type="text"
+                placeholder="Nombre"
+                value={input.name}
+                name="name"
+                onChange={(e) => handleChange(e)}
+              />
+              {errors.name && <p className={style.err}> {errors.name} </p>}
+            </div>
+            <div className={style.container}>
+              <label className={style.label}> Apellido : </label>
+              <input
+                className={style.inputComun}
+                type="text"
+                placeholder="Apellido"
+                value={input.surname}
+                name="surname"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            <div className={style.container}>
+              <label className={style.label}> Teléfono : </label>
+              <input
+                className={style.inputComun}
+                type="number"
+                placeholder="ej: +54 11 68525749"
+                value={input.phone}
+                name="phone"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            <div className={style.container}>
+              <label className={style.label}> Foto de Perfil : </label>
+              <div>
+                <input
+                  className={style.inputImg}
+                  type="file"
+                  accept=".jpg, .png, .pdf"
+                  name="file"
+                  onChange={uploadImage}
+                />
+              </div>
+            </div>
+            <div className={style.container}>
+              <label className={style.label}> Descripción  : </label>
+              <textarea
+                className={style.textArea}
+                type="number"
+                placeholder="Cantidad de perro, tamaño..."
+                value={input.description}
+                name="description"
+                onChange={(e) => handleChange(e)}
+                rows="10" cols="50"
+              />
+            </div>
+          </div>
+          <div className={style.derecha}>
+            <div className={style.container}>
+              <label className={style.label}> Tipo de Documento </label>
+              <select className={style.select}>
+                <option> DNI </option>
+                <option> Cédula de identidad </option>
+                <option> Cédula de ciudadanía </option>
+                <option> Documento único de identidad </option>
+                <option> Cédula de identidad Civil </option>
+                <option> Pasaporte </option>
+              </select>
+            </div>
+            <div className={style.container}>
+              <label className={style.label}> Dni : </label>
+              <input
+                className={style.inputComun}
+                type="text"
+                placeholder="Dni"
+                value={input.dni}
+                name="dni"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            <div className={style.container}>
+              <label className={style.label}> Email : </label>
+              <input
+                className={style.inputComun}
+                type="text"
+                placeholder="paseador@gmail.com"
+                value={input.email}
+                name="email"
+                onChange={(e) => handleChange(e)}
+              />
+              {errors.email && <p className={style.err}> {errors.email} </p>}
+            </div>
+            <div className={style.container}>
+              <label className={style.label}> Contraseña : </label>
+              <input
+                className={style.inputComun}
+                type="password"
+                placeholder="Password123"
+                value={input.password}
+                name="password"
+                onChange={(e) => handleChange(e)}
+              />
+              {errors.password && <p className={style.err}> {errors.password} </p>}
+            </div>
+            <div className={style.container}>
+              <label className={style.label}> Repetir Contraseña : </label>
+              <input
+                className={style.inputComun}
+                type="password"
+                placeholder="Password123"
+                value={input.password2}
+                name="password2"
+                onChange={(e) => handleChange(e)}
+              />
+              {errors.password2 && <p className={style.err}> {errors.password2} </p>}
+            </div>
+          </div>
+        </form>
+        <div className={style.containerBtn}>
+          <button className={style.btn} type="submit" disabled={Object.values(errors).length > 0}> Crear Usuario </button>
         </div>
-
-        <label> Descripción  : </label>
-        <textarea
-            type="number"
-            placeholder="Cantidad de perro, tamaño..."
-            value={input.description}
-            name="description"
-            onChange={(e) => handleChange(e)}
-            rows="10" cols="50"
-        />
-      
-
-        <label> Tipo de Documento </label>
-        <select>
-            <option> DNI </option>
-            <option> Cédula de identidad </option>
-            <option> Cédula de ciudadanía </option>
-            <option> Documento único de identidad </option>
-            <option> Cédula de identidad Civil </option>
-            <option> Pasaporte </option>
-        </select>
-
-        <label> Dni : </label>
-        <input
-            type="text"
-            placeholder="Dni"
-            value={input.dni}
-            name="dni"
-            onChange={(e) => handleChange(e)}
-        />
-        
-          
-        <label> Teléfono : </label>
-        <input
-            type="number"
-            placeholder="ej: +54 11 68525749"
-            value={input.phone}
-            name="phone"
-            onChange={(e) => handleChange(e)}
-        />
-        
-        
-        <label> Email : </label>
-        <input
-            type="text"
-            placeholder="paseador@gmail.com"
-            value={input.email}
-            name="email"
-            onChange={(e) => handleChange(e)}
-        />
-        {errors.email && <p className={style.err}> {errors.email} </p>}
-        
-        
-        <label> Contraseña : </label>
-        <input
-            type="password"
-            placeholder="Password123"
-            value={input.password}
-            name="password"
-            onChange={(e) => handleChange(e)}
-        />
-        {errors.password && <p className={style.err}> {errors.password} </p>}
-        
-        
-        <label> Repetir Contraseña : </label>
-        <input
-            type="password"
-            placeholder="Password123"
-            value={input.password2}
-            name="password2"
-            onChange={(e) => handleChange(e)}
-        />
-        {errors.password2 && <p className={style.err}> {errors.password2} </p>}
-        
-        
-        <button type="submit" disabled={Object.values(errors).length > 0}> Crear Usuario </button>
-      </form>
+      </div>
     </div>
-  </div>
-  
   );
 };
 
