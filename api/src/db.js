@@ -92,6 +92,9 @@ Image.belongsTo(User);
 User.hasMany(Client);
 Client.belongsTo(User)
 
+User.belongsToMany(Client,{through:"favourites", foreignKey: 'UserId'})
+Client.belongsToMany(User,{through:"favourites", foreignKey: 'ClientId'})
+
 // User.hasMany(Horarios);
 // Horarios.belongsTo(User);
 

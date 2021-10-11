@@ -26,6 +26,7 @@ export const DELETE_USER_ACCOUNT = "DELETE_USER_ACCOUNT";
 export const FIRST_ADMIN = "FIRST_ADMIN";
 
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
+export const EDIT_FAVORITES = "EDIT_FAVORITES"
 
 export function getByEmail(payload) {
   return async function (dispatch) {
@@ -236,6 +237,7 @@ export function putDetailsCliente(payload, client) {
 //   };
 // }
 
+<<<<<<< HEAD
 export function getWalkers(email){
   return async function(dispatch){
     var result;
@@ -328,3 +330,38 @@ export function firstAdmin(payload){
       }
   }
 }
+=======
+export function getUserFavorites (idclient) {
+  return async function (dispatch) {
+    {console.log(idclient, 'payload')}
+      var favs = await axios.get("/favs/"+ idclient)
+      return dispatch({
+          type: "GET_USER_FAVORITES",
+          payload: favs.data
+      })
+  }
+}
+
+export function postUserFavorite (payload) {
+  return async function (dispatch) {
+    {console.log(payload, 'payload')}
+      return await axios.post(`/addFav/${payload.idclient}`, {iduser: payload.iduser})
+      .then((fav) => {
+        dispatch({
+          type: "ADD_FAVORITES",
+          payload: fav.data,
+        });
+        console.log(payload);
+      });
+}
+}
+
+export function deleteUserFavorite (payload) {
+  return async function () {
+      
+      var deleteFav = await axios.delete("/quitFav/"+ payload.idclient, {data: {iduser: payload.iduser}})
+      
+      return deleteFav
+  }
+}
+>>>>>>> 9e03a7c (Favoritos)
