@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addImage, clientSendOrden, getOrden, getOrdenCliente, getOrdenPaseador, getPaseadorForId, ordenAnswer } from '../../actions/index'
 
+import { addImage, getPaseadorForId } from '../../actions/index'
 import style from './PerfilWalker.module.css'
 import foto1 from '../../media/foto1Service.jpg'
 import { Link, useParams, useHistory } from 'react-router-dom'
@@ -115,8 +116,13 @@ const PerfilWalker = () => {
                         </Link>
                     </div>
                 </div>
-
+                
                 <div className={style.caracteristicas}>
+                    <div  className={style.Premuim} >
+                        <Link to ="/premium">
+                            <button className={style.btnPremuim} type="submit">Hacerme premium</button>
+                        </Link>
+                    </div>
                     <div className={style.descripcion}>
                         <h2>Description</h2>
                         <div className={style.textDescription}>
@@ -184,6 +190,7 @@ const PerfilWalker = () => {
             
                     </div>
                 </div>
+                
             </div>
         </div>
     )

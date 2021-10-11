@@ -14,11 +14,13 @@ import {
   NEW_PASSWORD,
   GET_CLIENTE_FOR_ID,
   PUT_DETAILS_CLIENT,
-  PUT_DETAILS_PROFILE_CLIENTE
+  PUT_DETAILS_PROFILE_CLIENTE,
+  CLEAR_USER,
 } from "../actions/index";
 
 const initialState = {
-  allPaseadores: [],
+  allPaseadores: {},
+  // filtersAndSort: { filters: [], sortData: {} },
   paseador: [],
   detailWalker: [],
   detailCliente: [],
@@ -27,15 +29,16 @@ const initialState = {
   newId: [],
   user: {},
   ubication: [],
-  mensaje:"",
+  mensaje: "",
   ordensPaseador:[],
   ordensCliente:[],
-  idOrden:[]
+  idOrden:[]     
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case GET_PASEADORES:
+      console.log("reducer getpaseadores payload", action.payload.content);
       return {
         ...state,
         allPaseadores: action.payload,
@@ -56,13 +59,9 @@ function rootReducer(state = initialState, action) {
         detailWalker: action.payload,
         newId: [],
       };
-    case ORDER:
-      return {
-        ...state,
-        allPaseadores: action.payload,
-      };
+
     case FILTER_PRICE:
-      return { 
+      return {
         ...state,
         allPaseadores: action.payload,
       };
@@ -77,34 +76,37 @@ function rootReducer(state = initialState, action) {
         allPaseadores: action.payload,
       };
     case GET_BY_EMAIL:
-      const { token, validate, id, walker} = action.payload;
+      const { token, validate, id, walker } = action.payload;
       return {
         ...state,
         user: {
           token,
           validate,
           id,
-          walker
+          walker,
         },
       };
     case NEW_PASEADOR:
       return {
         ...state,
-        // newId: action.payload.id,
+        newId: action.payload.id,
       };
     case UBICATION_MATCH:
-      return { 
-        ...state, ubication: action.payload 
+      return {
+        ...state,
+        ubication: action.payload,
       };
     case RECOVER_PASSWORD:
-      return { 
-        ...state, mensaje: action.payload 
+      return {
+        ...state,
+        mensaje: action.payload,
       };
     case NEW_PASSWORD:
-      return { 
-        ...state, mensaje: action.payload 
+      return {
+        ...state,
+        mensaje: action.payload,
       };
-      // CLIENTE :
+    // CLIENTE :
     case GET_CLIENTE_FOR_ID:
       return {
         ...state,
@@ -121,6 +123,22 @@ function rootReducer(state = initialState, action) {
         ...state,
         detailCliente: action.payload,
       };
+    case CLEAR_USER:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    // case GET_BY_EMAIL_CLIENTE:
+    //   const { token, validate, id, cliente} = action.payload;
+    //    return {
+    //     ...state,
+    //     cliente : {
+    //       token,
+    //       validate,
+    //       id,
+    //       cliente
+    //     },
+    // };
       case "NEW_ORDEN":
         return{
           ...state,
@@ -141,17 +159,7 @@ function rootReducer(state = initialState, action) {
             ...state,
             newId: action.payload.id,
           };
-    // case GET_BY_EMAIL_CLIENTE:
-    //   const { token, validate, id, cliente} = action.payload;
-    //    return {
-    //     ...state,
-    //     cliente : {
-    //       token,
-    //       validate,
-    //       id,
-    //       cliente
-    //     },
-      // };
+
     default:
       return state;
   }
