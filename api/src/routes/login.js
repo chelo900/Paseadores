@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { User, Client} = require("../db");
+const { User, Client, Administrator} = require("../db");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { SECRET } = process.env;
@@ -8,27 +8,38 @@ const router = Router();
 
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
-console.log(email)
+
   try {
     const user = await User.findOne({
       where: {
         email: email,
+        status: "active" || "inactive"
+
       },
     });
 
     const client = await Client.findOne({
       where: {
         email: email,
+        status:"active"
       },
     });
     
+    const admin = await Administrator.findOne({
+      where: {
+        email: email,
+      },
+    });
+
+    
     let isValid
 
-    if (user) {
+    if (user && user.status !== "removed") {
       var userData = {
         id: user.id,
         email: user.email,
-       walker: true
+       walker: true,
+       admin: false,
       }
       isValid = await bcryptjs.compare(password, user.password);
 
@@ -36,11 +47,21 @@ console.log(email)
       var userData = {
         id: client.id,
         email: client.email,
-        walker: false
+        walker: false,
+        admin: false
       }
       isValid = await bcryptjs.compare(password, client.password);
+    } else if(admin){
+      var userData = {
+        id: admin.id,
+        email: admin.email,
+        walker: false,
+        admin: true
+      }
+     // isValid = password === admin.password ? true : false
+      isValid = await bcryptjs.compare(password, admin.password);
     } 
-
+    
       if (isValid) {
         const token = jwt.sign(userData, SECRET);
 
@@ -49,7 +70,8 @@ console.log(email)
           id: userData.id,
           email: userData.email,
           token,
-          walker:userData.walker
+          walker:userData.walker,
+          admin : userData.admin
 
         });
       } else {

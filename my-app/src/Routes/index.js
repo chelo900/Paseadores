@@ -20,6 +20,7 @@ import PerfilWalkerParaCliente from "../Components/PerfilWalker/PerfilWalkerPara
 import Descripcion from "../ClientsComponents/editInfoCliente/descripcion";
 import Informacion from "../ClientsComponents/editInfoCliente/informacion";
 import Premium from "../Components/Premium/Premium";
+import admin from "../AdminComponents/Admin";
 
 const index = () => {
   return (
@@ -48,6 +49,9 @@ const index = () => {
         <Route exact path="/Cliente/:id" component={PerfilCliente}/>
         <Route exact path="/Cliente/editDescription/:id" component={Descripcion}/>
         <Route exact path="/Cliente/editInformation/:id" component={Informacion}/>
+
+        {/* Ruta del admin  */}
+        <Route exact path="/admin" component={admin}/>
       </Switch>
     </div>
   );

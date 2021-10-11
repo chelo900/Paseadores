@@ -1,4 +1,5 @@
 const { Router } = require("express");
+//const { Administrator} = require("../db");
 const get_details = require("./get_details");
 const postUser = require("./postUser");
 const putDetailsUser = require("./putDetailsUser");
@@ -15,6 +16,12 @@ const putClientePerfil = require ("../routes/Client/putClientePerfil")
 const putCliente = require ("../routes/Client/putClient")
 const detailsClient = require("../routes/Client/getDetailsCliente")
 const postPremium = require("./postPremium")
+const getWalkers = require("../routes/Administrator/getWalkers")
+const getClients = require("../routes/Administrator/getClients")
+const makeAdmin = require("../routes/Administrator/makeAdmin")
+const deleteUserAccount = require("../routes/Administrator/deleteUserAccount")
+const resetPassword = require("../routes/Administrator/resetPassword")
+const firstAdmin = require("../routes/Administrator/firstAdmin")
 
 const router = Router();
 
@@ -34,5 +41,11 @@ router.use("/updateClientProfile", putClientePerfil);
 router.use("/updateCliente", putCliente);
 router.use("/Cliente", detailsClient);
 router.use("/updatePremium", postPremium);
+router.use("/getWalkers", getWalkers);
+router.use("/getClients", getClients);
+router.use("/makeAdmin", makeAdmin);
+router.use("/deleteUserAccount", deleteUserAccount);
+router.use("/resetPassword", resetPassword);
+router.use("/firstAdmin", firstAdmin);
 
 module.exports = router;
