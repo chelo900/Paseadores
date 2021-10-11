@@ -15,41 +15,6 @@ const Nav = () => {
     dispatch(clearUser({}));
   }
 
-<<<<<<< HEAD
-  var id = localStorage.getItem("userId");
-  var walker = localStorage.getItem("userWalker");
-  return (
-    <div className={style.container}>
-      <div className={style.serviceContainer}>
-        <h2 className={style.service}>Happy Dog!</h2>
-      </div>
-      <div className={style.log}>
-        {walker === "true" && (
-          <Link to={`/walker/perfil/${id}`} className={style.home}>
-            <span class="material-icons-outlined">school</span>
-            <span>Mi perfil</span>
-          </Link>
-        )}
-        {walker === "false" && (
-          <Link to={`/Cliente/${id}`} className={style.home}>
-            <span class="material-icons-outlined">school</span>
-            <span>Mi perfil</span>
-          </Link>
-        )}
-        <button
-          className={style.logout}
-          onClick={(e) => {
-            handleOnClick(e);
-          }}
-        >
-          <span class="material-icons-outlined">logout</span>
-          <span>Log Out</span>
-        </button>
-      </div>
-    </div>
-  );
-};
-=======
     var id = localStorage.getItem("userId");
     var walker =localStorage.getItem("userWalker");
     var admin =localStorage.getItem("userAdmin");
@@ -86,6 +51,5 @@ const Nav = () => {
          </div>
     )
 }
->>>>>>> ed530ef (Usuario Admin creado)
 
 export default Nav;

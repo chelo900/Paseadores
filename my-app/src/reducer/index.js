@@ -16,12 +16,9 @@ import {
   PUT_DETAILS_CLIENT,
   PUT_DETAILS_PROFILE_CLIENTE,
   CLEAR_USER,
-<<<<<<< HEAD
-=======
   GET_WALKERS,
   GET_CLIENTS,
   ALERT_ADMIN
->>>>>>> ed530ef (Usuario Admin creado)
 } from "../actions/index";
 
 const initialState = {
@@ -79,12 +76,8 @@ function rootReducer(state = initialState, action) {
         allPaseadores: action.payload,
       };
     case GET_BY_EMAIL:
-<<<<<<< HEAD
-      const { token, validate, id, walker } = action.payload;
-=======
       const { token, validate, id, walker, admin} = action.payload;
       
->>>>>>> ed530ef (Usuario Admin creado)
       return {
         ...state,
         user: {
@@ -92,10 +85,7 @@ function rootReducer(state = initialState, action) {
           validate,
           id,
           walker,
-<<<<<<< HEAD
-=======
           admin
->>>>>>> ed530ef (Usuario Admin creado)
         },
       };
     case NEW_PASEADOR:
