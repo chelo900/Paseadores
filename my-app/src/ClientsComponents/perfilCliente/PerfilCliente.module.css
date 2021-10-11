@@ -1,6 +1,6 @@
 .container{
-   background-color: rgb(254,247, 237);
-    height: auto;
+    background-color: rgb(254,247, 237);
+    min-height: 100vh;
     margin: 0;
 }
 
