@@ -122,9 +122,9 @@ const FormClient = () => {
 
   return (
     <div className={style.tt}>
-      <div className={style.total}>
+      <form className={style.total} onSubmit={(e) => handleSubmit(e)}>
         <h1 className={style.title}>Registrarse</h1>
-        <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
+        <div className={style.form} >
           <div className={style.izquierda}>
             <div className={style.container}>
               <label className={style.label}> Nombre : </label>
@@ -245,11 +245,11 @@ const FormClient = () => {
               {errors.password2 && <p className={style.err}> {errors.password2} </p>}
             </div>
           </div>
-        </form>
+        </div>
         <div className={style.containerBtn}>
           <button className={style.btn} type="submit" disabled={Object.values(errors).length > 0}> Crear Usuario </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
