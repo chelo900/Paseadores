@@ -14,11 +14,13 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import listPlugin, { ListView } from '@fullcalendar/list';
 import esLocale from '@fullcalendar/core/locales/es';
+import dotenv from "dotenv";
+dotenv.config();
 
 
 
 
-import Footer from './footer/Footer';
+// import Footer from './footer/Footer';
 
 const PerfilWalker = () => {
   const { id } = useParams();
@@ -32,6 +34,8 @@ const PerfilWalker = () => {
   const ordensCliente = useSelector(state => state.ordensCliente)
 
   const[ordenload, setOrdenLoad] = useState(false)
+
+  const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
     
 
     useEffect(() => {
@@ -215,7 +219,7 @@ const PerfilWalker = () => {
                             </div>)
                             }
                            </div>
-                            <form  action={`http://localhost:3001/postimages/${id}`} method="POST" encType="multipart/form-data">
+                            <form  action={`${baseURL}/postimages/${id}`} method="POST" encType="multipart/form-data">
                                 <input type="file" name="image" />
                                 <button  className={style.subir} type="submit">Subir</button>
                             </form>

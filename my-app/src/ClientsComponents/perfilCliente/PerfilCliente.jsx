@@ -60,7 +60,7 @@ return (
                         </div>
                     </div>
                     <div className={style.fotos}>
-                      <div className={style.fondoFotos}>
+                      {/* <div className={style.fondoFotos}>
                         <h2>Fotos</h2>
                            <div className={style.galeria}>
                            { Client.images?.map(i=>
@@ -69,11 +69,11 @@ return (
                             </div>)
                             }
                            </div>
-                            <form  action={`http://localhost:3001/postimages/${id}`} method="POST" encType="multipart/form-data">
+                            <form  action={`/postimages/${id}`} method="POST" encType="multipart/form-data">
                                 <input type="file" name="image" />
                                 <button  className={style.subir} type="submit">Subir</button>
                             </form>
-                      </div>
+                      </div> */}
                     </div>
                 </div>
                 
