@@ -12,7 +12,7 @@ import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import listPlugin from '@fullcalendar/list';
+import listPlugin, { ListView } from '@fullcalendar/list';
 import esLocale from '@fullcalendar/core/locales/es';
 
 
@@ -103,17 +103,27 @@ const PerfilWalker = () => {
                 text: `Cliente de la zona de ${clickInfo.event.extendedProps.ubicacion}`,
                 icon: "info",
                 buttons: ["Cancelar", "Aceptar"],
-            }).then(respuesta => {
-                if (respuesta) {
-                    swal({ text: 'Orden confirmada', icon: 'success' });
-                    dispatch(ordenAnswer({
-                        id: clickInfo.event.extendedProps.idOrden
-                    }));
-                    setTimeout(() => {
-                        setOrdenLoad(true)
-                    }, 1000);
-                    setOrdenLoad(false)
-                }
+
+            }).then(respuesta=>{
+                if(respuesta){swal({text:'Orden confirmada', icon: 'success'});
+                dispatch(ordenAnswer({
+                    id: clickInfo.event.extendedProps.idOrden,
+                    estadoReserva: "confirmada"
+                }));
+                setTimeout(() => {
+                    setOrdenLoad(true)
+                }, 1000); 
+                setOrdenLoad(false)
+            }else{swal({text:'Orden rechazada', icon: 'warning'});
+            dispatch(ordenAnswer({
+                id: clickInfo.event.extendedProps.idOrden,
+                estadoReserva: "rechazada"
+            }));
+            setTimeout(() => {
+                setOrdenLoad(true)
+            }, 1000); 
+            setOrdenLoad(false)
+        }
             })
         }
         if (clickInfo.event.extendedProps.estadoReserva === 'pendiente') {
@@ -209,36 +219,37 @@ const PerfilWalker = () => {
                                 <input type="file" name="image" />
                                 <button className={style.subir} type="submit">Subir</button>
                             </form>
-                        </div>
-                        <div>
-                            <span>🟢 Paseos Confirmados</span>
-                            <span>🟡 Pendientes</span>
-                        </div>
-                        <FullCalendar eventClassNames={style.calendar}
-                            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-                            headerToolbar={{
-                                left: 'prev,next today',
-                                center: 'title',
-                                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-                            }}
-                            initialView="timeGridWeek"
-                            locale={esLocale}
-                            editable={false}
-                            selectable={false}
-                            selectMirror={false}
-                            dayMaxEvents={true}
-                            select={handleDateSelect}
-                            eventClick={handleEventClick}
-                            contentHeight="auto"
-                            slotDuration='01:00'
-                            events={ordensCliente}
-                            slotMinTime={tarde ? '13:00:00' : '06:00:00'}
-                            slotMaxTime={mañana ? '12:00:00' : '23:00:00'}
-                            allDaySlot={false}
 
-
-                        />
-
+                      </div>
+                      <div>
+                        <span>🟢 Paseos Confirmados</span> 
+                        <span>🟡 Pendientes</span> 
+                      </div>
+                      <FullCalendar eventClassNames={style.calendar}
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin  ]}
+            headerToolbar={{
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+              }}
+              
+            initialView="timeGridWeek"
+            locale = {esLocale}
+            editable={true}
+            selectable= {false}
+            selectMirror={false}
+            dayMaxEvents={true}
+            select={handleDateSelect}
+            eventClick={handleEventClick}
+            contentHeight= "auto"
+            slotDuration = '01:00'
+            events = {ordensCliente}
+            slotMinTime = {tarde ? '13:00:00':'06:00:00' }
+            slotMaxTime = {mañana ? '12:00:00': '23:00:00'}
+            allDaySlot = {false}
+            
+            
+            />
                     </div>
                 </div>
 
