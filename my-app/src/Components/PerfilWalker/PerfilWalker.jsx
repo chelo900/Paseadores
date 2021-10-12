@@ -5,7 +5,7 @@ import { addImage, clientSendOrden, getOrden, getOrdenCliente, getOrdenPaseador,
 import style from './PerfilWalker.module.css'
 import foto1 from '../../media/foto1Service.jpg'
 import { Link, useParams, useHistory } from 'react-router-dom'
-import Nav from './nav/nav';
+import Nav from './Nav/Nav';
 import swal from 'sweetalert';
 
 import FullCalendar from '@fullcalendar/react' // must go before plugins

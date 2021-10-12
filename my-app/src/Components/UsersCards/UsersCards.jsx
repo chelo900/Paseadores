@@ -188,6 +188,7 @@ const UsersCards = () => {
             allUsers.content.map((el) => {
               return (
                 <Card
+                  key={el.id}
                   id={el.id}
                   name={el.name}
                   surname={el.surname}
