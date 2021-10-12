@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import style from './Admin.module.css'
 import { getClients, getWalkers } from "../../src/actions/index"
-import Nav from './Nav/Nav';
+import Nav from './Nav/nav';
 import Usuario from "./Usuario/Usuario"
 
 const Admin = () => {

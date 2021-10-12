@@ -1,11 +1,11 @@
-import React, { useEffect , useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addImage, clientSendOrden, getOrden, getOrdenCliente, getOrdenPaseador, getPaseadorForId, ordenAnswer } from '../../actions/index'
 
 import style from './PerfilWalker.module.css'
 import foto1 from '../../media/foto1Service.jpg'
 import { Link, useParams, useHistory } from 'react-router-dom'
-import Nav from './Nav/Nav';
+import Nav from './nav/nav';
 import swal from 'sweetalert';
 
 import FullCalendar from '@fullcalendar/react' // must go before plugins
@@ -36,8 +36,8 @@ const PerfilWalker = () => {
     const [ordenload, setOrdenLoad] = useState(false)
 
 
-  const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
-    
+    const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+
 
     useEffect(() => {
         dispatch(getPaseadorForId(id))
@@ -109,26 +109,28 @@ const PerfilWalker = () => {
                 icon: "info",
                 buttons: ["Cancelar", "Aceptar"],
 
-            }).then(respuesta=>{
-                if(respuesta){swal({text:'Orden confirmada', icon: 'success'});
-                dispatch(ordenAnswer({
-                    id: clickInfo.event.extendedProps.idOrden,
-                    estadoReserva: "confirmada"
-                }));
-                setTimeout(() => {
-                    setOrdenLoad(true)
-                }, 1000); 
-                setOrdenLoad(false)
-            }else{swal({text:'Orden rechazada', icon: 'warning'});
-            dispatch(ordenAnswer({
-                id: clickInfo.event.extendedProps.idOrden,
-                estadoReserva: "rechazada"
-            }));
-            setTimeout(() => {
-                setOrdenLoad(true)
-            }, 1000); 
-            setOrdenLoad(false)
-        }
+            }).then(respuesta => {
+                if (respuesta) {
+                    swal({ text: 'Orden confirmada', icon: 'success' });
+                    dispatch(ordenAnswer({
+                        id: clickInfo.event.extendedProps.idOrden,
+                        estadoReserva: "confirmada"
+                    }));
+                    setTimeout(() => {
+                        setOrdenLoad(true)
+                    }, 1000);
+                    setOrdenLoad(false)
+                } else {
+                    swal({ text: 'Orden rechazada', icon: 'warning' });
+                    dispatch(ordenAnswer({
+                        id: clickInfo.event.extendedProps.idOrden,
+                        estadoReserva: "rechazada"
+                    }));
+                    setTimeout(() => {
+                        setOrdenLoad(true)
+                    }, 1000);
+                    setOrdenLoad(false)
+                }
             })
         }
         if (clickInfo.event.extendedProps.estadoReserva === 'pendiente') {
@@ -211,53 +213,49 @@ const PerfilWalker = () => {
                         </div>
                     </div>
                     <div className={style.fotos}>
-                      <div className={style.fondoFotos}>
-                        <h2>Fotos</h2>
-                           <div className={style.galeria}>
-                           { Walker.images?.map(i=>
-                            <div  key={i.public_id}>
-                                <img src={i.imageURL ? i.imageURL : foto1} alt='a'/>
-                            </div>)
-                            }
-                           </div>
-                            <form  action={`${baseURL}/postimages/${id}`} method="POST" encType="multipart/form-data">
+                        <div className={style.fondoFotos}>
+                            <h2>Fotos</h2>
+                            <div className={style.galeria}>
+                                {Walker.images?.map(i =>
+                                    <div key={i.public_id}>
+                                        <img src={i.imageURL ? i.imageURL : foto1} alt='a' />
+                                    </div>)
+                                }
+                            </div>
+                            <form action={`${baseURL}/postimages/${id}`} method="POST" encType="multipart/form-data">
                                 <input type="file" name="image" />
                                 <button className={style.subir} type="submit">Subir</button>
                             </form>
 
-                      </div>
-                      <div>
-                        <span>🟢 Paseos Confirmados</span> 
-                        <span>🟡 Pendientes</span> 
-                      </div>
-                      <FullCalendar eventClassNames={style.calendar}
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin  ]}
-            headerToolbar={{
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-              }}
-              
-            initialView="timeGridWeek"
-            locale = {esLocale}
-            editable={true}
-            selectable= {false}
-            selectMirror={false}
-            dayMaxEvents={true}
-            select={handleDateSelect}
-            eventClick={handleEventClick}
-            contentHeight= "auto"
-            slotDuration = '01:00'
-            events = {ordensCliente}
-            slotMinTime = {tarde ? '13:00:00':'06:00:00' }
-            slotMaxTime = {mañana ? '12:00:00': '23:00:00'}
-            allDaySlot = {false}
-            
-            
-            />
+                        </div>
+                        <div>
+                            <span>🟢 Paseos Confirmados</span>
+                            <span>🟡 Pendientes</span>
+                        </div>
+                        <FullCalendar eventClassNames={style.calendar}
+                            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+                            headerToolbar={{
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                            }}
+                            initialView="timeGridWeek"
+                            locale={esLocale}
+                            editable={true}
+                            selectable={false}
+                            selectMirror={false}
+                            dayMaxEvents={true}
+                            select={handleDateSelect}
+                            eventClick={handleEventClick}
+                            contentHeight="auto"
+                            slotDuration='01:00'
+                            events={ordensCliente}
+                            slotMinTime={tarde ? '13:00:00' : '06:00:00'}
+                            slotMaxTime={mañana ? '12:00:00' : '23:00:00'}
+                            allDaySlot={false}
+                        />
                     </div>
                 </div>
-
             </div>
             {/* <Footer /> */}
         </div>

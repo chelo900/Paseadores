@@ -5,7 +5,7 @@ import { addImage, clientSendOrden,  getOrdenCliente, getPaseadorForId } from '.
 import style from './PerfilWalker.module.css'
 import foto1 from '../../media/foto1Service.jpg'
 import { Link, useParams, useHistory } from 'react-router-dom'
-import Nav from './Nav/Nav';
+import Nav from './nav/nav';
 
 import FullCalendar, {EventContentArg}  from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'
