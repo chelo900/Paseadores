@@ -169,9 +169,15 @@ const Form = () => {
 
   return (
     <div className={style.tt}>
+<<<<<<< HEAD
       <div className={style.total}>
         <h1 className={style.title}>Registrarse</h1>
         <form className={style.form} onSubmit={(e) => handleSubmit(e)}>
+=======
+      <form className={style.total} onSubmit={(e) => handleSubmit(e)}>
+        <h1 className={style.title}>Registrarse</h1>
+        <div className={style.form} >
+>>>>>>> 6ce2d2090c6633aee7b7399a7464de605234a054
           <div className={style.izquierda}>
             <div className={style.container}>
               <label className={style.label}>Nombre :</label>
@@ -297,6 +303,7 @@ const Form = () => {
                   onChange={uploadFront}
                 />
               </div>
+<<<<<<< HEAD
             </div>
             <div className={style.container}>
               <label className={style.label}> Reverso del Documento </label>
@@ -312,6 +319,23 @@ const Form = () => {
               </div>
             </div>
             <div className={style.container}>
+=======
+            </div>
+            <div className={style.container}>
+              <label className={style.label}> Reverso del Documento </label>
+              <div>
+                <input
+                  className={style.inputImg}
+                  type="file"
+                  accept=".jpg, .png, .pdf"
+                  name="back"
+                  onChange={uploadBack}
+                  id="back"
+                />
+              </div>
+            </div>
+            <div className={style.container}>
+>>>>>>> 6ce2d2090c6633aee7b7399a7464de605234a054
               <label className={style.label}> Foto de Perfil : </label>
               <div>
                 <input
@@ -324,7 +348,11 @@ const Form = () => {
               </div>
             </div>
           </div>
+<<<<<<< HEAD
         </form>
+=======
+        </div>
+>>>>>>> 6ce2d2090c6633aee7b7399a7464de605234a054
         <div className={style.container}>
           <label className={style.label}> Servicio : </label>
           <select className={style.select} onChange={(e) => handleService(e)} required>
@@ -340,7 +368,11 @@ const Form = () => {
         <div className={style.containerBtn}>
           <button className={style.btn} type="submit" disabled={Object.values(errors).length > 0}> Crear Usuario </button>
         </div>
+<<<<<<< HEAD
       </div>
+=======
+      </form>
+>>>>>>> 6ce2d2090c6633aee7b7399a7464de605234a054
     </div>
   );
 };

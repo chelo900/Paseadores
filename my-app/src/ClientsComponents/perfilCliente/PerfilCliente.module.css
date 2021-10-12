@@ -1,22 +1,9 @@
 .container{
-   background-color: rgb(254,247, 237);
-    height: auto;
+    background-color: rgb(254,247, 237);
+    min-height: 100vh;
     margin: 0;
 }
 
-.containerPerfil{
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    height: auto;
-}
-
-.personalInformation{
-    grid-column: 1span;
-    background-color: white;
-    width: 400px;
-    height: 750px;
-    margin-left: 100px;
-}
 
 .fotoPerfil{
     height: 212px;
@@ -28,7 +15,6 @@
     left: 200px;
     z-index: 1;
 }
-
 .borderFoto{
     background-color: rgb(58,84,180, 0.2);
     width: 100%;
@@ -52,13 +38,20 @@
     height: auto;
 }
 
+.personalInformation{
+    grid-column: 1span;
+    background-color: white;
+    width: 400px;
+    height: 750px;
+    margin-left: 100px;
+}
+
 .informacion{
     margin: 30px 0 0 25%;
 }
-
 .informacion ul{
     width: 300px;
-    margin-top: 30px;
+
 }
 
 .informacion h2{
@@ -68,24 +61,168 @@
     color:rgb(58,84,180);
 }
 
+
 .liPhone{
-  margin: 10px 0 20px 0;
+    margin: 30px 0 20px 0;
     list-style-image: url("../../media/iconPhone.png");
     font-family: 'Nunito', sans-serif;
+    font-size: 20px;
 }
-
 .liEmail{
     margin: 10px 0 20px 0;
     list-style-image: url("../../media/iconEmail.png");
     font-family: 'Nunito', sans-serif;
+    font-size: 20px;
 }
-
 .liUbication{
     margin: 10px 0 20px 0;
     list-style-image: url("../../media/iconUbication.png");
     font-family: 'Nunito', sans-serif;
+    font-size: 20px;
 }
 
+
+
+.caracteristicas{
+    grid-column: 1span;
+    width: 100%;
+}
+
+.descripcion{
+    margin: 100px 20px 0 20px;
+    width: 600px;
+    height: auto;
+    background-color: white;
+    /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
+}
+.descripcion h2{
+    padding: 10px ;
+    font-family: 'Work Sans', sans-serif;
+    color:rgb(58,84,180);
+}
+.descripcion p{
+    padding: 10px;
+    font-family: 'Nunito', sans-serif;
+    
+}
+
+.reputacion{
+    margin: 20px;
+    width: 600px;
+    height: auto;
+    background-color: white;
+    padding-bottom: 10PX;
+    /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
+}
+.reputacion h2{
+    padding: 10px ;
+    font-family: 'Work Sans', sans-serif;
+    color:rgb(58,84,180);
+}
+
+.reputacion p{
+    font-size: 30px;
+    color: yellow;
+    padding: 5px;
+    font-family: 'Nunito', sans-serif;
+}
+.galeria{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    overflow: hidden;
+}
+
+.galeria img{
+    grid-column: 1 span;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    border: solid rgb(58,84,180) 4px;
+    object-fit: cover;
+    object-position: center;
+    cursor: pointer;
+}
+
+.galeria img:hover{
+    width: 400px;
+    height: auto;
+    position: absolute;
+    top:100px;
+    left: 600px;
+    -webkit-transform:scale(1.0);transform:scale(1.0);
+}
+
+.fotos{
+    margin: 20px;
+    width: 600px;
+    height: auto;
+    /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
+    
+}
+.fondoFotos{
+    background-color: white;
+    height: auto ;
+}
+.fotos h2{
+    padding: 10px ;
+    font-family: 'Work Sans', sans-serif;
+    color:rgb(58,84,180);
+}
+.list{
+    width: 90%;
+    margin: auto;
+    list-style:none;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.listItem{
+    margin: 5px;
+}
+.img{
+    width: 150px;
+    height: 100px;
+}
+.litleImg{
+    border: 2px solid rgb(58,84,180) ;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4px;
+}
+.imgSelected{
+    margin-top: 20px;
+    border: 2px solid rgb(58,84,180,0.8);
+    width: 150%;
+    height: 500px;
+    text-align: center;
+}
+.selected{
+    width: 100%;
+    height: 100%;
+}
+
+.notificaciones{
+    height: 300px;
+    margin: 0 20px 0 0px;
+    background-color: white;
+    box-shadow: 1px 2px 10px rgb(0, 0, 0);
+}
+
+.notificaciones input{
+    margin: 10px;
+    width: 300px;
+}
+
+.editContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-decoration: none;
+    
+}
 .editContainerInfo{
     display: flex;
     flex-direction: column;
@@ -94,6 +231,20 @@
     margin-top: 50px;
     margin-bottom: 0px;
     margin-right: 70px;
+}
+
+.edit{
+    width: 100px;
+    height: 25px;
+    background-color: rgb(58,84,180,0.8);;
+    border: none;
+    text-decoration: none;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+    margin: 5px 20px 10px 0;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
 .editDescription{
@@ -117,6 +268,165 @@
     box-shadow: none;
 }
 
+.calendario{
+    width: 359px;
+    height: 300px;
+}
+
+.textDescription{
+    width:570px ;
+    /* background-color: rgb(58,84,180, 0.2);
+    border-radius: 5px; */
+    /* margin: 10px;
+    font-weight: bold*/
+} 
+
+.textDescriptionNew{
+    width: 600px;
+    height: auto;
+    overflow-wrap:break-word
+}
+
+
+.checkout{
+    border: none;
+    background-color: red;
+    color: white;
+    height: 30px;
+    width: 150px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
+
+.containerCheckout{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+    margin: 20px 0 20px 0;
+}
+
+.checkout:hover{
+    box-shadow: none;
+}
+
+.subir{
+    width: 90px;
+    height: 25px;
+    background-color: rgb(58,84,180,0.8);;
+    border: none;
+    text-decoration: none;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+    margin: 5px 20px 10px 0;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.subir:hover{
+    box-shadow:none; 
+}
+
+.btnPremuim{
+    width: 160px;
+    height: 30px;
+    background-color: rgb(58,84,180,0.8);;
+    border: none;
+    text-decoration: none;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+    margin: 25px 0px 0px 220px;
+}
+
+.container{
+    background-color: rgb(254,247, 237);
+    min-height: 100vh;
+    margin: 0;
+}
+
+
+.fotoPerfil{
+    height: 212px;
+    width: 212px;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    top:90px;
+    left: 200px;
+    z-index: 1;
+}
+.borderFoto{
+    background-color: rgb(58,84,180, 0.2);
+    width: 100%;
+    height: 330px;
+}
+
+.fotoPerfil img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    position: relative;
+    top:6px;
+    left: 6px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.containerPerfil{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    height: auto;
+}
+
+.personalInformation{
+    grid-column: 1span;
+    background-color: white;
+    width: 400px;
+    height: 750px;
+    margin-left: 100px;
+}
+
+.informacion{
+    margin: 30px 0 0 25%;
+}
+.informacion ul{
+    width: 300px;
+
+}
+
+.informacion h2{
+    margin: 0px auto 0 auto;
+    width: auto;
+    font-family: 'Work Sans', sans-serif;
+    color:rgb(58,84,180);
+}
+
+
+.liPhone{
+    margin: 30px 0 20px 0;
+    list-style-image: url("../../media/iconPhone.png");
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+}
+.liEmail{
+    margin: 10px 0 20px 0;
+    list-style-image: url("../../media/iconEmail.png");
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+}
+.liUbication{
+    margin: 10px 0 20px 0;
+    list-style-image: url("../../media/iconUbication.png");
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+}
+
+
+
 .caracteristicas{
     grid-column: 1span;
     width: 100%;
@@ -127,30 +437,17 @@
     width: 600px;
     height: auto;
     background-color: white;
+    /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
 }
-
 .descripcion h2{
     padding: 10px ;
     font-family: 'Work Sans', sans-serif;
     color:rgb(58,84,180);
 }
-
-.textDescriptionNew{
-    width: 600px;
-    height: auto;
-    overflow-wrap:break-word
-}
-
 .descripcion p{
     padding: 10px;
     font-family: 'Nunito', sans-serif;
-}
-
-.editContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    text-decoration: none;
+    
 }
 
 .reputacion{
@@ -159,8 +456,8 @@
     height: auto;
     background-color: white;
     padding-bottom: 10PX;
+    /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
 }
-
 .reputacion h2{
     padding: 10px ;
     font-family: 'Work Sans', sans-serif;
@@ -173,13 +470,219 @@
     padding: 5px;
     font-family: 'Nunito', sans-serif;
 }
+.galeria{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    overflow: hidden;
+}
+
+.galeria img{
+    grid-column: 1 span;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    border: solid rgb(58,84,180) 4px;
+    object-fit: cover;
+    object-position: center;
+    cursor: pointer;
+}
+
+.galeria img:hover{
+    width: 400px;
+    height: auto;
+    position: absolute;
+    top:100px;
+    left: 600px;
+    -webkit-transform:scale(1.0);transform:scale(1.0);
+}
+
+.fotos{
+    margin: 20px;
+    width: 600px;
+    height: auto;
+    /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
+    
+}
+.fondoFotos{
+    background-color: white;
+    height: auto ;
+}
+.fotos h2{
+    padding: 10px ;
+    font-family: 'Work Sans', sans-serif;
+    color:rgb(58,84,180);
+}
+.list{
+    width: 90%;
+    margin: auto;
+    list-style:none;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.listItem{
+    margin: 5px;
+}
+.img{
+    width: 150px;
+    height: 100px;
+}
+.litleImg{
+    border: 2px solid rgb(58,84,180) ;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4px;
+}
+.imgSelected{
+    margin-top: 20px;
+    border: 2px solid rgb(58,84,180,0.8);
+    width: 150%;
+    height: 500px;
+    text-align: center;
+}
+.selected{
+    width: 100%;
+    height: 100%;
+}
+
+.notificaciones{
+    height: 300px;
+    margin: 0 20px 0 0px;
+    background-color: white;
+    box-shadow: 1px 2px 10px rgb(0, 0, 0);
+}
+
+.notificaciones input{
+    margin: 10px;
+    width: 300px;
+}
+
+.editContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-decoration: none;
+    
+}
+.editContainerInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    margin-top: 50px;
+    margin-bottom: 0px;
+    margin-right: 70px;
+}
+
+.edit{
+    width: 100px;
+    height: 25px;
+    background-color: rgb(58,84,180,0.8);;
+    border: none;
+    text-decoration: none;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+    margin: 5px 20px 10px 0;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.editDescription{
+    width: 150px;
+    height: 25px;
+    background-color: rgb(58,84,180,0.8);;
+    border: none;
+    text-decoration: none;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+    margin: 5px 20px 10px 0;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.editDescription:hover{
+    box-shadow: none;
+}
+.edit:hover{
+    box-shadow: none;
+}
+
+.calendario{
+    width: 359px;
+    height: 300px;
+}
 
 .textDescription{
     width:570px ;
+    /* background-color: rgb(58,84,180, 0.2);
+    border-radius: 5px; */
+    /* margin: 10px;
+    font-weight: bold*/
 } 
 
+.textDescriptionNew{
+    width: 600px;
+    height: auto;
+    overflow-wrap:break-word
+}
 
 
+.checkout{
+    border: none;
+    background-color: red;
+    color: white;
+    height: 30px;
+    width: 150px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
 
+.containerCheckout{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+    margin: 20px 0 20px 0;
+}
 
+.checkout:hover{
+    box-shadow: none;
+}
+
+.subir{
+    width: 90px;
+    height: 25px;
+    background-color: rgb(58,84,180,0.8);;
+    border: none;
+    text-decoration: none;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+    margin: 5px 20px 10px 0;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.subir:hover{
+    box-shadow:none; 
+}
+
+.btnPremuim{
+    width: 160px;
+    height: 30px;
+    background-color: rgb(58,84,180,0.8);;
+    border: none;
+    text-decoration: none;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+    margin: 25px 0px 0px 220px;
+}
 

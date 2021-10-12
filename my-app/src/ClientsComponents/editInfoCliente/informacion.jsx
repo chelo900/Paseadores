@@ -31,7 +31,7 @@ const Edit = () => {
 
   const handleLogout = (event) => {
     event.preventDefault();
-    history.push(`/Cliente/perfil/${user.id}`);
+    history.push(`/Cliente/${user.id}`);
   };
 
   const uploadImage = async (e) => {
@@ -57,7 +57,7 @@ const Edit = () => {
     console.log(user);
     dispatch(putDetailsCliente(input, user));
     alert("Cambios Efectuados");
-    history.push(`/Cliente/perfil/${user.id}`);
+    history.push(`/Cliente/${user.id}`);
   };
 
   return (

@@ -1,15 +1,21 @@
-import React from 'react'
+import React,{useState} from 'react'
 import style from './nav.module.css'
 import { Link } from 'react-router-dom'
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { clearUser } from "../../../actions/index";
+import menu from '../../../media/menu.png'
 
-const Nav = (props) => {
+const Nav = ({id}) => {
+    const [open, setOpen] = useState(false)
 
     const history = useHistory();
 
     const dispatch = useDispatch();
+
+    const handlerHamburguer = ()=>{
+        setOpen(!open)
+    }
 
     function handleOnClick(e) {
       localStorage.clear();
@@ -22,19 +28,22 @@ const Nav = (props) => {
                 <h2 className={style.service}>Happy Dog!</h2>
             </div>
            <div className={style.log}>
-                <Link to='/cardsUsers' className={style.home}>
-                <span class="material-icons-outlined">home</span>
-                <span>Home</span>
-                </Link>
-                <button className={style.logout} onClick={e => { handleOnClick(e) }}>
-                <span class="material-icons-outlined">
-                        logout
-                    </span>
-                    <span>
-                        Log Out
-                    </span>
-                </button>
-            </div>    
+               <button className={style.hamburguesa} onClick={e =>handlerHamburguer()}><img src={menu} alt='a'/></button>
+               {open?<div className={style.menu}>
+                   <ul>
+                       <Link to={`/cardsUsers/${id}`} className={style.textdeco}>
+                            <li>Home</li>
+                       </Link>
+                       <button >
+                            <li>Favoritos</li>
+                       </button>
+                       <button onClick={handleOnClick}>
+                            <li className={style.cerrar}>Logout</li>
+                       </button>
+                   </ul>
+
+               </div>:null}
+            </div>  
          </div>
     )
 }

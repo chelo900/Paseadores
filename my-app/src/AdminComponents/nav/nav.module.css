@@ -22,7 +22,13 @@
     background-color: #ffffff00;
     border: none;
 }
+<<<<<<< HEAD
 
+=======
+.logout:hover{
+    background-color: rgb(142, 142, 243,0.5);
+}
+>>>>>>> 6ce2d2090c6633aee7b7399a7464de605234a054
 .log{
     display: flex;
     justify-content: center;
@@ -30,6 +36,7 @@
     width: 400px;
 }
 
+<<<<<<< HEAD
 /* .log span{
     padding: 5px ;
 } */
@@ -37,6 +44,8 @@
 .log :hover{
     background-color: rgb(142, 142, 243,0.5);
     }
+=======
+>>>>>>> 6ce2d2090c6633aee7b7399a7464de605234a054
 
 .service{
     display: flex;

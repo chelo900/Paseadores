@@ -22,6 +22,13 @@ const makeAdmin = require("../routes/Administrator/makeAdmin")
 const deleteUserAccount = require("../routes/Administrator/deleteUserAccount")
 const resetPassword = require("../routes/Administrator/resetPassword")
 const firstAdmin = require("../routes/Administrator/firstAdmin")
+<<<<<<< HEAD
+=======
+const addFavorite =require("./addFavorite")
+const getFavorite = require("./getFavorite")
+const deleteFavorite =require("./deleteFavorite")
+
+>>>>>>> 6ce2d2090c6633aee7b7399a7464de605234a054
 
 const router = Router();
 
@@ -47,5 +54,14 @@ router.use("/makeAdmin", makeAdmin);
 router.use("/deleteUserAccount", deleteUserAccount);
 router.use("/resetPassword", resetPassword);
 router.use("/firstAdmin", firstAdmin);
+<<<<<<< HEAD
+=======
+
+router.use('/addFav', addFavorite)
+router.use('/favs', getFavorite);
+router.use('/quitFav',deleteFavorite);
+
+
+>>>>>>> 6ce2d2090c6633aee7b7399a7464de605234a054
 
 module.exports = router;
