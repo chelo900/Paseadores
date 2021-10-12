@@ -63,8 +63,21 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 
 //TODO
-const { Client, User, Post, Complain, Horarios, Image, Orden } = sequelize.models;
+const { Client, User, Post, Complain, Horarios, Image, Administrator, Orden} = sequelize.models;
 
+
+/*
+(async () => {
+  
+  const jane = await administrator.create({
+    name: "grupo",
+    surname:"4",
+    email:"paseadorescuidadores@gmail.com",
+    password: "walker2021"
+    
+  })
+  
+})();*/
 // Aca vendrian las relaciones //TODO CREAR RELACIONES
 
 User.hasMany(Post);
@@ -79,6 +92,9 @@ Image.belongsTo(User);
 User.hasMany(Client);
 Client.belongsTo(User)
 
+User.belongsToMany(Client,{through:"favourites", foreignKey: 'UserId'})
+Client.belongsToMany(User,{through:"favourites", foreignKey: 'ClientId'})
+
 // User.hasMany(Horarios);
 // Horarios.belongsTo(User);
 
@@ -87,6 +103,15 @@ Orden.belongsTo(User);
 
 Client.hasMany(Orden);
 Orden.belongsTo(Client);
+
+Administrator.belongsToMany(User, {through: 'admin_user'})
+User.belongsToMany(Administrator, {through: 'admin_user'})
+
+Administrator.belongsToMany(Client, {through: 'admin_client'})
+Client.belongsToMany(Administrator, {through: 'admin_client'})
+
+
+  
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

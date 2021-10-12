@@ -1,7 +1,7 @@
 import React, { useState }  from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router'
-import { putDetailsCliente } from "../../actions/index"
+import { useHistory, useParams } from 'react-router'
+import { putDetailsProfileCliente } from "../../actions/index"
 
 import style from './descripcion.module.css'
 
@@ -10,11 +10,16 @@ const EditDescripcion = () => {
     const [input, setInput] = useState({
         description: '' })
 
-    const newIdCliente =useSelector(state => state.detailCliente.id)
-
+    // const newIdCliente =useSelector(state => state.detailCliente.id)
+    const {id} = useParams()
     const dispatch = useDispatch();
 
     const history = useHistory();
+
+    const handleLogout = (event) => {
+        event.preventDefault();
+        history.push(`/Cliente/${id}`);
+      };
     
     const inputChange = (e)=>{
         setInput({
@@ -24,10 +29,11 @@ const EditDescripcion = () => {
     }
 
     const handlerSubmit = ()=>{
-        dispatch(putDetailsCliente(newIdCliente, input))
-        console.log("cambios")
+
+        dispatch(putDetailsProfileCliente(id, input))
+        console.log(id ,"cambios")
         alert('Cambios Efectuados')
-        history.push(`/Cliente/perfil/${newIdCliente}`)
+        history.push(`/Cliente/${id}`)
 
     }
     return (
@@ -42,6 +48,9 @@ const EditDescripcion = () => {
                 onChange={e=>inputChange(e)}/>
                 <button type='submit'>Editar</button>
             </form>
+            <br/>
+            <br />
+            <button className={style.volver} onClick={handleLogout}> Volver </button>
         </div>
     )
 }

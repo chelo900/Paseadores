@@ -18,7 +18,15 @@ export const GET_CLIENTE_FOR_ID = "GET_CLIENTE_FOR_ID";
 export const PUT_DETAILS_CLIENT = "PUT_DETAILS_CLIENT";
 export const PUT_DETAILS_PROFILE_CLIENTE = "PUT_DETAILS_PROFILE_CLIENTE";
 export const CLEAR_USER = "CLEAR_USER";
+export const GET_WALKERS = "GET_WALKERS";
+export const GET_CLIENTS = "GET_CLIENTS";
+export const ALERT_ADMIN = "ALERT_ADMIN";
+export const RESET_PASSWORD = "RESET_PASSWORD";
+export const DELETE_USER_ACCOUNT = "DELETE_USER_ACCOUNT";
+export const FIRST_ADMIN = "FIRST_ADMIN";
+
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
+export const EDIT_FAVORITES = "EDIT_FAVORITES"
 
 export function getByEmail(payload) {
   return async function (dispatch) {
@@ -283,3 +291,128 @@ export function ordenAnswer(payload){
 
 
 
+export function getWalkers(email){
+  return async function(dispatch){
+    var result;
+      try{
+        if(!email){
+        result = await axios.get(`/getWalkers`)
+      }else{
+        result = await axios.get(`/getWalkers?email=${email}`)
+      }
+        return dispatch({
+          type: "GET_WALKERS",
+          payload: result.data
+        })
+      } catch(err){
+        console.log(err)
+      }
+  }
+}
+export function getClients(email){
+  return async function(dispatch){
+    var result;
+      try{
+        if(!email){
+          result = await axios.get(`/getClients`)
+        }else{
+          result = await axios.get(`/getClients?email=${email}`)
+        }
+        return dispatch({
+          type: "GET_CLIENTS",
+          payload: result.data
+        })
+      } catch(err){
+        console.log(err)
+      }
+  }
+}
+export function makeAdmin(id){
+  
+  return async function(dispatch){
+      try{
+        let result = await axios.post(`/makeAdmin`,id)
+        return dispatch({
+          type: "ALERT_ADMIN",
+          payload: result.data
+        })
+      } catch(err){
+        console.log(err)
+      }
+  }
+}
+
+export function resetPassword(id){
+  return async function(dispatch){
+      try{
+        let result = await axios.post(`/resetPassword`,id)
+        return dispatch({
+          type: "ALERT_ADMIN",
+          payload: result.data
+        })
+      } catch(err){
+        console.log(err)
+      }
+  }
+}
+
+export function deleteUserAccount(id){
+  return async function(dispatch){
+      try{
+        let result = await axios.post(`/deleteUserAccount`,id)
+        return dispatch({
+          type: "ALERT_ADMIN",
+          payload: result.data
+        })
+      } catch(err){
+        console.log(err)
+      }
+  }
+}
+
+export function firstAdmin(payload){
+  return async function(dispatch){
+      try{
+        let result = await axios.post(`/firstAdmin`,payload)
+        return dispatch({
+          type: "FIRST_ADMIN",
+          payload: result.data
+        })
+      } catch(err){
+        console.log(err)
+      }
+  }
+}
+export function getUserFavorites (idclient) {
+  return async function (dispatch) {
+    {console.log(idclient, 'payload')}
+      var favs = await axios.get("/favs/"+ idclient)
+      return dispatch({
+          type: "GET_USER_FAVORITES",
+          payload: favs.data
+      })
+  }
+}
+
+export function postUserFavorite (payload) {
+  return async function (dispatch) {
+    {console.log(payload, 'payload')}
+      return await axios.post(`/addFav/${payload.idclient}`, {iduser: payload.iduser})
+      .then((fav) => {
+        dispatch({
+          type: "ADD_FAVORITES",
+          payload: fav.data,
+        });
+        console.log(payload);
+      });
+}
+}
+
+export function deleteUserFavorite (payload) {
+  return async function () {
+      
+      var deleteFav = await axios.delete("/quitFav/"+ payload.idclient, {data: {iduser: payload.iduser}})
+      
+      return deleteFav
+  }
+}

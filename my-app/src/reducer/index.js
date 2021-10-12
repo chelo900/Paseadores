@@ -16,6 +16,9 @@ import {
   PUT_DETAILS_CLIENT,
   PUT_DETAILS_PROFILE_CLIENTE,
   CLEAR_USER,
+  GET_WALKERS,
+  GET_CLIENTS,
+  ALERT_ADMIN
 } from "../actions/index";
 
 const initialState = {
@@ -32,11 +35,23 @@ const initialState = {
   mensaje: "",
   ordensPaseador:[],
   ordensCliente:[],
-  idOrden:[]     
+  idOrden:[],    
+  mensaje:"",
+  favorites:[]
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case "GET_USER_FAVORITES":
+            return {
+                ...state,
+                favorites: action.payload
+            }
+            case "ADD_FAVORITES":
+              return {
+                  ...state,
+                  favorites: action.payload
+              }
     case GET_PASEADORES:
       console.log("reducer getpaseadores payload", action.payload.content);
       return {
@@ -76,7 +91,8 @@ function rootReducer(state = initialState, action) {
         allPaseadores: action.payload,
       };
     case GET_BY_EMAIL:
-      const { token, validate, id, walker } = action.payload;
+      const { token, validate, id, walker, admin} = action.payload;
+      
       return {
         ...state,
         user: {
@@ -84,6 +100,7 @@ function rootReducer(state = initialState, action) {
           validate,
           id,
           walker,
+          admin
         },
       };
     case NEW_PASEADOR:
@@ -128,6 +145,19 @@ function rootReducer(state = initialState, action) {
         ...state,
         user: action.payload,
       };
+      case GET_WALKERS:
+      return {
+        ...state,
+        allPaseadores: action.payload,
+      };
+      case GET_CLIENTS:
+      return {
+        ...state,
+        allPaseadores: action.payload,
+      };
+      case ALERT_ADMIN:
+      alert(action.payload);
+    
     // case GET_BY_EMAIL_CLIENTE:
     //   const { token, validate, id, cliente} = action.payload;
     //    return {

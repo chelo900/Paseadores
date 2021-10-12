@@ -1,4 +1,5 @@
 const { Router } = require("express");
+//const { Administrator} = require("../db");
 const get_details = require("./get_details");
 const postUser = require("./postUser");
 const putDetailsUser = require("./putDetailsUser");
@@ -18,6 +19,16 @@ const sendOrden = require ("./sendOrden")
 const getOrden = require ("./getOrden")
 const answerOrden = require("./answerOrden")
 const postPremium = require("./postPremium")
+const getWalkers = require("../routes/Administrator/getWalkers")
+const getClients = require("../routes/Administrator/getClients")
+const makeAdmin = require("../routes/Administrator/makeAdmin")
+const deleteUserAccount = require("../routes/Administrator/deleteUserAccount")
+const resetPassword = require("../routes/Administrator/resetPassword")
+const firstAdmin = require("../routes/Administrator/firstAdmin")
+const addFavorite =require("./addFavorite")
+const getFavorite = require("./getFavorite")
+const deleteFavorite =require("./deleteFavorite")
+
 
 const router = Router();
 
@@ -40,5 +51,17 @@ router.use("/sendOrden", sendOrden)
 router.use('/getOrden', getOrden)
 router.use('/ordenAnswer', answerOrden)
 router.use("/updatePremium", postPremium);
+router.use("/getWalkers", getWalkers);
+router.use("/getClients", getClients);
+router.use("/makeAdmin", makeAdmin);
+router.use("/deleteUserAccount", deleteUserAccount);
+router.use("/resetPassword", resetPassword);
+router.use("/firstAdmin", firstAdmin);
+
+router.use('/addFav', addFavorite)
+router.use('/favs', getFavorite);
+router.use('/quitFav',deleteFavorite);
+
+
 
 module.exports = router;

@@ -35,12 +35,14 @@ const Login = () => {
   useEffect(() => {
     
     if (user.validate === true) {
+      console.log("adminnnnnnnnnnnnnnnnnnn",user.admin)
       alert("Welcome");
       localStorage.clear();
       localStorage.setItem("userValidate", user.validate )
       localStorage.setItem("userToken", user.token )
       localStorage.setItem("userId", user.id )
       localStorage.setItem("userWalker", user.walker )
+      localStorage.setItem("userAdmin", user.admin )
       history.push(`/walker/perfil/${user.id}`);
       if(user.walker){
       }else{history.push(`/cardsUsers`);}

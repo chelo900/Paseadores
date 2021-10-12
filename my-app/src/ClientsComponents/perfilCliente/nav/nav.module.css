@@ -22,6 +22,9 @@
     background-color: #ffffff00;
     border: none;
 }
+.logout:hover{
+    background-color: rgb(142, 142, 243,0.5);
+}
 
 .log{
     display: flex;
@@ -29,14 +32,6 @@
     align-items: center;
     width: 400px;
 }
-
-/* .log span{
-    padding: 5px ;
-} */
-
-.log :hover{
-    background-color: rgb(142, 142, 243,0.5);
-    }
 
 .service{
     display: flex;

@@ -18,6 +18,7 @@ import esLocale from '@fullcalendar/core/locales/es';
 
 
 
+import Footer from './footer/Footer';
 
 const PerfilWalker = () => {
   const { id } = useParams();
@@ -243,6 +244,7 @@ const PerfilWalker = () => {
                 </div>
                 
             </div>
+            {/* <Footer /> */}
         </div>
     )
 }
