@@ -365,26 +365,34 @@
 
 }
 .btnPremuim{
-    width: 160px;
-    height: 30px;
-    background-color: rgb(58,84,180,0.8);;
+    width: 220px;
+    height: 35px;
+    background-color: rgb(254,247, 237);
     border: none;
     text-decoration: none;
-    box-shadow: 1px 1px 2px rgb(0, 0, 0);
-    color: white;
+    color: rgb(58,84,180);
     cursor: pointer;
     font-weight: 500;
+    border-radius: 10px;
     text-align: center;
-    margin: 25px 0px 0px 220px;
+    font-size: 20px;
+    text-transform: uppercase;
+    transition: .5s;
+}
+.btnPremuim:hover{
+    color: rgb(254,247, 237);
+    border: 1px solid rgb(254,247, 237);
+    background-color: rgb(58,84,180);
 }
 
 .Premuim{
-margin-top: 100px;
-background-color: rgba(165, 42, 42, 0.959);
-grid-column: 1span;
-margin: 100px 20px -80px 20px;
-width: 600px;
-height: 80px;
+    margin-top: 100px;
+    background-color: rgb(58,84,180);
+    grid-column: 1span;
+    margin: 100px 20px -80px 20px;
+    width: 600px;
+    height: 12%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-

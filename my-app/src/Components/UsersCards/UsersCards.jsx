@@ -75,6 +75,14 @@ const UsersCards = () => {
     setSelectFilters({ ...selectFilters, [name]: value });
   }
 
+  function handleOnClick(event){
+    event.preventDefault();
+    setSelectFilters({});
+    setInputFilters({});
+    setSortData({});
+    setPage(0);
+  }
+
   return (
     <div className={style.container}>
       <Nav />
@@ -167,7 +175,10 @@ const UsersCards = () => {
               </select>
             </div>
             <div>
-              <button className={style.atc}> Todos los Paseadores </button>
+              <button 
+                className={style.atc}
+                onClick={handleOnClick}
+                > Todos los Paseadores </button>
             </div>
           </div>
         </div>

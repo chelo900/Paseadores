@@ -1,5 +1,5 @@
-import React,{useState} from 'react'
-import style from './nav.module.css'
+import React, { useState } from 'react'
+import style from './Nav.module.css'
 import { Link } from 'react-router-dom'
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
@@ -11,38 +11,38 @@ const Nav = (props) => {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const handlerHamburguer = ()=>{
+    const handlerHamburguer = () => {
         setOpen(!open)
     }
 
     function handleOnClick(e) {
-      localStorage.clear();
-      history.push(`/login`);
-      dispatch(clearUser({}))
+        localStorage.clear();
+        history.push(`/login`);
+        dispatch(clearUser({}))
     }
     return (
         <div className={style.container}>
-        <div className={style.serviceContainer}>
-            <h2 className={style.service}>Happy Dog!</h2>
-        </div>
-       <div className={style.log}>
-           <button className={style.hamburguesa} onClick={e =>handlerHamburguer()}><img src={menu} alt='a'/></button>
-           {open?<div className={style.menu}>
-               <ul>
-                   <Link to={`/cardsUsers`} className={style.textdeco}>
-                        <li>Home</li>
-                   </Link>
-                   <button >
+            <div className={style.serviceContainer}>
+                <h2 className={style.service}>Happy Dog!</h2>
+            </div>
+            <div className={style.log}>
+                <button className={style.hamburguesa} onClick={e => handlerHamburguer()}><img src={menu} alt='a' /></button>
+                {open ? <div className={style.menu}>
+                    <ul>
+                        <Link to={`/cardsUsers`} className={style.textdeco}>
+                            <li>Home</li>
+                        </Link>
+                        <button >
                             <li>Favoritos</li>
-                    </button>
-                    <button onClick={handleOnClick}>
+                        </button>
+                        <button onClick={handleOnClick}>
                             <li className={style.cerrar}>Logout</li>
-                   </button>
-               </ul>
+                        </button>
+                    </ul>
 
-           </div>:null}
-        </div>  
-     </div>
+                </div> : null}
+            </div>
+        </div>
     )
 }
 
