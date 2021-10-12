@@ -32,6 +32,10 @@ const initialState = {
   newId: [],
   user: {},
   ubication: [],
+  mensaje: "",
+  ordensPaseador:[],
+  ordensCliente:[],
+  idOrden:[],    
   mensaje:"",
   favorites:[]
 };
@@ -165,6 +169,27 @@ function rootReducer(state = initialState, action) {
     //       cliente
     //     },
     // };
+      case "NEW_ORDEN":
+        return{
+          ...state,
+          idOrden: action.payload.id  
+        }
+      case "GET_ORDENSUSER_PASEADOR":
+        return{
+          ...state,
+          ordensPaseador: action.payload
+        }
+        case "GET_ORDENSUSER_CLIENTE":
+          return{
+            ...state,
+            ordensCliente: action.payload
+          }
+        case "NEW_CLIENT":
+          return {
+            ...state,
+            newId: action.payload.id,
+          };
+
     default:
       return state;
   }

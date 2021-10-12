@@ -237,6 +237,60 @@ export function putDetailsCliente(payload, client) {
 //   };
 // }
 
+export function clientSendOrden(payload){
+  return async function (dispatch){
+    return axios
+    .post("/sendOrden", payload)
+    .then((orden)=>{
+      dispatch({
+        type: "NEW_ORDEN",
+        payload: orden.data
+      })
+    })
+  }
+}
+
+// export function getOrdenPaseador(userId){
+//   console.log('geeetorden')
+//   return (dispatch) => {
+//     axios.get(`/getOrden/paseador/${userId}`)
+//     .then((orden)=>
+//     dispatch({
+//       type: "GET_ORDENSUSER_PASEADOR",
+//       payload: orden.data
+//     }))
+//   }
+// }
+
+export function getOrdenCliente(userId){
+  console.log('geeetordenCliente', userId)
+  return (dispatch) => {
+    axios.get(`/getOrden/${userId}`)
+    .then((orden)=>
+    dispatch({
+      type: "GET_ORDENSUSER_CLIENTE",
+      payload: orden.data
+    }))
+  }
+}
+
+export function ordenAnswer(payload){
+  return async function (dispatch){
+    return axios
+    .put("/ordenAnswer", payload)
+    .then((answer)=>{
+      dispatch({
+        type: "ORDEN_ANSWER",
+        payload: answer.data
+      })
+    })
+  }
+}
+
+
+
+
+
 export function getWalkers(email){
   return async function(dispatch){
     var result;
