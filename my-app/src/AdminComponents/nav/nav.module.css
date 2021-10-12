@@ -8,10 +8,10 @@
     border-bottom: solid 4px  rgb(58,84,180);
     z-index: 2;
 }
-
 .logout{
     display: flex;
     justify-content:center;
+    align-items: center;
     font-size: 15px;
     padding: 25px;
     width: 200px;
@@ -31,8 +31,6 @@
     align-items: center;
     width: 400px;
 }
-
-
 .service{
     display: flex;
     flex-direction: column;
@@ -41,7 +39,6 @@
     color:rgb(58,84,180);
     font-size: 30px;
 }
-
 .serviceContainer{
     display: flex;
     flex-direction: column;
@@ -49,10 +46,10 @@
     align-items: center;
     margin: 0 0 0 20px;
 }
-
 .home{
     display: flex;
     justify-content:center;
+    align-items: center;
     font-size: 15px;
     padding: 25px;
     width: auto;
@@ -61,7 +58,9 @@
     color:rgb(58,84,180);
     margin: 0 20px 0 20px;
 }
-
 .home:hover{
     background-color: rgb(142, 142, 243,0.5);
+}
+.home span{
+    margin-left: 5px;
 }
