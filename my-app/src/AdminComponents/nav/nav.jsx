@@ -49,11 +49,6 @@ export default Nav
 // return (
 //     <div className={style.container}>
 //        <Nav/>
-<<<<<<< HEAD
-       
-=======
-
->>>>>>> 6ce2d2090c6633aee7b7399a7464de605234a054
 //         <div className={style.containerPerfil}>
 //             <div className={style.personalInformation}>
 //                 <div className={style.borderFoto}>
