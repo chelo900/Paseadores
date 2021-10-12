@@ -189,7 +189,7 @@ const PerfilWalker = () => {
                         </Link>
                     </div>
                     <div className={style.descripcion}>
-                        <h2>Description</h2>
+                        <h2>Descripción</h2>
                         <div className={style.textDescription}>
                             {Walker.description ? <p className={style.textDescriptionNew}>{Walker.description}</p> : <p>Agrega una descripcion</p>}
                         </div>
@@ -198,7 +198,7 @@ const PerfilWalker = () => {
                         </Link>
                     </div>
                     <div className={style.price}>
-                        <h2>Price per Hour</h2>
+                        <h2>Precio</h2>
                         <div className={style.textDescription}>
                             {Walker.price != 0 ? <p>{Walker.price}  x Hour</p> : <p>Ponle un precio a tu servicio</p>}
                         </div>
@@ -207,7 +207,7 @@ const PerfilWalker = () => {
                         </Link>
                     </div>
                     <div className={style.reputacion}>
-                        <h2>Reputacion</h2>
+                        <h2>Reputación</h2>
                         <div className={style.textDescription}>
                             <p> * * * * *</p>
                         </div>

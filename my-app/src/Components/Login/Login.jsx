@@ -15,37 +15,37 @@ const Login = () => {
     email: "",
     password: "",
   });
-  var walker =localStorage.getItem("userWalker");
-  
+  var walker = localStorage.getItem("userWalker");
+
   useEffect(() => {
-    if(walker === "false" || walker === "true"){
+    if (walker === "false" || walker === "true") {
       history.push(`/cardsUsers`)
     }
-}, [])
+  }, [])
 
   const user = useSelector((state) => state.user);
-  
+
   const handleOnChange = ({ target: { name, value } }) =>
     setValues({
       ...values,
       [name]: value,
     });
-    
+
 
   useEffect(() => {
-    
+
     if (user.validate === true) {
-      console.log("adminnnnnnnnnnnnnnnnnnn",user.admin)
+      console.log("adminnnnnnnnnnnnnnnnnnn", user.admin)
       alert("Welcome");
       localStorage.clear();
-      localStorage.setItem("userValidate", user.validate )
-      localStorage.setItem("userToken", user.token )
-      localStorage.setItem("userId", user.id )
-      localStorage.setItem("userWalker", user.walker )
-      localStorage.setItem("userAdmin", user.admin )
+      localStorage.setItem("userValidate", user.validate)
+      localStorage.setItem("userToken", user.token)
+      localStorage.setItem("userId", user.id)
+      localStorage.setItem("userWalker", user.walker)
+      localStorage.setItem("userAdmin", user.admin)
       history.push(`/walker/perfil/${user.id}`);
-      if(user.walker){
-      }else{history.push(`/cardsUsers`);}
+      if (user.walker) {
+      } else { history.push(`/cardsUsers`); }
     } else if (user.validate === false) {
       alert("Please check your credentials");
       window.location.reload();;
@@ -76,7 +76,7 @@ const Login = () => {
               required
             />
             <span></span>
-            <label htmlFor="">UserName</label>
+            <label htmlFor="">Email</label>
           </div>
           <div className={style.field}>
             <input
@@ -87,17 +87,22 @@ const Login = () => {
               required
             />
             <span></span>
-            <label htmlFor="">Password</label>
+            <label htmlFor="">Contraseña</label>
           </div>
-          <Link to="/login/recoverPassword"> <span className={style.pass}>Forgot password?</span> </Link>
-           <input className={style.login} type="submit" value="login"></input>
+          <Link to="/login/recoverPassword"> <span className={style.pass}>Olvidaste tu contraseña?</span> </Link>
+          <input className={style.login} type="submit" value="login"></input>
           <div className={style.link}>
             <span>
-              Not registered?
+              No estás registrado?
               <Link className={style.create} to="/pre-login">
-                <span className={style.create}>Create account</span>
+                <span className={style.create}>Crear cuenta</span>
               </Link>
             </span>
+          </div>
+          <div className={style.inicio}>
+            <Link className={style.create} to="/">
+              <p className={style.create}> Volver al Inicio</p>
+            </Link>
           </div>
           <div className={style.google}>
             <Log />
