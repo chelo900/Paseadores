@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./nav.module.css";
+import style from "./Nav.module.css";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
