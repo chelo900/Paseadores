@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addImage, getPaseadorForId } from '../../actions/index'
+import { addImage, clientSendOrden,  getOrdenCliente, getPaseadorForId } from '../../actions/index'
 
 import style from './PerfilWalker.module.css'
 import foto1 from '../../media/foto1Service.jpg'
 import { Link, useParams, useHistory } from 'react-router-dom'
 import Nav from './nav/nav';
+
+import FullCalendar, {EventContentArg}  from '@fullcalendar/react' // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
+import esLocale from '@fullcalendar/core/locales/es';
+import momentPlugin from '@fullcalendar/moment';
+import moment from 'moment';
+
 
 
 
@@ -19,11 +28,23 @@ const PerfilWalker = () => {
 
     const Walker = useSelector((state) => state.detailWalker);
 
+  const ordensCliente = useSelector(state => state.ordensCliente)
+
+    var idCliente = localStorage.getItem("userId")
+
+    const[ordenload, setOrdenLoad] = useState(false)
+
+
+
 
     useEffect(() => {
         dispatch(getPaseadorForId(id))
     }, [dispatch])
 
+
+    useEffect(() => {
+        dispatch(getOrdenCliente(id))
+    }, [dispatch])
     // const [file, setFile] = useState('')
     // const handleInputChange = (e) => {
     //     setFile(e.target.files[0])
@@ -42,9 +63,90 @@ const PerfilWalker = () => {
     //     history.push("/");
     // };
 
-    // const upLoadImage=(base64EncodeImage)=>{
-    //     console.log(base64EncodeImage)
-    // }
+    useEffect(() => {
+        if(ordenload===true){
+        dispatch(getOrdenCliente(id))
+        }
+    }, [ordenload])
+
+
+    const maxPerrosPorTurno = 4
+    
+
+    const handleDateSelect = (selectInfo) => {
+        
+        
+        let today = new Date()
+        
+        var calendarApi = selectInfo.view.calendar
+        calendarApi.unselect() // clear date selection
+    
+        
+        
+        if (selectInfo.start < today){
+            calendarApi.unselect()
+            return alert('Fecha no permitida');
+            
+        }
+        const cantOrdenes = ordensCliente.filter(ordens=>ordens.start.toString() === selectInfo.startStr.toString() && 
+        ordens.end.toString() === selectInfo.endStr.toString())
+        
+        if (cantOrdenes.length >= maxPerrosPorTurno){
+            
+           return alert('No hay disponibilidad horaria en este turno')
+        }
+
+    
+        if (selectInfo.start >= today ) {
+            var title = prompt(`Confirma reserva con ${Walker.name}? agregue ubicación` )
+          calendarApi.addEvent({ // will render immediately. will call handleEventAdd
+            title,
+            start: selectInfo.startStr,
+            end: selectInfo.endStr,
+            // allDay: selectInfo.allDay
+          }, true) // temporary=true, will get overwritten when reducer gives new events
+        }
+        console.log(id)
+        console.log(idCliente)
+        if(title){
+        dispatch(clientSendOrden({
+            fechaInicio: selectInfo.startStr,
+            fechaFinal: selectInfo.endStr,
+            userId: id,
+            clientId: idCliente,
+            ubicacion: title
+        }))
+        console.log(ordenload)
+        setTimeout(() => {
+            setOrdenLoad(true)
+        }, 1000);
+        
+        setTimeout(() => {
+        setOrdenLoad(false)
+        }, 1000);
+        
+        }
+    }
+
+    // const handleEventClick = (clickInfo) => {
+    //     console.log(clickInfo)
+    //     if ((`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+    //       clickInfo.event.remove() // will render immediately. will call handleEventRemove
+    //     }
+    //   }
+      const handleEventClick = (clickInfo) => {
+        
+        if(clickInfo.event.extendedProps.clientId === idCliente){
+        clickInfo.event.remove() // will render immediately. will call handleEventRemove
+      }
+        else  {
+          return clickInfo.event.title // will render immediately. will call handleEventRemove
+        }
+    }
+    
+    
+    
+    
 
     return (
         <div className={style.container}>
@@ -77,6 +179,38 @@ const PerfilWalker = () => {
                             {Walker.description ? <p className={style.textDescriptionNew}>{Walker.description}</p> : <p>Agrega una descripcion</p>}
                         </div>
                     </div>
+                    <div>
+                        <span>🟢 Paseos Confirmados</span> 
+                        <span>🟡 Pendientes</span> 
+                    </div>
+                    <div>
+
+            <FullCalendar eventClassNames={style.calendar} 
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            headerToolbar={{
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+              }}
+            initialView="timeGridWeek"
+            locale = {esLocale}
+            editable={true}
+            selectable= {true}
+            selectMirror={true}
+            dayMaxEvents={3}
+            select={handleDateSelect}
+            eventClick={handleEventClick}   
+            contentHeight= "auto"
+            slotDuration = '01:00'
+            events = {
+                ordensCliente
+                
+            }
+            slotMinTime = '06:00:00'
+            slotMaxTime = '23:00:00'
+            allDaySlot = {false}
+            />
+        </div>
                     <div className={style.price}>
                         <h2>Price per Hour</h2>
                         <div className={style.textDescription}>

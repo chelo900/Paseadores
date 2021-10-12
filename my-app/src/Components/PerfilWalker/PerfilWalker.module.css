@@ -354,6 +354,16 @@
     box-shadow:none; 
 }
 
+.calendar{
+   
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: text-bottom;
+
+}
 .btnPremuim{
     width: 160px;
     height: 30px;
@@ -376,3 +386,5 @@ margin: 100px 20px -80px 20px;
 width: 600px;
 height: 80px;
 }
+
+

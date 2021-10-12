@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fullcalendar/core": "^5.9.0",
+    "@fullcalendar/daygrid": "^5.9.0",
+    "@fullcalendar/interaction": "^5.9.0",
+    "@fullcalendar/list": "^5.9.0",
+    "@fullcalendar/moment": "^5.9.0",
+    "@fullcalendar/react": "^5.9.0",
+    "@fullcalendar/scrollgrid": "^5.9.0",
+    "@fullcalendar/timegrid": "^5.9.0",
     "@stripe/react-stripe-js": "^1.6.0",
     "@stripe/stripe-js": "^1.19.1",
     "@testing-library/jest-dom": "^5.14.1",
@@ -22,6 +30,7 @@
     "react-viewerjs": "^0.1.9",
     "redux": "^4.1.1",
     "redux-thunk": "^2.3.0",
+    "sweetalert": "^2.1.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
