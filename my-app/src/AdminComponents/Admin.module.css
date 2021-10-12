@@ -1,15 +1,100 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
 .container{
     background-color: rgb(254,247, 237);
     height: 100vh;
-    margin: 0;
 }
 
-.containerPerfil{
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
+.containerInfo{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+.descripcion{
+    width: 70%;
+    height: 70%;
+    margin-top: 100px;
+    text-align: center;
+    background-color: inherit;
+}
+.title{
+    color:rgb(58,84,180);
+    border-bottom: 2px solid rgb(58,84,180);
+    margin-bottom: 20px;
+}
+.containerInput{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.input{
+    height: 30px;
+    font-size: 18px;
+    padding: 2px;
+    width: 250px;
+    border: 1px solid rgb(58,84,180);
+    border-radius: 3px;
+    margin-bottom: 15px;
+    background: rgb(254,247, 237);
+}
+.input::placeholder{
+    color:rgb(58,84,180);
+    font-weight: 500;
+}
+.inputBtn{
+    margin-bottom: 15px;
+    width: 125px;
+    height: 30px;
+    font-size: 18px;
+    padding: 2px;
+    border: 1px solid rgb(58,84,180);
+    border-radius: 3px;
+    color:rgb(254,247, 237);
+    font-weight: 500;
+    background: rgb(58,84,180);
+    transition: .3s;
+}
+
+.inputBtn:hover{
+    background:rgb(254,247, 237);
+    color:rgb(58,84,180);
+}
+.btn{
+    margin-bottom: 15px;
+    width: 250px;
+    height: 30px;
+    font-size: 18px;
+    padding: 2px;
+    border: 1px solid rgb(58,84,180);
+    margin: 0 20px 0 20px;
+    color: rgb(254,247, 237);
+    font-weight: 500;
+    background:rgb(58,84,180);
+    transition: .3s;
+}
+.btn:hover{
+    background: rgb(254,247, 237);
+    color:rgb(58,84,180);
+}
+.subTitle{
+    color:rgb(58,84,180);
+    margin-top: 30px;
+}
+
+.userContainer{
+    width: 100%;
     height: auto;
+    padding: 30px;
 }
-
+/* 
 .personalInformation{
     grid-column: 1span;
     background-color: white;
@@ -66,10 +151,10 @@
     width: auto;
     font-family: 'Work Sans', sans-serif;
     color:rgb(58,84,180);
-}
+} */
 /*
 .liPhone{
-  margin: 10px 0 20px 0;
+    margin: 10px 0 20px 0;
     list-style-image: url("../../media/iconPhone.png");
     font-family: 'Nunito', sans-serif;
 }
@@ -86,7 +171,7 @@
     font-family: 'Nunito', sans-serif;
 }
 */
-.editContainerInfo{
+/* .editContainerInfo{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -122,12 +207,7 @@
     width: 100%;
 }
 
-.descripcion{
-    margin: 100px 20px 0 20px;
-    width: 600px;
-    height: auto;
-    background-color: white;
-}
+
 
 .descripcion h2{
     padding: 10px ;
@@ -176,7 +256,7 @@
 
 .textDescription{
     width:570px ;
-} 
+}  */
 
 
 
