@@ -4,13 +4,13 @@ const { Orden, User ,Op } = require("../db");
 const router = Router();
 
 router.put("/", async (req, res) => {
-  const {id} = req.body;
-  console.log(id)
+  const answer = req.body;
+  console.log(answer.id)
   try {
-    const datos = await Orden.update({estadoReserva: 'confirmada', color : 'green'},
+    const datos = await Orden.update({estadoReserva: answer.estadoReserva, color : 'green'},
     {
         where: {
-            id : id
+            id : answer.id
         }
     })
     console.log(datos)

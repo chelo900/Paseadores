@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
         primaryKey: true,
         },
     estadoReserva: {
-        type: DataTypes.ENUM("pendiente", "confirmada", "cumplida"),
+        type: DataTypes.ENUM("pendiente", "confirmada", "rechazada"),
         defaultValue: "pendiente",
         allowNull: false,
         },

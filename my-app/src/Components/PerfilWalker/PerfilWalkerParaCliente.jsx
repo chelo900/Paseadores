@@ -70,7 +70,7 @@ const PerfilWalker = () => {
     }, [ordenload])
 
 
-    const maxPerrosPorTurno = 4
+    const maxPerrosPorTurno = 3
     
 
     const handleDateSelect = (selectInfo) => {
@@ -146,7 +146,8 @@ const PerfilWalker = () => {
     
     
     
-    
+    var mañana = false
+    var tarde = false
 
     return (
         <div className={style.container}>
@@ -206,8 +207,8 @@ const PerfilWalker = () => {
                 ordensCliente
                 
             }
-            slotMinTime = '06:00:00'
-            slotMaxTime = '23:00:00'
+            slotMinTime = {tarde ? '13:00:00':'06:00:00' }
+            slotMaxTime = {mañana ? '13:00:00': '23:00:00'}
             allDaySlot = {false}
             />
         </div>
