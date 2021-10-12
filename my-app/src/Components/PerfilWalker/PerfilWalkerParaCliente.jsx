@@ -162,7 +162,7 @@ const PerfilWalker = () => {
                     <div className={style.informacion}>
                         {/* <h2>{Client.name} {Client.surname}</h2> */}
                         <ul >
-                        <li className={style.liService}>{Walker.service}</li>
+                            <li className={style.liService}>{Walker.service}</li>
                             <li className={style.libirth}>{Walker.birth_day}</li>
                             <li className={style.liPhone}>{Walker.phone}</li>
                             <li className={style.liEmail}>{Walker.email}</li>

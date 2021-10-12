@@ -64,3 +64,61 @@
 .home:hover{
     background-color: rgb(142, 142, 243,0.5);
 }
+.hamburguesa{
+    background-color: transparent;
+    border:none;
+    cursor: pointer;
+    margin-top:  10px;
+
+}
+
+.hamburguesa img{
+    width: 50px;
+    color:rgb(58,84,180);
+}
+
+.menu{
+    background-color: rgb(58,84,180);
+    color: white;
+    box-shadow: 2px 0 5px 2px rgb(66, 66, 66);
+    width: 200px;
+    height: 100vh;
+    position: absolute;
+    top:79px;
+    right: 0;
+    transition: all .5s ease;
+    text-decoration: none;
+
+}
+.menu ul{
+    list-style-type: none;
+    padding: 50px 0 20px 0;
+    text-decoration: none;
+    font-family: 'Work Sans', sans-serif;
+}
+.menu ul li{
+    color: white;
+    display: block;
+    font-size: 25px;
+    padding: 10px 50px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.menu ul li:hover{
+    background-color: white;
+    color: rgb(58,84,180);
+    text-decoration: none;
+}
+.cerrar{
+    margin-top: 450px;
+}
+.textdeco{
+    text-decoration: none;
+}
+
+.menu button{
+    background-color: transparent;
+    border: none;
+    font-family: 'Work Sans', sans-serif;
+}
