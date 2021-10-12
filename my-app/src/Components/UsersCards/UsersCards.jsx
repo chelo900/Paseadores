@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer } from "react";
 import Card from "../Card/Card";
-import Nav from "./Nav/nav";
+import Nav from "./Nav/Nav";
 import style from "../UsersCards/UsersCards.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPaseadores } from "../../actions/index";
