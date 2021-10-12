@@ -70,7 +70,7 @@ const PerfilWalker = () => {
     }, [ordenload])
 
 
-    const maxPerrosPorTurno = 3
+    const maxPerrosPorTurno = 4
     
 
     const handleDateSelect = (selectInfo) => {
