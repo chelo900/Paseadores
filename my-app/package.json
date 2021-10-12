@@ -30,6 +30,7 @@
     "react-viewerjs": "^0.1.9",
     "redux": "^4.1.1",
     "redux-thunk": "^2.3.0",
+    "sweetalert": "^2.1.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

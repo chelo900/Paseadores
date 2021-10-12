@@ -229,6 +229,19 @@ export function putDetailsCliente(payload, client) {
 //   };
 // }
 
+export function clientSendOrden(payload){
+  return async function (dispatch){
+    return axios
+    .post("/sendOrden", payload)
+    .then((orden)=>{
+      dispatch({
+        type: "NEW_ORDEN",
+        payload: orden.data
+      })
+    })
+  }
+}
+
 // export function getOrdenPaseador(userId){
 //   console.log('geeetorden')
 //   return (dispatch) => {

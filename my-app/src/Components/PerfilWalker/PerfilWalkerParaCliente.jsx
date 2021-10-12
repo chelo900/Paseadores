@@ -32,13 +32,25 @@ const PerfilWalker = () => {
 
     var idCliente = localStorage.getItem("userId")
 
+    const[ordenload, setOrdenLoad] = useState(false)
+
+
+
+
     useEffect(() => {
         dispatch(getPaseadorForId(id))
     }, [dispatch])
 
+
     useEffect(() => {
         dispatch(getOrdenCliente(id))
     }, [dispatch])
+
+    useEffect(() => {
+        if(ordenload===true){
+        dispatch(getOrdenCliente(id))
+        }
+    }, [ordenload])
 
 
     const maxPerrosPorTurno = 4
@@ -69,7 +81,7 @@ const PerfilWalker = () => {
 
     
         if (selectInfo.start >= today ) {
-            var title = prompt(`Confirma reserva con ${Walker.name} agregue ubicación` )
+            var title = prompt(`Confirma reserva con ${Walker.name}? agregue ubicación` )
           calendarApi.addEvent({ // will render immediately. will call handleEventAdd
             title,
             start: selectInfo.startStr,
@@ -86,7 +98,17 @@ const PerfilWalker = () => {
             userId: id,
             clientId: idCliente,
             ubicacion: title
-        }))}
+        }))
+        console.log(ordenload)
+        setTimeout(() => {
+            setOrdenLoad(true)
+        }, 1000);
+        
+        setTimeout(() => {
+        setOrdenLoad(false)
+        }, 1000);
+        
+        }
     }
 
     // const handleEventClick = (clickInfo) => {
@@ -137,6 +159,11 @@ const PerfilWalker = () => {
                         </div>
                     </div>
                     <div>
+                        <span>🟢 Paseos Confirmados</span> 
+                        <span>🟡 Pendientes</span> 
+                    </div>
+                    <div>
+
             <FullCalendar eventClassNames={style.calendar} 
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             headerToolbar={{

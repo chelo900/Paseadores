@@ -13,6 +13,8 @@ router.get("/:user", async (req, res) => {
     const datos = await Orden.findAll({
       where: {
         userId: user
+        // [Op.and]:[{userId: user}, ({estadoReserva: 'confirmada'})]
+        
       },
       
     });
@@ -32,7 +34,7 @@ router.get("/:user", async (req, res) => {
 
       }
     })
-    console.log(detalleOrden)
+    // console.log(detalleOrden)
     if (detalleOrden) {
       res.status(200).send(detalleOrden); 
     } else {

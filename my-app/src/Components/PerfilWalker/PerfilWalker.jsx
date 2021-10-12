@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addImage, clientSendOrden, getOrden, getOrdenCliente, getOrdenPaseador, getPaseadorForId, ordenAnswer } from '../../actions/index'
 
-import { addImage, getPaseadorForId } from '../../actions/index'
 import style from './PerfilWalker.module.css'
 import foto1 from '../../media/foto1Service.jpg'
 import { Link, useParams, useHistory } from 'react-router-dom'
 import Nav from './nav/nav';
+import swal from 'sweetalert';
 
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -30,6 +30,8 @@ const PerfilWalker = () => {
 
   const ordensCliente = useSelector(state => state.ordensCliente)
 
+  const[ordenload, setOrdenLoad] = useState(false)
+    
 
     useEffect(() => {
         dispatch(getPaseadorForId(id))
@@ -37,9 +39,28 @@ const PerfilWalker = () => {
 
     useEffect(() => {
         dispatch(getOrdenCliente(id))
+        
     }, [dispatch])
 
+    useEffect(() => {
+        if(ordenload===true){
+        dispatch(getOrdenCliente(id))
+        }
+    }, [ordenload])
 
+    
+
+    useEffect(() => {
+       let ordenespendientes = ordensCliente.filter(ordenes=>ordenes.estadoReserva === 'pendiente')
+       setTimeout(()=>{
+        if(ordenespendientes.length !== 0){
+            alert('Tenes ordenes pendientes que contestar!')
+        }
+       },1500)
+       
+    }, [dispatch])
+
+    
 
     const handleDateSelect = (selectInfo) => {
         let calendarApi = selectInfo.view.calendar
@@ -75,20 +96,46 @@ const PerfilWalker = () => {
     // }
 
     const handleEventClick = (clickInfo) => {
+        const confirm = ()=>{
+            swal({
+                title: 'Confirmar orden de paseo',
+                text: `Cliente de la zona de ${clickInfo.event.extendedProps.ubicacion}`,
+                icon: "info",
+                buttons: ["Cancelar", "Aceptar"],
+            }).then(respuesta=>{
+                if(respuesta){swal({text:'Orden confirmada', icon: 'success'});
+                dispatch(ordenAnswer({
+                    id: clickInfo.event.extendedProps.idOrden
+                }));
+                setTimeout(() => {
+                    setOrdenLoad(true)
+                }, 1000); 
+                setOrdenLoad(false)
+            }
+            })
+        }
         if(clickInfo.event.extendedProps.estadoReserva === 'pendiente'){
-            console.log(clickInfo.event.extendedProps.idOrden)
-            prompt(`Confirmar la orden? ubicacion: ${clickInfo.event.extendedProps.ubicacion}` ) 
-            dispatch(ordenAnswer({
-                id: clickInfo.event.extendedProps.idOrden
-            }))}
+            // console.log(clickInfo.event.extendedProps.idOrden)
+            confirm(`Confirmar la orden? ubicacion: ${clickInfo.event.extendedProps.ubicacion}` ) 
+            // dispatch(ordenAnswer({
+            //     id: clickInfo.event.extendedProps.idOrden
+            // }))
+            // setTimeout(() => {
+            //     setOrdenLoad(true)
+            // }, 1000); 
+            // setOrdenLoad(false)
+            // console.log(ordenload)
+            }
             
         else  {
           return clickInfo.event.title // will render immediately. will call handleEventRemove
         }
+        
     }
 
-    
-    
+    var mañana = false
+    var tarde = false
+
 
     return (
         <div className={style.container}>
@@ -162,6 +209,10 @@ const PerfilWalker = () => {
                                 <button  className={style.subir} type="submit">Subir</button>
                             </form>
                       </div>
+                      <div>
+                        <span>🟢 Paseos Confirmados</span> 
+                        <span>🟡 Pendientes</span> 
+                      </div>
                       <FullCalendar eventClassNames={style.calendar}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin  ]}
             headerToolbar={{
@@ -181,8 +232,8 @@ const PerfilWalker = () => {
             contentHeight= "auto"
             slotDuration = '01:00'
             events = {ordensCliente}
-            slotMinTime = '06:00:00'
-            slotMaxTime = '23:00:00'
+            slotMinTime = {tarde ? '13:00:00':'06:00:00' }
+            slotMaxTime = {mañana ? '12:00:00': '23:00:00'}
             allDaySlot = {false}
             
             
