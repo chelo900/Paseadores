@@ -12,7 +12,7 @@ import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import listPlugin from '@fullcalendar/list';
+import listPlugin, { ListView } from '@fullcalendar/list';
 import esLocale from '@fullcalendar/core/locales/es';
 
 
@@ -106,13 +106,23 @@ const PerfilWalker = () => {
             }).then(respuesta=>{
                 if(respuesta){swal({text:'Orden confirmada', icon: 'success'});
                 dispatch(ordenAnswer({
-                    id: clickInfo.event.extendedProps.idOrden
+                    id: clickInfo.event.extendedProps.idOrden,
+                    estadoReserva: "confirmada"
                 }));
                 setTimeout(() => {
                     setOrdenLoad(true)
                 }, 1000); 
                 setOrdenLoad(false)
-            }
+            }else{swal({text:'Orden rechazada', icon: 'warning'});
+            dispatch(ordenAnswer({
+                id: clickInfo.event.extendedProps.idOrden,
+                estadoReserva: "rechazada"
+            }));
+            setTimeout(() => {
+                setOrdenLoad(true)
+            }, 1000); 
+            setOrdenLoad(false)
+        }
             })
         }
         if(clickInfo.event.extendedProps.estadoReserva === 'pendiente'){
@@ -224,7 +234,7 @@ const PerfilWalker = () => {
               
             initialView="timeGridWeek"
             locale = {esLocale}
-            editable={false}
+            editable={true}
             selectable= {false}
             selectMirror={false}
             dayMaxEvents={true}

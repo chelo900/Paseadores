@@ -10,14 +10,23 @@ router.get("/:user", async (req, res) => {
   const { user } = req.params;
   console.log(user)
   try {
-    const datos = await Orden.findAll({
+    const confirmados = await Orden.findAll({
       where: {
-        userId: user
-        // [Op.and]:[{userId: user}, ({estadoReserva: 'confirmada'})]
+        // userId: user
+        [Op.and]:[{userId: user}, ({estadoReserva: 'confirmada'})]
         
       },
       
     });
+    const datospendientes = await Orden.findAll({
+      where: {
+        // userId: user
+        [Op.and]:[{userId: user}, ({estadoReserva: 'pendiente'})]
+        
+      },
+      
+    })
+    let datos = confirmados.concat(datospendientes)
     const detalleOrden = datos.map(ord=>{
       return{
         title: ord.ubicacion,
@@ -34,7 +43,7 @@ router.get("/:user", async (req, res) => {
 
       }
     })
-    // console.log(detalleOrden)
+    console.log(detalleOrden)
     if (detalleOrden) {
       res.status(200).send(detalleOrden); 
     } else {
