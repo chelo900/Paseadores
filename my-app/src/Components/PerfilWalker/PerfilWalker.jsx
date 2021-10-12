@@ -35,7 +35,6 @@ const PerfilWalker = () => {
 
     const [ordenload, setOrdenLoad] = useState(false)
 
-  const[ordenload, setOrdenLoad] = useState(false)
 
   const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
     
