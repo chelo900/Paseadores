@@ -20,7 +20,8 @@ import {
   GET_CLIENTS,
   ALERT_ADMIN,
   GET_USER_FAVORITES,
-  ADD_FAVORITES
+  ADD_FAVORITES,
+  GET_FOR_LIST_FAV
 } from "../actions/index";
 
 const initialState = {
@@ -39,7 +40,8 @@ const initialState = {
   ordensCliente:[],
   idOrden:[],    
   mensaje:"",
-  favorites:[]
+  favorites:[],
+  dataFavorites: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -48,6 +50,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         favorites: action.payload
+    }
+    case GET_FOR_LIST_FAV:
+      return {
+        ...state,
+        dataFavorites: action.payload
     }
             case ADD_FAVORITES:
               return {

@@ -27,6 +27,7 @@ export const FIRST_ADMIN = "FIRST_ADMIN";
 export const ADD_FAVORITES = "ADD_FAVORITES";
 export const GET_USER_FAVORITES = "GET_USER_FAVORITES";
 export const DELETE_USER_FAVORITE= "DELETE_USER_FAVORITE";
+export const GET_FOR_LIST_FAV= "GET_FOR_LIST_FAV";
 
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES"
@@ -348,6 +349,7 @@ export function makeAdmin(id){
 export function resetPassword(id){
   return async function(dispatch){
       try{
+        console.log("aaaaaaaaa", id)
         let result = await axios.post(`/resetPassword`,id)
         return dispatch({
           type: "ALERT_ADMIN",
@@ -391,6 +393,15 @@ export function getUserFavorites (id) {
       var favs = await axios.get("/getFavorite/"+ id)
       return dispatch({
           type: "GET_USER_FAVORITES",
+          payload: favs.data
+      })
+  }
+}
+export function getForListFav (id) {
+  return async function (dispatch) {
+      var favs = await axios.get("/getForListFav/"+ id)
+      return dispatch({
+          type: "GET_FOR_LIST_FAV",
           payload: favs.data
       })
   }
