@@ -24,7 +24,10 @@ const Log = () => {
   const googleResponse = async (response) => {
     // Check if a token was recieved and send it to our API:
     console.log(response.tokenId)
-    console.log(response.profileObj)
+    // console.log(response.profileObj)
+
+    const googleResponse = await axios.post("/google",{ token: response.tokenId })
+      console.log(googleResponse)
     // if (response.tokenId) {
     //   const googleResponse = await axios.post(
     //     "/api/v1/user-auth",
@@ -71,11 +74,7 @@ const Log = () => {
     }, 5000);
   }, [state.profile_loaded]);
 
- const handleCredentialResponse = function (response) {
 
-    //Google Token : ID_TOKEN
-    console.log(response.credential)
- }
 
   return (
     <div>
@@ -129,7 +128,7 @@ const Log = () => {
     //         clientId="CLIENT-IDXXXXXXXXXXXXXXXXXXXX"
     //         buttonText="Login"
     //         onSuccess={googleResponse}
-    //         // onFailure={onFailure}
+    //         onFailure={onFailure}
     //       />
     //     </div>
     //   ) : (
