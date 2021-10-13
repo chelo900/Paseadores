@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 import { putDetailsProfile } from '../../../actions'
 import style from './Edit.module.css'
+import Swal from 'sweetalert2'
 
 const Edit = () => {
      
@@ -32,7 +33,12 @@ const Edit = () => {
 
     const handlerSubmit = ()=>{
         dispatch(putDetailsProfile(idNew, input))
-        alert('Cambios Efectuados')
+        Swal.fire({
+            icon: 'success',
+            title: 'Cambios Efectuados',
+            showConfirmButton: false,
+            timer: 1500
+          })
         history.push(`/walker/perfil/${idNew}`)
 
     }

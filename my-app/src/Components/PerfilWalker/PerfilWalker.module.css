@@ -99,7 +99,7 @@
 }
 
 .descripcion{
-    margin: 100px 20px 0 20px;
+    margin: 170px 20px 0 20px;
     width: 600px;
     height: auto;
     background-color: white;
@@ -386,10 +386,8 @@
 }
 
 .Premuim{
-    margin-top: 100px;
-    background-color: rgb(58,84,180);
     grid-column: 1span;
-    margin: 100px 20px -80px 20px;
+    margin: 60px 20px -80px 20px;
     width: 600px;
     height: 12%;
     display: flex;
@@ -400,12 +398,12 @@
 .activo{
     color: rgb(37, 177, 37);
     font-family: 'Work Sans', sans-serif;
-    font-size: 25px;
+    font-size: 17px;
 }
 
 .noactivo{
     color: red;
     font-family: 'Work Sans', sans-serif;
-    font-size: 25px;
+    font-size: 17px;
 }
 

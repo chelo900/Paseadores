@@ -23,6 +23,7 @@ import Premium from "../Components/Premium/Premium";
 import admin from "../AdminComponents/Admin";
 import ListaFav from "../Components/ListaFav/ListaFav";
 
+
 const index = () => {
   return (
     <div>
@@ -53,7 +54,7 @@ const index = () => {
         <Route exact path="/listFav" component={ListaFav}/>
 
         {/* Ruta del admin  */}
-        <Route exact path="/admin" component={admin}/>
+        <Route exact path="/admin" component={admin}/> 
       </Switch>
     </div>
   );

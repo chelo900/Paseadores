@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { putDetailsCliente } from "../../actions";
 import style from "./informacion.module.css";
+import Swal from "sweetalert2";
 
 const Edit = () => {
 
@@ -53,10 +54,15 @@ const Edit = () => {
     }));
   };
 
-  const handlerSubmit = () => {
+  const handlerSubmit =  () => {
     console.log(user);
     dispatch(putDetailsCliente(input, user));
-    alert("Cambios Efectuados");
+    Swal.fire({
+      icon: 'success',
+      title: 'Cambios Efectuados',
+      showConfirmButton: false,
+      timer: 1500
+    })
     history.push(`/Cliente/${user.id}`);
   };
 

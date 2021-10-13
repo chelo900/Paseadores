@@ -1,7 +1,10 @@
 import React, { useState }  from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import { putDetailsProfile } from '../../../actions'
+import Swal from 'sweetalert2'
+
+
 
 import style from './Edit.module.css'
 
@@ -9,7 +12,7 @@ const Edit = () => {
 
     const [input, setInput] = useState({description:''})
 
-    // const { id } = useParams();
+     const { id } = useParams();
     const idNew =useSelector(state => state.detailWalker.id)
 
     const dispatch = useDispatch();
@@ -25,13 +28,17 @@ const Edit = () => {
 
     const handleLogout = (event) => {
         event.preventDefault();
-        history.push(`/walker/perfil/${idNew}`);
+        history.push(`/walker/perfil/${id}`);
       };
 
-    const handlerSubmit = ()=>{
-       
-        dispatch(putDetailsProfile(idNew, input))
-        alert('Cambios Efectuados')
+    const handlerSubmit =  ()=>{
+       dispatch(putDetailsProfile(idNew, input))
+         Swal.fire({
+            icon: 'success',
+            title: 'Cambios Efectuados',
+            showConfirmButton: false,
+            timer: 1500
+          })
         history.push(`/walker/perfil/${idNew}`)
 
     }

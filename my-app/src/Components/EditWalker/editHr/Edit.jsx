@@ -4,6 +4,7 @@ import { useParams } from 'react-router'
 import { useHistory } from 'react-router'
 import { putDetailsProfile } from '../../../actions'
 import style from './Edit.module.css'
+import Swal from 'sweetalert2'
 
 const Edit = () => {
     const [input, setInput] = useState({schedule:''})
@@ -24,6 +25,7 @@ const Edit = () => {
 
     const handlerSubmit = ()=>{
         dispatch(putDetailsProfile(id, input))
+      
         history.push(`/walker/perfil/${id}`)
 
     }
