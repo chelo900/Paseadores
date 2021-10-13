@@ -72,6 +72,7 @@ const UsersCards = () => {
 
   function handleFiltersSubmit(event) {
     event.preventDefault();
+
     dispatch(
       getAllPaseadores({
         page,

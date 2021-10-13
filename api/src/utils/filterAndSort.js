@@ -35,11 +35,15 @@ const filterWalkers = ({ walkers, filtersArray, selectFiltersArray }) => {
 
     filtersArray.forEach((filter) => {
       if (filter.hasOwnProperty("min") || filter.hasOwnProperty("max")) {
+        if (!filter.min) filter.min = 0;
+        if (!filter.max) filter.max = 99999999;
         filteredWalkers = filteredWalkers.filter((walker) => {
           if (filter.min) {
+            console.log("entro al min");
             return walker.price >= [filter.min];
           }
           if (filter.max) {
+            console.log("entro al max");
             return walker.price <= [filter.max];
           }
         });
