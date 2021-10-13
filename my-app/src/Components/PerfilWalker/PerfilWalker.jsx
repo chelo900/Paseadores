@@ -206,7 +206,6 @@ const PerfilWalker = () => {
             </Link>
           </div>
         </div>
-
                 <div className={style.caracteristicas}>
                     <div className={style.Premuim} >
                         <Premium />
@@ -279,6 +278,7 @@ const PerfilWalker = () => {
                         />
                     </div>
                 </div>
+
             </div>
             <FullCalendar
               eventClassNames={style.calendar}

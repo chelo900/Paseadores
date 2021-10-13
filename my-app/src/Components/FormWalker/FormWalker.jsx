@@ -344,6 +344,9 @@ const Form = () => {
           </select>
         </div>
         <div className={style.containerBtn}>
+            <Link to="/pre-login">
+              <button className={style.btn}>Atrás</button>
+            </Link>
           <button className={style.btn} type="submit" disabled={Object.values(errors).length > 0}> Crear Usuario </button>
         </div>
       </form>

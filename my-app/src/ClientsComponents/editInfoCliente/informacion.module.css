@@ -1,6 +1,7 @@
 .container{
     background-color: rgb(254,247, 237);
     height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,12 +9,14 @@
   }
   
   .formulario{
-    width: 700px;
-    height:600px;
+    width: 35%;
+    height:auto;
     background-color: white;
     box-shadow: 1px 2px 10px rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   
   .formulario h1{
@@ -21,14 +24,7 @@
     color: rgb(58,84,180);
   }
   
-  .formulario input{
-    margin: 10px 20px 10px 20px;
-    padding: 10px;
-    width: 90%;
-    height: 50px;
-    border: solid rgb(192, 192, 192) 1px;
-  }
-  .formulario select{
+  .input{
     margin: 10px 20px 10px 20px;
     padding: 10px;
     width: 90%;
@@ -36,11 +32,18 @@
     border: solid rgb(192, 192, 192) 1px;
   }
   
+  .containerBtn{
+    margin-bottom: 30px;
+    width: 80%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   
-  .formulario button{
-    width: 100px;
+  .edit{
+    width: 150px;
     height: 30px;
-    margin: 10px 20px 20px 550px;
     border:none;
     background-color: rgb(58,84,180);
     color: white;
@@ -48,32 +51,53 @@
     box-shadow: 1px 1px 2px rgb(0, 0, 0);
     cursor: pointer;
   }
-  .formulario button:hover{
-    box-shadow: none;
-  }
-  
-  .file{
-      border: none !important;
-
-  }
-  .selectFile label{
-      margin: 20px 0 10px 20px;
-      font-size: 20px;
-      font-weight: 600;
-      color: rgb(58,84,180);
-  }
-
   .volver{
     border: none;
     background-color: green;
     color: white;
     height: 30px;
     width: 150px;
-    font-weight: 700;
     cursor: pointer;
     box-shadow: 1px 1px 2px rgb(0, 0, 0);
 }
 
-.volver:hover {
-  box-shadow: none;
+  .volver:hover,
+  .edit:hover{
+    box-shadow: none;
 }
+  .selectFile{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .inputImg{
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid rgb(58,84,180);
+  }
+  .inputImg #back{
+    color: transparent;
+  }
+  .inputImg::-webkit-file-upload-button{
+    background-color: rgb(58,84,180);
+    color: #fff;
+    font-size: 15px;
+    border: none;
+    height: 30px;
+    padding: 2px; 
+    transition: .3s;
+  }
+  .inputImg::-webkit-file-upload-button:hover{
+    background-color:#fff ;
+    color: rgb(58,84,180);
+    border-right: 1px solid rgb(58,84,180);
+  }
+  .label{
+    font-size: 22px;
+    color: rgb(58,84,180);
+  }
+  
