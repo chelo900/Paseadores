@@ -49,7 +49,7 @@ const Edit = () => {
                 <div className={style.containerBtn}>
                     <button className={style.volver} onClick={handleLogout}> Atrás </button>
                     <Link to={`/walker/perfil/${idNew}`}>
-                        <button className={style.edit} type='submit'>Confirmar</button>
+                        <button className={style.edit} type='submit'>Guardar cambios</button>
                     </Link>
                 </div>
             </form>

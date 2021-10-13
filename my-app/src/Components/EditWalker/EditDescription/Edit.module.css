@@ -40,7 +40,7 @@
     align-items: center;
   }
   .edit{
-    width: 100px;
+    width: 150px;
     height: 30px;
     border:none;
     background-color: rgb(58,84,180);
@@ -54,7 +54,7 @@
   }
   
   .volver{
-    width: 100px;
+    width: 150px;
     height: 30px;
     border:none;
     background-color: green;

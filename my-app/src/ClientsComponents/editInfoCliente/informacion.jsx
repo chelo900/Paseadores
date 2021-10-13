@@ -103,10 +103,9 @@ const Edit = () => {
           <button className={style.volver} onClick={handleLogout}>
             Atrás
           </button>
-          <button className={style.edit} type="submit">Editar</button>
+          <button className={style.edit} type="submit">Guardar cambios</button>
         </div>
       </form>
-
     </div>
   );
 };

@@ -6,9 +6,13 @@ import axios from "axios"
 import { Link, useParams } from 'react-router-dom'
 import { getPaseadorForId } from '../../actions/index'
 import style from './Premium.module.css'
-
+import dotenv from "dotenv";
+dotenv.config();
+const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 const stripePromise = loadStripe("pk_test_51Ji5fMGdSvtdCP45ybVuEagcWsHbTdQPRvOmX3HX4i3qLK69ougjRbSjEYQCZCVCZ9J0WO6o7jc1ZFs80MR1pyZF00yadaq1Sb")
+    
+
 
 const Form = () => {
 
@@ -20,10 +24,10 @@ const Form = () => {
 
     useEffect(() => {
         dispatch(getPaseadorForId(id))
-    }, [dispatch])
+    }, [dispatch, id])
 
-    const user = useSelector((state) => state.detailWalker)
-    console.log("hola", user)
+    const walker = useSelector((state) => state.detailWalker)
+    console.log(walker.id)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -33,10 +37,10 @@ const Form = () => {
         })
         if (!error) {
             const { id } = paymentMethod;
-            const { data } = await axios.post("/updatePremium", {
+            const { data } = await axios.post(`${baseURL}/updatePremium`, {
                 id,
                 amount: 200,
-                email: user.email
+                email: walker.email
             })
             console.log("hola", data)
         }
@@ -58,6 +62,7 @@ const Form = () => {
 }
 
 function Premium() {
+    const walker = useSelector((state) => state.detailWalker)
     return (
         <div className={style.container}>
             <div className={style.principal}>
@@ -73,10 +78,10 @@ function Premium() {
                         <p className={style.bene} >- Mantener simpre el historial de los chats con los clientes.</p>
                     </div>
                 </div>
-                <div>
-                    {/* <Link to={`/walker/perfil/${user.id}`}>
-                        <p>Volver</p>
-                    </Link> */}
+                <div className={style.containerVolver}>
+                    <Link className={style.btnV} to={`/walker/perfil/${walker.id}`}>
+                        <p >Atrás</p>
+                    </Link>
                 </div>
             </div>
         </div>
