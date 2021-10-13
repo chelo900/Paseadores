@@ -207,11 +207,15 @@ const PerfilWalker = () => {
 
         <div className={style.caracteristicas}>
           <div className={style.Premuim}>
-            <Link to="/premium">
-              <button className={style.btnPremuim} type="submit">
-                Hacerme premium
-              </button>
-            </Link>
+            {Walker.premiun ? (
+              <div></div>
+            ) : (
+              <Link to="/premium">
+                <button className={style.btnPremuim} type="submit">
+                  Hacerme premium
+                </button>
+              </Link>
+            )}
           </div>
           <div className={style.descripcion}>
             <h2>Description</h2>

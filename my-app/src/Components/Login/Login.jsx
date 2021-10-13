@@ -77,7 +77,7 @@ const Login = () => {
               required
             />
             <span></span>
-            <label htmlFor="">UserName</label>
+            <label htmlFor="">Email</label>
           </div>
           <div className={style.field}>
             <input
@@ -88,7 +88,7 @@ const Login = () => {
               required
             />
             <span></span>
-            <label htmlFor="">Password</label>
+            <label htmlFor="">Contraseña</label>
           </div>
           <Link to="/login/recoverPassword">
             {" "}
@@ -97,11 +97,16 @@ const Login = () => {
           <input className={style.login} type="submit" value="login"></input>
           <div className={style.link}>
             <span>
-              Not registered?
+              No estás registrado?
               <Link className={style.create} to="/pre-login">
-                <span className={style.create}>Create account</span>
+                <span className={style.create}>Crear cuenta</span>
               </Link>
             </span>
+          </div>
+          <div className={style.inicio}>
+            <Link className={style.create} to="/">
+              <p className={style.create}> Volver al Inicio</p>
+            </Link>
           </div>
           <div className={style.google}>
             <Log />

@@ -63,47 +63,49 @@ const Edit = () => {
   return (
     <div className={style.container}>
       <form className={style.formulario} onSubmit={handlerSubmit}>
-        <h1>Informacion</h1>
-            <input
-                type="text"
-                name="phone"
-                value={input.value}
-                placeholder={cliente.phone}
-                onChange={(e) => inputChange(e)}
-            />
-            <input
-                type="text"
-                name="email"
-                value={input.value}
-                placeholder={cliente.email}
-                onChange={(e) => inputChange(e)}
-            />
-            <input
-                type="text"
-                name="ubication"
-                value={input.value}
-                placeholder={cliente.ubication ? cliente.ubication : "Ubicación"}
-                onChange={(e) => inputChange(e)}
-            />
+        <h1>Información</h1>
+        <input
+          type="text"
+          name="phone"
+          value={input.value}
+          placeholder={`Número de teléfono: ${cliente.phone}`}
+          onChange={(e) => inputChange(e)}
+          className={style.input}
+        />
+        <input
+          type="text"
+          name="email"
+          value={input.value}
+          placeholder={`Email: ${cliente.email}`}
+          onChange={(e) => inputChange(e)}
+          className={style.input}
+        />
+        <input
+          type="text"
+          name="ubication"
+          value={input.value}
+          placeholder={cliente.ubication ? cliente.ubication : "Ubicación"}
+          onChange={(e) => inputChange(e)}
+          className={style.input}
+        />
         <div className={style.selectFile}>
-          <div className={style.selectFile}>
-            <label>Selecciona una imagen de perfil</label>
+          <label className={style.label}>Selecciona una imagen de perfil</label>
+          <div>
             <input
               type="file"
               name="image"
-              className={style.file}
               onChange={uploadImage}
+              className={style.inputImg}
             />
           </div>
         </div>
-        <button type="submit">Editar</button>
+        <div className={style.containerBtn}>
+          <button className={style.volver} onClick={handleLogout}>
+            Atrás
+          </button>
+          <button className={style.edit} type="submit">Guardar cambios</button>
+        </div>
       </form>
-      <br />
-      <br />
-      <button className={style.volver} onClick={handleLogout}>
-        {" "}
-        Volver{" "}
-      </button>
     </div>
   );
 };
