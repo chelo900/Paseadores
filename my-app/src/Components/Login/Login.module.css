@@ -13,7 +13,8 @@
 }
 
 .log {
-  width: 300px;
+  width: 350px;
+  height: auto;
   background-color: rgb(207, 207, 207);
   border-radius: 2px;
 }
@@ -117,4 +118,9 @@
   position: relative;
   justify-content: center;
   padding-bottom: 10px;
+}
+.inicio{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 15px;
 }

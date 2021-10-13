@@ -8,9 +8,7 @@ const Edit = () => {
   const user = useSelector((state) => state.user); //TODO
 
   const history = useHistory();
-
   const dispatch = useDispatch();
-
   const paseador = useSelector((state) => state.detailWalker);
   var id = localStorage.getItem("userId");
   var token = localStorage.getItem("userToken");
@@ -68,7 +66,7 @@ const Edit = () => {
   return (
     <div className={style.container}>
       <form className={style.formulario} onSubmit={handlerSubmit}>
-        <h1>Informacion</h1>
+        <h1>Información</h1>
         <select
           value={input.status}
           defaultValue={paseador.status}
@@ -84,6 +82,7 @@ const Edit = () => {
           defaultValue={paseador.service}
           name="service"
           onChange={inputChange}
+          className={style.select}
         >
           <option>Seleccione Servicio:</option>
           <option value="Walker">Paseador</option>
@@ -95,24 +94,27 @@ const Edit = () => {
           name="birth_day"
           // defaultValue={paseador.birth_day}
           value={input.value}
-          placeholder={paseador.birth_day}
+          placeholder={`Fecha de nacimiento : ${paseador.birth_day}`}
           onChange={(e) => inputChange(e)}
+          className={style.input}
         />
         <input
           type="text"
           name="phone"
           // defaultValue={paseador.phone}
           value={input.value}
-          placeholder={paseador.phone}
+          placeholder={`Número de teléfono: ${paseador.phone}`}
           onChange={(e) => inputChange(e)}
+          className={style.input}
         />
         <input
           type="text"
           name="email"
           // defaultValue={paseador.email}
           value={input.value}
-          placeholder={paseador.email}
+          placeholder={`Email: ${paseador.email}`}
           onChange={(e) => inputChange(e)}
+          className={style.input}
         />
         <input
           type="text"
@@ -121,34 +123,35 @@ const Edit = () => {
           value={input.value}
           placeholder={paseador.ubication ? paseador.ubication : "Ubicación"}
           onChange={(e) => inputChange(e)}
+          className={style.input}
         />
         <input
           type="text"
           name="dni"
           // defaultValue={paseador.dni}
           value={input.value}
-          placeholder={paseador.dni}
+          placeholder={`Número de documento: ${paseador.dni}`}
           onChange={(e) => inputChange(e)}
+          className={style.input}
         />
         <div className={style.selectFile}>
-          <div className={style.selectFile}>
-            <label>Selecciona una imagen de perfil</label>
+          <label className={style.label}>Seleccionar una imagen de perfil</label>
+          <div>
             <input
               type="file"
               name="image"
-              className={style.file}
               onChange={uploadImage}
+              className={style.inputImg}
             />
           </div>
         </div>
-        <button type="submit">Editar</button>
+        <div className={style.containerBtn}>
+          <button className={style.volver} onClick={handleLogout}>
+            Volver
+          </button>
+          <button className={style.edit} type="submit">Editar</button>
+        </div>
       </form>
-      <br />
-      <br />
-      <button className={style.volver} onClick={handleLogout}>
-        {" "}
-        Volver{" "}
-      </button>
     </div>
   );
 };
