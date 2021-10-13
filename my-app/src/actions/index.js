@@ -380,7 +380,7 @@ export function firstAdmin(payload) {
 }
 export function getUserFavorites(idclient) {
   return async function (dispatch) {
-    var favs = await axios.get("/favs/" + idclient);
+    var favs = await axios.get("/getFavorite/" + idclient);
     return dispatch({
       type: "GET_USER_FAVORITES",
       payload: favs.data,
@@ -412,11 +412,15 @@ export function postUserFavorite(payload) {
 }
 
 export function deleteUserFavorite(payload) {
-  return async function () {
-    var deleteFav = await axios.delete("/quitFav/" + payload.idclient, {
-      data: { iduser: payload.iduser },
-    });
-
-    return deleteFav;
+  return async function (dispatch) {
+    try {
+    var result = await axios.put("/quitFav/" , payload);
+      return dispatch({
+        type: "DELETE_USER_FAVORITE",
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 }
