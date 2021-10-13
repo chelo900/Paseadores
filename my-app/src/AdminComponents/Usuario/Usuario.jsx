@@ -16,26 +16,26 @@ const Usuario = (props) => {
     function handleOnClickAdmin(e, usuario) {
         dispatch(makeAdmin({ id: props.id }))
         setTimeout(function () {
-            if (usuario === "PASEADORES/CUIDADORES") {
+            if (usuario === "Paseadores / Cuidadores") {
                 dispatch(getWalkers())
-            } else if (usuario === "DUEÑOS DE LAS MASCOTAS") { dispatch(getClients()) };
+            } else if (usuario === "Dueños") { dispatch(getClients()) };
         }, 2000);
     }
     function handleOnClickResetPassword(e, usuario) {
         console.log(usuario)
         dispatch(resetPassword({ id: props.id }))
         setTimeout(function () {
-            if (usuario === "PASEADORES/CUIDADORES") {
+            if (usuario === "Paseadores / Cuidadores") {
                 dispatch(getWalkers())
-            } else if (usuario === "DUEÑOS DE LAS MASCOTAS") { dispatch(getClients()) };
+            } else if (usuario === "Dueños") { dispatch(getClients()) };
         }, 2000);
     }
     function handleOnClickDelete(e, usuario) {
         dispatch(deleteUserAccount({ id: props.id }))
         setTimeout(function () {
-            if (usuario === "PASEADORES/CUIDADORES") {
+            if (usuario === "Paseadores / Cuidadores") {
                 dispatch(getWalkers())
-            } else if (usuario === "DUEÑOS DE LAS MASCOTAS") { dispatch(getClients()) };
+            } else if (usuario === "Dueños") { dispatch(getClients()) };
         }, 2000);
     }
     return (

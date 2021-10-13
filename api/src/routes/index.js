@@ -28,6 +28,7 @@ const firstAdmin = require("../routes/Administrator/firstAdmin")
 const addFavorite =require("./addFavorite")
 const getFavorite = require("./getFavorite")
 const deleteFavorite =require("./deleteFavorite")
+const getForListFav =require("./getForListFav")
 
 
 const router = Router();
@@ -61,6 +62,7 @@ router.use("/firstAdmin", firstAdmin);
 router.use('/addFav', addFavorite)
 router.use('/getFavorite', getFavorite);
 router.use('/quitFav',deleteFavorite);
+router.use('/getForListFav',getForListFav);
 
 
 

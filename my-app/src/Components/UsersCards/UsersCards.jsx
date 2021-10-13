@@ -19,7 +19,11 @@ const UsersCards = () => {
   const [pageSize, setLimitPerPage] = useState(5);
 
   const ubica = useSelector((state) => state.ubication);
+
+  var walker = localStorage.getItem("userWalker");
   var id = localStorage.getItem("userId");
+  var admin = localStorage.getItem("userAdmin");
+  
   useEffect(() => {
     dispatch(
       getAllPaseadores({
@@ -30,7 +34,10 @@ const UsersCards = () => {
         sortData,
       })
       );
-      dispatch(getUserFavorites(id))
+
+      if(walker === "false" && admin === "false"){
+      dispatch(getUserFavorites(id))}
+
   }, [page, pageSize, selectFilters, sortData, dispatch]);
 
   function handleNextPage(e) {

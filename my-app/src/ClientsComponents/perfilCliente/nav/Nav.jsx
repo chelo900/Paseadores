@@ -31,12 +31,12 @@ const Nav = ({id}) => {
                <button className={style.hamburguesa} onClick={e =>handlerHamburguer()}><img src={menu} alt='a'/></button>
                {open?<div className={style.menu}>
                    <ul>
-                       <Link to={`/cardsUsers/${id}`} className={style.textdeco}>
+                       <Link to={`/cardsUsers`} className={style.textdeco}>
                             <li>Home</li>
                        </Link>
-                       <button >
+                       <Link to={`/listFav`} className={style.textdeco}>
                             <li>Favoritos</li>
-                       </button>
+                        </Link>
                        <button onClick={handleOnClick}>
                             <li className={style.cerrar}>Logout</li>
                        </button>

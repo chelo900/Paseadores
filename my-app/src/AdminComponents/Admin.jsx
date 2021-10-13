@@ -13,14 +13,7 @@ const Admin = () => {
   const [user, setUser] = React.useState({
     email: '',
   })
-  /*
-    useEffect(() => {
-      
-      if(titulo === "PASEADORES/CUIDADORES"){
-          dispatch(getWalkers())
-      }else if(titulo === "DUEÑOS DE LAS MASCOTAS"){ dispatch(getClients())}
-    
-  },[getWalkers,getClients])*/
+ 
 
   function handleOnClickWalker(e) {
     e.preventDefault()
@@ -43,9 +36,9 @@ const Admin = () => {
 
   function handleOnClick(e) {
     e.preventDefault();
-    if (titulo === "PASEADORES/CUIDADORES") {
+    if (titulo === "Paseadores / Cuidadores") {
       dispatch(getWalkers(user.email))
-    } else if (titulo === "DUEÑOS DE LAS MASCOTAS") { dispatch(getClients(user.email)) }
+    } else if (titulo === "Dueños") { dispatch(getClients(user.email)) }
   }
 
   return (
@@ -78,7 +71,7 @@ const Admin = () => {
               {!usuarios.length ? "" : usuarios?.map(el => {
                 return (
                   <div>
-                    <Usuario name={el.name} surname={el.surname} email={el.email} phone={el.phone} descripcion={el.descripcion} reputation={el.reputation} usuario={titulo} usu={usuarios} />
+                    <Usuario id={el.id} name={el.name} surname={el.surname} email={el.email} phone={el.phone} descripcion={el.descripcion} reputation={el.reputation} usuario={titulo} usu={usuarios} />
                   </div>
                 )
               })
