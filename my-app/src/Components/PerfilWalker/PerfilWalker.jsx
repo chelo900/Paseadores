@@ -28,7 +28,8 @@ dotenv.config();
 // import Footer from './footer/Footer';
 
 const PerfilWalker = () => {
-  const { id } = useParams();
+  
+  var id = localStorage.getItem("userId");
 
   const dispatch = useDispatch();
 
@@ -183,7 +184,8 @@ const PerfilWalker = () => {
             </div>
           </div>
           <div className={style.informacion}>
-            {/* <h2>{Client.name} {Client.surname}</h2> */}
+          {Walker.status === "active" ? <p className={style.activo}>Disponible</p>:"" }
+                        {Walker.status === "inactive" ? <p className={style.noactivo}>No disponible</p>:"" }
             <ul>
               <li className={style.liService}>{Walker.service}</li>
               <li className={style.libirth}>{Walker.birth_day}</li>
