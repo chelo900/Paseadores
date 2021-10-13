@@ -56,8 +56,6 @@ router.post("/", async (req, res) => {
       // isValid = password === admin.password ? true : false
       isValid = await bcryptjs.compare(password, admin.password);
     }
-
-    //console.log("aaaaaaaa"+userData)
     if (isValid) {
       const token = jwt.sign(userData, SECRET, { expiresIn: 60 * 60 * 24 });
 
