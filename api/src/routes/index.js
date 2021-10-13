@@ -59,7 +59,7 @@ router.use("/resetPassword", resetPassword);
 router.use("/firstAdmin", firstAdmin);
 
 router.use('/addFav', addFavorite)
-router.use('/favs', getFavorite);
+router.use('/getFavorite', getFavorite);
 router.use('/quitFav',deleteFavorite);
 
 
