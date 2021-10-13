@@ -72,6 +72,7 @@ const Edit = () => {
           defaultValue={paseador.status}
           name="status"
           onChange={inputChange}
+          className={style.select}
         >
           <option>Seleccione Estado:</option>
           <option value="active">Disponible</option>

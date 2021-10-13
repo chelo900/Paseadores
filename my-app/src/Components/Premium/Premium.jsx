@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js"
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios"
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useHistory } from 'react-router-dom'
 import { getPaseadorForId } from '../../actions/index'
 import style from './Premium.module.css'
 import dotenv from "dotenv";
@@ -18,16 +18,15 @@ const Form = () => {
 
     const stripe = useStripe()
     const elements = useElements()
-
+    const history = useHistory()
     const { id } = useParams();
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getPaseadorForId(id))
     }, [dispatch, id])
-
+    
     const walker = useSelector((state) => state.detailWalker)
-    console.log(walker.id)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -42,7 +41,9 @@ const Form = () => {
                 amount: 200,
                 email: walker.email
             })
-            console.log("hola", data)
+            alert("pago exitoso! Redirigiendo al perfil")
+            console.log(data)
+            history.push(`/walker/perfil/${walker.id}`)
         }
     }
 
