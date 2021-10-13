@@ -8,51 +8,51 @@ const get_paseadores = require("./get_paseadores");
 const login = require("./login");
 const putHorarios = require("./putHorarios");
 const postImages = require("./postImages");
-const forgotPassword = require ("./forgotPassword")
-const newPassword = require ("./newPassword")
-const get_ubication = require ("../routes/FilterOrder/get_ubication")
-const postClient = require ("./Client/postClient")
-const putClientePerfil = require ("../routes/Client/putClientePerfil")
-const putCliente = require ("../routes/Client/putClient")
-const detailsClient = require("../routes/Client/getDetailsCliente")
-const sendOrden = require ("./sendOrden")
-const getOrden = require ("./getOrden")
-const answerOrden = require("./answerOrden")
-const postPremium = require("./postPremium")
-const getWalkers = require("../routes/Administrator/getWalkers")
-const getClients = require("../routes/Administrator/getClients")
-const makeAdmin = require("../routes/Administrator/makeAdmin")
-const deleteUserAccount = require("../routes/Administrator/deleteUserAccount")
-const resetPassword = require("../routes/Administrator/resetPassword")
-const firstAdmin = require("../routes/Administrator/firstAdmin")
-const addFavorite =require("./addFavorite")
-const getFavorite = require("./getFavorite")
-const deleteFavorite =require("./deleteFavorite")
-const getForListFav =require("./getForListFav")
-const googleLogIn =require("./googleLogIn")
-
+const forgotPassword = require("./forgotPassword");
+const newPassword = require("./newPassword");
+const get_ubication = require("../routes/FilterOrder/get_ubication");
+const postClient = require("./Client/postClient");
+const putClientePerfil = require("../routes/Client/putClientePerfil");
+const putCliente = require("../routes/Client/putClient");
+const detailsClient = require("../routes/Client/getDetailsCliente");
+const sendOrden = require("./sendOrden");
+const getOrden = require("./getOrden");
+const answerOrden = require("./answerOrden");
+const postPremium = require("./postPremium");
+const getWalkers = require("../routes/Administrator/getWalkers");
+const getClients = require("../routes/Administrator/getClients");
+const makeAdmin = require("../routes/Administrator/makeAdmin");
+const deleteUserAccount = require("../routes/Administrator/deleteUserAccount");
+const resetPassword = require("../routes/Administrator/resetPassword");
+const firstAdmin = require("../routes/Administrator/firstAdmin");
+const addFavorite = require("./addFavorite");
+const getFavorite = require("./getFavorite");
+const deleteFavorite = require("./deleteFavorite");
+const getForListFav = require("./getForListFav");
+const googleLogIn = require("./googleLogIn");
+const tokenExtractor = require("../utils/tokenExtractor");
 
 const router = Router();
 
 router.use("/walkers", get_details);
 router.use("/allActiveWalkers", get_paseadores);
 router.use("/createUser", postUser);
-router.use("/updateuser", putDetailsUser);
+router.use("/updateuser", tokenExtractor, putDetailsUser);
 router.use("/updateuserProfile", putDetailsProfile);
 router.use("/login", login);
-router.use("/google", googleLogIn)
+router.use("/google", googleLogIn);
 router.use("/walkers", putHorarios);
 router.use("/ubication", get_ubication);
 router.use("/postimages", postImages);
-router.use("/forgotPassword",forgotPassword);
+router.use("/forgotPassword", forgotPassword);
 router.use("/newPassword", newPassword);
 router.use("/createClient", postClient);
 router.use("/updateClientProfile", putClientePerfil);
 router.use("/updateCliente", putCliente);
 router.use("/Cliente", detailsClient);
-router.use("/sendOrden", sendOrden)
-router.use('/getOrden', getOrden)
-router.use('/ordenAnswer', answerOrden)
+router.use("/sendOrden", sendOrden);
+router.use("/getOrden", getOrden);
+router.use("/ordenAnswer", answerOrden);
 router.use("/updatePremium", postPremium);
 router.use("/getWalkers", getWalkers);
 router.use("/getClients", getClients);
@@ -60,12 +60,9 @@ router.use("/makeAdmin", makeAdmin);
 router.use("/deleteUserAccount", deleteUserAccount);
 router.use("/resetPassword", resetPassword);
 router.use("/firstAdmin", firstAdmin);
-
-router.use('/addFav', addFavorite)
-router.use('/getFavorite', getFavorite);
-router.use('/quitFav',deleteFavorite);
-router.use('/getForListFav',getForListFav);
-
-
+router.use("/addFav", addFavorite);
+router.use("/getFavorite", getFavorite);
+router.use("/quitFav", deleteFavorite);
+router.use("/getForListFav", getForListFav);
 
 module.exports = router;

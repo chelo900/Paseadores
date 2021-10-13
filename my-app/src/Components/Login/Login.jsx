@@ -6,7 +6,7 @@ import style from "./Login.module.css";
 import { Link } from "react-router-dom";
 import Log from "./Google_Auth";
 import { useSelector } from "react-redux";
-import { getByEmail } from "../../actions";
+import { login } from "../../actions";
 
 const Login = () => {
   const history = useHistory();
@@ -15,46 +15,47 @@ const Login = () => {
     email: "",
     password: "",
   });
-  var walker =localStorage.getItem("userWalker");
-  
+  var walker = localStorage.getItem("userWalker");
+
   useEffect(() => {
-    if(walker === "false" || walker === "true"){
-      history.push(`/cardsUsers`)
+    if (walker === "false" || walker === "true") {
+      history.push(`/cardsUsers`);
     }
-}, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const user = useSelector((state) => state.user);
-  
+
   const handleOnChange = ({ target: { name, value } }) =>
     setValues({
       ...values,
       [name]: value,
     });
-    
 
   useEffect(() => {
-    
     if (user.validate === true) {
-      console.log("adminnnnnnnnnnnnnnnnnnn",user.admin)
       alert("Welcome");
       localStorage.clear();
-      localStorage.setItem("userValidate", user.validate )
-      localStorage.setItem("userToken", user.token )
-      localStorage.setItem("userId", user.id )
-      localStorage.setItem("userWalker", user.walker )
-      localStorage.setItem("userAdmin", user.admin )
+      localStorage.setItem("userValidate", user.validate);
+      localStorage.setItem("userToken", user.token);
+      localStorage.setItem("userId", user.id);
+      localStorage.setItem("userWalker", user.walker);
+      localStorage.setItem("userAdmin", user.admin);
       history.push(`/walker/perfil/${user.id}`);
-      if(user.walker){
-      }else{history.push(`/cardsUsers`);}
+      if (user.walker) {
+      } else {
+        history.push(`/cardsUsers`);
+      }
     } else if (user.validate === false) {
       alert("Please check your credentials");
-      window.location.reload();;
+      window.location.reload();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.validate, user.walker]);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    dispatch(getByEmail(values));
+    dispatch(login(values));
     setValues({
       ...values,
       email: "",
@@ -89,8 +90,11 @@ const Login = () => {
             <span></span>
             <label htmlFor="">Password</label>
           </div>
-          <Link to="/login/recoverPassword"> <span className={style.pass}>Forgot password?</span> </Link>
-           <input className={style.login} type="submit" value="login"></input>
+          <Link to="/login/recoverPassword">
+            {" "}
+            <span className={style.pass}>Forgot password?</span>{" "}
+          </Link>
+          <input className={style.login} type="submit" value="login"></input>
           <div className={style.link}>
             <span>
               Not registered?

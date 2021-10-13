@@ -3,10 +3,9 @@ import {
   GET_PASEADOR_FOR_ID,
   PUT_DETAILS_PROFILE,
   PUT_DETAILS_USER,
-  GET_BY_EMAIL,
+  LOGIN,
   NEW_PASEADOR,
   UBICATION_MATCH,
-  ORDER,
   FILTER_PRICE,
   FILTER_UBICATION,
   FILTER_SERVICE,
@@ -21,12 +20,11 @@ import {
   ALERT_ADMIN,
   GET_USER_FAVORITES,
   ADD_FAVORITES,
-  GET_FOR_LIST_FAV
+  GET_FOR_LIST_FAV,
 } from "../actions/index";
 
 const initialState = {
   allPaseadores: {},
-  // filtersAndSort: { filters: [], sortData: {} },
   paseador: [],
   detailWalker: [],
   detailCliente: [],
@@ -36,12 +34,11 @@ const initialState = {
   user: {},
   ubication: [],
   mensaje: "",
-  ordensPaseador:[],
-  ordensCliente:[],
-  idOrden:[],    
-  mensaje:"",
-  favorites:[],
-  dataFavorites: []
+  ordensPaseador: [],
+  ordensCliente: [],
+  idOrden: [],
+  favorites: [],
+  dataFavorites: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -49,20 +46,19 @@ function rootReducer(state = initialState, action) {
     case GET_USER_FAVORITES:
       return {
         ...state,
-        favorites: action.payload
-    }
+        favorites: action.payload,
+      };
     case GET_FOR_LIST_FAV:
       return {
         ...state,
-        dataFavorites: action.payload
-    }
-            case ADD_FAVORITES:
-              return {
-                  ...state,
-                  favorites: action.payload
-              }
+        dataFavorites: action.payload,
+      };
+    case ADD_FAVORITES:
+      return {
+        ...state,
+        favorites: action.payload,
+      };
     case GET_PASEADORES:
-      console.log("reducer getpaseadores payload", action.payload.content);
       return {
         ...state,
         allPaseadores: action.payload,
@@ -99,9 +95,8 @@ function rootReducer(state = initialState, action) {
         ...state,
         allPaseadores: action.payload,
       };
-    case GET_BY_EMAIL:
-      const { token, validate, id, walker, admin} = action.payload;
-      
+    case LOGIN:
+      const { token, validate, id, walker, admin } = action.payload;
       return {
         ...state,
         user: {
@@ -109,7 +104,7 @@ function rootReducer(state = initialState, action) {
           validate,
           id,
           walker,
-          admin
+          admin,
         },
       };
     case NEW_PASEADOR:
@@ -154,19 +149,20 @@ function rootReducer(state = initialState, action) {
         ...state,
         user: action.payload,
       };
-      case GET_WALKERS:
+    case GET_WALKERS:
       return {
         ...state,
         allPaseadores: action.payload,
       };
-      case GET_CLIENTS:
+    case GET_CLIENTS:
       return {
         ...state,
         allPaseadores: action.payload,
       };
-      case ALERT_ADMIN:
+    case ALERT_ADMIN:
       alert(action.payload);
-    
+      break;
+
     // case GET_BY_EMAIL_CLIENTE:
     //   const { token, validate, id, cliente} = action.payload;
     //    return {
@@ -178,26 +174,26 @@ function rootReducer(state = initialState, action) {
     //       cliente
     //     },
     // };
-      case "NEW_ORDEN":
-        return{
-          ...state,
-          idOrden: action.payload.id  
-        }
-      case "GET_ORDENSUSER_PASEADOR":
-        return{
-          ...state,
-          ordensPaseador: action.payload
-        }
-        case "GET_ORDENSUSER_CLIENTE":
-          return{
-            ...state,
-            ordensCliente: action.payload
-          }
-        case "NEW_CLIENT":
-          return {
-            ...state,
-            newId: action.payload.id,
-          };
+    case "NEW_ORDEN":
+      return {
+        ...state,
+        idOrden: action.payload.id,
+      };
+    case "GET_ORDENSUSER_PASEADOR":
+      return {
+        ...state,
+        ordensPaseador: action.payload,
+      };
+    case "GET_ORDENSUSER_CLIENTE":
+      return {
+        ...state,
+        ordensCliente: action.payload,
+      };
+    case "NEW_CLIENT":
+      return {
+        ...state,
+        newId: action.payload.id,
+      };
 
     default:
       return state;
