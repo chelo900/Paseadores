@@ -29,6 +29,7 @@ const addFavorite =require("./addFavorite")
 const getFavorite = require("./getFavorite")
 const deleteFavorite =require("./deleteFavorite")
 const getForListFav =require("./getForListFav")
+const googleLogIn =require("./googleLogIn")
 
 
 const router = Router();
@@ -39,6 +40,7 @@ router.use("/createUser", postUser);
 router.use("/updateuser", putDetailsUser);
 router.use("/updateuserProfile", putDetailsProfile);
 router.use("/login", login);
+router.use("/google", googleLogIn)
 router.use("/walkers", putHorarios);
 router.use("/ubication", get_ubication);
 router.use("/postimages", postImages);
