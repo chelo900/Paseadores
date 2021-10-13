@@ -1,17 +1,6 @@
-const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-const { SECRET } = process.env;
-
-const getTokenValidation = (authorization) => {
-  if (authorization && authorization.toLowerCase().startsWith("bearer")) {
-    const token = authorization.substring(7);
-    const decodedToken = jwt.verify(token, SECRET);
-    return { isValid: true, token, decodedToken };
-  }
-  return { isValid: false };
-};
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -48,7 +37,6 @@ const googleVerify = async function (token = "") {
 };
 
 module.exports = {
-  getTokenValidation,
   sendEmail,
   googleVerify,
 };

@@ -5,7 +5,7 @@ import { putDetailsUser } from "../../../actions";
 import style from "./Edit.module.css";
 
 const Edit = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user); //TODO
 
   const history = useHistory();
 

@@ -1,8 +1,4 @@
 const isEmpty = require("lodash/isEmpty");
-const isArray = require("lodash/isArray");
-
-const FILTERS = ["ubication", "service", "name"];
-const PRICE_FILTERS = ["min", "max"];
 
 const sortNumber = (a, b) => a - b;
 
