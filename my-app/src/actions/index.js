@@ -113,13 +113,13 @@ export function putDetailsProfile(id, payload) {
   };
 }
 
-export function putDetailsUser(payload, user) {
-  console.log("token: ", user.token);
+export function putDetailsUser(payload, id, token) {
+  //console.log("token: ", user.token);
   return async function (dispatch) {
     return axios
-      .put(`/updateuser/${user.id}`, payload, {
+      .put(`/updateuser/${id}`, payload, {
         headers: {
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((paseador) => {

@@ -32,7 +32,8 @@ router.get("/:id", async (req, res) => {
       morning: datos.morning,
       afternoon: datos.afternoon,
       images: datos.images,
-      premium : datos.premium
+      premium : datos.premium,
+      status : datos.status
     };
 
     if (detallesDatos) {

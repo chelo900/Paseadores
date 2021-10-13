@@ -8,16 +8,16 @@ const router = Router();
 
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
-
+  
   try {
     const user = await User.findOne({
       where: {
         email: email,
-        status: "active" || "inactive"
 
       },
     });
-
+    
+  
     const client = await Client.findOne({
       where: {
         email: email,
@@ -43,7 +43,7 @@ router.post("/", async (req, res) => {
       }
       isValid = await bcryptjs.compare(password, user.password);
 
-    }else if(client){
+    }else if(client && client.status !== "removed"){
       var userData = {
         id: client.id,
         email: client.email,

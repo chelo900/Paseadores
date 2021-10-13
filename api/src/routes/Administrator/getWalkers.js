@@ -9,30 +9,15 @@ router.get("/", async (req, res) => {
   const  email  = req.query.email;
 
   try {
-    const allActiveWalkers = await User.findAll( 
-      {where: {
-      status: "active" || "inactive" ,
-    }});
-/*
-    const allActiveWalkersCards = await allActiveWalkers?.map((w) => {
-      return {
-        id: w.id,
-        email: w.email,
-        name: w.name,
-        surname: w.surname,
-        image: w.image,
-        ubication: w.ubication,
-        reputation: w.reputation,
-        price: w.price,
-        morning: w.morning,
-        afternoon: w.afternoon
-      };
-    });*/
-    if (allActiveWalkers.length) {
+    const allActiveWalkers = await User.findAll( );
+
+    const allActiveWalkersCards = await allActiveWalkers?.filter((w) => w.status !== "removed")
+    
+    if (allActiveWalkersCards.length) {
       //GET BY NAME
       if (email) {
         try {
-          const nameSearch = allActiveWalkers.filter(
+          const nameSearch = allActiveWalkersCards.filter(
             (user) => user.email.includes(email)
           );
           return res.status(200).send(nameSearch);
@@ -41,10 +26,10 @@ router.get("/", async (req, res) => {
         }
       }
       
-      return res.status(200).json(allActiveWalkers)
+      return res.status(200).json(allActiveWalkersCards)
       
     } else {
-      return res.status(200).send(allActiveWalkers);
+      return res.status(200).send(allActiveWalkersCards);
     }
   } catch (error) {
     console.error(error);

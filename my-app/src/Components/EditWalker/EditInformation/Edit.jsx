@@ -3,20 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { putDetailsUser } from "../../../actions";
 import style from "./Edit.module.css";
-import { useParams } from "react-router";
 
 const Edit = () => {
   const user = useSelector((state) => state.user);
-
-  const { id } = useParams();
 
   const history = useHistory();
 
   const dispatch = useDispatch();
 
   const paseador = useSelector((state) => state.detailWalker);
+  var id = localStorage.getItem("userId");
+  var token = localStorage.getItem("userToken");
 
   const [input, setInput] = useState({
+    status: paseador.status,
     service: paseador.service,
     birth_day: paseador.birth_day,
     phone: paseador.phone,
@@ -60,7 +60,7 @@ const Edit = () => {
 
   const handlerSubmit = () => {
     console.log(user);
-    dispatch(putDetailsUser(input, user));
+    dispatch(putDetailsUser(input, id, token));
     alert("Cambios Efectuados");
     history.push(`/walker/perfil/${id}`);
   };
@@ -69,6 +69,16 @@ const Edit = () => {
     <div className={style.container}>
       <form className={style.formulario} onSubmit={handlerSubmit}>
         <h1>Informacion</h1>
+        <select
+          value={input.status}
+          defaultValue={paseador.status}
+          name="status"
+          onChange={inputChange}
+        >
+          <option>Seleccione Estado:</option>
+          <option value="active">Disponible</option>
+          <option value="inactive">No disponible</option>
+        </select>
         <select
           value={input.service}
           defaultValue={paseador.service}
