@@ -43,9 +43,9 @@ const Edit = () => {
                     onChange={e => inputChange(e)} />
                 <div className={style.containerBtn}>
                     <Link to={`/walker/perfil/${idNew}`}>
-                        <button className={style.volver} onClick={handleLogout}> Volver </button>
+                        <button className={style.volver} onClick={handleLogout}> Atrás </button>
                     </Link>
-                    <button className={style.edit} type='submit'>Editar</button>
+                    <button className={style.edit} type='submit'>Guardar cambios</button>
                 </div>
             </form>
         </div>

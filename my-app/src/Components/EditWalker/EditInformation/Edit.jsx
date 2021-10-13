@@ -147,9 +147,9 @@ const Edit = () => {
         </div>
         <div className={style.containerBtn}>
           <button className={style.volver} onClick={handleLogout}>
-            Volver
+            Atrás
           </button>
-          <button className={style.edit} type="submit">Editar</button>
+          <button className={style.edit} type="submit">Guardar cambios</button>
         </div>
       </form>
     </div>
