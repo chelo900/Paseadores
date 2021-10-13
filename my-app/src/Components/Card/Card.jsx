@@ -23,54 +23,27 @@ import { postUserFavorite, getUserFavorites,deleteUserFavorite } from '../../act
 //     console.log("estaentrando", fav);
 
 
-function Card({ id, name, surname, image, reputation, service, price, description, idCliente }) {
-
+function Card({ id, name, surname, image, reputation, service, price, description, fv = false }) {
+  
   const dispatch = useDispatch()
-
+  var idClient = localStorage.getItem("userId");
   const [fav, setFav]= useState(true)
-  // const handlerFavorite = ()=>{
-  //   console.log('estaentrando', fav)
-    
-  //   if(fav === false){
-  //     setFav(true)
-  //   }else if(fav === true){
-  //     setFav(false)
-  //   }
-  // }
+  
   var walker =localStorage.getItem("userWalker");
 
-  
-  const stateFavorites = useSelector((state) => state.favorites);
-  
-
-  function isFavorite (id) {
-    
-
-    let favorite = stateFavorites.filter(el => el.id === id)
-    
-    if(favorite.length > 0){
-        return true
-    }
-    return false
-}
-async function addFavorite (id) {
-    if(isFavorite(id) === false){
-      let data = {idclient: idCliente, iduser: id}
-      
-
-      await postUserFavorite(data)
-   
-      await getUserFavorites(idCliente)
-      isFavorite(id)
-      alert('usuario agregado a favoritos!')
+async function  addFavorite() {
+  if(fv === false){
+     
+     await dispatch( postUserFavorite({idClient: idClient, idUser:id}))
+     dispatch( getUserFavorites(idClient))
     }
   else{
-    await deleteUserFavorite({idclient: id, iduser: id})
-    await getUserFavorites(idCliente)
-    isFavorite(id)
-    await alert('usuario eliminado de favoritos!')
+    await dispatch( deleteUserFavorite({idClient: idClient, idUser:id}))
+    dispatch( getUserFavorites(idClient))
+    
   }
 }
+
 
 
   return (
@@ -112,11 +85,11 @@ async function addFavorite (id) {
           </div>
         )}
       </div>
-      {walker==="false" &&   
-      <button className={styles.prueba} onClick={e=>addFavorite(id)}>
-        {isFavorite(id)?  <img src={estrella} alt='' /> : <img src={favorito} alt='sas'/>}
+     {walker==="false" &&   
+     <button className={styles.prueba} onClick={e => { addFavorite(e) }}>
+        {fv?  <img src={estrella} alt='' /> : <img src={favorito} alt='sas'/>}
         </button>
-      }
+        }
     </div>
   );
 }

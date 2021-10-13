@@ -24,6 +24,9 @@ export const ALERT_ADMIN = "ALERT_ADMIN";
 export const RESET_PASSWORD = "RESET_PASSWORD";
 export const DELETE_USER_ACCOUNT = "DELETE_USER_ACCOUNT";
 export const FIRST_ADMIN = "FIRST_ADMIN";
+export const ADD_FAVORITES = "ADD_FAVORITES";
+export const GET_USER_FAVORITES = "GET_USER_FAVORITES";
+export const DELETE_USER_FAVORITE= "DELETE_USER_FAVORITE";
 
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES"
@@ -383,10 +386,9 @@ export function firstAdmin(payload){
       }
   }
 }
-export function getUserFavorites (idclient) {
+export function getUserFavorites (id) {
   return async function (dispatch) {
-    {console.log(idclient, 'payload')}
-      var favs = await axios.get("/favs/"+ idclient)
+      var favs = await axios.get("/getFavorite/"+ id)
       return dispatch({
           type: "GET_USER_FAVORITES",
           payload: favs.data
@@ -394,25 +396,30 @@ export function getUserFavorites (idclient) {
   }
 }
 
-export function postUserFavorite (payload) {
+export function postUserFavorite(payload){
+  return async function(dispatch){
+      try{
+        let result = await axios.post(`/addFav`,payload)
+        return dispatch({
+          type: "ADD_FAVORITES",
+          payload: result.data
+        })
+      } catch(err){
+        console.log(err)
+      }
+  }
+}
+
+
+export function deleteUserFavorite (payload) {
   return async function (dispatch) {
-    {console.log(payload, 'payload')}
-      return await axios.post(`/addFav/${payload.idclient}`, {iduser: payload.iduser})
+      return await axios.put("/quitFav",payload )
       .then((fav) => {
         dispatch({
-          type: "ADD_FAVORITES",
+          type: "DELETE_USER_FAVORITE",
           payload: fav.data,
         });
         console.log(payload);
       });
 }
-}
-
-export function deleteUserFavorite (payload) {
-  return async function () {
-      
-      var deleteFav = await axios.delete("/quitFav/"+ payload.idclient, {data: {iduser: payload.iduser}})
-      
-      return deleteFav
-  }
 }

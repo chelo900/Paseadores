@@ -18,7 +18,9 @@ import {
   CLEAR_USER,
   GET_WALKERS,
   GET_CLIENTS,
-  ALERT_ADMIN
+  ALERT_ADMIN,
+  GET_USER_FAVORITES,
+  ADD_FAVORITES
 } from "../actions/index";
 
 const initialState = {
@@ -42,12 +44,12 @@ const initialState = {
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
-    case "GET_USER_FAVORITES":
-            return {
-                ...state,
-                favorites: action.payload
-            }
-            case "ADD_FAVORITES":
+    case GET_USER_FAVORITES:
+      return {
+        ...state,
+        favorites: action.payload
+    }
+            case ADD_FAVORITES:
               return {
                   ...state,
                   favorites: action.payload

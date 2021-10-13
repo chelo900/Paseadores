@@ -3,12 +3,13 @@ import Card from "../Card/Card";
 import Nav from "./Nav/Nav";
 import style from "../UsersCards/UsersCards.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPaseadores } from "../../actions/index";
+import { getAllPaseadores,getUserFavorites  } from "../../actions/index";
 
 const UsersCards = () => {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allPaseadores);
-
+  const favorites = useSelector((state) => state.favorites);
+ 
   const [inputFilters, setInputFilters] = useState({});
   const [selectFilters, setSelectFilters] = useState({});
   const [sortData, setSortData] = useState({});
@@ -18,7 +19,7 @@ const UsersCards = () => {
   const [pageSize, setLimitPerPage] = useState(5);
 
   const ubica = useSelector((state) => state.ubication);
-
+  var id = localStorage.getItem("userId");
   useEffect(() => {
     dispatch(
       getAllPaseadores({
@@ -28,7 +29,8 @@ const UsersCards = () => {
         selectFilters,
         sortData,
       })
-    );
+      );
+      dispatch(getUserFavorites(id))
   }, [page, pageSize, selectFilters, sortData, dispatch]);
 
   function handleNextPage(e) {
@@ -186,6 +188,12 @@ const UsersCards = () => {
         <div className={style.cards}>
           {allUsers.content?.length > 0 ? (
             allUsers.content.map((el) => {
+              var fv;
+            favorites.length && favorites?.forEach((element) => 
+              {if(element === el.id){
+               fv = true
+              }});
+             
               return (
                 <Card
                   key={el.id}
@@ -197,6 +205,7 @@ const UsersCards = () => {
                   price={el.price}
                   reputation={el.reputation}
                   description={el.description}
+                  fv= {fv}
                 />
               );
             })

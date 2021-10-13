@@ -3,17 +3,16 @@ const router = Router();
 const { User, Client } = require('../db');
 
 
-router.post('/:idclient',async (req, res, next) =>{
-    const { iduser } = req.body
-    const {idclient} = req.params
+router.post('/',async (req, res, next) =>{
+    const { idUser,idClient } = req.body
    
     try {        
-        const clientE = await Client.findByPk(idclient)
-        await clientE.addUser(iduser)
+        const clientE = await Client.findByPk(idClient)
+        await clientE.addUser(idUser)
         
         const fav = await Client.findOne({
             where: {
-                id: idclient
+                id: idClient
             },
             include: User
         })        
