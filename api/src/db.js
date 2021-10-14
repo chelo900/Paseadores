@@ -29,12 +29,10 @@ let sequelize =
         },
         ssl: true,
       })
-
-:
- new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/walker`, {
-  logging: false, // set to console.log to see the raw SQL queries
-  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-});
+    : new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/walker`, {
+        logging: false, // set to console.log to see the raw SQL queries
+        native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+      });
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -63,8 +61,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 
 //TODO
-const { Client, User, Post, Complain, Horarios, Image, Administrator, Orden} = sequelize.models;
-
+const { Client, User, Post, Complain, Horarios, Image, Administrator, Orden } =
+  sequelize.models;
 
 /*
 (async () => {
@@ -92,8 +90,8 @@ Image.belongsTo(User);
 User.hasMany(Client);
 Client.belongsTo(User)*/
 
-User.belongsToMany(Client,{through:"favourite"})
-Client.belongsToMany(User,{through:"favourite"})
+User.belongsToMany(Client, { through: "favourite" });
+Client.belongsToMany(User, { through: "favourite" });
 
 // User.hasMany(Horarios);
 // Horarios.belongsTo(User);
@@ -104,14 +102,11 @@ Orden.belongsTo(User);
 Client.hasMany(Orden);
 Orden.belongsTo(Client);
 
-Administrator.belongsToMany(User, {through: 'admin_user'})
-User.belongsToMany(Administrator, {through: 'admin_user'})
+Administrator.belongsToMany(User, { through: "admin_user" });
+User.belongsToMany(Administrator, { through: "admin_user" });
 
-Administrator.belongsToMany(Client, {through: 'admin_client'})
-Client.belongsToMany(Administrator, {through: 'admin_client'})
-
-
-  
+Administrator.belongsToMany(Client, { through: "admin_client" });
+Client.belongsToMany(Administrator, { through: "admin_client" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
