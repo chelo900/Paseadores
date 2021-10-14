@@ -238,7 +238,7 @@ const PerfilWalker = () => {
                         <div className={style.fondoFotos}>
                             <h2>Fotos</h2>
                             <div className={style.galeria}>
-                                {Walker.images?.map(i =>
+                                { Walker.images?.map(i =>
                                     <div key={i.public_id}>
                                         <img src={i.imageURL ? i.imageURL : foto1} alt='a' />
                                     </div>)

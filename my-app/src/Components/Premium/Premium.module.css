@@ -12,7 +12,11 @@
     background: rgb(58,84,180);
 }
 .principal{
+<<<<<<< HEAD
     padding: 40px 50px 20px 50px;
+=======
+    padding: 50px;
+>>>>>>> 29bf4c6 (carrusel)
     height: auto;
     width: 35%;
     background-color: rgb(254,247, 237);
@@ -77,7 +81,7 @@
 
 .infoTitle{
     margin-bottom: 4px;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 2px;
     text-align:center;
 }
@@ -85,13 +89,12 @@
     width: 100%;
     height: auto;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
 }
 .bene{
     font-size: 18px;
     margin-top:10px ;
+<<<<<<< HEAD
 }
 
 .containerVolver{
@@ -125,4 +128,7 @@
     border: 1px solid rgb(58,84,180);
     background-color:rgb(254,247, 237);
     border-radius: 5px;
+=======
+    text-align: center;
+>>>>>>> 29bf4c6 (carrusel)
 }

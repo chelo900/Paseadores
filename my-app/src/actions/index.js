@@ -24,10 +24,14 @@ export const ALERT_ADMIN = "ALERT_ADMIN";
 export const RESET_PASSWORD = "RESET_PASSWORD";
 export const DELETE_USER_ACCOUNT = "DELETE_USER_ACCOUNT";
 export const FIRST_ADMIN = "FIRST_ADMIN";
+<<<<<<< HEAD
 export const ADD_FAVORITES = "ADD_FAVORITES";
 export const GET_USER_FAVORITES = "GET_USER_FAVORITES";
 export const DELETE_USER_FAVORITE = "DELETE_USER_FAVORITE";
 export const GET_FOR_LIST_FAV = "GET_FOR_LIST_FAV";
+=======
+export const PASEADORES_PREMIUM = "PASEADORES_PREMIUM"
+>>>>>>> 29bf4c6 (carrusel)
 
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES";
@@ -136,7 +140,6 @@ export function putDetailsUser(payload, id, token) {
 export function ubicationMatch(ubication) {
   return async function (dispatch) {
     let json;
-
     try {
       json = await axios.get(`/ubication?ubication=${ubication}`);
 
@@ -168,11 +171,24 @@ export function recoverPassword(payload) {
     });
   };
 }
+
 export function newPassword(token, payload) {
   return async function (dispatch) {
     return axios.put(`/newPassword/${token}`, payload).then((paseador) => {
       dispatch({
         type: "NEW_PASSWORD",
+        payload: paseador.data,
+      });
+    });
+  };
+}
+
+export function getPaseadorPremuim() {
+  return async function (dispatch) {
+    return axios.get(`/getPremium`)
+    .then((paseador) => {
+      dispatch({
+        type: "PASEADORES_PREMIUM",
         payload: paseador.data,
       });
     });
@@ -232,6 +248,7 @@ export function putDetailsCliente(payload,id, token) {
   };
 }
 
+<<<<<<< HEAD
 // export function getByEmailCliente (payload) {
 //   return async function (dispatch) {
 //       return axios.post("/login", payload)
@@ -246,6 +263,13 @@ export function putDetailsCliente(payload,id, token) {
 export function clientSendOrden(payload) {
   return async function (dispatch) {
     return axios.post("/sendOrden", payload).then((orden) => {
+=======
+export function clientSendOrden(payload){
+  return async function (dispatch){
+    return axios
+    .post("/sendOrden", payload)
+    .then((orden)=>{
+>>>>>>> 29bf4c6 (carrusel)
       dispatch({
         type: "NEW_ORDEN",
         payload: orden.data,
@@ -289,8 +313,13 @@ export function ordenAnswer(payload) {
   };
 }
 
+<<<<<<< HEAD
 export function getWalkers(email) {
   return async function (dispatch) {
+=======
+export function getWalkers(email){
+  return async function(dispatch){
+>>>>>>> 29bf4c6 (carrusel)
     var result;
     try {
       if (!email) {
@@ -307,8 +336,14 @@ export function getWalkers(email) {
     }
   };
 }
+<<<<<<< HEAD
 export function getClients(email) {
   return async function (dispatch) {
+=======
+
+export function getClients(email){
+  return async function(dispatch){
+>>>>>>> 29bf4c6 (carrusel)
     var result;
     try {
       if (!email) {

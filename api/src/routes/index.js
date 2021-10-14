@@ -18,7 +18,6 @@ const detailsClient = require("../routes/Client/getDetailsCliente");
 const sendOrden = require("./sendOrden");
 const getOrden = require("./getOrden");
 const answerOrden = require("./answerOrden");
-const postPremium = require("./postPremium");
 const getWalkers = require("../routes/Administrator/getWalkers");
 const getClients = require("../routes/Administrator/getClients");
 const makeAdmin = require("../routes/Administrator/makeAdmin");
@@ -30,7 +29,8 @@ const getFavorite = require("./getFavorite");
 const deleteFavorite = require("./deleteFavorite");
 const getForListFav = require("./getForListFav");
 const googleLogIn = require("./googleLogIn");
-const tokenExtractor = require("../utils/tokenExtractor");
+const getPremium = require("./getPremium")
+const postPremium = require("./postPremium")
 
 const router = Router();
 
@@ -53,7 +53,6 @@ router.use("/Cliente", detailsClient);
 router.use("/sendOrden", sendOrden);
 router.use("/getOrden", getOrden);
 router.use("/ordenAnswer", answerOrden);
-router.use("/updatePremium", postPremium);
 router.use("/getWalkers", getWalkers);
 router.use("/getClients", getClients);
 router.use("/makeAdmin", makeAdmin);
@@ -64,5 +63,8 @@ router.use("/addFav", addFavorite);
 router.use("/getFavorite", getFavorite);
 router.use("/quitFav", deleteFavorite);
 router.use("/getForListFav", getForListFav);
+router.use("/updatePremium", postPremium);
+router.use("/getPremium", getPremium);
+
 
 module.exports = router;

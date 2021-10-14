@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "../Card/Card";
+// import CardCarrusel from "../CardCarrusel/CardCarrusel";
 import Nav from "./Nav/Nav";
 import style from "../UsersCards/UsersCards.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -98,7 +99,11 @@ const UsersCards = () => {
   return (
     <div className={style.container}>
       <Nav />
+   
       <div className={style.containerDOS}>
+      <div className = {style.carrusel}>     
+      <Carrusel/>
+    </div> 
         <div className={style.costado}>
           <div>
             <select
@@ -194,6 +199,26 @@ const UsersCards = () => {
             </div>
           </div>
         </div>
+        
+        {/* <div className = {style.premium}>
+          {usersPremium.length > 0 ? (
+              usersPremium.map((pr) => {
+                return (
+                  <CardCarrusel
+                    key={pr.id}
+                    id={pr.id}
+                    name={pr.name}
+                    surname={pr.surname}
+                    image={pr.image}
+                  />
+                );
+              })
+            ) : (
+              <div>
+                <p>No hay usuarios premium</p>
+              </div>
+            )}
+        </div> */}
 
         <div className={style.cards}>
           {allUsers.content?.length > 0 ? (
@@ -239,6 +264,7 @@ const UsersCards = () => {
             )}
           </div>
         </div>
+        
       </div>
     </div>
   );

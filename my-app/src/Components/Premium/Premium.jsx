@@ -72,7 +72,7 @@ function Premium() {
                     <Form />
                 </Elements>
                 <div className={style.info}>
-                    <p className={style.infoTitle} >Contratando la cuenta premium a tan solo USD$2 por unica vez vas a poder contar con los siguientes beneficios exclusivos:</p>
+                    <p className={style.infoTitle} >Contratando la cuenta premium a tan solo USD$12 por unica vez vas a poder contar con los siguientes beneficios exclusivos:</p>
                     <div className={style.beneficios}>
                         <p className={style.bene} >- Mejor posicionamiento.</p>
                         <p className={style.bene} >- Subir ilimitadas publicaciones de tu trabajo.</p>
