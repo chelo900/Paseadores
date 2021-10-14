@@ -9,7 +9,7 @@ import Swal from 'sweetalert2'
 const Edit = () => {
     const [input, setInput] = useState({ price: '' })
     // const { id } = useParams();
-    const idNew = useSelector(state => state.detailWalker.id)
+    var id = localStorage.getItem("userId");
     // const paseador =useSelector(state => state.detailWalker)
     const dispatch = useDispatch();
     const history = useHistory();
@@ -23,18 +23,18 @@ const Edit = () => {
 
     const handleLogout = (event) => {
         event.preventDefault();
-        history.push(`/walker/perfil/${idNew}`);
+        history.push(`/walker/perfil/${id}`);
     };
 
     const handlerSubmit = () => {
-        dispatch(putDetailsProfile(idNew, input))
+        dispatch(putDetailsProfile(id, input))
         Swal.fire({
             icon: 'success',
             title: 'Cambios Efectuados',
             showConfirmButton: false,
             timer: 1500
           })
-        history.push(`/walker/perfil/${idNew}`)
+        history.push(`/walker/perfil/${id}`)
     }
 
     return (
@@ -48,7 +48,7 @@ const Edit = () => {
                     placeholder='Precio..'
                     onChange={e => inputChange(e)} />
                 <div className={style.containerBtn}>
-                    <Link to={`/walker/perfil/${idNew}`}>
+                    <Link to={`/walker/perfil/${id}`}>
                         <button className={style.volver} onClick={handleLogout}> Atrás </button>
                     </Link>
                     <button className={style.edit} type='submit'>Guardar cambios</button>

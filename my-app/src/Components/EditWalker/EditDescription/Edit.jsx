@@ -12,8 +12,8 @@ const Edit = () => {
 
     const [input, setInput] = useState({ description: '' })
 
-     const { id } = useParams();
-    const idNew =useSelector(state => state.detailWalker.id)
+    var id = localStorage.getItem("userId");
+    
 
 
     const dispatch = useDispatch();
@@ -33,21 +33,24 @@ const Edit = () => {
       };
 
     const handlerSubmit =  ()=>{
-       dispatch(putDetailsProfile(idNew, input))
+        console.log("acaaaaaaaaaaaaaaaa")
+        console.log(id)
+        console.log(input)
+        
+       dispatch(putDetailsProfile(id, input))
          Swal.fire({
             icon: 'success',
             title: 'Cambios Efectuados',
             showConfirmButton: false,
             timer: 1500
           })
-        history.push(`/walker/perfil/${idNew}`);
+        history.push(`/walker/perfil/${id}`);
     };
 
 
-    }
+    
     return (
         <div className={style.container}>
-            {console.log(idNew)}
             <form className={style.formulario} onSubmit={handlerSubmit}>
                 <h1>Descripción</h1>
                 <textarea
@@ -58,10 +61,10 @@ const Edit = () => {
                     placeholder='Descripcion..'
                     onChange={e => inputChange(e)} />
                 <div className={style.containerBtn}>
+                    <Link to={`/walker/perfil/${id}`}>
                     <button className={style.volver} onClick={handleLogout}> Atrás </button>
-                    <Link to={`/walker/perfil/${idNew}`}>
-                        <button className={style.edit} type='submit'>Guardar cambios</button>
                     </Link>
+                        <button className={style.edit} type='submit'>Guardar cambios</button>
                 </div>
             </form>
         </div>

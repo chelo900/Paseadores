@@ -9,11 +9,10 @@ import style from './descripcion.module.css'
 const EditDescripcion = () => {
 
     const [input, setInput] = useState({
-        description: ''
-    })
-
+        description: '' })
+        var id = localStorage.getItem("userId");
     // const newIdCliente =useSelector(state => state.detailCliente.id)
-    const { id } = useParams()
+    
     const dispatch = useDispatch();
 
     const history = useHistory();
@@ -33,14 +32,16 @@ const EditDescripcion = () => {
     const handlerSubmit = () => {
 
         dispatch(putDetailsProfileCliente(id, input))
-        console.log(id ,"cambios")
+        
         Swal.fire({
             icon: 'success',
             title: 'Cambios Efectuados',
             showConfirmButton: false,
             timer: 1500
             
-          }
+          })
+        
+        history.push(`/Cliente/${id}`)
 
     }
     return (

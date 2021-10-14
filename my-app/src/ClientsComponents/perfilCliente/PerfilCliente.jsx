@@ -8,8 +8,7 @@ import Footer from './footer/Footer';
 import foto1 from '../../media/foto1Service.jpg'
 
 const PerfilCliente = () => {
-    const { id } = useParams();
-
+    var id = localStorage.getItem("userId");
     const dispatch = useDispatch();
     const history = useHistory();
 

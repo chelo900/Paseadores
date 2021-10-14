@@ -104,6 +104,9 @@ export function newPaseador(payload) {
 
 export function putDetailsProfile(id, payload) {
   return async function (dispatch) {
+    console.log("holaaaaaaaaaaaaa")
+    console.log(id)
+    console.log(payload)
     return axios.put("/updateuserProfile/" + id, payload).then((paseador) => {
       dispatch({
         type: "PUT_DETAILS_PROFILE",
@@ -114,7 +117,6 @@ export function putDetailsProfile(id, payload) {
 }
 
 export function putDetailsUser(payload, id, token) {
-  //console.log("token: ", user.token);
   return async function (dispatch) {
     return axios
       .put(`/updateuser/${id}`, payload, {
@@ -212,13 +214,13 @@ export function putDetailsProfileCliente(id, payload) {
   };
 }
 
-export function putDetailsCliente(payload, client) {
-  console.log("token: ", client.token);
+export function putDetailsCliente(payload,id, token) {
+ 
   return async function (dispatch) {
     return axios
-      .put(`/updateCliente/${client.id}`, payload, {
+      .put(`/updateCliente/${id}`, payload,{
         headers: {
-          Authorization: `Bearer ${client.token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((cliente) => {

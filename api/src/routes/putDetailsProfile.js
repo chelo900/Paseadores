@@ -7,6 +7,7 @@ router.put("/:id", async (req, res) => {
     const {id} = req.params
     const {status, price, description } = req.body
     
+    
     try{  
         const paseador = await User.findOne({
             where: {
