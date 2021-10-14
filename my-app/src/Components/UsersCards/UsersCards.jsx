@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "../Card/Card";
-// import CardCarrusel from "../CardCarrusel/CardCarrusel";
+import Carrusel from "../Carrusel/Carrusel"
 import Nav from "./Nav/Nav";
 import style from "../UsersCards/UsersCards.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -103,7 +103,7 @@ const UsersCards = () => {
       <div className={style.containerDOS}>
       <div className = {style.carrusel}>     
       <Carrusel/>
-    </div> 
+      </div> 
         <div className={style.costado}>
           <div>
             <select
