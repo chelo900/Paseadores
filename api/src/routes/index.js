@@ -48,7 +48,7 @@ router.use("/forgotPassword", forgotPassword);
 router.use("/newPassword", newPassword);
 router.use("/createClient", postClient);
 router.use("/updateClientProfile", putClientePerfil);
-router.use("/updateCliente", putCliente);
+router.use("/updateCliente", tokenExtractor, putCliente);
 router.use("/Cliente", detailsClient);
 router.use("/sendOrden", sendOrden);
 router.use("/getOrden", getOrden);

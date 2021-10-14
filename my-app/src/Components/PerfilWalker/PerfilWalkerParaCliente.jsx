@@ -34,6 +34,8 @@ const PerfilWalker = () => {
 
     const [ordenload, setOrdenLoad] = useState(false)
 
+    
+
 
 
 
@@ -166,11 +168,8 @@ const PerfilWalker = () => {
                         {Walker.status === "removed" ? <p className={style.noactivo}>Este usuario ya no existe</p>:"" }
                         <ul >
                             <li className={style.liService}>{Walker.service}</li>
-                            <li className={style.libirth}>{Walker.birth_day}</li>
-                            <li className={style.liPhone}>{Walker.phone}</li>
-                            <li className={style.liEmail}>{Walker.email}</li>
                             <li className={style.liUbication}>{Walker.ubication}</li>
-                            <li className={style.liDni}>{Walker.dni}</li>
+                           
                         </ul>
                     </div>
                 </div>

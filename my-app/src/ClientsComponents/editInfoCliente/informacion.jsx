@@ -8,9 +8,11 @@ import Swal from "sweetalert2";
 const Edit = () => {
 
   const user = useSelector((state) => state.user);
-
+  var id = localStorage.getItem("userId");
+  var token = localStorage.getItem("userToken");
+  
   const history = useHistory();
-  const {id} =useParams()
+  
   const dispatch = useDispatch();
 
   const cliente = useSelector((state) => state.detailCliente);
@@ -56,14 +58,14 @@ const Edit = () => {
 
   const handlerSubmit =  () => {
     console.log(user);
-    dispatch(putDetailsCliente(input, user));
+    dispatch(putDetailsCliente(input, id, token));
     Swal.fire({
       icon: 'success',
       title: 'Cambios Efectuados',
       showConfirmButton: false,
       timer: 1000
     })
-    setTimeout(history.push(`/Cliente/${user.id}`), 3000);
+    setTimeout(history.push(`/Cliente/${id}`), 3000);
 
   };
 
