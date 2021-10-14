@@ -189,12 +189,16 @@ export function newPassword(token, payload) {
 
 export function getPaseadorPremuim() {
   return async function (dispatch) {
-    return axios.get(`/getPremium`).then((paseador) => {
-      dispatch({
-        type: "PASEADORES_PREMIUM",
-        payload: paseador.data,
+    return axios
+      .get(`/getPremium`, {
+        headers: header,
+      })
+      .then((paseador) => {
+        dispatch({
+          type: "PASEADORES_PREMIUM",
+          payload: paseador.data,
+        });
       });
-    });
   };
 }
 
