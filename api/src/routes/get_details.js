@@ -6,7 +6,6 @@ const router = Router();
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
-
   try {
     const datos = await User.findOne({
       where: {

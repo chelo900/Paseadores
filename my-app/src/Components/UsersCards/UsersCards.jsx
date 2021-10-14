@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "../Card/Card";
-import Carrusel from "../Carrusel/Carrusel"
+import Carrusel from "../Carrusel/Carrusel";
 import Nav from "./Nav/Nav";
 import style from "../UsersCards/UsersCards.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -72,6 +72,7 @@ const UsersCards = () => {
 
   function handleFiltersSubmit(event) {
     event.preventDefault();
+
     dispatch(
       getAllPaseadores({
         page,
@@ -99,11 +100,11 @@ const UsersCards = () => {
   return (
     <div className={style.container}>
       <Nav />
-   
+
       <div className={style.containerDOS}>
-      <div className = {style.carrusel}>     
-      <Carrusel/>
-      </div> 
+        <div className={style.carrusel}>
+          <Carrusel />
+        </div>
         <div className={style.costado}>
           <div>
             <select
@@ -199,7 +200,7 @@ const UsersCards = () => {
             </div>
           </div>
         </div>
-        
+
         {/* <div className = {style.premium}>
           {usersPremium.length > 0 ? (
               usersPremium.map((pr) => {
@@ -264,7 +265,6 @@ const UsersCards = () => {
             )}
           </div>
         </div>
-        
       </div>
     </div>
   );

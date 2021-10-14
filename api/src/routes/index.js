@@ -6,7 +6,6 @@ const putDetailsUser = require("./putDetailsUser");
 const putDetailsProfile = require("./putDetailsProfile");
 const get_paseadores = require("./get_paseadores");
 const login = require("./login");
-const putHorarios = require("./putHorarios");
 const postImages = require("./postImages");
 const forgotPassword = require("./forgotPassword");
 const newPassword = require("./newPassword");
@@ -29,45 +28,41 @@ const getFavorite = require("./getFavorite");
 const deleteFavorite = require("./deleteFavorite");
 const getForListFav = require("./getForListFav");
 const googleLogIn = require("./googleLogIn");
-const getPremium = require("./getPremium")
-const postPremium = require("./postPremium")
+const getPremium = require("./getPremium");
+const postPremium = require("./postPremium");
 const tokenExtractor = require("../utils/tokenExtractor");
-
-
-
 
 const router = Router();
 
-router.use("/walkers", get_details);
-router.use("/allActiveWalkers", get_paseadores);
+router.use("/walkers", tokenExtractor, get_details);
+router.use("/allActiveWalkers", tokenExtractor, get_paseadores);
 router.use("/createUser", postUser);
 router.use("/updateuser", tokenExtractor, putDetailsUser);
-router.use("/updateuserProfile", putDetailsProfile);
+router.use("/updateuserProfile", tokenExtractor, putDetailsProfile);
 router.use("/login", login);
 router.use("/google", googleLogIn);
-router.use("/walkers", putHorarios);
 router.use("/ubication", get_ubication);
-router.use("/postimages", postImages);
+router.use("/postimages", tokenExtractor, postImages);
 router.use("/forgotPassword", forgotPassword);
 router.use("/newPassword", newPassword);
 router.use("/createClient", postClient);
-router.use("/updateClientProfile", putClientePerfil);
+router.use("/updateClientProfile", tokenExtractor, putClientePerfil);
 router.use("/updateCliente", tokenExtractor, putCliente);
-router.use("/Cliente", detailsClient);
-router.use("/sendOrden", sendOrden);
-router.use("/getOrden", getOrden);
-router.use("/ordenAnswer", answerOrden);
-router.use("/getWalkers", getWalkers);
-router.use("/getClients", getClients);
-router.use("/makeAdmin", makeAdmin);
-router.use("/deleteUserAccount", deleteUserAccount);
-router.use("/resetPassword", resetPassword);
+router.use("/Cliente", tokenExtractor, detailsClient);
+router.use("/sendOrden", tokenExtractor, sendOrden);
+router.use("/getOrden", tokenExtractor, getOrden);
+router.use("/ordenAnswer", tokenExtractor, answerOrden);
+router.use("/updatePremium", tokenExtractor, postPremium);
+router.use("/getWalkers", tokenExtractor, getWalkers);
+router.use("/getClients", tokenExtractor, getClients);
+router.use("/makeAdmin", tokenExtractor, makeAdmin);
+router.use("/deleteUserAccount", tokenExtractor, deleteUserAccount);
+router.use("/resetPassword", tokenExtractor, resetPassword);
 router.use("/firstAdmin", firstAdmin);
-router.use("/addFav", addFavorite);
-router.use("/getFavorite", getFavorite);
-router.use("/quitFav", deleteFavorite);
-router.use("/getForListFav", getForListFav);
-router.use("/updatePremium", postPremium);
-router.use("/getPremium", getPremium);
+router.use("/addFav", tokenExtractor, addFavorite);
+router.use("/getFavorite", tokenExtractor, getFavorite);
+router.use("/quitFav", tokenExtractor, deleteFavorite);
+router.use("/getForListFav", tokenExtractor, getForListFav);
+router.use("/getPremium", tokenExtractor, getPremium);
 
 module.exports = router;

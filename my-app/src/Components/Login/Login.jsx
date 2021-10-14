@@ -19,7 +19,8 @@ const Login = () => {
     email: "",
     password: "",
   });
-  var walker = localStorage.getItem("userWalker");
+
+  const walker = localStorage.getItem("userWalker");
 
   useEffect(() => {
     if (walker === "false" || walker === "true") {
@@ -55,8 +56,8 @@ const Login = () => {
       localStorage.setItem("userId", user.id);
       localStorage.setItem("userWalker", user.walker);
       localStorage.setItem("userAdmin", user.admin);
-      history.push(`/walker/perfil/${user.id}`);
       if (user.walker) {
+        history.push(`/walker/perfil/${user.id}`);
       } else {
         history.push(`/cardsUsers`);
       }

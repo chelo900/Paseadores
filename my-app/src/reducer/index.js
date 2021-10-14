@@ -6,9 +6,6 @@ import {
   LOGIN,
   NEW_PASEADOR,
   UBICATION_MATCH,
-  FILTER_PRICE,
-  FILTER_UBICATION,
-  FILTER_SERVICE,
   RECOVER_PASSWORD,
   NEW_PASSWORD,
   GET_CLIENTE_FOR_ID,
@@ -21,7 +18,7 @@ import {
   GET_USER_FAVORITES,
   ADD_FAVORITES,
   GET_FOR_LIST_FAV,
-  PASEADORES_PREMIUM
+  PASEADORES_PREMIUM,
 } from "../actions/index";
 
 const initialState = {
@@ -40,7 +37,7 @@ const initialState = {
   idOrden: [],
   favorites: [],
   dataFavorites: [],
-  premium : []
+  premium: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -76,25 +73,11 @@ function rootReducer(state = initialState, action) {
         detailWalker: action.payload,
       };
     case GET_PASEADOR_FOR_ID:
+      console.log(action.payload);
       return {
         ...state,
         detailWalker: action.payload,
         newId: [],
-      };
-    case FILTER_PRICE:
-      return {
-        ...state,
-        allPaseadores: action.payload,
-      };
-    case FILTER_SERVICE:
-      return {
-        ...state,
-        allPaseadores: action.payload,
-      };
-    case FILTER_UBICATION:
-      return {
-        ...state,
-        allPaseadores: action.payload,
       };
     case LOGIN:
       const { token, validate, id, walker, admin } = action.payload;

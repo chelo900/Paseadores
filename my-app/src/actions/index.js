@@ -8,10 +8,6 @@ export const PUT_DETAILS_USER = "PUT_DETAILS_USER";
 export const NEW_PASEADOR = "NEW_PASEADOR";
 export const LOGIN = "LOGIN";
 export const UBICATION_MATCH = "UBICATION_MATCH";
-export const FILTER_SERVICE = "FILTER_SERVICE";
-export const ORDER = "ORDER";
-export const FILTER_PRICE = "FILTER_PRICE";
-export const FILTER_UBICATION = "FILTER_UBICATION";
 export const RECOVER_PASSWORD = "RECOVER_PASSWORD";
 export const NEW_PASSWORD = "NEW_PASSWORD";
 export const GET_CLIENTE_FOR_ID = "GET_CLIENTE_FOR_ID";
@@ -28,10 +24,15 @@ export const ADD_FAVORITES = "ADD_FAVORITES";
 export const GET_USER_FAVORITES = "GET_USER_FAVORITES";
 export const DELETE_USER_FAVORITE = "DELETE_USER_FAVORITE";
 export const GET_FOR_LIST_FAV = "GET_FOR_LIST_FAV";
-export const PASEADORES_PREMIUM = "PASEADORES_PREMIUM"
+export const PASEADORES_PREMIUM = "PASEADORES_PREMIUM";
 
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES";
+
+const token = localStorage.getItem("userToken");
+const header = {
+  Authorization: `Bearer ${token}`,
+};
 
 export function login(payload) {
   return async function (dispatch) {
@@ -39,8 +40,8 @@ export function login(payload) {
       return axios
         .post("/login", payload)
         .then((res) => dispatch({ type: LOGIN, payload: res.data }));
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.error("Action login: ", error);
     }
   };
 }
@@ -65,14 +66,15 @@ export function getAllPaseadores({
             selectFilters: queryString.stringify(selectFilters),
             sortData: queryString.stringify(sortData),
           },
+          headers: header,
         }
       );
       return dispatch({
         type: "GET_PASEADORES",
         payload: result.data,
       });
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error("Action get_paseadores: ", error);
     }
   };
 }
@@ -80,14 +82,18 @@ export function getAllPaseadores({
 export function getPaseadorForId(id) {
   return (dispatch) => {
     try {
-      axios.get(`/walkers/${id}`).then((response) =>
-        dispatch({
-          type: "GET_PASEADOR_FOR_ID",
-          payload: response.data,
+      axios
+        .get(`/walkers/${id}`, {
+          headers: header,
         })
-      );
+        .then((response) =>
+          dispatch({
+            type: "GET_PASEADOR_FOR_ID",
+            payload: response.data,
+          })
+        );
     } catch (error) {
-      console.log(error);
+      console.error("Action getPaseadorForId: ", error);
     }
   };
 }
@@ -105,25 +111,22 @@ export function newPaseador(payload) {
 
 export function putDetailsProfile(id, payload) {
   return async function (dispatch) {
-    console.log("holaaaaaaaaaaaaa")
-    console.log(id)
-    console.log(payload)
-    return axios.put("/updateuserProfile/" + id, payload).then((paseador) => {
-      dispatch({
-        type: "PUT_DETAILS_PROFILE",
-        payload: paseador.data,
+    return axios
+      .put("/updateuserProfile/" + id, payload, { headers: header })
+      .then((paseador) => {
+        dispatch({
+          type: "PUT_DETAILS_PROFILE",
+          payload: paseador.data,
+        });
       });
-    });
   };
 }
 
-export function putDetailsUser(payload, id, token) {
+export function putDetailsUser(payload, id) {
   return async function (dispatch) {
     return axios
       .put(`/updateuser/${id}`, payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: header,
       })
       .then((paseador) => {
         dispatch({
@@ -149,12 +152,16 @@ export function ubicationMatch(ubication) {
 
 export function addImage(payload) {
   return async function (dispatch) {
-    return axios.post("/postimages/:id", payload).then((image) => {
-      dispatch({
-        type: "ADD_IMAGE",
-        payload: image.data,
+    return axios
+      .post("/postimages/:id", payload, {
+        headers: header,
+      })
+      .then((image) => {
+        dispatch({
+          type: "ADD_IMAGE",
+          payload: image.data,
+        });
       });
-    });
   };
 }
 
@@ -182,13 +189,16 @@ export function newPassword(token, payload) {
 
 export function getPaseadorPremuim() {
   return async function (dispatch) {
-    return axios.get(`/getPremium`)
-    .then((paseador) => {
-      dispatch({
-        type: "PASEADORES_PREMIUM",
-        payload: paseador.data,
+    return axios
+      .get(`/getPremium`, {
+        headers: header,
+      })
+      .then((paseador) => {
+        dispatch({
+          type: "PASEADORES_PREMIUM",
+          payload: paseador.data,
+        });
       });
-    });
   };
 }
 
@@ -207,34 +217,39 @@ export function newClient(payload) {
 
 export function getClienteForId(id) {
   return (dispatch) => {
-    axios.get(`/Cliente/${id}`).then((cliente) =>
-      dispatch({
-        type: "GET_CLIENTE_FOR_ID",
-        payload: cliente.data,
+    axios
+      .get(`/Cliente/${id}`, {
+        headers: header,
       })
-    );
+      .then((cliente) =>
+        dispatch({
+          type: "GET_CLIENTE_FOR_ID",
+          payload: cliente.data,
+        })
+      );
   };
 }
 
 export function putDetailsProfileCliente(id, payload) {
   return async function (dispatch) {
-    return axios.put("/updateClientProfile/" + id, payload).then((cliente) => {
-      dispatch({
-        type: "PUT_DETAILS_PROFILE_CLIENTE",
-        payload: cliente.data,
+    return axios
+      .put("/updateClientProfile/" + id, payload, {
+        headers: header,
+      })
+      .then((cliente) => {
+        dispatch({
+          type: "PUT_DETAILS_PROFILE_CLIENTE",
+          payload: cliente.data,
+        });
       });
-    });
   };
 }
 
-export function putDetailsCliente(payload,id, token) {
- 
+export function putDetailsCliente(payload, client) {
   return async function (dispatch) {
     return axios
-      .put(`/updateCliente/${id}`, payload,{
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      .put(`/updateCliente/${client.id}`, payload, {
+        headers: header,
       })
       .then((cliente) => {
         dispatch({
@@ -258,12 +273,16 @@ export function putDetailsCliente(payload,id, token) {
 
 export function clientSendOrden(payload) {
   return async function (dispatch) {
-    return axios.post("/sendOrden", payload).then((orden) => {
-      dispatch({
-        type: "NEW_ORDEN",
-        payload: orden.data,
+    return axios
+      .post("/sendOrden", payload, {
+        headers: header,
+      })
+      .then((orden) => {
+        dispatch({
+          type: "NEW_ORDEN",
+          payload: orden.data,
+        });
       });
-    });
   };
 }
 
@@ -282,23 +301,31 @@ export function clientSendOrden(payload) {
 export function getOrdenCliente(userId) {
   console.log("geeetordenCliente", userId);
   return (dispatch) => {
-    axios.get(`/getOrden/${userId}`).then((orden) =>
-      dispatch({
-        type: "GET_ORDENSUSER_CLIENTE",
-        payload: orden.data,
+    axios
+      .get(`/getOrden/${userId}`, {
+        headers: header,
       })
-    );
+      .then((orden) =>
+        dispatch({
+          type: "GET_ORDENSUSER_CLIENTE",
+          payload: orden.data,
+        })
+      );
   };
 }
 
 export function ordenAnswer(payload) {
   return async function (dispatch) {
-    return axios.put("/ordenAnswer", payload).then((answer) => {
-      dispatch({
-        type: "ORDEN_ANSWER",
-        payload: answer.data,
+    return axios
+      .put("/ordenAnswer", payload, {
+        headers: header,
+      })
+      .then((answer) => {
+        dispatch({
+          type: "ORDEN_ANSWER",
+          payload: answer.data,
+        });
       });
-    });
   };
 }
 
@@ -307,9 +334,13 @@ export function getWalkers(email) {
     var result;
     try {
       if (!email) {
-        result = await axios.get(`/getWalkers`);
+        result = await axios.get(`/getWalkers`, {
+          headers: header,
+        });
       } else {
-        result = await axios.get(`/getWalkers?email=${email}`);
+        result = await axios.get(`/getWalkers?email=${email}`, {
+          headers: header,
+        });
       }
       return dispatch({
         type: "GET_WALKERS",
@@ -325,9 +356,13 @@ export function getClients(email) {
     var result;
     try {
       if (!email) {
-        result = await axios.get(`/getClients`);
+        result = await axios.get(`/getClients`, {
+          headers: header,
+        });
       } else {
-        result = await axios.get(`/getClients?email=${email}`);
+        result = await axios.get(`/getClients?email=${email}`, {
+          headers: header,
+        });
       }
       return dispatch({
         type: "GET_CLIENTS",
@@ -341,7 +376,9 @@ export function getClients(email) {
 export function makeAdmin(id) {
   return async function (dispatch) {
     try {
-      let result = await axios.post(`/makeAdmin`, id);
+      let result = await axios.post(`/makeAdmin`, id, {
+        headers: header,
+      });
       return dispatch({
         type: "ALERT_ADMIN",
         payload: result.data,
@@ -355,7 +392,9 @@ export function makeAdmin(id) {
 export function resetPassword(id) {
   return async function (dispatch) {
     try {
-      let result = await axios.post(`/resetPassword`, id);
+      let result = await axios.post(`/resetPassword`, id, {
+        headers: header,
+      });
       return dispatch({
         type: "ALERT_ADMIN",
         payload: result.data,
@@ -369,7 +408,9 @@ export function resetPassword(id) {
 export function deleteUserAccount(id) {
   return async function (dispatch) {
     try {
-      let result = await axios.post(`/deleteUserAccount`, id);
+      let result = await axios.post(`/deleteUserAccount`, id, {
+        headers: header,
+      });
       return dispatch({
         type: "ALERT_ADMIN",
         payload: result.data,
@@ -395,7 +436,9 @@ export function firstAdmin(payload) {
 }
 export function getUserFavorites(idclient) {
   return async function (dispatch) {
-    var favs = await axios.get("/getFavorite/" + idclient);
+    var favs = await axios.get("/getFavorite/" + idclient, {
+      headers: header,
+    });
     return dispatch({
       type: "GET_USER_FAVORITES",
       payload: favs.data,
@@ -404,7 +447,9 @@ export function getUserFavorites(idclient) {
 }
 export function getForListFav(id) {
   return async function (dispatch) {
-    var favs = await axios.get("/getForListFav/" + id);
+    var favs = await axios.get("/getForListFav/" + id, {
+      headers: header,
+    });
     return dispatch({
       type: "GET_FOR_LIST_FAV",
       payload: favs.data,
@@ -415,7 +460,9 @@ export function getForListFav(id) {
 export function postUserFavorite(payload) {
   return async function (dispatch) {
     try {
-      let result = await axios.post(`/addFav`, payload);
+      let result = await axios.post(`/addFav`, payload, {
+        headers: header,
+      });
       return dispatch({
         type: "ADD_FAVORITES",
         payload: result.data,
@@ -429,7 +476,9 @@ export function postUserFavorite(payload) {
 export function deleteUserFavorite(payload) {
   return async function (dispatch) {
     try {
-    var result = await axios.put("/quitFav/" , payload);
+      var result = await axios.put("/quitFav/", payload, {
+        headers: header,
+      });
       return dispatch({
         type: "DELETE_USER_FAVORITE",
         payload: result.data,

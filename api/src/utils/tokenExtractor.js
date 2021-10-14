@@ -8,14 +8,22 @@ module.exports = (request, response, next) => {
   if (authorization && authorization.toLowerCase().startsWith("bearer")) {
     token = authorization.substring(7);
   }
-  const decodedToken = jwt.verify(token, SECRET);
 
-  if (!token || !decodedToken.id) {
-    return response
-      .status(401)
-      .json({ error: "Token no existente o invalido" });
+  let decodedToken = {};
+
+  try {
+    decodedToken = jwt.verify(token, SECRET);
+  } catch (error) {
+    console.log(error.message);
+    return response.status(401).json(error);
   }
-  const { id: userId } = decodedToken;
-  request.userId = userId;
+
+  // if (isNull(token) || !decodedToken.id) {
+  //   console.log("entro al error");
+  //   return response.status(401).json({ error: "Token inexistente o invalido" });
+  // }
+  // const { id: userId } = decodedToken;
+  // request.userId = userId;
+
   next();
 };

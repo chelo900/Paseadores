@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const { User } = require("../db");
-const { Op } = require("sequelize");
 const { filterAndSortWalkers } = require("../utils/filterAndSort");
 const queryString = require("query-string");
 
@@ -106,7 +105,7 @@ router.get("/", async (req, res) => {
       res.status(404).send("Not found");
     }
   } catch (error) {
-    console.error(error);
+    res.json(error);
   }
 });
 
