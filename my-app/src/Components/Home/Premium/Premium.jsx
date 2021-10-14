@@ -15,7 +15,7 @@ const Premium = () => {
                 <p className = {style.uno} > Permanecer simpre en la primera pagina.</p>
                 <p className = {style.dos} > Subir ilimitadas publicaciones de tu trabajo.</p>
                 <p className = {style.tres} > Mantener simpre el historial de los chats con los clientes.</p>
-                <p className = {style.cuatro} > El costo es de tan solo $2 dolares por mes. </p>
+                <p className = {style.cuatro} > El costo es de tan solo $12 dolares por unica vez. </p>
                 <p className = {style.cuatro} > Vas a poder contratarlo desde tu perfil una vez que te crees un usuario. </p>
             </div>
             </div>

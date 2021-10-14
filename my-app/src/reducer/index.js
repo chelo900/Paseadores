@@ -21,6 +21,7 @@ import {
   GET_USER_FAVORITES,
   ADD_FAVORITES,
   GET_FOR_LIST_FAV,
+  PASEADORES_PREMIUM
 } from "../actions/index";
 
 const initialState = {
@@ -39,6 +40,7 @@ const initialState = {
   idOrden: [],
   favorites: [],
   dataFavorites: [],
+  premium : []
 };
 
 function rootReducer(state = initialState, action) {
@@ -79,7 +81,6 @@ function rootReducer(state = initialState, action) {
         detailWalker: action.payload,
         newId: [],
       };
-
     case FILTER_PRICE:
       return {
         ...state,
@@ -126,6 +127,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         mensaje: action.payload,
+      };
+    case PASEADORES_PREMIUM:
+      return {
+        ...state,
+        premium: action.payload,
       };
     // CLIENTE :
     case GET_CLIENTE_FOR_ID:

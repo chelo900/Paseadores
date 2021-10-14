@@ -28,6 +28,7 @@ export const ADD_FAVORITES = "ADD_FAVORITES";
 export const GET_USER_FAVORITES = "GET_USER_FAVORITES";
 export const DELETE_USER_FAVORITE = "DELETE_USER_FAVORITE";
 export const GET_FOR_LIST_FAV = "GET_FOR_LIST_FAV";
+export const PASEADORES_PREMIUM = "PASEADORES_PREMIUM"
 
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES";
@@ -136,7 +137,6 @@ export function putDetailsUser(payload, id, token) {
 export function ubicationMatch(ubication) {
   return async function (dispatch) {
     let json;
-
     try {
       json = await axios.get(`/ubication?ubication=${ubication}`);
 
@@ -168,11 +168,24 @@ export function recoverPassword(payload) {
     });
   };
 }
+
 export function newPassword(token, payload) {
   return async function (dispatch) {
     return axios.put(`/newPassword/${token}`, payload).then((paseador) => {
       dispatch({
         type: "NEW_PASSWORD",
+        payload: paseador.data,
+      });
+    });
+  };
+}
+
+export function getPaseadorPremuim() {
+  return async function (dispatch) {
+    return axios.get(`/getPremium`)
+    .then((paseador) => {
+      dispatch({
+        type: "PASEADORES_PREMIUM",
         payload: paseador.data,
       });
     });

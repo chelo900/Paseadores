@@ -78,6 +78,10 @@ module.exports = (sequelize) => {
       description: {
         type: DataTypes.TEXT,
       },
+      premium: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      }
       // morning: {
       //   type: DataTypes.ENUM("active", "inactive"),
       // },
