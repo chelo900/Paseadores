@@ -49,52 +49,29 @@ async function  addFavorite() {
 
 
 
-  return (
-    <div className={styles.card} >
-      <div className={styles.imageContainer}>
+return (
+  <div className={styles.card} draggable >
+    <div className={styles.title}>
+      <h1 className={styles.name}>{name + " " + surname}</h1>
+      {/* <hr></hr> */}
+      {walker==="false" &&   
+      <button className={styles.prueba} onClick={e => { addFavorite(e) }}>
+         {fv?  <img src={estrella} alt='' /> : <img src={favorito} alt='sas'/>}
+         </button>
+         }
       {image?<img className={styles.image} src={image} alt="foto paseador"/> : <img  className={styles.image}  src={fotoDefault} alt= 'a'/>}
-         {walker==="false" && 
-          <div className={styles.reputacion}>
-            <button className={styles.good}>
-              <img src={god} alt="" />
-              <span>{reputation}</span>
-            </button>
-            <button className={styles.bad}>
-              <img src={god} alt="" />
-              <span>{reputation}</span>
-            </button>
-          </div>
-        })
-      </div>
-      <div className={styles.title}>
-        <h1 className={styles.name}>{name + " " + surname}</h1>
-        <hr></hr>
-        <h3>{service}</h3>
-        {description ? (
-          <span>{description}</span>
-        ) : (
-          <span>
-            Este usuario no tiene infomacion cargada. Para saber mas sobre este
-            usuario oprima boton "Saber mas", este te llevara directo a su
-            perfil. Muchas gracias !
-          </span>
-        )}
-        <div>{price}</div>
-        {walker === "false" && (
-          <div className={styles.boton}>
-            <Link to={`/walker/perfil/contacto/${id}`}>
-              <button>Saber mas...</button>
-            </Link>
-          </div>
-        )}
-      </div>
-     {walker==="false" &&   
-     <button className={styles.prueba} onClick={e => { addFavorite(e) }}>
-        {fv?  <img src={estrella} alt='' /> : <img src={favorito} alt='sas'/>}
-        </button>
-        }
+      <h3>{service}</h3>
+      <div>{price}</div>
+      {walker === "false" && (
+        <div className={styles.boton}>
+          <Link to={`/walker/perfil/contacto/${id}`}>
+            <button>Saber mas...</button>
+          </Link>
+        </div>
+      )}
     </div>
-  );
+  </div>
+);
 }
 
 export default UserFav;
