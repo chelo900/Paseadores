@@ -29,25 +29,34 @@ const sortWalkersBy = ({ walkers, parsedSortData }) => {
 
 const filterWalkers = ({ walkers, filtersArray, selectFiltersArray }) => {
   let filteredWalkers = walkers;
-
+  const min = filtersArray.find((filter) => filter.min);
+  const max = filtersArray.find((filter) => filter.max);
+  if (min.min > max.max) {
+    throw new Error("El precio minimo debe ser menor al precio maximo");
+  }
   if (!isEmpty(selectFiltersArray) || !isEmpty(filtersArray)) {
     //FILTROS CON INPUT
 
     filtersArray.forEach((filter) => {
-      if (filter.hasOwnProperty("min") || filter.hasOwnProperty("max")) {
-        if (!filter.min) filter.min = 0;
-        if (!filter.max) filter.max = 99999999;
+      if (filter.hasOwnProperty("min")) {
         filteredWalkers = filteredWalkers.filter((walker) => {
           if (filter.min) {
-            console.log("entro al min");
             return walker.price >= [filter.min];
-          }
-          if (filter.max) {
-            console.log("entro al max");
-            return walker.price <= [filter.max];
+          } else {
+            return walker;
           }
         });
       }
+      if (filter.hasOwnProperty("max")) {
+        filteredWalkers = filteredWalkers.filter((walker) => {
+          if (filter.max) {
+            return walker.price <= [filter.max];
+          } else {
+            return walker;
+          }
+        });
+      }
+
       if (filter.hasOwnProperty("ubication")) {
         filteredWalkers = filteredWalkers.filter((walker) =>
           walker.ubication

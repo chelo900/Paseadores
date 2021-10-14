@@ -103,8 +103,6 @@ const PerfilWalker = () => {
         true
       ); // temporary=true, will get overwritten when reducer gives new events
     }
-    console.log(id);
-    console.log(idCliente);
     if (title) {
       dispatch(
         clientSendOrden({

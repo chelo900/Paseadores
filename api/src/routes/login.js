@@ -29,7 +29,6 @@ router.post("/", async (req, res) => {
     });
 
     let isValid;
-    //console.log(user)
     if (user && user.status !== "removed") {
       var userData = {
         id: user.id,
@@ -53,11 +52,10 @@ router.post("/", async (req, res) => {
         walker: false,
         admin: true,
       };
-      // isValid = password === admin.password ? true : false
       isValid = await bcryptjs.compare(password, admin.password);
     }
     if (isValid) {
-      const token = jwt.sign(userData, SECRET, { expiresIn: 60 * 60 * 24 });
+      const token = jwt.sign(userData, SECRET, { expiresIn: 60 * 60 });
 
       return res.status(200).send({
         validate: true,

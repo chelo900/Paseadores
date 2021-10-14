@@ -1,33 +1,32 @@
 const { Router } = require("express");
 const { User } = require("../../db");
-const { Op } = require("sequelize");
-const bcryptjs = require("bcryptjs");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const  email  = req.query.email;
+  const email = req.query.email;
 
   try {
-    const allActiveWalkers = await User.findAll( );
+    const allActiveWalkers = await User.findAll();
 
-    const allActiveWalkersCards = await allActiveWalkers?.filter((w) => w.status !== "removed")
-    
+    const allActiveWalkersCards = await allActiveWalkers?.filter(
+      (w) => w.status !== "removed"
+    );
+
     if (allActiveWalkersCards.length) {
       //GET BY NAME
       if (email) {
         try {
-          const nameSearch = allActiveWalkersCards.filter(
-            (user) => user.email.includes(email)
+          const nameSearch = allActiveWalkersCards.filter((user) =>
+            user.email.includes(email)
           );
           return res.status(200).send(nameSearch);
         } catch (error) {
-         return console.error(error);
+          return console.error(error);
         }
       }
-      
-      return res.status(200).json(allActiveWalkersCards)
-      
+
+      return res.status(200).json(allActiveWalkersCards);
     } else {
       return res.status(200).send(allActiveWalkersCards);
     }
@@ -37,7 +36,3 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
-
-
-
-

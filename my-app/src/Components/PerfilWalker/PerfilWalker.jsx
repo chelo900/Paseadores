@@ -29,7 +29,7 @@ dotenv.config();
 // import Footer from './footer/Footer';
 
 const PerfilWalker = () => {
-  var id = localStorage.getItem("userId");
+  const id = localStorage.getItem("userId");
 
   const dispatch = useDispatch();
 
