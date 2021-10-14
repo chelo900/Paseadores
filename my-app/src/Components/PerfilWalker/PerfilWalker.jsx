@@ -23,6 +23,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin, { ListView } from "@fullcalendar/list";
 import esLocale from "@fullcalendar/core/locales/es";
 import dotenv from "dotenv";
+import Premium from '../../Premiums/Premium';
 dotenv.config();
 
 // import Footer from './footer/Footer';
@@ -154,17 +155,17 @@ const PerfilWalker = () => {
       //     id: clickInfo.event.extendedProps.idOrden
       // }))
       // setTimeout(() => {
-      //     setOrdenLoad(true)
-      // }, 1000);
-      // setOrdenLoad(false)
-      // console.log(ordenload)
-    } else {
-      return clickInfo.event.title; // will render immediately. will call handleEventRemove
-    }
-  };
-
-  var mañana = false;
-  var tarde = false;
+          //     setOrdenLoad(true)
+          // }, 1000);
+          // setOrdenLoad(false)
+          // console.log(ordenload)
+        } else {
+            return clickInfo.event.title; // will render immediately. will call handleEventRemove
+        }
+    };
+    
+    var mañana = false;
+    var tarde = false;
 
   return (
     <div className={style.container}>
@@ -184,6 +185,7 @@ const PerfilWalker = () => {
             </div>
           </div>
           <div className={style.informacion}>
+          <h2>{Walker.name} {Walker.surname}</h2>
           {Walker.status === "active" ? <p className={style.activo}>Disponible</p>:"" }
                         {Walker.status === "inactive" ? <p className={style.noactivo}>No disponible</p>:"" }
             <ul>
@@ -204,83 +206,79 @@ const PerfilWalker = () => {
             </Link>
           </div>
         </div>
+                <div className={style.caracteristicas}>
+                    <div className={style.Premuim} >
+                        <Premium />
+                    </div>
+                    <div className={style.descripcion}>
+                        <h2>Description</h2>
+                        <div className={style.textDescription}>
+                            {Walker.description ? <p className={style.textDescriptionNew}>{Walker.description}</p> : <p>Agrega una descripcion</p>}
+                        </div>
+                        <Link to={`/walker/editDescription/${id}`} className={style.editContainer}>
+                            <button className={style.editDescription}>Editar Descripcion</button>
+                        </Link>
+                    </div>
+                    <div className={style.price}>
+                        <h2>Price per Hour</h2>
+                        <div className={style.textDescription}>
+                            {Walker.price != 0 ? <p>{Walker.price}  x Hour</p> : <p>Ponle un precio a tu servicio</p>}
+                        </div>
+                        <Link to={`/walker/editPrice/${id}`} className={style.editContainer}>
+                            <button className={style.edit}>Editar Precio</button>
+                        </Link>
+                    </div>
+                    <div className={style.reputacion}>
+                        <h2>Reputacion</h2>
+                        <div className={style.textDescription}>
+                            <p> * * * * *</p>
+                        </div>
+                    </div>
+                    <div className={style.fotos}>
+                        <div className={style.fondoFotos}>
+                            <h2>Fotos</h2>
+                            <div className={style.galeria}>
+                                {Walker.images?.map(i =>
+                                    <div key={i.public_id}>
+                                        <img src={i.imageURL ? i.imageURL : foto1} alt='a' />
+                                    </div>)
+                                }
+                            </div>
+                            <form action={`${baseURL}/postimages/${id}`} method="POST" encType="multipart/form-data">
+                                <input type="file" name="image" />
+                                <button className={style.subir} type="submit">Subir</button>
+                            </form>
 
-        <div className={style.caracteristicas}>
-          <div className={style.Premuim}>
-            {Walker.premiun ? (
-              <div></div>
-            ) : (
-              <Link to="/premium">
-                <button className={style.btnPremuim} type="submit">
-                  Hacerme premium
-                </button>
-              </Link>
-            )}
-          </div>
-          <div className={style.descripcion}>
-            <h2>Description</h2>
-            <div className={style.textDescription}>
-              {Walker.description ? (
-                <p className={style.textDescriptionNew}>{Walker.description}</p>
-              ) : (
-                <p>Agrega una descripcion</p>
-              )}
-            </div>
-            <Link
-              to={`/walker/editDescription/${id}`}
-              className={style.editContainer}
-            >
-              <button className={style.editDescription}>
-                Editar Descripcion
-              </button>
-            </Link>
-          </div>
-          <div className={style.price}>
-            <h2>Price per Hour</h2>
-            <div className={style.textDescription}>
-              {Walker.price !== 0 ? (
-                <p>{Walker.price} x Hour</p>
-              ) : (
-                <p>Ponle un precio a tu servicio</p>
-              )}
-            </div>
-            <Link
-              to={`/walker/editPrice/${id}`}
-              className={style.editContainer}
-            >
-              <button className={style.edit}>Editar Precio</button>
-            </Link>
-          </div>
-          <div className={style.reputacion}>
-            <h2>Reputacion</h2>
-            <div className={style.textDescription}>
-              <p> * * * * *</p>
-            </div>
-          </div>
-          <div className={style.fotos}>
-            <div className={style.fondoFotos}>
-              <h2>Fotos</h2>
-              <div className={style.galeria}>
-                {Walker.images?.map((i) => (
-                  <div key={i.public_id}>
-                    <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
-                  </div>
-                ))}
-              </div>
-              <form
-                action={`${baseURL}/postimages/${id}`}
-                method="POST"
-                encType="multipart/form-data"
-              >
-                <input type="file" name="image" />
-                <button className={style.subir} type="submit">
-                  Subir
-                </button>
-              </form>
-            </div>
-            <div>
-              <span>🟢 Paseos Confirmados</span>
-              <span>🟡 Pendientes</span>
+                        </div>
+                        <div>
+                            <span>🟢 Paseos Confirmados</span>
+                            <span>🟡 Pendientes</span>
+                        </div>
+                        <FullCalendar eventClassNames={style.calendar}
+                            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+                            headerToolbar={{
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                            }}
+                            initialView="timeGridWeek"
+                            locale={esLocale}
+                            editable={true}
+                            selectable={false}
+                            selectMirror={false}
+                            dayMaxEvents={true}
+                            select={handleDateSelect}
+                            eventClick={handleEventClick}
+                            contentHeight="auto"
+                            slotDuration='01:00'
+                            events={ordensCliente}
+                            slotMinTime={tarde ? '13:00:00' : '06:00:00'}
+                            slotMaxTime={mañana ? '12:00:00' : '23:00:00'}
+                            allDaySlot={false}
+                        />
+                    </div>
+                </div>
+
             </div>
             <FullCalendar
               eventClassNames={style.calendar}
@@ -311,10 +309,6 @@ const PerfilWalker = () => {
               allDaySlot={false}
             />
           </div>
-        </div>
-      </div>
-      {/* <Footer /> */}
-    </div>
   );
 };
 export default PerfilWalker;

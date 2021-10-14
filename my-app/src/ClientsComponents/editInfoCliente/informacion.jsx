@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useHistory,useParams } from "react-router";
 import { putDetailsCliente } from "../../actions";
 import style from "./informacion.module.css";
+import Swal from "sweetalert2";
 
 const Edit = () => {
 
   const user = useSelector((state) => state.user);
 
   const history = useHistory();
-
+  const {id} =useParams()
   const dispatch = useDispatch();
 
   const cliente = useSelector((state) => state.detailCliente);
@@ -53,11 +54,17 @@ const Edit = () => {
     }));
   };
 
-  const handlerSubmit = () => {
+  const handlerSubmit =  () => {
     console.log(user);
     dispatch(putDetailsCliente(input, user));
-    alert("Cambios Efectuados");
-    history.push(`/Cliente/${user.id}`);
+    Swal.fire({
+      icon: 'success',
+      title: 'Cambios Efectuados',
+      showConfirmButton: false,
+      timer: 1000
+    })
+    setTimeout(history.push(`/Cliente/${user.id}`), 3000);
+
   };
 
   return (

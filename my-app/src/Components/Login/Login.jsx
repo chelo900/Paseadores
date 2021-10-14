@@ -8,6 +8,10 @@ import Log from "./Google_Auth";
 import { useSelector } from "react-redux";
 import { login } from "../../actions";
 
+import Swal from "sweetalert2";
+
+
+
 const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -31,10 +35,20 @@ const Login = () => {
       ...values,
       [name]: value,
     });
+    
+    
 
-  useEffect(() => {
+    
+
+  useEffect(async () => {
+    
     if (user.validate === true) {
-      alert("Welcome");
+     await Swal.fire({
+        icon: 'success',
+        title: 'Welcome!',
+        showConfirmButton: false,
+        timer: 1500
+      })
       localStorage.clear();
       localStorage.setItem("userValidate", user.validate);
       localStorage.setItem("userToken", user.token);
@@ -47,7 +61,12 @@ const Login = () => {
         history.push(`/cardsUsers`);
       }
     } else if (user.validate === false) {
-      alert("Please check your credentials");
+     await Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Chequea tus crecenciales',
+        button:"Ok"
+      })
       window.location.reload();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,6 +86,7 @@ const Login = () => {
     <div className={style.container}>
       <div className={style.log}>
         <h1>Login</h1>
+        <hr></hr>
         <form className={style.form} onSubmit={handleOnSubmit}>
           <div className={style.field}>
             <input

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router'
 import { putDetailsProfileCliente } from "../../actions/index"
+import Swal from 'sweetalert2'
 
 import style from './descripcion.module.css'
 
@@ -32,9 +33,14 @@ const EditDescripcion = () => {
     const handlerSubmit = () => {
 
         dispatch(putDetailsProfileCliente(id, input))
-        console.log(id, "cambios")
-        alert('Cambios Efectuados')
-        history.push(`/Cliente/${id}`)
+        console.log(id ,"cambios")
+        Swal.fire({
+            icon: 'success',
+            title: 'Cambios Efectuados',
+            showConfirmButton: false,
+            timer: 1500
+            
+          }
 
     }
     return (
