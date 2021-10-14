@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Nav from '../../ClientsComponents/perfilCliente/nav/Nav';
 import { useDispatch, useSelector } from 'react-redux';
 import { getForListFav,getUserFavorites } from "../../../src/actions/index"
+import styles from "./ListaFav.module.css"
 import UserFav from "./UserFav"
 
 const Admin = () => {
@@ -21,6 +22,8 @@ const Admin = () => {
   return (
     <div >
       <Nav />
+        
+      <div className={styles.wrapper}>
      {dataFavorites?.length > 0 ? (
             dataFavorites.map((el) => {
               var fv;
@@ -28,8 +31,9 @@ const Admin = () => {
               {if(element === el.id){
                fv = true
               }});
-             
+              
               return (
+                
                 <UserFav
                   key={el.id}
                   id={el.id}
@@ -41,7 +45,8 @@ const Admin = () => {
                   reputation={el.reputation}
                   description={el.description}
                   fv= {fv}
-                />
+                  />
+           
               );
             })
           ) : (
@@ -49,6 +54,7 @@ const Admin = () => {
               <p>No se encontraron usuarios</p>
             </div>
           )}
+        </div>
       
     </div>
   )
