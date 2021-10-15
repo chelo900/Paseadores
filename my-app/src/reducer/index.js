@@ -19,6 +19,7 @@ import {
   ADD_FAVORITES,
   GET_FOR_LIST_FAV,
   PASEADORES_PREMIUM,
+  GET_ASSESSMENT
 } from "../actions/index";
 
 const initialState = {
@@ -38,6 +39,8 @@ const initialState = {
   favorites: [],
   dataFavorites: [],
   premium: [],
+  comment: [],
+  score: 0
 };
 
 function rootReducer(state = initialState, action) {
@@ -46,6 +49,13 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         favorites: action.payload,
+      };
+      case GET_ASSESSMENT:
+      const {score, comment} = action.payload
+      return {
+        ...state,
+        score: score,
+        comment: comment
       };
     case GET_FOR_LIST_FAV:
       return {

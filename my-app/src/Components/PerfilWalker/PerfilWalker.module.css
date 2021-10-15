@@ -148,7 +148,6 @@
 
 .reputacion p{
     font-size: 30px;
-    color: yellow;
     padding: 5px;
     font-family: 'Nunito', sans-serif;
 }
@@ -407,3 +406,31 @@
     font-size: 17px;
 }
 
+
+.formulario{
+    width: 600px;
+    height: 300px;
+    background-color: white;
+    box-shadow: 1px 2px 10px rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .containerBtn{
+    width: 80%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .prueba{
+    margin: 20px 20px 0 0 ;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}

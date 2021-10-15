@@ -90,8 +90,8 @@ Image.belongsTo(User);
 User.hasMany(Client);
 Client.belongsTo(User)*/
 
-User.belongsToMany(Client, { through: "favourite" });
-Client.belongsToMany(User, { through: "favourite" });
+User.belongsToMany(Client, { through: "user_client" });
+Client.belongsToMany(User, { through: "user_client" });
 
 // User.hasMany(Horarios);
 // Horarios.belongsTo(User);

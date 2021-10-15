@@ -8,6 +8,7 @@ import {
   getOrdenPaseador,
   getPaseadorForId,
   ordenAnswer,
+  getAssessment
 } from "../../actions/index";
 
 import style from "./PerfilWalker.module.css";
@@ -15,6 +16,9 @@ import foto1 from "../../media/foto1Service.jpg";
 import { Link, useParams, useHistory } from "react-router-dom";
 import Nav from "./nav/Nav";
 import swal from "sweetalert";
+import patitallena from '../../media/patitallena.png'
+import patitavacia from '../../media/patitavacia.png'
+import mediapatita from '../../media/mediapatita.png'
 
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -29,6 +33,7 @@ dotenv.config();
 // import Footer from './footer/Footer';
 
 const PerfilWalker = () => {
+
   const id = localStorage.getItem("userId");
 
   const dispatch = useDispatch();
@@ -36,6 +41,8 @@ const PerfilWalker = () => {
   const history = useHistory();
 
   const Walker = useSelector((state) => state.detailWalker);
+  const comment = useSelector((state) => state.comment);
+    const score = useSelector((state) => state.score);
 
   const ordensCliente = useSelector((state) => state.ordensCliente);
 
@@ -45,6 +52,7 @@ const PerfilWalker = () => {
 
   useEffect(() => {
     dispatch(getPaseadorForId(id));
+    dispatch(getAssessment(id))
   }, [dispatch]);
 
   // const [file, setFile] = useState('')
@@ -254,11 +262,29 @@ const PerfilWalker = () => {
             </Link>
           </div>
           <div className={style.reputacion}>
-            <h2>Reputacion</h2>
-            <div className={style.textDescription}>
-              <p> * * * * *</p>
-            </div>
-          </div>
+                        <h2>Reputación</h2>
+                        <div className={style.textDescription}>
+                            <h1>{score?.toFixed(1)}</h1>
+                        <img src={patitallena}  alt=''/>
+                        {score < 1 && <img src={patitavacia} alt='sas' />}
+                        {score > 1 && score <2 && <img src={mediapatita}  alt=''/> }
+                        {score >= 2 &&<img src={patitallena}  alt=''/>}  
+                        {score < 2 && <img src={patitavacia} alt='sas' />}
+                        {score > 2 && score <3 && <img src={mediapatita}  alt=''/> }
+                        {score >= 3 && <img src={patitallena}  alt=''/> }
+                        {score < 3 && <img src={patitavacia} alt='sas' />}
+                        {score > 3 && score <4 && <img src={mediapatita}  alt=''/> }
+                        {score >= 4  &&<img src={patitallena}  alt=''/> }
+                        {score < 4 && <img src={patitavacia} alt='sas' />}
+                        {score > 4 && score <5 && <img src={mediapatita}  alt=''/> }
+                        {score === 5 && <img src={patitallena}  alt=''/> }
+                        {score < 5 && <img src={patitavacia} alt='sas' />}
+
+                            </div>
+                            {comment?.length &&  
+            comment.map((el) => <div><p> {el}</p></div>
+            )}
+                        </div>
           <div className={style.fotos}>
             <div className={style.fondoFotos}>
               <h2>Fotos</h2>
