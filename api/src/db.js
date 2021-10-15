@@ -63,7 +63,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 
 //TODO
-const { Client, User, Post, Complain, Horarios, Image, Administrator, Orden} = sequelize.models;
+const { Client, User, Post, Complain, Preference, Image, Administrator, Orden} = sequelize.models;
 
 
 /*
@@ -95,8 +95,8 @@ Client.belongsTo(User)
 User.belongsToMany(Client,{through:"favourites", foreignKey: 'UserId'})
 Client.belongsToMany(User,{through:"favourites", foreignKey: 'ClientId'})
 
-// User.hasMany(Horarios);
-// Horarios.belongsTo(User);
+User.hasOne(Preference); 
+Preference.belongsTo(User);
 
 User.hasMany(Orden);
 Orden.belongsTo(User);

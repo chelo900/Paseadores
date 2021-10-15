@@ -37,7 +37,8 @@ const initialState = {
   ordensCliente:[],
   idOrden:[],    
   mensaje:"",
-  favorites:[]
+  favorites:[],
+  preferencias: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -123,6 +124,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         mensaje: action.payload,
       };
+
+    case "GET_PREFERENCE":
+      return{
+        ...state,
+        preferencias: action.payload
+      }
     // CLIENTE :
     case GET_CLIENTE_FOR_ID:
       return {

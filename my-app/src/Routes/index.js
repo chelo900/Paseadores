@@ -21,6 +21,7 @@ import Descripcion from "../ClientsComponents/editInfoCliente/descripcion";
 import Informacion from "../ClientsComponents/editInfoCliente/informacion";
 import Premium from "../Components/Premium/Premium";
 import admin from "../AdminComponents/Admin";
+import EditPreferencias from "../Components/EditWalker/EditPreferencias/EditPreferencias";
 
 const index = () => {
   return (
@@ -43,6 +44,7 @@ const index = () => {
         <Route exact path="/walker/edithr/:id" component={EditHorarios}/>
         <Route exact path="/walker/perfil/contacto/:id" component={PerfilWalkerParaCliente}/>
         <Route exact path="/premium" component={Premium}/>
+        <Route exact path="/walker/editpreferencias/:userId" component={EditPreferencias}/>
 
         {/* Rutas del cliente  */}
         <Route exact path= "/login-client" component={FormClient}/>

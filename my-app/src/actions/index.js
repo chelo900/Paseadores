@@ -173,6 +173,44 @@ export function newPassword(token, payload) {
   };
 }
 
+export function sendPreferencias(payload){
+  return async function (dispatch){
+    return axios.post(`/sendPreferencias`, payload).then((preferencias)=>{
+      dispatch({
+        type: "PREFERENCIAS",
+        payload: preferencias.data
+      })
+    })
+  }
+}
+
+export function getPreferences(userId){
+  return (dispatch) =>{
+    try {
+      axios.get(`/getpreferences/${userId}`).then((preferences)=>
+      dispatch({
+        type: "GET_PREFERENCE",
+        payload: preferences.data
+      }))
+    } catch(error){
+      console.log(error)
+    }
+  }
+}
+
+export function putPreferencias( userId, payload) {
+  console.log(userId)
+  return async function (dispatch) {
+    return axios.put("/sendPreferencias/updatePreferencias/"+userId , payload).then((preferencias) => {
+      dispatch({
+        type: "PUT_PREFERENCIAS",
+        payload: preferencias.data,
+      });
+    });
+  };
+}
+
+
 //    CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE
 
 export function newClient(payload) {

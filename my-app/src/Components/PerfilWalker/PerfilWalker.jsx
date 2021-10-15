@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addImage, clientSendOrden, getOrden, getOrdenCliente, getOrdenPaseador, getPaseadorForId, ordenAnswer } from '../../actions/index'
+import { addImage, clientSendOrden, getOrden, getOrdenCliente, getOrdenPaseador, getPaseadorForId, getPreferences, ordenAnswer } from '../../actions/index'
 
 import style from './PerfilWalker.module.css'
 import foto1 from '../../media/foto1Service.jpg'
@@ -15,6 +15,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import listPlugin, { ListView } from '@fullcalendar/list';
 import esLocale from '@fullcalendar/core/locales/es';
 import dotenv from "dotenv";
+import Preferencias from './Preferencias/Preferencias';
 dotenv.config();
 
 
@@ -32,6 +33,8 @@ const PerfilWalker = () => {
     const Walker = useSelector((state) => state.detailWalker);
 
     const ordensCliente = useSelector(state => state.ordensCliente)
+
+    const preferencias = useSelector(state => state.preferencias)
 
     const [ordenload, setOrdenLoad] = useState(false)
 
@@ -60,10 +63,15 @@ const PerfilWalker = () => {
         let ordenespendientes = ordensCliente.filter(ordenes => ordenes.estadoReserva === 'pendiente')
         setTimeout(() => {
             if (ordenespendientes.length !== 0) {
-                alert('Tenes ordenes pendientes que contestar!')
+                swal({title:'Tenes ordenes pendientes que contestar!',
+                        info: "info"})
             }
         }, 1500)
 
+    }, [dispatch])
+
+    useEffect(() => {
+       dispatch(getPreferences(id))
     }, [dispatch])
 
 
@@ -152,12 +160,9 @@ const PerfilWalker = () => {
 
     }
 
-    var mañana = false
-    var tarde = false
-
 
     return (
-        <div className={style.container}>
+        <div className={style.container} className={style.body}>
             <Nav />
             <div className={style.containerPerfil}>
                 <div className={style.personalInformation}>
@@ -180,6 +185,10 @@ const PerfilWalker = () => {
                             <button className={style.editDescription}>Editar Informacion</button>
                         </Link>
                     </div>
+                    <Preferencias preferencias={preferencias}/>
+                        <Link to={`/walker/editpreferencias/${id}`}>
+                           <button>Editar preferencias</button> 
+                        </Link>
                 </div>
 
                 <div className={style.caracteristicas}>
@@ -216,17 +225,20 @@ const PerfilWalker = () => {
                         <div className={style.fondoFotos}>
                             <h2>Fotos</h2>
                             <div className={style.galeria}>
-                                {Walker.images?.map(i =>
+                                {
+
+                                Walker.images?.map(i =>
                                     <div key={i.public_id}>
                                         <img src={i.imageURL ? i.imageURL : foto1} alt='a' />
                                     </div>)
                                 }
                             </div>
+                            
                             <form action={`${baseURL}/postimages/${id}`} method="POST" encType="multipart/form-data">
                                 <input type="file" name="image" />
                                 <button className={style.subir} type="submit">Subir</button>
-                            </form>
-
+                            </form> 
+                            
                         </div>
                         <div>
                             <span>🟢 Paseos Confirmados</span>
@@ -248,14 +260,28 @@ const PerfilWalker = () => {
                             select={handleDateSelect}
                             eventClick={handleEventClick}
                             contentHeight="auto"
-                            slotDuration='01:00'
+                            slotDuration= {preferencias.duracion_paseos || '01:00:00'}
                             events={ordensCliente}
-                            slotMinTime={tarde ? '13:00:00' : '06:00:00'}
-                            slotMaxTime={mañana ? '12:00:00' : '23:00:00'}
+                            slotMinTime= {preferencias.comienzo_jornada || '06:00:00'}
+                            slotMaxTime={preferencias.fin_jornada || '23:00:00'}
                             allDaySlot={false}
+                            weekends= {preferencias.dias_trabajo === "LV" ? false : true}
+                            hiddenDays={preferencias.dias_trabajo === "W" ? [1,2,3,4,5] : []}
                         />
                     </div>
                 </div>
+                {/* <div>
+                    <FullCalendar
+                    plugins={[listPlugin]}
+                    headerToolbar={{
+                                left: 'prev,next today',
+                                center: 'title',
+                            }}
+                    initialView="listWeek"
+                    events={ordensCliente}
+                    locale={esLocale}
+                    />
+                </div> */}
             </div>
             {/* <Footer /> */}
         </div>

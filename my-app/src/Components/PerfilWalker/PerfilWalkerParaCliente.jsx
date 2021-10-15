@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addImage, clientSendOrden,  getOrdenCliente, getPaseadorForId } from '../../actions/index'
+import { addImage, clientSendOrden,  getOrdenCliente, getPaseadorForId, getPreferences } from '../../actions/index'
 
 import style from './PerfilWalker.module.css'
 import foto1 from '../../media/foto1Service.jpg'
@@ -29,6 +29,9 @@ const PerfilWalker = () => {
     const Walker = useSelector((state) => state.detailWalker);
 
   const ordensCliente = useSelector(state => state.ordensCliente)
+
+  const preferencias = useSelector(state => state.preferencias)
+
 
     var idCliente = localStorage.getItem("userId")
 
@@ -69,6 +72,10 @@ const PerfilWalker = () => {
         }
     }, [ordenload])
 
+    useEffect(() => {
+        dispatch(getPreferences(id))
+     }, [dispatch])
+
 
     const maxPerrosPorTurno = 4
     
@@ -91,7 +98,7 @@ const PerfilWalker = () => {
         const cantOrdenes = ordensCliente.filter(ordens=>ordens.start.toString() === selectInfo.startStr.toString() && 
         ordens.end.toString() === selectInfo.endStr.toString())
         
-        if (cantOrdenes.length >= maxPerrosPorTurno){
+        if (cantOrdenes.length >= preferencias.perros_por_paseo){
             
            return alert('No hay disponibilidad horaria en este turno')
         }
@@ -202,14 +209,16 @@ const PerfilWalker = () => {
             select={handleDateSelect}
             eventClick={handleEventClick}   
             contentHeight= "auto"
-            slotDuration = '01:00'
+            slotDuration= {preferencias.duracion_paseos || '01:00:00'}
             events = {
                 ordensCliente
                 
             }
-            slotMinTime = {tarde ? '13:00:00':'06:00:00' }
-            slotMaxTime = {mañana ? '13:00:00': '23:00:00'}
+            slotMinTime= {preferencias.comienzo_jornada || '06:00:00'}
+            slotMaxTime={preferencias.fin_jornada || '23:00:00'}
             allDaySlot = {false}
+            weekends= {preferencias.dias_trabajo === "LV" ? false : true}
+            hiddenDays={preferencias.dias_trabajo === "W" ? [1,2,3,4,5] : []}
             />
         </div>
                     <div className={style.price}>

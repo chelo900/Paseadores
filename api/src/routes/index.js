@@ -28,6 +28,8 @@ const firstAdmin = require("../routes/Administrator/firstAdmin")
 const addFavorite =require("./addFavorite")
 const getFavorite = require("./getFavorite")
 const deleteFavorite =require("./deleteFavorite")
+const preference = require("./preference")
+const getPreferences = require("./getpreferences")
 
 
 const router = Router();
@@ -57,6 +59,9 @@ router.use("/makeAdmin", makeAdmin);
 router.use("/deleteUserAccount", deleteUserAccount);
 router.use("/resetPassword", resetPassword);
 router.use("/firstAdmin", firstAdmin);
+router.use("/sendPreferencias", preference)
+router.use("/getpreferences", getPreferences)
+
 
 router.use('/addFav', addFavorite)
 router.use('/favs', getFavorite);
