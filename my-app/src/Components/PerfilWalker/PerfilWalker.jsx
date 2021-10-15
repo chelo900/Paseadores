@@ -8,7 +8,8 @@ import {
   getOrdenPaseador,
   getPaseadorForId,
   ordenAnswer,
-  getAssessment
+  getAssessment,
+  getPreferences
 } from "../../actions/index";
 
 import style from "./PerfilWalker.module.css";
@@ -28,6 +29,7 @@ import listPlugin, { ListView } from "@fullcalendar/list";
 import esLocale from "@fullcalendar/core/locales/es";
 import dotenv from "dotenv";
 import Premium from "../../Premiums/Premium";
+import Preferencias from "./Preferencias/Preferencias";
 dotenv.config();
 
 // import Footer from './footer/Footer';
@@ -45,7 +47,7 @@ const PerfilWalker = () => {
     const score = useSelector((state) => state.score);
 
   const ordensCliente = useSelector((state) => state.ordensCliente);
-
+  const preferencias = useSelector(state => state.preferencias)
   const [ordenload, setOrdenLoad] = useState(false);
 
   const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
@@ -71,15 +73,19 @@ const PerfilWalker = () => {
   }, [ordenload]);
 
   useEffect(() => {
-    let ordenespendientes = ordensCliente.filter(
-      (ordenes) => ordenes.estadoReserva === "pendiente"
-    );
+    let ordenespendientes = ordensCliente.filter(ordenes => ordenes.estadoReserva === 'pendiente')
     setTimeout(() => {
-      if (ordenespendientes.length !== 0) {
-        alert("Tenes ordenes pendientes que contestar!");
-      }
-    }, 1500);
-  }, [dispatch]);
+        if (ordenespendientes.length !== 0) {
+            swal({title:'Tenes ordenes pendientes que contestar!',
+                    info: "info"})
+        }
+    }, 1500)
+
+}, [dispatch])
+
+useEffect(() => {
+    dispatch(getPreferences(id))
+ }, [dispatch])
 
   const handleDateSelect = (selectInfo) => {
     let calendarApi = selectInfo.view.calendar;
@@ -171,8 +177,7 @@ const PerfilWalker = () => {
     }
   };
 
-  var mañana = false;
-  var tarde = false;
+ 
 
   return (
     <div className={style.container}>
@@ -222,6 +227,10 @@ const PerfilWalker = () => {
               </button>
             </Link>
           </div>
+          <Preferencias preferencias={preferencias}/>
+                        <Link to={`/walker/editpreferencias/${id}`}>
+                           <button>Editar preferencias</button> 
+                        </Link>
         </div>
         <div className={style.caracteristicas}>
           <div className={style.Premuim}>
@@ -310,60 +319,45 @@ const PerfilWalker = () => {
               <span>🟢 Paseos Confirmados</span>
               <span>🟡 Pendientes</span>
             </div>
-            <FullCalendar
-              eventClassNames={style.calendar}
-              plugins={[
-                dayGridPlugin,
-                timeGridPlugin,
-                interactionPlugin,
-                listPlugin,
-              ]}
-              headerToolbar={{
-                left: "prev,next today",
-                center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
-              }}
-              initialView="timeGridWeek"
-              locale={esLocale}
-              editable={true}
-              selectable={false}
-              selectMirror={false}
-              dayMaxEvents={true}
-              select={handleDateSelect}
-              eventClick={handleEventClick}
-              contentHeight="auto"
-              slotDuration="01:00"
-              events={ordensCliente}
-              slotMinTime={tarde ? "13:00:00" : "06:00:00"}
-              slotMaxTime={mañana ? "12:00:00" : "23:00:00"}
-              allDaySlot={false}
-            />
+            <FullCalendar eventClassNames={style.calendar}
+                            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+                            headerToolbar={{
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                            }}
+                            initialView="timeGridWeek"
+                            locale={esLocale}
+                            editable={true}
+                            selectable={false}
+                            selectMirror={false}
+                            dayMaxEvents={true}
+                            select={handleDateSelect}
+                            eventClick={handleEventClick}
+                            contentHeight="auto"
+                            slotDuration= {preferencias.duracion_paseos || '01:00:00'}
+                            events={ordensCliente}
+                            slotMinTime= {preferencias.comienzo_jornada || '06:00:00'}
+                            slotMaxTime={preferencias.fin_jornada || '23:00:00'}
+                            allDaySlot={false}
+                            weekends= {preferencias.dias_trabajo === "LV" ? false : true}
+                            hiddenDays={preferencias.dias_trabajo === "W" ? [1,2,3,4,5] : []}
+                        />
           </div>
         </div>
       </div>
-      <FullCalendar
-        eventClassNames={style.calendar}
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-        headerToolbar={{
-          left: "prev,next today",
-          center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
-        }}
-        initialView="timeGridWeek"
-        locale={esLocale}
-        editable={true}
-        selectable={false}
-        selectMirror={false}
-        dayMaxEvents={true}
-        select={handleDateSelect}
-        eventClick={handleEventClick}
-        contentHeight="auto"
-        slotDuration="01:00"
-        events={ordensCliente}
-        slotMinTime={tarde ? "13:00:00" : "06:00:00"}
-        slotMaxTime={mañana ? "12:00:00" : "23:00:00"}
-        allDaySlot={false}
-      />
+      {/* <div>
+                    <FullCalendar
+                    plugins={[listPlugin]}
+                    headerToolbar={{
+                                left: 'prev,next today',
+                                center: 'title',
+                            }}
+                    initialView="listWeek"
+                    events={ordensCliente}
+                    locale={esLocale}
+                    />
+                </div> */}
     </div>
   );
 };

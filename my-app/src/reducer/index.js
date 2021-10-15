@@ -39,6 +39,7 @@ const initialState = {
   favorites: [],
   dataFavorites: [],
   premium: [],
+  preferencias: [],
   comment: [],
   score: 0
 };
@@ -121,6 +122,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         mensaje: action.payload,
       };
+
+    case "GET_PREFERENCE":
+      return{
+        ...state,
+        preferencias: action.payload
+      }
     case PASEADORES_PREMIUM:
       return {
         ...state,

@@ -6,7 +6,8 @@ import {
   getOrdenCliente,
   getPaseadorForId,
   postAssessment,
-  getAssessment
+  getAssessment,
+  getPreferences 
 } from "../../actions/index";
 
 import style from "./PerfilWalker.module.css";
@@ -29,7 +30,7 @@ import mediapatita from '../../media/mediapatita.png'
 
 const PerfilWalker = () => {
   const { id } = useParams();
-  var idClient = localStorage.getItem("userId");
+  
   const dispatch = useDispatch();
 
   const history = useHistory();
@@ -39,8 +40,8 @@ const PerfilWalker = () => {
     const score = useSelector((state) => state.score);
 
   const ordensCliente = useSelector((state) => state.ordensCliente);
-
-  var idCliente = localStorage.getItem("userId");
+  const preferencias = useSelector(state => state.preferencias)
+  var idClient = localStorage.getItem("userId");
 
   const [ordenload, setOrdenLoad] = useState(false);
 
@@ -88,6 +89,10 @@ const PerfilWalker = () => {
     }
   }, [ordenload]);
 
+  useEffect(() => {
+    dispatch(getPreferences(id))
+ }, [dispatch])
+
   const  handlerSubmit = async (e) => {
     e.preventDefault();
     await dispatch(postAssessment({...input, idUser:id, idClient:idClient}))
@@ -113,7 +118,6 @@ async function  estrella(e, number) {
   })
 }
 
-  const maxPerrosPorTurno = 4;
 
   const handleDateSelect = (selectInfo) => {
     let today = new Date();
@@ -131,7 +135,7 @@ async function  estrella(e, number) {
         ordens.end.toString() === selectInfo.endStr.toString()
     );
 
-    if (cantOrdenes.length >= maxPerrosPorTurno) {
+    if (cantOrdenes.length >= preferencias.perros_por_paseo) {
       return alert("No hay disponibilidad horaria en este turno");
     }
 
@@ -156,11 +160,11 @@ async function  estrella(e, number) {
           fechaInicio: selectInfo.startStr,
           fechaFinal: selectInfo.endStr,
           userId: id,
-          clientId: idCliente,
+          clientId: idClient,
           ubicacion: title,
         })
       );
-      console.log(ordenload);
+      
       setTimeout(() => {
         setOrdenLoad(true);
       }, 1000);
@@ -178,15 +182,14 @@ async function  estrella(e, number) {
   //     }
   //   }
   const handleEventClick = (clickInfo) => {
-    if (clickInfo.event.extendedProps.clientId === idCliente) {
+    if (clickInfo.event.extendedProps.clientId === idClient) {
       clickInfo.event.remove(); // will render immediately. will call handleEventRemove
     } else {
       return clickInfo.event.title; // will render immediately. will call handleEventRemove
     }
   };
 
-  var mañana = false;
-  var tarde = false;
+  
 
   return (
     <div className={style.container}>
@@ -244,28 +247,32 @@ async function  estrella(e, number) {
             <span>🟡 Pendientes</span>
           </div>
           <div>
-            <FullCalendar
-              eventClassNames={style.calendar}
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              headerToolbar={{
-                left: "prev,next today",
-                center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay",
+          <FullCalendar eventClassNames={style.calendar} 
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            headerToolbar={{
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
               }}
-              initialView="timeGridWeek"
-              locale={esLocale}
-              editable={true}
-              selectable={true}
-              selectMirror={true}
-              dayMaxEvents={3}
-              select={handleDateSelect}
-              eventClick={handleEventClick}
-              contentHeight="auto"
-              slotDuration="01:00"
-              events={ordensCliente}
-              slotMinTime={tarde ? "13:00:00" : "06:00:00"}
-              slotMaxTime={mañana ? "13:00:00" : "23:00:00"}
-              allDaySlot={false}
+            initialView="timeGridWeek"
+            locale = {esLocale}
+            editable={true}
+            selectable= {true}
+            selectMirror={true}
+            dayMaxEvents={3}
+            select={handleDateSelect}
+            eventClick={handleEventClick}   
+            contentHeight= "auto"
+            slotDuration= {preferencias.duracion_paseos || '01:00:00'}
+            events = {
+                ordensCliente
+                
+            }
+            slotMinTime= {preferencias.comienzo_jornada || '06:00:00'}
+            slotMaxTime={preferencias.fin_jornada || '23:00:00'}
+            allDaySlot = {false}
+            weekends= {preferencias.dias_trabajo === "LV" ? false : true}
+            hiddenDays={preferencias.dias_trabajo === "W" ? [1,2,3,4,5] : []}
             />
           </div>
           <div className={style.price}>
