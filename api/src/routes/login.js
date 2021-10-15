@@ -66,7 +66,7 @@ router.post("/", async (req, res) => {
         admin: userData.admin,
       });
     } else {
-      return res.status(403).json({
+      return res.status(200).json({
         validate: false,
       });
     }

@@ -11,7 +11,8 @@ const Admin = () => {
  const favorites = useSelector((state) => state.favorites);
  const dataFavorites = useSelector((state) => state.dataFavorites);
  
-
+//console.log(dataFavorites)
+//console.log("aaaaaaaaaa")
     useEffect(() => {
       
       dispatch(getForListFav(id))
@@ -26,11 +27,15 @@ const Admin = () => {
       <div className={styles.wrapper}>
      {dataFavorites?.length > 0 ? (
             dataFavorites.map((el) => {
+
+              console.log("vvvvvvvvvvvvvvvv")
+              console.log(el)
               var fv;
-            favorites.length && favorites?.forEach((element) => 
-              {if(element === el.id){
-               fv = true
-              }});
+              for (var i = 0; i < favorites.length; i++){
+                if (favorites[i] === el.id) {
+                  fv = true;
+                }
+            }
               
               return (
                 

@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import { Link } from "react-router-dom"
 import styles from "./Card.module.css"
 import god from '../../media/DontLike.png'
@@ -31,6 +31,9 @@ function Card({ id, name, surname, image, reputation, service, price, descriptio
   
   var walker =localStorage.getItem("userWalker");
   var admin = localStorage.getItem("userAdmin");
+  
+
+  
 
 async function  addFavorite() {
   if(fv === false){

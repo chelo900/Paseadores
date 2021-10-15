@@ -1,26 +1,23 @@
 const { Router } = require("express");
 const router = Router();
-const { User, Client } = require('../db');
+const { User, Client, User_client } = require('../db');
 
 
 router.post('/',async (req, res, next) =>{
     const { idUser,idClient } = req.body
    
-    try {        
-        const clientE = await Client.findByPk(idClient)
-        await clientE.addUser(idUser)
+    try {   
         
-        const fav = await Client.findOne({
-            where: {
-                id: idClient
-            },
-            include: User
-        })        
-        return res.status(200).json(fav)
+        const client = await Client.findByPk(idClient)
+        const user = await User.findByPk(idUser)
+        await client.addUser(user, { through: { favourite: true } });
+        
+       
+            
+        return res.status(200).json("Agregado a favorito")
     } catch (error) {
         return next(error)
     }
 })
 
 module.exports = router;
-
