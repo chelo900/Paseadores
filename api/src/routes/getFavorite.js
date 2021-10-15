@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const { User, Client} = require('../db');
+const { User_client} = require('../db');
 
 
 router.get('/:id', async(req, res, next) => {
@@ -8,18 +8,15 @@ router.get('/:id', async(req, res, next) => {
     
    try {
        
-    const client = await Client.findOne({
-        where: { id: id },
-        include: User,
-        
+      const client = await User_client.findAll({
+        where: { clientId: id },
       });
-
-
-
-        const favourite = client.users.map((t) => {
-            return t.id
-          })
-        return res.json(favourite)
+      const clientsFavourite = client.filter((t) => t.favourite)
+      const favourites = clientsFavourite.map((t) => t.userId)
+      
+      
+      
+      return res.json(favourites)
           
     }catch(error){
         next(error)

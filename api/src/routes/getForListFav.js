@@ -13,7 +13,10 @@ router.get('/:id', async(req, res, next) => {
         include: User,
       });
         
-       return res.json(client.users)
+      const usersFav = client.users.filter(el=> el.user_client.favourite === true)
+      
+
+       return res.json(usersFav)
           
     }catch(error){
         next(error)

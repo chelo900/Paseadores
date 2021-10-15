@@ -9,18 +9,21 @@ import { getAllPaseadores, getUserFavorites } from "../../actions/index";
 const UsersCards = () => {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allPaseadores);
-  const favorites = useSelector((state) => state.favorites);
 
+  const favorites = useSelector((state) => state.favorites);
+  
+  
   const [inputFilters, setInputFilters] = useState({});
   const [selectFilters, setSelectFilters] = useState({});
   const [sortData, setSortData] = useState({});
-
+  
   // Paginado
   const [page, setPage] = useState(0);
   // eslint-disable-next-line no-unused-vars
   const [pageSize, setLimitPerPage] = useState(5);
-
+  
   const ubica = useSelector((state) => state.ubication);
+  
 
   var walker = localStorage.getItem("userWalker");
   var id = localStorage.getItem("userId");
@@ -37,12 +40,16 @@ const UsersCards = () => {
       })
     );
 
-    if (walker === "false" && admin === "false") {
-      dispatch(getUserFavorites(id));
-    }
-
+  
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, pageSize, selectFilters, sortData, dispatch]);
+
+  useEffect(() => {
+    if (walker === "false" && admin === "false") {
+    dispatch(getUserFavorites(id));
+  }
+
+}, []);
 
   function handleNextPage(e) {
     e.preventDefault();
@@ -224,14 +231,15 @@ const UsersCards = () => {
         <div className={style.cards}>
           {allUsers.content?.length > 0 ? (
             allUsers.content.map((el) => {
+              
               var fv;
-              favorites.length &&
-                favorites?.forEach((element) => {
-                  if (element === el.id) {
+
+                for (var i = 0; i < favorites.length; i++){
+                  if (favorites[i] === el.id) {
                     fv = true;
                   }
-                });
-
+              }
+              
               return (
                 <Card
                   key={el.id}

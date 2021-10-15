@@ -31,6 +31,9 @@ const googleLogIn = require("./googleLogIn");
 const getPremium = require("./getPremium");
 const postPremium = require("./postPremium");
 const tokenExtractor = require("../utils/tokenExtractor");
+const postAssessment = require("./postAssessment");
+const getAssessment = require("./getAssessment");
+
 
 const router = Router();
 
@@ -64,5 +67,7 @@ router.use("/getFavorite", tokenExtractor, getFavorite);
 router.use("/quitFav", tokenExtractor, deleteFavorite);
 router.use("/getForListFav", tokenExtractor, getForListFav);
 router.use("/getPremium", tokenExtractor, getPremium);
+router.use("/postAssessment", postAssessment);
+router.use("/getAssessment", getAssessment);
 
 module.exports = router;

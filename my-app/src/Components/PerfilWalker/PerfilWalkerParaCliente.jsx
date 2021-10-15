@@ -5,6 +5,8 @@ import {
   clientSendOrden,
   getOrdenCliente,
   getPaseadorForId,
+  postAssessment,
+  getAssessment
 } from "../../actions/index";
 
 import style from "./PerfilWalker.module.css";
@@ -19,15 +21,22 @@ import interactionPlugin from "@fullcalendar/interaction";
 import esLocale from "@fullcalendar/core/locales/es";
 import momentPlugin from "@fullcalendar/moment";
 import moment from "moment";
+import Swal from 'sweetalert2'
+import patitallena from '../../media/patitallena.png'
+import patitavacia from '../../media/patitavacia.png'
+import mediapatita from '../../media/mediapatita.png'
+
 
 const PerfilWalker = () => {
   const { id } = useParams();
-
+  var idClient = localStorage.getItem("userId");
   const dispatch = useDispatch();
 
   const history = useHistory();
 
   const Walker = useSelector((state) => state.detailWalker);
+  const comment = useSelector((state) => state.comment);
+    const score = useSelector((state) => state.score);
 
   const ordensCliente = useSelector((state) => state.ordensCliente);
 
@@ -35,8 +44,21 @@ const PerfilWalker = () => {
 
   const [ordenload, setOrdenLoad] = useState(false);
 
+  const [input, setInput] = useState({
+    score: 0,
+    comment: '' })
+
+    const inputChange = (e) => {
+      setInput({
+          ...input,
+          [e.target.name]: e.target.value
+      })
+  }
+
+
   useEffect(() => {
     dispatch(getPaseadorForId(id));
+    dispatch(getAssessment(id))
   }, [dispatch]);
 
   useEffect(() => {
@@ -65,6 +87,31 @@ const PerfilWalker = () => {
       dispatch(getOrdenCliente(id));
     }
   }, [ordenload]);
+
+  const  handlerSubmit = async (e) => {
+    e.preventDefault();
+    await dispatch(postAssessment({...input, idUser:id, idClient:idClient}))
+    dispatch(getAssessment(id))
+    //dispatch(putDetailsProfileCliente(id, input))
+    
+    Swal.fire({
+        icon: 'success',
+        title: 'Tu valoración fue enviada',
+        showConfirmButton: false,
+        timer: 1500
+        
+      })
+    
+   // history.push(`/Cliente/${id}`)
+
+}
+
+async function  estrella(e, number) {
+  setInput({
+      ...input,
+      score: number
+  })
+}
 
   const maxPerrosPorTurno = 4;
 
@@ -232,11 +279,58 @@ const PerfilWalker = () => {
             </div>
           </div>
           <div className={style.reputacion}>
-            <h2>Reputación</h2>
-            <div className={style.textDescription}>
-              <p> * * * * *</p>
-            </div>
-          </div>
+                        <h2>Reputación</h2>
+                        <div className={style.textDescription}>
+                            <h1>{score?.toFixed(1)}</h1>
+                        <img src={patitallena}  alt=''/>
+                        {score < 1 && <img src={patitavacia} alt='sas' />}
+                        {score > 1 && score <2 && <img src={mediapatita}  alt=''/> }
+                        {score >= 2 &&<img src={patitallena}  alt=''/>}  
+                        {score < 2 && <img src={patitavacia} alt='sas' />}
+                        {score > 2 && score <3 && <img src={mediapatita}  alt=''/> }
+                        {score >= 3 && <img src={patitallena}  alt=''/> }
+                        {score < 3 && <img src={patitavacia} alt='sas' />}
+                        {score > 3 && score <4 && <img src={mediapatita}  alt=''/> }
+                        {score >= 4  &&<img src={patitallena}  alt=''/> }
+                        {score < 4 && <img src={patitavacia} alt='sas' />}
+                        {score > 4 && score <5 && <img src={mediapatita}  alt=''/> }
+                        {score === 5 && <img src={patitallena}  alt=''/> }
+                        {score < 5 && <img src={patitavacia} alt='sas' />}
+
+                            </div>
+                            {comment?.length &&  
+            comment.map((el) => <div><p> {el}</p></div>
+            )}
+                        
+                        <button className={style.prueba} onClick={e => { estrella(e,1) }}>
+                        {input.score > 0  ?<img src={patitallena}  alt=''/>  : <img src={patitavacia} alt='sas' />}
+                        </button>
+                        <button className={style.prueba} onClick={e => { estrella(e,2) }}>
+                        {input.score > 1  ?<img src={patitallena}  alt=''/>  : <img src={patitavacia} alt='sas' />}
+                        </button>
+                        <button className={style.prueba} onClick={e => { estrella(e,3) }}>
+                        {input.score > 2  ?<img src={patitallena}  alt=''/>  : <img src={patitavacia} alt='sas' />}
+                        </button>
+                        <button className={style.prueba} onClick={e => { estrella(e,4) }}>
+                        {input.score > 3  ?<img src={patitallena}  alt=''/>  : <img src={patitavacia} alt='sas' />}
+                        </button>
+                        <button className={style.prueba} onClick={e => { estrella(e,5) }}>
+                        {input.score > 4  ?<img src={patitallena}  alt=''/>  : <img src={patitavacia} alt='sas' />}
+                        </button>
+                      
+                        <form className={style.formulario} onSubmit={handlerSubmit}>
+                        <textarea
+                    type='text'
+                    name='comment'
+                    value={input.comment}
+                    placeholder='Dejar un comentario...'
+                    onChange={e => inputChange(e)} />
+                    <div className={style.containerBtn}>
+                    <button className={style.edit} type='submit'>Enviar</button>
+                </div>
+            </form>
+            
+                </div>
           <div className={style.fotos}>
             <div className={style.fondoFotos}>
               <h2>Fotos</h2>

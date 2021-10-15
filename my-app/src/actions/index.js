@@ -25,6 +25,8 @@ export const GET_USER_FAVORITES = "GET_USER_FAVORITES";
 export const DELETE_USER_FAVORITE = "DELETE_USER_FAVORITE";
 export const GET_FOR_LIST_FAV = "GET_FOR_LIST_FAV";
 export const PASEADORES_PREMIUM = "PASEADORES_PREMIUM";
+export const POST_ASSESSMENT = "POST_ASSESSMENT"
+export const GET_ASSESSMENT = "GET_ASSESSMENT"
 
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES";
@@ -486,5 +488,30 @@ export function deleteUserFavorite(payload) {
     } catch (err) {
       console.log(err);
     }
+  };
+}
+
+export function postAssessment(payload) {
+  return async function (dispatch) {
+    try {
+      console.log(payload)
+      let result = await axios.post(`/postAssessment`, payload);
+      return dispatch({
+        type: "POST_ASSESSMENT",
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
+export function getAssessment(id) {
+  return async function (dispatch) {
+    var favs = await axios.get("/getAssessment/" + id);
+    return dispatch({
+      type: "GET_ASSESSMENT",
+      payload: favs.data,
+    });
   };
 }
