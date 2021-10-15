@@ -12,23 +12,9 @@ import {
   getUserFavorites,
   deleteUserFavorite,
 } from "../../actions/index";
-
-import foto from '../../media/fotosola.png'
-
-// function Card({
-//   id,
-//   name,
-//   surname,
-//   image,
-//   reputation,
-//   service,
-//   price,
-//   description,
-// }) {
-//   const [fav, setFav] = useState(true);
-//   const handlerFavorite = () => {
-//     console.log("estaentrando", fav);
+import foto from "../../media/fotosola.png";
 import mediapatita from "../../media/mediapatita.png";
+
 function Card({
   id,
   name,
@@ -69,9 +55,9 @@ function Card({
       <div className={styles.imageContainer}>
         {image ? (
           <img className={styles.image} src={image} alt="foto paseador" />
-          ) : (
-            <img className={styles.image} src={fotoDefault} alt="a" />
-            )}
+        ) : (
+          <img className={styles.image} src={fotoDefault} alt="a" />
+        )}
         <div className={styles.scoreContain}>
           <h1>{score?.toFixed(1)}</h1>
           <div className={styles.estrellas}>
@@ -93,25 +79,25 @@ function Card({
         </div>
       </div>
       <div className={styles.conteinerDerecha}>
-      {walker === "false" && admin === "false" && (
-        <button
-        className={styles.prueba}
-          onClick={(e) => {
-            addFavorite(e);
-          }}
+        {walker === "false" && admin === "false" && (
+          <button
+            className={styles.prueba}
+            onClick={(e) => {
+              addFavorite(e);
+            }}
           >
-          {fv ? (
-            <img src={estrella} alt="" />
-          ) : (
-            <img src={favorito} alt="sas" />
+            {fv ? (
+              <img src={estrella} alt="" />
+            ) : (
+              <img src={favorito} alt="sas" />
             )}
-        </button>
-      )}
-      <div className={styles.title}>
-        <h1 className={styles.name}>{name + " " + surname}</h1>
-        <hr></hr>
-        <h2>{service}</h2>
-        {/* <h3>Descripcion:</h3>
+          </button>
+        )}
+        <div className={styles.title}>
+          <h1 className={styles.name}>{name + " " + surname}</h1>
+          <hr></hr>
+          <h2>{service}</h2>
+          {/* <h3>Descripcion:</h3>
         {description ? (
           <span>{description}</span>
           ) : (
@@ -119,23 +105,25 @@ function Card({
             Informacion no disponible .
             </span>
           )} */}
-        <h3>Precio:</h3>
-        <p> ${price}</p>
-        <h3>Ubicación:</h3>
-        {ubication ? <span>{ubication}</span> : <p>Ubicacion no disponible.</p>}
+          <h3>Precio:</h3>
+          <p> ${price}</p>
+          <h3>Ubicación:</h3>
+          {ubication ? (
+            <span>{ubication}</span>
+          ) : (
+            <p>Ubicacion no disponible.</p>
+          )}
 
-        {walker === "false" && (
-          <div className={styles.boton}>
-            <Link to={`/walker/perfil/contacto/${id}`}>
-              <button>Saber mas...</button>
-            </Link>
-          </div>
-        )}
+          {walker === "false" && (
+            <div className={styles.boton}>
+              <Link to={`/walker/perfil/contacto/${id}`}>
+                <button>Saber mas...</button>
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
-        
-      
-      </div>
-      <img  className={styles.fotoFondo} src={foto} alt= "" />
+      <img className={styles.fotoFondo} src={foto} alt="" />
     </div>
   );
 }

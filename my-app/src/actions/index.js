@@ -8,7 +8,7 @@ export const NEW_PASEADOR = "NEW_PASEADOR";
 export const LOGIN = "LOGIN";
 export const UBICATION_MATCH = "UBICATION_MATCH";
 export const RECOVER_PASSWORD = "RECOVER_PASSWORD";
-export const NEW_PASSWORD = "NEW_PASSWORD"; 
+export const NEW_PASSWORD = "NEW_PASSWORD";
 export const GET_CLIENTE_FOR_ID = "GET_CLIENTE_FOR_ID";
 export const PUT_DETAILS_CLIENT = "PUT_DETAILS_CLIENT";
 export const PUT_DETAILS_PROFILE_CLIENTE = "PUT_DETAILS_PROFILE_CLIENTE";
@@ -369,17 +369,6 @@ export function putDetailsCliente(payload, id, token) {
   };
 }
 
-// export function getByEmailCliente (payload) {
-//   return async function (dispatch) {
-//       return axios.post("/login", payload)
-//       .then((reclientes) =>
-//         dispatch({
-//           type: "GET_BY_EMAIL_CLIENTE",
-//           payload: cliente.data
-//         }));
-//   };
-// }
-
 export function clientSendOrden(payload, token) {
   return async function (dispatch) {
     return axios
@@ -396,18 +385,6 @@ export function clientSendOrden(payload, token) {
       });
   };
 }
-
-// export function getOrdenPaseador(userId){
-//   console.log('geeetorden')
-//   return (dispatch) => {
-//     axios.get(`/getOrden/paseador/${userId}`)
-//     .then((orden)=>
-//     dispatch({
-//       type: "GET_ORDENSUSER_PASEADOR",
-//       payload: orden.data
-//     }))
-//   }
-// }
 
 export function getOrdenCliente(userId, token) {
   return (dispatch) => {

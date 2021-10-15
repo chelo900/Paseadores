@@ -37,7 +37,7 @@ const postAssessment = require("./postAssessment");
 const getAssessment = require("./getAssessment");
 const getWalkersForMap = require("./getWalkersForMap");
 const deleteImages = require("./deleteImages");
-const contacto = require ("./contacto")
+const contacto = require("./contacto");
 
 const conversations = require("./conversations");
 const messages = require("./messages");

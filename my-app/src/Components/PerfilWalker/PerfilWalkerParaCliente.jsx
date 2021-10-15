@@ -60,7 +60,6 @@ const PerfilWalker = () => {
     score: 0,
     comment: "",
   });
-
   const inputChange = (e) => {
     setInput({
       ...input,
@@ -79,20 +78,6 @@ const PerfilWalker = () => {
     dispatch(getAssessment(id, token));
   }, [dispatch, id, token]);
 
-  useEffect(() => {
-    dispatch(getOrdenCliente(id, token));
-  }, [dispatch]);
-  // const [file, setFile] = useState('')
-  // const handleInputChange = (e) => {
-  //     setFile(e.target.files[0])
-  // };
-
-  // const handleSubmitImage = (e) => {
-  //     e.preventDefault();
-  //     if (!file) return;
-  //     console.log('file', file)
-  //     // upLoadImage(previewSource)
-  //     addImage(file)
   // }
 
   // const handleLogout = (event) => {
@@ -387,9 +372,6 @@ const PerfilWalker = () => {
       return clickInfo.event.title; // will render immediately. will call handleEventRemove
     }
   };
-
-  // useEffect(() => {
-  // }, [ubicacion.provincia,ubicacion.municipio,ubicacion.localidad ])
 
   return (
     <div className={style.container}>

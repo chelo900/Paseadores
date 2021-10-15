@@ -67,16 +67,15 @@ const UsersCards = () => {
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       setPage(page + 1);
     } else {
-      return alert("hol")
+      return alert("hol");
     }
   }
 
   function handlePrevPage(e) {
     e.preventDefault();
     if (page === 0) {
-      return alert("Hola")
-    }
-    else {
+      return alert("Hola");
+    } else {
       setPage(page - 1);
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     }
@@ -245,7 +244,10 @@ const UsersCards = () => {
                 <option> Filtrar por Servicio </option>
                 <option value="Paseador"> Paseador </option>
                 <option value="Cuidador"> Cuidador </option>
-                <option value=" Paseador y Cuidador"> Paseador y Cuidador </option>
+                <option value=" Paseador y Cuidador">
+                  {" "}
+                  Paseador y Cuidador{" "}
+                </option>
               </select>
             </div>
             <div>
@@ -325,7 +327,6 @@ const UsersCards = () => {
             </button>
             {/* )} */}
           </div>
-
         </div>
       </div>
     </div>
