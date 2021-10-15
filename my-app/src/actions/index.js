@@ -28,7 +28,7 @@ export const PASEADORES_PREMIUM = "PASEADORES_PREMIUM";
 export const POST_ASSESSMENT = "POST_ASSESSMENT";
 export const GET_ASSESSMENT = "GET_ASSESSMENT";
 export const GET_WALKERS_FOR_MAP = "GET_WALKERS_FOR_MAP";
-export const GET_WALKERS_BY_NAME = "GET_WALKERS_BY_NAME"
+export const GET_WALKERS_BY_NAME = "GET_WALKERS_BY_NAME";
 
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES";
@@ -56,9 +56,10 @@ export function getAllPaseadores({
   sortData,
   name,
   token,
-}) {console.log(inputFilters)
- console.log(selectFilters)
- console.log(sortData)
+}) {
+  console.log(inputFilters);
+  console.log(selectFilters);
+  console.log(sortData);
   return async function (dispatch) {
     try {
       let result = await axios.get(
@@ -68,7 +69,7 @@ export function getAllPaseadores({
             inputFilters: queryString.stringify(inputFilters),
             selectFilters: queryString.stringify(selectFilters),
             sortData: queryString.stringify(sortData),
-            name
+            name,
           },
           headers: {
             Authorization: `Bearer ${token}`,
@@ -100,12 +101,13 @@ export function getAllPaseadores({
 //   }
 // }
 
-export const getPaseadoresByName = payload => {
-  console.log(payload)
+export const getPaseadoresByName = (payload) => {
+  console.log(payload);
   return {
-    type: GET_WALKERS_BY_NAME, payload
-  }
-}
+    type: GET_WALKERS_BY_NAME,
+    payload,
+  };
+};
 
 export function getPaseadorForId(id, token) {
   console.log("entro a la action: ");
@@ -130,7 +132,6 @@ export function getPaseadorForId(id, token) {
 }
 
 export function getWalkersForMap(token) {
-  
   return (dispatch) => {
     try {
       axios

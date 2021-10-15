@@ -75,16 +75,18 @@ function rootReducer(state = initialState, action) {
         ...state,
         allPaseadores: action.payload,
       };
-      // case GET_WALKERS_BY_NAME:
-      // return {
-      //   ...state,
-      //   allPaseadores: action.payload
-      // }
-      case GET_WALKERS_BY_NAME:
+    // case GET_WALKERS_BY_NAME:
+    // return {
+    //   ...state,
+    //   allPaseadores: action.payload
+    // }
+    case GET_WALKERS_BY_NAME:
       return {
         ...state,
-        allPaseadores:  state.allPaseadores.content.filter(walker => walker.name.includes(action.payload)) 
-      }
+        allPaseadores: state.allPaseadores.content.filter((walker) =>
+          walker.name.includes(action.payload)
+        ),
+      };
     case GET_WALKERS_FOR_MAP:
       return {
         ...state,

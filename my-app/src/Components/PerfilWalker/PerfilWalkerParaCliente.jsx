@@ -8,7 +8,10 @@ import {
   postAssessment,
   getAssessment,
   getPreferences,
+<<<<<<< HEAD
   putDetailsCliente,
+=======
+>>>>>>> 24d626b (jwt fixed)
 } from "../../actions/index";
 
 import style from "./PerfilWalker.module.css";
@@ -27,10 +30,13 @@ import Swal from "sweetalert2";
 import patitallena from "../../media/patitallena.png";
 import patitavacia from "../../media/patitavacia.png";
 import mediapatita from "../../media/mediapatita.png";
+<<<<<<< HEAD
 import swal from "sweetalert";
 import axios from "axios";
 import MapView from "../../ComponentsMaps/MapView";
 
+=======
+>>>>>>> 24d626b (jwt fixed)
 
 const PerfilWalker = () => {
   const { id } = useParams();
@@ -64,9 +70,12 @@ const PerfilWalker = () => {
   };
 
   useEffect(() => {
+<<<<<<< HEAD
     if(!token){
       history.push(`/login`);
     }
+=======
+>>>>>>> 24d626b (jwt fixed)
     dispatch(getPaseadorForId(id, token));
     dispatch(getAssessment(id, token));
   }, [dispatch]);
@@ -126,6 +135,7 @@ const PerfilWalker = () => {
       score: number,
     });
   }
+<<<<<<< HEAD
 
   const provincias= ["Buenos Aires","Capital Federal","Catamarca","Chaco","Chubut","Córdoba","Corrientes","Entre Ríos","Formosa","Jujuy","La Pampa","La Rioja",
     "Mendoza","Misiones","Neuquén","Río Negro","Salta","San Juan","San Luis","Santa Cruz","Santa Fe","Santiago del Estero","Tierra del Fuego","Tucumán"]
@@ -136,6 +146,8 @@ const PerfilWalker = () => {
     
 
   const handleDateSelect = async (selectInfo) => {
+=======
+>>>>>>> 24d626b (jwt fixed)
 
     let today = new Date();
     console.log(selectInfo)
@@ -293,6 +305,7 @@ const PerfilWalker = () => {
             }
           } 
         })
+<<<<<<< HEAD
         }else{
           calendarApi.unselect();
           Swal.fire({
@@ -301,6 +314,17 @@ const PerfilWalker = () => {
           })
         }
        })
+=======
+      );
+
+      setTimeout(() => {
+        setOrdenLoad(true);
+      }, 1000);
+
+      setTimeout(() => {
+        setOrdenLoad(false);
+      }, 1000);
+>>>>>>> 24d626b (jwt fixed)
     }
   };
   const handleEventClick = (clickInfo) => {
@@ -311,10 +335,13 @@ const PerfilWalker = () => {
     }
   };
 
+<<<<<<< HEAD
   // useEffect(() => {
   // }, [ubicacion.provincia,ubicacion.municipio,ubicacion.localidad ])
 
 
+=======
+>>>>>>> 24d626b (jwt fixed)
   return (
     <div className={style.container}>
       <Nav />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { putDetailsUser } from "../../../actions";
@@ -14,13 +14,12 @@ const Edit = () => {
   const id = localStorage.getItem("userId");
   const token = localStorage.getItem("userToken");
 
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if(!token){
+    if (!token) {
       history.push(`/login`);
     }
-   
   }, []);
 
   const [input, setInput] = useState({
@@ -48,7 +47,7 @@ const Edit = () => {
   };
 
   const uploadImage = async (e) => {
-	setLoading(false)
+    setLoading(false);
     const files = e.target.files;
     const data = new FormData();
     data.append("file", files[0]);
@@ -65,7 +64,7 @@ const Edit = () => {
       ...values,
       image: file.secure_url,
     }));
-    setLoading(true)
+    setLoading(true);
   };
 
   const handlerSubmit = () => {
@@ -165,10 +164,13 @@ const Edit = () => {
           </div>
         </div>
         <div className={style.containerBtn}>
-          {
-            loading ? <button className={style.edit} type="submit">Guardar cambios</button> :
-            <span >Cargando imagen</span>
-          }
+          {loading ? (
+            <button className={style.edit} type="submit">
+              Guardar cambios
+            </button>
+          ) : (
+            <span>Cargando imagen</span>
+          )}
           <button className={style.volver} onClick={handleLogout}>
             Atrás
           </button>

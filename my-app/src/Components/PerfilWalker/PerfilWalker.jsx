@@ -10,7 +10,10 @@ import {
   ordenAnswer,
   getAssessment,
   getPreferences,
+<<<<<<< HEAD
   putDetailsUser
+=======
+>>>>>>> 24d626b (jwt fixed)
 } from "../../actions/index";
 
 
@@ -45,9 +48,14 @@ const PerfilWalker = () => {
   const history = useHistory();
   
   const Walker = useSelector((state) => state.detailWalker);
+<<<<<<< HEAD
   
 
 
+=======
+
+  console.log(Walker.hasOwnProperty("id"));
+>>>>>>> 24d626b (jwt fixed)
 
   const comment = useSelector((state) => state.comment);
   const score = useSelector((state) => state.score);
@@ -59,6 +67,7 @@ const PerfilWalker = () => {
   const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
   useEffect(() => {
+<<<<<<< HEAD
     if(!token){
       history.push(`/login`);
     }
@@ -79,6 +88,11 @@ const PerfilWalker = () => {
         ,{maximumAge:10000, timeout:5000, enableHighAccuracy:true} )
      }
   }, []);
+=======
+    dispatch(getPaseadorForId(id, token));
+    dispatch(getAssessment(id, token));
+  }, [dispatch, id, token]);
+>>>>>>> 24d626b (jwt fixed)
 
   // const [file, setFile] = useState('')
   // const handleInputChange = (e) => {
@@ -260,7 +274,10 @@ const PerfilWalker = () => {
               </button >
             </Link>
           </div>
+<<<<<<< HEAD
             <MapView className={style.map} latitude={Walker.latitude} longitude={Walker.longitude} name={Walker.name} surname={Walker.surname} />
+=======
+>>>>>>> 24d626b (jwt fixed)
           <Preferencias preferencias={preferencias} />
           <Link to={`/walker/editpreferencias/${id}`}>
             <button>Editar preferencias</button>
@@ -377,9 +394,15 @@ const PerfilWalker = () => {
               select={handleDateSelect}
               eventClick={handleEventClick}
               contentHeight="auto"
+<<<<<<< HEAD
               slotDuration={preferencias.duracion_paseos || "03:00:00"}
               events={ordensCliente}
               slotMinTime={preferencias.comienzo_jornada || "08:00:00"}
+=======
+              slotDuration={preferencias.duracion_paseos || "01:00:00"}
+              events={ordensCliente}
+              slotMinTime={preferencias.comienzo_jornada || "06:00:00"}
+>>>>>>> 24d626b (jwt fixed)
               slotMaxTime={preferencias.fin_jornada || "23:00:00"}
               allDaySlot={false}
               weekends={preferencias.dias_trabajo === "LV" ? false : true}
