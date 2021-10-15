@@ -19,7 +19,7 @@ import {
   ADD_FAVORITES,
   GET_FOR_LIST_FAV,
   PASEADORES_PREMIUM,
-  GET_ASSESSMENT
+  GET_ASSESSMENT,
 } from "../actions/index";
 
 const initialState = {
@@ -41,7 +41,7 @@ const initialState = {
   premium: [],
   preferencias: [],
   comment: [],
-  score: 0
+  score: 0,
 };
 
 function rootReducer(state = initialState, action) {
@@ -51,12 +51,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         favorites: action.payload,
       };
-      case GET_ASSESSMENT:
-      const {score, comment} = action.payload
+    case GET_ASSESSMENT:
+      const { score, comment } = action.payload;
       return {
         ...state,
         score: score,
-        comment: comment
+        comment: comment,
       };
     case GET_FOR_LIST_FAV:
       return {
@@ -84,7 +84,7 @@ function rootReducer(state = initialState, action) {
         detailWalker: action.payload,
       };
     case GET_PASEADOR_FOR_ID:
-      console.log(action.payload);
+      console.log("reducer payload: ", action.payload);
       return {
         ...state,
         detailWalker: action.payload,
@@ -124,10 +124,10 @@ function rootReducer(state = initialState, action) {
       };
 
     case "GET_PREFERENCE":
-      return{
+      return {
         ...state,
-        preferencias: action.payload
-      }
+        preferencias: action.payload,
+      };
     case PASEADORES_PREMIUM:
       return {
         ...state,

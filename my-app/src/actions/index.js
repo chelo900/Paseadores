@@ -25,16 +25,11 @@ export const GET_USER_FAVORITES = "GET_USER_FAVORITES";
 export const DELETE_USER_FAVORITE = "DELETE_USER_FAVORITE";
 export const GET_FOR_LIST_FAV = "GET_FOR_LIST_FAV";
 export const PASEADORES_PREMIUM = "PASEADORES_PREMIUM";
-export const POST_ASSESSMENT = "POST_ASSESSMENT"
-export const GET_ASSESSMENT = "GET_ASSESSMENT"
+export const POST_ASSESSMENT = "POST_ASSESSMENT";
+export const GET_ASSESSMENT = "GET_ASSESSMENT";
 
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES";
-
-const token = localStorage.getItem("userToken");
-const header = {
-  Authorization: `Bearer ${token}`,
-};
 
 export function login(payload) {
   return async function (dispatch) {
@@ -57,6 +52,7 @@ export function getAllPaseadores({
   inputFilters,
   selectFilters,
   sortData,
+  token,
 }) {
   return async function (dispatch) {
     try {
@@ -68,7 +64,9 @@ export function getAllPaseadores({
             selectFilters: queryString.stringify(selectFilters),
             sortData: queryString.stringify(sortData),
           },
-          headers: header,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       return dispatch({
@@ -81,12 +79,15 @@ export function getAllPaseadores({
   };
 }
 
-export function getPaseadorForId(id) {
+export function getPaseadorForId(id, token) {
+  console.log("entro a la action: ");
   return (dispatch) => {
     try {
       axios
         .get(`/walkers/${id}`, {
-          headers: header,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         })
         .then((response) =>
           dispatch({
@@ -111,10 +112,14 @@ export function newPaseador(payload) {
   };
 }
 
-export function putDetailsProfile(id, payload) {
+export function putDetailsProfile(id, payload, token) {
   return async function (dispatch) {
     return axios
-      .put("/updateuserProfile/" + id, payload, { headers: header })
+      .put("/updateuserProfile/" + id, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((paseador) => {
         dispatch({
           type: "PUT_DETAILS_PROFILE",
@@ -124,11 +129,13 @@ export function putDetailsProfile(id, payload) {
   };
 }
 
-export function putDetailsUser(payload, id) {
+export function putDetailsUser(payload, id, token) {
   return async function (dispatch) {
     return axios
       .put(`/updateuser/${id}`, payload, {
-        headers: header,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((paseador) => {
         dispatch({
@@ -152,11 +159,13 @@ export function ubicationMatch(ubication) {
   };
 }
 
-export function addImage(payload) {
+export function addImage(payload, token) {
   return async function (dispatch) {
     return axios
       .post("/postimages/:id", payload, {
-        headers: header,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((image) => {
         dispatch({
@@ -189,49 +198,63 @@ export function newPassword(token, payload) {
   };
 }
 
-export function sendPreferencias(payload){
-  return async function (dispatch){
-    return axios.post(`/sendPreferencias`, payload).then((preferencias)=>{
-      dispatch({
-        type: "PREFERENCIAS",
-        payload: preferencias.data
-      })
-    })
-  }
-}
-
-export function getPreferences(userId){
-  return (dispatch) =>{
-    try {
-      axios.get(`/getpreferences/${userId}`).then((preferences)=>
-      dispatch({
-        type: "GET_PREFERENCE",
-        payload: preferences.data
-      }))
-    } catch(error){
-      console.log(error)
-    }
-  }
-}
-
-export function putPreferencias( userId, payload) {
-  console.log(userId)
+export function sendPreferencias(payload, token) {
   return async function (dispatch) {
-    return axios.put("/sendPreferencias/updatePreferencias/"+userId , payload).then((preferencias) => {
-      dispatch({
-        type: "PUT_PREFERENCIAS",
-        payload: preferencias.data,
+    return axios
+      .post(`/sendPreferencias`, payload, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((preferencias) => {
+        dispatch({
+          type: "PREFERENCIAS",
+          payload: preferencias.data,
+        });
       });
-    });
   };
 }
 
+export function getPreferences(userId, token) {
+  return (dispatch) => {
+    try {
+      axios
+        .get(`/getpreferences/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((preferences) =>
+          dispatch({
+            type: "GET_PREFERENCE",
+            payload: preferences.data,
+          })
+        );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 
-export function getPaseadorPremuim() {
+export function putPreferencias(userId, payload, token) {
+  console.log(userId);
+  return async function (dispatch) {
+    return axios
+      .put("/sendPreferencias/updatePreferencias/" + userId, payload, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((preferencias) => {
+        dispatch({
+          type: "PUT_PREFERENCIAS",
+          payload: preferencias.data,
+        });
+      });
+  };
+}
+
+export function getPaseadorPremuim(token) {
   return async function (dispatch) {
     return axios
       .get(`/getPremium`, {
-        headers: header,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((paseador) => {
         dispatch({
@@ -255,11 +278,13 @@ export function newClient(payload) {
   };
 }
 
-export function getClienteForId(id) {
+export function getClienteForId(id, token) {
   return (dispatch) => {
     axios
       .get(`/Cliente/${id}`, {
-        headers: header,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((cliente) =>
         dispatch({
@@ -270,11 +295,13 @@ export function getClienteForId(id) {
   };
 }
 
-export function putDetailsProfileCliente(id, payload) {
+export function putDetailsProfileCliente(id, payload, token) {
   return async function (dispatch) {
     return axios
       .put("/updateClientProfile/" + id, payload, {
-        headers: header,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((cliente) => {
         dispatch({
@@ -285,11 +312,13 @@ export function putDetailsProfileCliente(id, payload) {
   };
 }
 
-export function putDetailsCliente(payload, client) {
+export function putDetailsCliente(payload, client, token) {
   return async function (dispatch) {
     return axios
       .put(`/updateCliente/${client.id}`, payload, {
-        headers: header,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((cliente) => {
         dispatch({
@@ -311,11 +340,13 @@ export function putDetailsCliente(payload, client) {
 //   };
 // }
 
-export function clientSendOrden(payload) {
+export function clientSendOrden(payload, token) {
   return async function (dispatch) {
     return axios
       .post("/sendOrden", payload, {
-        headers: header,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((orden) => {
         dispatch({
@@ -338,12 +369,14 @@ export function clientSendOrden(payload) {
 //   }
 // }
 
-export function getOrdenCliente(userId) {
+export function getOrdenCliente(userId, token) {
   console.log("geeetordenCliente", userId);
   return (dispatch) => {
     axios
       .get(`/getOrden/${userId}`, {
-        headers: header,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((orden) =>
         dispatch({
@@ -354,11 +387,13 @@ export function getOrdenCliente(userId) {
   };
 }
 
-export function ordenAnswer(payload) {
+export function ordenAnswer(payload, token) {
   return async function (dispatch) {
     return axios
       .put("/ordenAnswer", payload, {
-        headers: header,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((answer) => {
         dispatch({
@@ -369,17 +404,21 @@ export function ordenAnswer(payload) {
   };
 }
 
-export function getWalkers(email) {
+export function getWalkers(email, token) {
   return async function (dispatch) {
     var result;
     try {
       if (!email) {
         result = await axios.get(`/getWalkers`, {
-          headers: header,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
       } else {
         result = await axios.get(`/getWalkers?email=${email}`, {
-          headers: header,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
       }
       return dispatch({
@@ -391,17 +430,21 @@ export function getWalkers(email) {
     }
   };
 }
-export function getClients(email) {
+export function getClients(email, token) {
   return async function (dispatch) {
     var result;
     try {
       if (!email) {
         result = await axios.get(`/getClients`, {
-          headers: header,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
       } else {
         result = await axios.get(`/getClients?email=${email}`, {
-          headers: header,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
       }
       return dispatch({
@@ -413,11 +456,13 @@ export function getClients(email) {
     }
   };
 }
-export function makeAdmin(id) {
+export function makeAdmin(id, token) {
   return async function (dispatch) {
     try {
       let result = await axios.post(`/makeAdmin`, id, {
-        headers: header,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       return dispatch({
         type: "ALERT_ADMIN",
@@ -429,11 +474,13 @@ export function makeAdmin(id) {
   };
 }
 
-export function resetPassword(id) {
+export function resetPassword(id, token) {
   return async function (dispatch) {
     try {
       let result = await axios.post(`/resetPassword`, id, {
-        headers: header,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       return dispatch({
         type: "ALERT_ADMIN",
@@ -445,11 +492,13 @@ export function resetPassword(id) {
   };
 }
 
-export function deleteUserAccount(id) {
+export function deleteUserAccount(id, token) {
   return async function (dispatch) {
     try {
       let result = await axios.post(`/deleteUserAccount`, id, {
-        headers: header,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       return dispatch({
         type: "ALERT_ADMIN",
@@ -474,10 +523,12 @@ export function firstAdmin(payload) {
     }
   };
 }
-export function getUserFavorites(idclient) {
+export function getUserFavorites(idclient, token) {
   return async function (dispatch) {
-    var favs = await axios.get("/getFavorite/" + idclient, {
-      headers: header,
+    const favs = await axios.get("/getFavorite/" + idclient, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return dispatch({
       type: "GET_USER_FAVORITES",
@@ -485,10 +536,12 @@ export function getUserFavorites(idclient) {
     });
   };
 }
-export function getForListFav(id) {
+export function getForListFav(id, token) {
   return async function (dispatch) {
     var favs = await axios.get("/getForListFav/" + id, {
-      headers: header,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return dispatch({
       type: "GET_FOR_LIST_FAV",
@@ -497,11 +550,13 @@ export function getForListFav(id) {
   };
 }
 
-export function postUserFavorite(payload) {
+export function postUserFavorite(payload, token) {
   return async function (dispatch) {
     try {
       let result = await axios.post(`/addFav`, payload, {
-        headers: header,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       return dispatch({
         type: "ADD_FAVORITES",
@@ -513,11 +568,13 @@ export function postUserFavorite(payload) {
   };
 }
 
-export function deleteUserFavorite(payload) {
+export function deleteUserFavorite(payload, token) {
   return async function (dispatch) {
     try {
       var result = await axios.put("/quitFav/", payload, {
-        headers: header,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       return dispatch({
         type: "DELETE_USER_FAVORITE",
@@ -529,11 +586,13 @@ export function deleteUserFavorite(payload) {
   };
 }
 
-export function postAssessment(payload) {
+export function postAssessment(payload, token) {
   return async function (dispatch) {
     try {
-      console.log(payload)
-      let result = await axios.post(`/postAssessment`, payload);
+      console.log(payload);
+      let result = await axios.post(`/postAssessment`, payload, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       return dispatch({
         type: "POST_ASSESSMENT",
         payload: result.data,
@@ -544,9 +603,11 @@ export function postAssessment(payload) {
   };
 }
 
-export function getAssessment(id) {
+export function getAssessment(id, token) {
   return async function (dispatch) {
-    var favs = await axios.get("/getAssessment/" + id);
+    const favs = await axios.get("/getAssessment/" + id, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return dispatch({
       type: "GET_ASSESSMENT",
       payload: favs.data,

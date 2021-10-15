@@ -11,23 +11,22 @@ const UsersCards = () => {
   const allUsers = useSelector((state) => state.allPaseadores);
 
   const favorites = useSelector((state) => state.favorites);
-  
-  
+
   const [inputFilters, setInputFilters] = useState({});
   const [selectFilters, setSelectFilters] = useState({});
   const [sortData, setSortData] = useState({});
-  
+
   // Paginado
   const [page, setPage] = useState(0);
   // eslint-disable-next-line no-unused-vars
   const [pageSize, setLimitPerPage] = useState(5);
-  
-  const ubica = useSelector((state) => state.ubication);
-  
 
-  var walker = localStorage.getItem("userWalker");
-  var id = localStorage.getItem("userId");
-  var admin = localStorage.getItem("userAdmin");
+  const ubica = useSelector((state) => state.ubication);
+
+  const token = localStorage.getItem("userToken");
+  const walker = localStorage.getItem("userWalker");
+  const id = localStorage.getItem("userId");
+  const admin = localStorage.getItem("userAdmin");
 
   useEffect(() => {
     dispatch(
@@ -37,19 +36,18 @@ const UsersCards = () => {
         inputFilters,
         selectFilters,
         sortData,
+        token,
       })
     );
 
-  
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, pageSize, selectFilters, sortData, dispatch]);
 
   useEffect(() => {
     if (walker === "false" && admin === "false") {
-    dispatch(getUserFavorites(id));
-  }
-
-}, []);
+      dispatch(getUserFavorites(id));
+    }
+  }, []);
 
   function handleNextPage(e) {
     e.preventDefault();
@@ -87,6 +85,7 @@ const UsersCards = () => {
         inputFilters,
         selectFilters,
         sortData,
+        token,
       })
     );
   }
@@ -231,15 +230,14 @@ const UsersCards = () => {
         <div className={style.cards}>
           {allUsers.content?.length > 0 ? (
             allUsers.content.map((el) => {
-              
               var fv;
 
-                for (var i = 0; i < favorites.length; i++){
-                  if (favorites[i] === el.id) {
-                    fv = true;
-                  }
+              for (var i = 0; i < favorites.length; i++) {
+                if (favorites[i] === el.id) {
+                  fv = true;
+                }
               }
-              
+
               return (
                 <Card
                   key={el.id}
