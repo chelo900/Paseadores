@@ -29,6 +29,7 @@ import listPlugin, { ListView } from "@fullcalendar/list";
 import esLocale from "@fullcalendar/core/locales/es";
 import dotenv from "dotenv";
 import Premium from "../../Premiums/Premium";
+import Preferencias from "./Preferencias/Preferencias";
 dotenv.config();
 
 // import Footer from './footer/Footer';
@@ -226,6 +227,10 @@ useEffect(() => {
               </button>
             </Link>
           </div>
+          <Preferencias preferencias={preferencias}/>
+                        <Link to={`/walker/editpreferencias/${id}`}>
+                           <button>Editar preferencias</button> 
+                        </Link>
         </div>
         <div className={style.caracteristicas}>
           <div className={style.Premuim}>
