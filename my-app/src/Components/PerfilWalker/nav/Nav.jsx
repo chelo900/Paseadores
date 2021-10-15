@@ -32,9 +32,6 @@ const Nav = (props) => {
                         <Link to={`/cardsUsers`} className={style.textdeco}>
                             <li>Home</li>
                         </Link>
-                        <button >
-                            <li>Favoritos</li>
-                        </button>
                         <button onClick={handleOnClick}>
                             <li className={style.cerrar}>Logout</li>
                         </button>

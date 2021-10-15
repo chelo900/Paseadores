@@ -6,7 +6,6 @@ const router = Router();
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
-  console.log(id);
   try {
     const datos = await User.findOne({
       where: {
@@ -32,7 +31,8 @@ router.get("/:id", async (req, res) => {
       morning: datos.morning,
       afternoon: datos.afternoon,
       images: datos.images,
-      premium : datos.premium
+      premium: datos.premium,
+      status: datos.status,
     };
 
     if (detallesDatos) {

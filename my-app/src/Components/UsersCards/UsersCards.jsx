@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../Card/Card";
+import Carrusel from "../Carrusel/Carrusel";
 import Nav from "./Nav/Nav";
 import style from "../UsersCards/UsersCards.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPaseadores } from "../../actions/index";
+import { getAllPaseadores, getUserFavorites } from "../../actions/index";
 
 const UsersCards = () => {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allPaseadores);
+  const favorites = useSelector((state) => state.favorites);
 
   const [inputFilters, setInputFilters] = useState({});
   const [selectFilters, setSelectFilters] = useState({});
@@ -15,9 +17,14 @@ const UsersCards = () => {
 
   // Paginado
   const [page, setPage] = useState(0);
+  // eslint-disable-next-line no-unused-vars
   const [pageSize, setLimitPerPage] = useState(5);
 
   const ubica = useSelector((state) => state.ubication);
+
+  var walker = localStorage.getItem("userWalker");
+  var id = localStorage.getItem("userId");
+  var admin = localStorage.getItem("userAdmin");
 
   useEffect(() => {
     dispatch(
@@ -29,6 +36,12 @@ const UsersCards = () => {
         sortData,
       })
     );
+
+    if (walker === "false" && admin === "false") {
+      dispatch(getUserFavorites(id));
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, pageSize, selectFilters, sortData, dispatch]);
 
   function handleNextPage(e) {
@@ -59,6 +72,7 @@ const UsersCards = () => {
 
   function handleFiltersSubmit(event) {
     event.preventDefault();
+
     dispatch(
       getAllPaseadores({
         page,
@@ -75,7 +89,7 @@ const UsersCards = () => {
     setSelectFilters({ ...selectFilters, [name]: value });
   }
 
-  function handleOnClick(event){
+  function handleOnClick(event) {
     event.preventDefault();
     setSelectFilters({});
     setInputFilters({});
@@ -86,7 +100,11 @@ const UsersCards = () => {
   return (
     <div className={style.container}>
       <Nav />
+
       <div className={style.containerDOS}>
+        <div className={style.carrusel}>
+          <Carrusel />
+        </div>
         <div className={style.costado}>
           <div>
             <select
@@ -175,17 +193,45 @@ const UsersCards = () => {
               </select>
             </div>
             <div>
-              <button 
-                className={style.atc}
-                onClick={handleOnClick}
-                > Todos los Paseadores </button>
+              <button className={style.atc} onClick={handleOnClick}>
+                {" "}
+                Todos los Paseadores{" "}
+              </button>
             </div>
           </div>
         </div>
 
+        {/* <div className = {style.premium}>
+          {usersPremium.length > 0 ? (
+              usersPremium.map((pr) => {
+                return (
+                  <CardCarrusel
+                    key={pr.id}
+                    id={pr.id}
+                    name={pr.name}
+                    surname={pr.surname}
+                    image={pr.image}
+                  />
+                );
+              })
+            ) : (
+              <div>
+                <p>No hay usuarios premium</p>
+              </div>
+            )}
+        </div> */}
+
         <div className={style.cards}>
           {allUsers.content?.length > 0 ? (
             allUsers.content.map((el) => {
+              var fv;
+              favorites.length &&
+                favorites?.forEach((element) => {
+                  if (element === el.id) {
+                    fv = true;
+                  }
+                });
+
               return (
                 <Card
                   key={el.id}
@@ -197,6 +243,7 @@ const UsersCards = () => {
                   price={el.price}
                   reputation={el.reputation}
                   description={el.description}
+                  fv={fv}
                 />
               );
             })

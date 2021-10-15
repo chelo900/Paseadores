@@ -6,7 +6,11 @@ import style from "./Login.module.css";
 import { Link } from "react-router-dom";
 import Log from "./Google_Auth";
 import { useSelector } from "react-redux";
-import { getByEmail } from "../../actions";
+import { login } from "../../actions";
+
+import Swal from "sweetalert2";
+
+
 
 const Login = () => {
   const history = useHistory();
@@ -15,46 +19,63 @@ const Login = () => {
     email: "",
     password: "",
   });
-  var walker =localStorage.getItem("userWalker");
-  
+
+  const walker = localStorage.getItem("userWalker");
+
   useEffect(() => {
-    if(walker === "false" || walker === "true"){
-      history.push(`/cardsUsers`)
+    if (walker === "false" || walker === "true") {
+      history.push(`/cardsUsers`);
     }
-}, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const user = useSelector((state) => state.user);
-  
+
   const handleOnChange = ({ target: { name, value } }) =>
     setValues({
       ...values,
       [name]: value,
     });
     
+    
 
-  useEffect(() => {
+    
+
+  useEffect(async () => {
     
     if (user.validate === true) {
-      console.log("adminnnnnnnnnnnnnnnnnnn",user.admin)
-      alert("Welcome");
+     await Swal.fire({
+        icon: 'success',
+        title: 'Welcome!',
+        showConfirmButton: false,
+        timer: 1500
+      })
       localStorage.clear();
-      localStorage.setItem("userValidate", user.validate )
-      localStorage.setItem("userToken", user.token )
-      localStorage.setItem("userId", user.id )
-      localStorage.setItem("userWalker", user.walker )
-      localStorage.setItem("userAdmin", user.admin )
-      history.push(`/walker/perfil/${user.id}`);
-      if(user.walker){
-      }else{history.push(`/cardsUsers`);}
+      localStorage.setItem("userValidate", user.validate);
+      localStorage.setItem("userToken", user.token);
+      localStorage.setItem("userId", user.id);
+      localStorage.setItem("userWalker", user.walker);
+      localStorage.setItem("userAdmin", user.admin);
+      if (user.walker) {
+        history.push(`/walker/perfil/${user.id}`);
+      } else {
+        history.push(`/cardsUsers`);
+      }
     } else if (user.validate === false) {
-      alert("Please check your credentials");
-      window.location.reload();;
+     await Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Chequea tus crecenciales',
+        button:"Ok"
+      })
+      window.location.reload();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.validate, user.walker]);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    dispatch(getByEmail(values));
+    dispatch(login(values));
     setValues({
       ...values,
       email: "",
@@ -66,6 +87,7 @@ const Login = () => {
     <div className={style.container}>
       <div className={style.log}>
         <h1>Login</h1>
+        <hr></hr>
         <form className={style.form} onSubmit={handleOnSubmit}>
           <div className={style.field}>
             <input
@@ -76,7 +98,7 @@ const Login = () => {
               required
             />
             <span></span>
-            <label htmlFor="">UserName</label>
+            <label htmlFor="">Email</label>
           </div>
           <div className={style.field}>
             <input
@@ -87,17 +109,25 @@ const Login = () => {
               required
             />
             <span></span>
-            <label htmlFor="">Password</label>
+            <label htmlFor="">Contraseña</label>
           </div>
-          <Link to="/login/recoverPassword"> <span className={style.pass}>Forgot password?</span> </Link>
-           <input className={style.login} type="submit" value="login"></input>
+          <Link to="/login/recoverPassword">
+            {" "}
+            <span className={style.pass}>Forgot password?</span>{" "}
+          </Link>
+          <input className={style.login} type="submit" value="login"></input>
           <div className={style.link}>
             <span>
-              Not registered?
+              No estás registrado?
               <Link className={style.create} to="/pre-login">
-                <span className={style.create}>Create account</span>
+                <span className={style.create}>Crear cuenta</span>
               </Link>
             </span>
+          </div>
+          <div className={style.inicio}>
+            <Link className={style.create} to="/">
+              <p className={style.create}> Volver al Inicio</p>
+            </Link>
           </div>
           <div className={style.google}>
             <Log />

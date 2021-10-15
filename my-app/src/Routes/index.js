@@ -22,6 +22,8 @@ import Informacion from "../ClientsComponents/editInfoCliente/informacion";
 import Premium from "../Components/Premium/Premium";
 import admin from "../AdminComponents/Admin";
 import EditPreferencias from "../Components/EditWalker/EditPreferencias/EditPreferencias";
+import ListaFav from "../Components/ListaFav/ListaFav";
+
 
 const index = () => {
   return (
@@ -51,9 +53,10 @@ const index = () => {
         <Route exact path="/Cliente/:id" component={PerfilCliente}/>
         <Route exact path="/Cliente/editDescription/:id" component={Descripcion}/>
         <Route exact path="/Cliente/editInformation/:id" component={Informacion}/>
+        <Route exact path="/listFav" component={ListaFav}/>
 
         {/* Ruta del admin  */}
-        <Route exact path="/admin" component={admin}/>
+        <Route exact path="/admin" component={admin}/> 
       </Switch>
     </div>
   );

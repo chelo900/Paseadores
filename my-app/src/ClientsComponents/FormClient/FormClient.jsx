@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { newClient } from "../../actions";
 import style from "./FormClient.module.css";
+import Swal from "sweetalert2";
 
 function validate(input) {
   const errors = {};
@@ -95,10 +96,15 @@ const FormClient = () => {
   function handleSubmit(e) {
     e.preventDefault();
     if (Object.values(errors).length > 1)
-      alert("Completa la informacion solicitada");
+    Swal.fire('Completa la informacion solicitada')
     else {
       dispatch(newClient(input));
-      alert("User Created successfully");
+      Swal.fire({
+        icon: 'success',
+        title: 'Usuario creado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
       setInput({
         image: "",
         dni: "",
@@ -247,6 +253,9 @@ const FormClient = () => {
           </div>
         </div>
         <div className={style.containerBtn}>
+          <Link to="/pre-login">
+            <button className={style.btn}>Atrás</button>
+          </Link>
           <button className={style.btn} type="submit" disabled={Object.values(errors).length > 0}> Crear Usuario </button>
         </div>
       </form>

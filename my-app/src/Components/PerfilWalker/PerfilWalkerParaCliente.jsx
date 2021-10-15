@@ -1,23 +1,37 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { addImage, clientSendOrden,  getOrdenCliente, getPaseadorForId, getPreferences } from '../../actions/index'
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addImage,
+  clientSendOrden,
+  getOrdenCliente,
+  getPaseadorForId,
+} from "../../actions/index";
 
-import style from './PerfilWalker.module.css'
-import foto1 from '../../media/foto1Service.jpg'
-import { Link, useParams, useHistory } from 'react-router-dom'
-import Nav from './nav/Nav';
+import style from "./PerfilWalker.module.css";
+import foto1 from "../../media/foto1Service.jpg";
+import { Link, useParams, useHistory } from "react-router-dom";
+import Nav from "./nav/Nav";
 
-import FullCalendar, {EventContentArg}  from '@fullcalendar/react' // must go before plugins
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction'
-import esLocale from '@fullcalendar/core/locales/es';
-import momentPlugin from '@fullcalendar/moment';
-import moment from 'moment';
+import FullCalendar, { EventContentArg } from "@fullcalendar/react"; // must go before plugins
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import esLocale from "@fullcalendar/core/locales/es";
+import momentPlugin from "@fullcalendar/moment";
+import moment from "moment";
 
+const PerfilWalker = () => {
+  const { id } = useParams();
 
+  const dispatch = useDispatch();
 
+  const history = useHistory();
 
+  const Walker = useSelector((state) => state.detailWalker);
+
+  const ordensCliente = useSelector((state) => state.ordensCliente);
+
+  var idCliente = localStorage.getItem("userId");
 
 const PerfilWalker = () => {
     const { id } = useParams();
@@ -48,23 +62,7 @@ const PerfilWalker = () => {
     useEffect(() => {
         dispatch(getOrdenCliente(id))
     }, [dispatch])
-    // const [file, setFile] = useState('')
-    // const handleInputChange = (e) => {
-    //     setFile(e.target.files[0])
-    // };
-
-    // const handleSubmitImage = (e) => {
-    //     e.preventDefault();
-    //     if (!file) return;
-    //     console.log('file', file)
-    //     // upLoadImage(previewSource)
-    //     addImage(file)
-    // }
-
-    // const handleLogout = (event) => {
-    //     event.preventDefault();
-    //     history.push("/");
-    // };
+    
 
     useEffect(() => {
         if(ordenload===true){
@@ -133,72 +131,88 @@ const PerfilWalker = () => {
         }, 1000);
         
         }
+
+
+  // const handleEventClick = (clickInfo) => {
+  //     console.log(clickInfo)
+  //     if ((`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+  //       clickInfo.event.remove() // will render immediately. will call handleEventRemove
+  //     }
+  //   }
+  const handleEventClick = (clickInfo) => {
+    if (clickInfo.event.extendedProps.clientId === idCliente) {
+      clickInfo.event.remove(); // will render immediately. will call handleEventRemove
+    } else {
+      return clickInfo.event.title; // will render immediately. will call handleEventRemove
     }
+  };
 
-    // const handleEventClick = (clickInfo) => {
-    //     console.log(clickInfo)
-    //     if ((`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-    //       clickInfo.event.remove() // will render immediately. will call handleEventRemove
-    //     }
-    //   }
-      const handleEventClick = (clickInfo) => {
-        
-        if(clickInfo.event.extendedProps.clientId === idCliente){
-        clickInfo.event.remove() // will render immediately. will call handleEventRemove
-      }
-        else  {
-          return clickInfo.event.title // will render immediately. will call handleEventRemove
-        }
-    }
-    
-    
-    
-    var mañana = false
-    var tarde = false
+  var mañana = false;
+  var tarde = false;
 
-    return (
-        <div className={style.container}>
-            <Nav />
+  return (
+    <div className={style.container}>
+      <Nav />
 
-            <div className={style.containerPerfil}>
-                <div className={style.personalInformation}>
-                    <div className={style.borderFoto}>
-                        <div className={style.fotoPerfil}>
-                            {Walker.image ? <img src={Walker.image} alt='' /> : <img src="https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg" alt='' />}
-                        </div>
-                    </div>
-                    <div className={style.informacion}>
-                        {/* <h2>{Client.name} {Client.surname}</h2> */}
-                        <ul >
-                            <li className={style.liService}>{Walker.service}</li>
-                            <li className={style.libirth}>{Walker.birth_day}</li>
-                            <li className={style.liPhone}>{Walker.phone}</li>
-                            <li className={style.liEmail}>{Walker.email}</li>
-                            <li className={style.liUbication}>{Walker.ubication}</li>
-                            <li className={style.liDni}>{Walker.dni}</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div className={style.caracteristicas}>
-                    <div className={style.descripcion}>
-                        <h2>Description</h2>
-                        <div className={style.textDescription}>
-                            {Walker.description ? <p className={style.textDescriptionNew}>{Walker.description}</p> : <p>Agrega una descripcion</p>}
-                        </div>
-                    </div>
-                    <div>
-                        <span>🟢 Paseos Confirmados</span> 
-                        <span>🟡 Pendientes</span> 
-                    </div>
-                    <div>
-
-            <FullCalendar eventClassNames={style.calendar} 
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            headerToolbar={{
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      <div className={style.containerPerfil}>
+        <div className={style.personalInformation}>
+          <div className={style.borderFoto}>
+            <div className={style.fotoPerfil}>
+              {Walker.image ? (
+                <img src={Walker.image} alt="" />
+              ) : (
+                <img
+                  src="https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg"
+                  alt=""
+                />
+              )}
+            </div>
+          </div>
+          <div className={style.informacion}>
+            {Walker.status === "active" ? (
+              <p className={style.activo}>Disponible</p>
+            ) : (
+              ""
+            )}
+            {Walker.status === "inactive" ? (
+              <p className={style.noactivo}>No disponible</p>
+            ) : (
+              ""
+            )}
+            {Walker.status === "removed" ? (
+              <p className={style.noactivo}>Este usuario ya no existe</p>
+            ) : (
+              ""
+            )}
+            <ul>
+              <li className={style.liService}>{Walker.service}</li>
+              <li className={style.liUbication}>{Walker.ubication}</li>
+            </ul>
+          </div>
+        </div>
+        <div className={style.caracteristicas}>
+          <div className={style.descripcion}>
+            <h2>Descripción</h2>
+            <div className={style.textDescription}>
+              {Walker.description ? (
+                <p className={style.textDescriptionNew}>{Walker.description}</p>
+              ) : (
+                <p>Agrega una descripcion</p>
+              )}
+            </div>
+          </div>
+          <div>
+            <span>🟢 Paseos Confirmados</span>
+            <span>🟡 Pendientes</span>
+          </div>
+          <div>
+            <FullCalendar
+              eventClassNames={style.calendar}
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              headerToolbar={{
+                left: "prev,next today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay",
               }}
             initialView="timeGridWeek"
             locale = {esLocale}
@@ -220,35 +234,38 @@ const PerfilWalker = () => {
             weekends= {preferencias.dias_trabajo === "LV" ? false : true}
             hiddenDays={preferencias.dias_trabajo === "W" ? [1,2,3,4,5] : []}
             />
-        </div>
-                    <div className={style.price}>
-                        <h2>Price per Hour</h2>
-                        <div className={style.textDescription}>
-                            {Walker.price != 0 ? <p>{Walker.price}  x Hour</p> : <p>Ponle un precio a tu servicio</p>}
-                        </div>
-                    </div>
-                    <div className={style.reputacion}>
-                        <h2>Reputacion</h2>
-                        <div className={style.textDescription}>
-                            <p> * * * * *</p>
-                        </div>
-                    </div>
-                    <div className={style.fotos}>
-                        <div className={style.fondoFotos}>
-                            <h2>Fotos</h2>
-                            <div className={style.galeria}>
-                                {Walker.images?.map(i =>
-                                    <div key={i.public_id}>
-                                        <img src={i.imageURL ? i.imageURL : foto1} alt='a' />
-                                    </div>)
-                                }
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <div className={style.price}>
+            <h2>Precio</h2>
+            <div className={style.textDescription}>
+              {Walker.price != 0 ? (
+                <p>{Walker.price} x Hour</p>
+              ) : (
+                <p>Ponle un precio a tu servicio</p>
+              )}
             </div>
+          </div>
+          <div className={style.reputacion}>
+            <h2>Reputación</h2>
+            <div className={style.textDescription}>
+              <p> * * * * *</p>
+            </div>
+          </div>
+          <div className={style.fotos}>
+            <div className={style.fondoFotos}>
+              <h2>Fotos</h2>
+              <div className={style.galeria}>
+                {Walker.images?.map((i) => (
+                  <div key={i.public_id}>
+                    <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 export default PerfilWalker;

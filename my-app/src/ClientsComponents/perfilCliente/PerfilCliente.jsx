@@ -8,8 +8,7 @@ import Footer from './footer/Footer';
 import foto1 from '../../media/foto1Service.jpg'
 
 const PerfilCliente = () => {
-    const { id } = useParams();
-
+    var id = localStorage.getItem("userId");
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -20,14 +19,14 @@ const PerfilCliente = () => {
     }, [dispatch])
 
 
-return (
-    <div className={style.container}>
-           <Nav/>
+    return (
+        <div className={style.container}>
+            <Nav />
             <div className={style.containerPerfil}>
                 <div className={style.personalInformation}>
                     <div className={style.borderFoto}>
                         <div className={style.fotoPerfil}>
-                            {Client.image? <img src={Client.image} alt=''/> : <img src="https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg" alt='' />}
+                            {Client.image ? <img src={Client.image} alt='' /> : <img src="https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg" alt='' />}
                         </div>
                     </div>
                     <div className={style.informacion}>
@@ -42,33 +41,33 @@ return (
                         </Link>
                     </div>
                 </div>
-                
+
                 <div className={style.caracteristicas}>
                     <div className={style.descripcion}>
-                        <h2>Description</h2>
+                        <h2>Descripción</h2>
                         <div className={style.textDescription}>
-                            {Client.description? <p className={style.textDescriptionNew}>{Client.description}</p> : <p>Agrega una descripcion</p> }
+                            {Client.description ? <p className={style.textDescriptionNew}>{Client.description}</p> : <p>Agrega una descripcion</p>}
                         </div>
                         <Link to={`/Cliente/editDescription/${id}`} className={style.editContainer}>
-                            <button className={style.editDescription}>Editar Descripcion</button>
+                            <button className={style.editDescription}>Editar Descripción</button>
                         </Link>
                     </div>
                     <div className={style.reputacion}>
-                        <h2>Reputacion</h2>
+                        <h2>Reputación</h2>
                         <div className={style.textDescription}>
                             <p> * * * * *</p>
                         </div>
                     </div>
                     <div className={style.fotos}>
-                      {/* <div className={style.fondoFotos}>
+                        {/* <div className={style.fondoFotos}>
                         <h2>Fotos</h2>
-                           <div className={style.galeria}>
-                           { Client.images?.map(i=>
+                            <div className={style.galeria}>
+                            { Client.images?.map(i=>
                             <div  key={i.public_id}>
                                 <img src={i.imageURL ? i.imageURL : foto1} alt='a'/>
                             </div>)
                             }
-                           </div>
+                            </div>
                             <form  action={`/postimages/${id}`} method="POST" encType="multipart/form-data">
                                 <input type="file" name="image" />
                                 <button  className={style.subir} type="submit">Subir</button>
@@ -76,7 +75,6 @@ return (
                       </div> */}
                     </div>
                 </div>
-                
             </div>
             {/* <Footer /> */}
         </div>

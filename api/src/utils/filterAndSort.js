@@ -1,8 +1,4 @@
 const isEmpty = require("lodash/isEmpty");
-const isArray = require("lodash/isArray");
-
-const FILTERS = ["ubication", "service", "name"];
-const PRICE_FILTERS = ["min", "max"];
 
 const sortNumber = (a, b) => a - b;
 
@@ -33,21 +29,34 @@ const sortWalkersBy = ({ walkers, parsedSortData }) => {
 
 const filterWalkers = ({ walkers, filtersArray, selectFiltersArray }) => {
   let filteredWalkers = walkers;
-
+  const min = filtersArray.find((filter) => filter.min);
+  const max = filtersArray.find((filter) => filter.max);
+  if (min.min > max.max) {
+    throw new Error("El precio minimo debe ser menor al precio maximo");
+  }
   if (!isEmpty(selectFiltersArray) || !isEmpty(filtersArray)) {
     //FILTROS CON INPUT
 
     filtersArray.forEach((filter) => {
-      if (filter.hasOwnProperty("min") || filter.hasOwnProperty("max")) {
+      if (filter.hasOwnProperty("min")) {
         filteredWalkers = filteredWalkers.filter((walker) => {
           if (filter.min) {
             return walker.price >= [filter.min];
-          }
-          if (filter.max) {
-            return walker.price <= [filter.max];
+          } else {
+            return walker;
           }
         });
       }
+      if (filter.hasOwnProperty("max")) {
+        filteredWalkers = filteredWalkers.filter((walker) => {
+          if (filter.max) {
+            return walker.price <= [filter.max];
+          } else {
+            return walker;
+          }
+        });
+      }
+
       if (filter.hasOwnProperty("ubication")) {
         filteredWalkers = filteredWalkers.filter((walker) =>
           walker.ubication

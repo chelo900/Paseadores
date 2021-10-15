@@ -1,17 +1,15 @@
 const { Router } = require("express");
 const router = Router();
-const { favourites } = require('../db');
+const { favourite } = require('../db');
 
-router.delete('/:iduser',async(req, res, next) => {
-    const {iduser} = req.body
-    const {idclient} = req.params
-    
+router.put('/',async(req, res, next) => {
+    const { idUser,idClient } = req.body
     try{
         // const user = User.findByPk(iduser)
         // await user.remove Product(idProduct)
-        await favourites.destroy({where: {
-            Clientid: idclient,
-            UserId: iduser
+        await favourite.destroy({where: {
+            clientId: idClient,
+            userId: idUser
         }})
         return res.send('User removed successfully');
     } catch(error){
