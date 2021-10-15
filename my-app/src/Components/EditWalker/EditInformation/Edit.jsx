@@ -11,8 +11,8 @@ const Edit = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const paseador = useSelector((state) => state.detailWalker);
-  var id = localStorage.getItem("userId");
-  var token = localStorage.getItem("userToken");
+  const id = localStorage.getItem("userId");
+  const token = localStorage.getItem("userToken");
 
   const [input, setInput] = useState({
     status: paseador.status,
@@ -58,15 +58,14 @@ const Edit = () => {
   };
 
   const handlerSubmit = () => {
-    console.log(user);
     dispatch(putDetailsUser(input, id, token));
     Swal.fire({
-            icon: 'success',
-            title: 'Cambios Efectuados',
-            showConfirmButton: false,
-            timer: 1000
-          })
-          setTimeout(history.push(`/walker/perfil/${id}`), 3000);
+      icon: "success",
+      title: "Cambios Efectuados",
+      showConfirmButton: false,
+      timer: 1000,
+    });
+    setTimeout(history.push(`/walker/perfil/${id}`), 3000);
   };
 
   return (
@@ -142,7 +141,9 @@ const Edit = () => {
           className={style.input}
         />
         <div className={style.selectFile}>
-          <label className={style.label}>Seleccionar una imagen de perfil</label>
+          <label className={style.label}>
+            Seleccionar una imagen de perfil
+          </label>
           <div>
             <input
               type="file"
@@ -153,10 +154,12 @@ const Edit = () => {
           </div>
         </div>
         <div className={style.containerBtn}>
-          <button className={style.edit} type="submit">Guardar cambios</button>
+          <button className={style.edit} type="submit">
+            Guardar cambios
+          </button>
           <button className={style.volver} onClick={handleLogout}>
             Atrás
-          </button>  
+          </button>
         </div>
       </form>
     </div>

@@ -31,11 +31,10 @@ const googleLogIn = require("./googleLogIn");
 const getPremium = require("./getPremium");
 const postPremium = require("./postPremium");
 const tokenExtractor = require("../utils/tokenExtractor");
-const preference = require("./preference")
-const getPreferences = require("./getpreferences")
+const preference = require("./preference");
+const getPreferences = require("./getpreferences");
 const postAssessment = require("./postAssessment");
 const getAssessment = require("./getAssessment");
-
 
 const router = Router();
 
@@ -64,8 +63,8 @@ router.use("/makeAdmin", tokenExtractor, makeAdmin);
 router.use("/deleteUserAccount", tokenExtractor, deleteUserAccount);
 router.use("/resetPassword", tokenExtractor, resetPassword);
 router.use("/firstAdmin", firstAdmin);
-router.use("/sendPreferencias", preference)
-router.use("/getpreferences", getPreferences)
+router.use("/sendPreferencias", preference);
+router.use("/getpreferences", getPreferences);
 
 router.use("/addFav", tokenExtractor, addFavorite);
 router.use("/getFavorite", tokenExtractor, getFavorite);
