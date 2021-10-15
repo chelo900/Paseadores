@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+=======
+import React from "react";
+import { useDispatch } from "react-redux";
+>>>>>>> 24d626b (jwt fixed)
 import style from "./Usuario.module.css";
 import {
   makeAdmin,
@@ -7,13 +12,18 @@ import {
   deleteUserAccount,
   getClients,
   getWalkers,
+<<<<<<< HEAD
   getAssessment,
 } from "../../actions/index";
 import swal from "sweetalert";
+=======
+} from "../../actions/index";
+>>>>>>> 24d626b (jwt fixed)
 
 const Usuario = (props) => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("userToken");
+<<<<<<< HEAD
   const score = useSelector((state) => state.score);
   console.log(score);
 
@@ -95,6 +105,46 @@ const Usuario = (props) => {
       });
     })()
    
+=======
+
+  /*
+    useEffect(() => {
+        if(props.usuario === "PASEADORES/CUIDADORES"){
+            dispatch(getWalkers())
+        }else if(props.usuario === "DUEÑOS DE LAS MASCOTAS"){ dispatch(getClients())}
+    },[getClients])
+    */
+  function handleOnClickAdmin(e, usuario) {
+    dispatch(makeAdmin({ id: props.id }, token));
+    setTimeout(function () {
+      if (usuario === "Paseadores / Cuidadores") {
+        dispatch(getWalkers(token));
+      } else if (usuario === "Dueños") {
+        dispatch(getClients(token));
+      }
+    }, 2000);
+  }
+  function handleOnClickResetPassword(e, usuario) {
+    console.log(usuario);
+    dispatch(resetPassword({ id: props.id }, token));
+    setTimeout(function () {
+      if (usuario === "Paseadores / Cuidadores") {
+        dispatch(getWalkers(token));
+      } else if (usuario === "Dueños") {
+        dispatch(getClients(token));
+      }
+    }, 2000);
+  }
+  function handleOnClickDelete(e, usuario) {
+    dispatch(deleteUserAccount({ id: props.id }, token));
+    setTimeout(function () {
+      if (usuario === "Paseadores / Cuidadores") {
+        dispatch(getWalkers(token));
+      } else if (usuario === "Dueños") {
+        dispatch(getClients(token));
+      }
+    }, 2000);
+>>>>>>> 24d626b (jwt fixed)
   }
   return (
     <div className={style.container}>
@@ -107,7 +157,11 @@ const Usuario = (props) => {
         <div>
           <p className={style.p}> Email : {props.email}</p>
           <p className={style.p}> Descripción : {props.description}</p>
+<<<<<<< HEAD
           <p className={style.p}> Reputación : {score}</p>
+=======
+          <p className={style.p}> Reputación : {props.reputation}</p>
+>>>>>>> 24d626b (jwt fixed)
         </div>
       </div>
       <div className={style.der}>

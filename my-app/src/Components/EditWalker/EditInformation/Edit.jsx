@@ -22,9 +22,9 @@ const Edit = () => {
     }
   }, []);
   let servicio;
-  if(paseador.service === "Paseador") servicio = "Walker"
-  if(paseador.service ==="Cuidador" ) servicio = "Carer"
-  if(paseador.service === "Paseador y Cuidador") servicio = "Walker and Carer"
+  if (paseador.service === "Paseador") servicio = "Walker";
+  if (paseador.service === "Cuidador") servicio = "Carer";
+  if (paseador.service === "Paseador y Cuidador") servicio = "Walker and Carer";
   const [input, setInput] = useState({
     status: paseador.status,
     service: servicio,
@@ -142,7 +142,6 @@ const Edit = () => {
           placeholder={`Número de documento: ${paseador.dni}`}
           onChange={(e) => inputChange(e)}
           className={style.input}
-          
         />
         <div className={style.selectFile}>
           <label className={style.label}>

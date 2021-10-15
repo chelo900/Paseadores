@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import style from "./Carrusel.module.css";
 
 function Carrusel() {
-  
   const usersPremium = useSelector((state) => state.premium);
   const token = localStorage.getItem("userToken");
 
@@ -16,20 +15,20 @@ function Carrusel() {
     dispatch(getPaseadorPremuim(token));
   }, [dispatch, token]);
 
-// const index = Math.floor(Math.random() * usersPremium.length);
+  // const index = Math.floor(Math.random() * usersPremium.length);
 
-// function Aleatorios(usersPremium) {
-//   return [...usersPremium]
-//   .sort(() => (Math.random() > 0.5 ? 1 : -1))
+  // function Aleatorios(usersPremium) {
+  //   return [...usersPremium]
+  //   .sort(() => (Math.random() > 0.5 ? 1 : -1))
 
-// random = function (usersPremium) {
-//   return usersPremium[Math.floor((Math.random()*usersPremium.length))];
-// } 
+  // random = function (usersPremium) {
+  //   return usersPremium[Math.floor((Math.random()*usersPremium.length))];
+  // }
 
-return (
-  <div className = {style.carrusel} >
-    <h3 className = {style.titulo}>Usuarios Premium</h3>
-      <div className = {style.cartas}>
+  return (
+    <div className={style.carrusel}>
+      <h3 className={style.titulo}>Usuarios Premium</h3>
+      <div className={style.cartas}>
         {usersPremium.length > 0 ? (
           usersPremium.map((pr) => {
             return (

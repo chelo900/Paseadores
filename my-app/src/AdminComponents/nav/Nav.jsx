@@ -12,9 +12,15 @@ const Nav = (props) => {
 
   function handleOnClick(e) {
     localStorage.clear();
+<<<<<<< HEAD
     history.push(`/`);
     dispatch(clearUser({}))
 }
+=======
+    history.push(`/login`);
+    dispatch(clearUser({}));
+  }
+>>>>>>> 24d626b (jwt fixed)
   return (
     <div className={style.container}>
       <div className={style.serviceContainer}>

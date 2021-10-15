@@ -184,7 +184,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         allPaseadores: action.payload,
       };
-  /*  case ALERT_ADMIN:
+    /*  case ALERT_ADMIN:
       alert(action.payload);
       break;*/
 

@@ -4,14 +4,18 @@ import Carrusel from "../Carrusel/Carrusel";
 import Nav from "./Nav/Nav";
 import style from "../UsersCards/UsersCards.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPaseadores, getUserFavorites,putDetailsUser } from "../../actions/index";
+import {
+  getAllPaseadores,
+  getUserFavorites,
+  putDetailsUser,
+} from "../../actions/index";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
-import fotoFondo from '../../media/proceso2.jpg'
-import fotoFondo2 from '../../media/foto2Service.jpg'
-import fotoFondo3 from '../../media/premiumcortada.jpg'
-import fotoFondo4 from '../../media/fotoAbout.jpg'
+import fotoFondo from "../../media/proceso2.jpg";
+import fotoFondo2 from "../../media/foto2Service.jpg";
+import fotoFondo3 from "../../media/premiumcortada.jpg";
+import fotoFondo4 from "../../media/fotoAbout.jpg";
 
 const UsersCards = () => {
   const dispatch = useDispatch();
@@ -46,7 +50,6 @@ const UsersCards = () => {
         token,
       })
     );
-   
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, pageSize, selectFilters, sortData, dispatch]);
 
@@ -113,10 +116,16 @@ const UsersCards = () => {
   return (
     <div className={style.container}>
       <Nav />
-      <img className={style.fotoFondo} src ={fotoFondo} alt="fotoFondo" />
-      {allUsers.content?.length > 1 ? <img className={style.fotoFondo2} src ={fotoFondo2} alt="fotoFondo" /> : null}
-      {allUsers.content?.length > 2 ? <img className={style.fotoFondo3} src ={fotoFondo3} alt="fotoFondo" /> : null}
-      {allUsers.content?.length > 3 ? <img className={style.fotoFondo4} src ={fotoFondo4} alt="fotoFondo" /> : null}
+      <img className={style.fotoFondo} src={fotoFondo} alt="fotoFondo" />
+      {allUsers.content?.length > 1 ? (
+        <img className={style.fotoFondo2} src={fotoFondo2} alt="fotoFondo" />
+      ) : null}
+      {allUsers.content?.length > 2 ? (
+        <img className={style.fotoFondo3} src={fotoFondo3} alt="fotoFondo" />
+      ) : null}
+      {allUsers.content?.length > 3 ? (
+        <img className={style.fotoFondo4} src={fotoFondo4} alt="fotoFondo" />
+      ) : null}
       <div className={style.containerDOS}>
         <div className={style.carrusel}>
           <Carrusel />
@@ -214,10 +223,8 @@ const UsersCards = () => {
                 Todos los Paseadores{" "}
               </button>
               <Link to="/cardsUsers/map">
-                  <button className={style.atc}>
-                   Ver en mapa
-                  </button>
-                  </Link>
+                <button className={style.atc}>Ver en mapa</button>
+              </Link>
             </div>
           </div>
         </div>
@@ -273,7 +280,7 @@ const UsersCards = () => {
               <p>No se encontraron usuarios</p>
             </div>
           )}
-                  
+
           <div className={style.pagination}>
             {page === 0 ? null : (
               <button className={style.prev} onClick={handlePrevPage}>
@@ -293,4 +300,3 @@ const UsersCards = () => {
 };
 
 export default UsersCards;
-

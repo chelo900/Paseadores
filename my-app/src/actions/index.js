@@ -83,29 +83,6 @@ export function getAllPaseadores({
   };
 }
 
-// export const getPaseadoresByName = (name, token) => dispatch => {
-//   try{
-//       if(name) {
-//            return axios.get(`/allActiveWalkers/:${name}`, {
-//             headers: {
-//               Authorization: `Bearer ${token}`,
-//             },
-//           })
-//            .then(res => dispatch({type: GET_WALKERS_BY_NAME, payload: res.data}))
-//           }
-//   }catch(e) {
-//       console.log(e)
-//   }
-// }
-
-export const getPaseadoresByName = (payload) => {
-  console.log(payload);
-  return {
-    type: GET_WALKERS_BY_NAME,
-    payload,
-  };
-};
-
 export function getPaseadorForId(id, token) {
   console.log("entro a la action: ");
   return (dispatch) => {
@@ -179,7 +156,7 @@ export function putDetailsProfile(id, payload, token) {
 
 export function putDetailsUser(detail, id, token) {
   return async function (dispatch) {
-      return axios
+    return axios
       .put(`/updateuser/${id}`, detail, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -313,21 +290,21 @@ export function getPaseadorPremuim(token) {
   };
 }
 
-export function deleteImage( public_id ,token) {
-  return async function (dispatch){
-    return axios.delete(`/deleteImages/${public_id}`,{
-      headers:{
-        Authorization: `Bearer ${token}`,
-      }
-    })
-    .then(user=>{
-      dispatch({
-        type: "DELETE_IMAGE",
-        payload: user.data.id
-
+export function deleteImage(public_id, token) {
+  return async function (dispatch) {
+    return axios
+      .delete(`/deleteImages/${public_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-    })
-  }
+      .then((user) => {
+        dispatch({
+          type: "DELETE_IMAGE",
+          payload: user.data.id,
+        });
+      });
+  };
 }
 
 //    CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE
