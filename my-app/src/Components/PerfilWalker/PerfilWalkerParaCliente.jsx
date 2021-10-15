@@ -5,6 +5,8 @@ import {
   clientSendOrden,
   getOrdenCliente,
   getPaseadorForId,
+  postAssessment,
+  getAssessment
 } from "../../actions/index";
 
 import style from "./PerfilWalker.module.css";
@@ -19,119 +21,155 @@ import interactionPlugin from "@fullcalendar/interaction";
 import esLocale from "@fullcalendar/core/locales/es";
 import momentPlugin from "@fullcalendar/moment";
 import moment from "moment";
+import Swal from 'sweetalert2'
+import patitallena from '../../media/patitallena.png'
+import patitavacia from '../../media/patitavacia.png'
+import mediapatita from '../../media/mediapatita.png'
+
 
 const PerfilWalker = () => {
   const { id } = useParams();
-
+  var idClient = localStorage.getItem("userId");
   const dispatch = useDispatch();
 
   const history = useHistory();
 
   const Walker = useSelector((state) => state.detailWalker);
+  const comment = useSelector((state) => state.comment);
+    const score = useSelector((state) => state.score);
 
   const ordensCliente = useSelector((state) => state.ordensCliente);
 
   var idCliente = localStorage.getItem("userId");
 
-const PerfilWalker = () => {
-    const { id } = useParams();
+  const [ordenload, setOrdenLoad] = useState(false);
 
-    const dispatch = useDispatch();
+  const [input, setInput] = useState({
+    score: 0,
+    comment: '' })
 
-    const history = useHistory();
-
-    const Walker = useSelector((state) => state.detailWalker);
-
-  const ordensCliente = useSelector(state => state.ordensCliente)
-
-  const preferencias = useSelector(state => state.preferencias)
-
-
-    var idCliente = localStorage.getItem("userId")
-
-    const[ordenload, setOrdenLoad] = useState(false)
+    const inputChange = (e) => {
+      setInput({
+          ...input,
+          [e.target.name]: e.target.value
+      })
+  }
 
 
+  useEffect(() => {
+    dispatch(getPaseadorForId(id));
+    dispatch(getAssessment(id))
+  }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(getOrdenCliente(id));
+  }, [dispatch]);
+  // const [file, setFile] = useState('')
+  // const handleInputChange = (e) => {
+  //     setFile(e.target.files[0])
+  // };
 
-    useEffect(() => {
-        dispatch(getPaseadorForId(id))
-    }, [dispatch])
+  // const handleSubmitImage = (e) => {
+  //     e.preventDefault();
+  //     if (!file) return;
+  //     console.log('file', file)
+  //     // upLoadImage(previewSource)
+  //     addImage(file)
+  // }
 
+  // const handleLogout = (event) => {
+  //     event.preventDefault();
+  //     history.push("/");
+  // };
 
-    useEffect(() => {
-        dispatch(getOrdenCliente(id))
-    }, [dispatch])
+  useEffect(() => {
+    if (ordenload === true) {
+      dispatch(getOrdenCliente(id));
+    }
+  }, [ordenload]);
+
+  const  handlerSubmit = async (e) => {
+    e.preventDefault();
+    await dispatch(postAssessment({...input, idUser:id, idClient:idClient}))
+    dispatch(getAssessment(id))
+    //dispatch(putDetailsProfileCliente(id, input))
     
-
-    useEffect(() => {
-        if(ordenload===true){
-        dispatch(getOrdenCliente(id))
-        }
-    }, [ordenload])
-
-    useEffect(() => {
-        dispatch(getPreferences(id))
-     }, [dispatch])
-
-
-    const maxPerrosPorTurno = 4
+    Swal.fire({
+        icon: 'success',
+        title: 'Tu valoración fue enviada',
+        showConfirmButton: false,
+        timer: 1500
+        
+      })
     
+   // history.push(`/Cliente/${id}`)
 
-    const handleDateSelect = (selectInfo) => {
-        
-        
-        let today = new Date()
-        
-        var calendarApi = selectInfo.view.calendar
-        calendarApi.unselect() // clear date selection
-    
-        
-        
-        if (selectInfo.start < today){
-            calendarApi.unselect()
-            return alert('Fecha no permitida');
-            
-        }
-        const cantOrdenes = ordensCliente.filter(ordens=>ordens.start.toString() === selectInfo.startStr.toString() && 
-        ordens.end.toString() === selectInfo.endStr.toString())
-        
-        if (cantOrdenes.length >= preferencias.perros_por_paseo){
-            
-           return alert('No hay disponibilidad horaria en este turno')
-        }
+}
 
-    
-        if (selectInfo.start >= today ) {
-            var title = prompt(`Confirma reserva con ${Walker.name}? agregue ubicación` )
-          calendarApi.addEvent({ // will render immediately. will call handleEventAdd
-            title,
-            start: selectInfo.startStr,
-            end: selectInfo.endStr,
-            // allDay: selectInfo.allDay
-          }, true) // temporary=true, will get overwritten when reducer gives new events
-        }
-        console.log(id)
-        console.log(idCliente)
-        if(title){
-        dispatch(clientSendOrden({
-            fechaInicio: selectInfo.startStr,
-            fechaFinal: selectInfo.endStr,
-            userId: id,
-            clientId: idCliente,
-            ubicacion: title
-        }))
-        console.log(ordenload)
-        setTimeout(() => {
-            setOrdenLoad(true)
-        }, 1000);
-        
-        setTimeout(() => {
-        setOrdenLoad(false)
-        }, 1000);
-        
-        }
+async function  estrella(e, number) {
+  setInput({
+      ...input,
+      score: number
+  })
+}
 
+  const maxPerrosPorTurno = 4;
+
+  const handleDateSelect = (selectInfo) => {
+    let today = new Date();
+
+    var calendarApi = selectInfo.view.calendar;
+    calendarApi.unselect(); // clear date selection
+
+    if (selectInfo.start < today) {
+      calendarApi.unselect();
+      return alert("Fecha no permitida");
+    }
+    const cantOrdenes = ordensCliente.filter(
+      (ordens) =>
+        ordens.start.toString() === selectInfo.startStr.toString() &&
+        ordens.end.toString() === selectInfo.endStr.toString()
+    );
+
+    if (cantOrdenes.length >= maxPerrosPorTurno) {
+      return alert("No hay disponibilidad horaria en este turno");
+    }
+
+    if (selectInfo.start >= today) {
+      var title = prompt(
+        `Confirma reserva con ${Walker.name}? agregue ubicación`
+      );
+      calendarApi.addEvent(
+        {
+          // will render immediately. will call handleEventAdd
+          title,
+          start: selectInfo.startStr,
+          end: selectInfo.endStr,
+          // allDay: selectInfo.allDay
+        },
+        true
+      ); // temporary=true, will get overwritten when reducer gives new events
+    }
+    if (title) {
+      dispatch(
+        clientSendOrden({
+          fechaInicio: selectInfo.startStr,
+          fechaFinal: selectInfo.endStr,
+          userId: id,
+          clientId: idCliente,
+          ubicacion: title,
+        })
+      );
+      console.log(ordenload);
+      setTimeout(() => {
+        setOrdenLoad(true);
+      }, 1000);
+
+      setTimeout(() => {
+        setOrdenLoad(false);
+      }, 1000);
+    }
+  };
 
   // const handleEventClick = (clickInfo) => {
   //     console.log(clickInfo)
@@ -214,25 +252,20 @@ const PerfilWalker = () => {
                 center: "title",
                 right: "dayGridMonth,timeGridWeek,timeGridDay",
               }}
-            initialView="timeGridWeek"
-            locale = {esLocale}
-            editable={true}
-            selectable= {true}
-            selectMirror={true}
-            dayMaxEvents={3}
-            select={handleDateSelect}
-            eventClick={handleEventClick}   
-            contentHeight= "auto"
-            slotDuration= {preferencias.duracion_paseos || '01:00:00'}
-            events = {
-                ordensCliente
-                
-            }
-            slotMinTime= {preferencias.comienzo_jornada || '06:00:00'}
-            slotMaxTime={preferencias.fin_jornada || '23:00:00'}
-            allDaySlot = {false}
-            weekends= {preferencias.dias_trabajo === "LV" ? false : true}
-            hiddenDays={preferencias.dias_trabajo === "W" ? [1,2,3,4,5] : []}
+              initialView="timeGridWeek"
+              locale={esLocale}
+              editable={true}
+              selectable={true}
+              selectMirror={true}
+              dayMaxEvents={3}
+              select={handleDateSelect}
+              eventClick={handleEventClick}
+              contentHeight="auto"
+              slotDuration="01:00"
+              events={ordensCliente}
+              slotMinTime={tarde ? "13:00:00" : "06:00:00"}
+              slotMaxTime={mañana ? "13:00:00" : "23:00:00"}
+              allDaySlot={false}
             />
           </div>
           <div className={style.price}>
@@ -246,11 +279,58 @@ const PerfilWalker = () => {
             </div>
           </div>
           <div className={style.reputacion}>
-            <h2>Reputación</h2>
-            <div className={style.textDescription}>
-              <p> * * * * *</p>
-            </div>
-          </div>
+                        <h2>Reputación</h2>
+                        <div className={style.textDescription}>
+                            <h1>{score?.toFixed(1)}</h1>
+                        <img src={patitallena}  alt=''/>
+                        {score < 1 && <img src={patitavacia} alt='sas' />}
+                        {score > 1 && score <2 && <img src={mediapatita}  alt=''/> }
+                        {score >= 2 &&<img src={patitallena}  alt=''/>}  
+                        {score < 2 && <img src={patitavacia} alt='sas' />}
+                        {score > 2 && score <3 && <img src={mediapatita}  alt=''/> }
+                        {score >= 3 && <img src={patitallena}  alt=''/> }
+                        {score < 3 && <img src={patitavacia} alt='sas' />}
+                        {score > 3 && score <4 && <img src={mediapatita}  alt=''/> }
+                        {score >= 4  &&<img src={patitallena}  alt=''/> }
+                        {score < 4 && <img src={patitavacia} alt='sas' />}
+                        {score > 4 && score <5 && <img src={mediapatita}  alt=''/> }
+                        {score === 5 && <img src={patitallena}  alt=''/> }
+                        {score < 5 && <img src={patitavacia} alt='sas' />}
+
+                            </div>
+                            {comment?.length &&  
+            comment.map((el) => <div><p> {el}</p></div>
+            )}
+                        
+                        <button className={style.prueba} onClick={e => { estrella(e,1) }}>
+                        {input.score > 0  ?<img src={patitallena}  alt=''/>  : <img src={patitavacia} alt='sas' />}
+                        </button>
+                        <button className={style.prueba} onClick={e => { estrella(e,2) }}>
+                        {input.score > 1  ?<img src={patitallena}  alt=''/>  : <img src={patitavacia} alt='sas' />}
+                        </button>
+                        <button className={style.prueba} onClick={e => { estrella(e,3) }}>
+                        {input.score > 2  ?<img src={patitallena}  alt=''/>  : <img src={patitavacia} alt='sas' />}
+                        </button>
+                        <button className={style.prueba} onClick={e => { estrella(e,4) }}>
+                        {input.score > 3  ?<img src={patitallena}  alt=''/>  : <img src={patitavacia} alt='sas' />}
+                        </button>
+                        <button className={style.prueba} onClick={e => { estrella(e,5) }}>
+                        {input.score > 4  ?<img src={patitallena}  alt=''/>  : <img src={patitavacia} alt='sas' />}
+                        </button>
+                      
+                        <form className={style.formulario} onSubmit={handlerSubmit}>
+                        <textarea
+                    type='text'
+                    name='comment'
+                    value={input.comment}
+                    placeholder='Dejar un comentario...'
+                    onChange={e => inputChange(e)} />
+                    <div className={style.containerBtn}>
+                    <button className={style.edit} type='submit'>Enviar</button>
+                </div>
+            </form>
+            
+                </div>
           <div className={style.fotos}>
             <div className={style.fondoFotos}>
               <h2>Fotos</h2>

@@ -7,6 +7,7 @@ import {
   getOrdenCliente,
   getOrdenPaseador,
   getPaseadorForId,
+  getPreferences,
   ordenAnswer,
 } from "../../actions/index";
 
@@ -207,6 +208,10 @@ const PerfilWalker = () => {
                     Editar Informacion
                   </button>
                 </Link>
+                <Preferencias preferencias={preferencias}/>
+                        <Link to={`/walker/editpreferencias/${id}`}>
+                           <button>Editar preferencias</button> 
+                        </Link>
               </div>
             </div>
             <div className={style.caracteristicas}>
