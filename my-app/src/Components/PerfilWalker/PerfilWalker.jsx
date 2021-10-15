@@ -9,7 +9,7 @@ import {
   getPaseadorForId,
   ordenAnswer,
   getAssessment,
-  getPreferences
+  getPreferences,
 } from "../../actions/index";
 
 import style from "./PerfilWalker.module.css";
@@ -17,9 +17,9 @@ import foto1 from "../../media/foto1Service.jpg";
 import { Link, useParams, useHistory } from "react-router-dom";
 import Nav from "./nav/Nav";
 import swal from "sweetalert";
-import patitallena from '../../media/patitallena.png'
-import patitavacia from '../../media/patitavacia.png'
-import mediapatita from '../../media/mediapatita.png'
+import patitallena from "../../media/patitallena.png";
+import patitavacia from "../../media/patitavacia.png";
+import mediapatita from "../../media/mediapatita.png";
 
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -35,27 +35,29 @@ dotenv.config();
 // import Footer from './footer/Footer';
 
 const PerfilWalker = () => {
-
   const id = localStorage.getItem("userId");
-
+  const token = localStorage.getItem("userToken");
   const dispatch = useDispatch();
 
   const history = useHistory();
 
   const Walker = useSelector((state) => state.detailWalker);
+
+  console.log(Walker.hasOwnProperty("id"));
+
   const comment = useSelector((state) => state.comment);
-    const score = useSelector((state) => state.score);
+  const score = useSelector((state) => state.score);
 
   const ordensCliente = useSelector((state) => state.ordensCliente);
-  const preferencias = useSelector(state => state.preferencias)
+  const preferencias = useSelector((state) => state.preferencias);
   const [ordenload, setOrdenLoad] = useState(false);
 
   const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
   useEffect(() => {
-    dispatch(getPaseadorForId(id));
-    dispatch(getAssessment(id))
-  }, [dispatch]);
+    dispatch(getPaseadorForId(id, token));
+    dispatch(getAssessment(id, token));
+  }, [dispatch, id, token]);
 
   // const [file, setFile] = useState('')
   // const handleInputChange = (e) => {
@@ -63,29 +65,32 @@ const PerfilWalker = () => {
   // };
 
   useEffect(() => {
-    dispatch(getOrdenCliente(id));
+    dispatch(getOrdenCliente(id, token));
   }, [dispatch]);
 
   useEffect(() => {
     if (ordenload === true) {
-      dispatch(getOrdenCliente(id));
+      dispatch(getOrdenCliente(id, token));
     }
   }, [ordenload]);
 
   useEffect(() => {
-    let ordenespendientes = ordensCliente.filter(ordenes => ordenes.estadoReserva === 'pendiente')
+    let ordenespendientes = ordensCliente.filter(
+      (ordenes) => ordenes.estadoReserva === "pendiente"
+    );
     setTimeout(() => {
-        if (ordenespendientes.length !== 0) {
-            swal({title:'Tenes ordenes pendientes que contestar!',
-                    info: "info"})
-        }
-    }, 1500)
+      if (ordenespendientes.length !== 0) {
+        swal({
+          title: "Tenes ordenes pendientes que contestar!",
+          info: "info",
+        });
+      }
+    }, 1500);
+  }, [dispatch]);
 
-}, [dispatch])
-
-useEffect(() => {
-    dispatch(getPreferences(id))
- }, [dispatch])
+  useEffect(() => {
+    dispatch(getPreferences(id, token));
+  }, [dispatch]);
 
   const handleDateSelect = (selectInfo) => {
     let calendarApi = selectInfo.view.calendar;
@@ -106,10 +111,13 @@ useEffect(() => {
       ); // temporary=true, will get overwritten when reducer gives new events
     }
     dispatch(
-      clientSendOrden({
-        fecha: selectInfo.startStr,
-        userId: id,
-      })
+      clientSendOrden(
+        {
+          fecha: selectInfo.startStr,
+          userId: id,
+        },
+        token
+      )
     );
   };
 
@@ -135,10 +143,13 @@ useEffect(() => {
         if (respuesta) {
           swal({ text: "Orden confirmada", icon: "success" });
           dispatch(
-            ordenAnswer({
-              id: clickInfo.event.extendedProps.idOrden,
-              estadoReserva: "confirmada",
-            })
+            ordenAnswer(
+              {
+                id: clickInfo.event.extendedProps.idOrden,
+                estadoReserva: "confirmada",
+              },
+              token
+            )
           );
           setTimeout(() => {
             setOrdenLoad(true);
@@ -147,10 +158,13 @@ useEffect(() => {
         } else {
           swal({ text: "Orden rechazada", icon: "warning" });
           dispatch(
-            ordenAnswer({
-              id: clickInfo.event.extendedProps.idOrden,
-              estadoReserva: "rechazada",
-            })
+            ordenAnswer(
+              {
+                id: clickInfo.event.extendedProps.idOrden,
+                estadoReserva: "rechazada",
+              },
+              token
+            )
           );
           setTimeout(() => {
             setOrdenLoad(true);
@@ -176,8 +190,6 @@ useEffect(() => {
       return clickInfo.event.title; // will render immediately. will call handleEventRemove
     }
   };
-
- 
 
   return (
     <div className={style.container}>
@@ -227,10 +239,10 @@ useEffect(() => {
               </button>
             </Link>
           </div>
-          <Preferencias preferencias={preferencias}/>
-                        <Link to={`/walker/editpreferencias/${id}`}>
-                           <button>Editar preferencias</button> 
-                        </Link>
+          <Preferencias preferencias={preferencias} />
+          <Link to={`/walker/editpreferencias/${id}`}>
+            <button>Editar preferencias</button>
+          </Link>
         </div>
         <div className={style.caracteristicas}>
           <div className={style.Premuim}>
@@ -271,29 +283,31 @@ useEffect(() => {
             </Link>
           </div>
           <div className={style.reputacion}>
-                        <h2>Reputación</h2>
-                        <div className={style.textDescription}>
-                            <h1>{score?.toFixed(1)}</h1>
-                        <img src={patitallena}  alt=''/>
-                        {score < 1 && <img src={patitavacia} alt='sas' />}
-                        {score > 1 && score <2 && <img src={mediapatita}  alt=''/> }
-                        {score >= 2 &&<img src={patitallena}  alt=''/>}  
-                        {score < 2 && <img src={patitavacia} alt='sas' />}
-                        {score > 2 && score <3 && <img src={mediapatita}  alt=''/> }
-                        {score >= 3 && <img src={patitallena}  alt=''/> }
-                        {score < 3 && <img src={patitavacia} alt='sas' />}
-                        {score > 3 && score <4 && <img src={mediapatita}  alt=''/> }
-                        {score >= 4  &&<img src={patitallena}  alt=''/> }
-                        {score < 4 && <img src={patitavacia} alt='sas' />}
-                        {score > 4 && score <5 && <img src={mediapatita}  alt=''/> }
-                        {score === 5 && <img src={patitallena}  alt=''/> }
-                        {score < 5 && <img src={patitavacia} alt='sas' />}
-
-                            </div>
-                            {comment?.length &&  
-            comment.map((el) => <div><p> {el}</p></div>
-            )}
-                        </div>
+            <h2>Reputación</h2>
+            <div className={style.textDescription}>
+              <h1>{score?.toFixed(1)}</h1>
+              <img src={patitallena} alt="" />
+              {score < 1 && <img src={patitavacia} alt="sas" />}
+              {score > 1 && score < 2 && <img src={mediapatita} alt="" />}
+              {score >= 2 && <img src={patitallena} alt="" />}
+              {score < 2 && <img src={patitavacia} alt="sas" />}
+              {score > 2 && score < 3 && <img src={mediapatita} alt="" />}
+              {score >= 3 && <img src={patitallena} alt="" />}
+              {score < 3 && <img src={patitavacia} alt="sas" />}
+              {score > 3 && score < 4 && <img src={mediapatita} alt="" />}
+              {score >= 4 && <img src={patitallena} alt="" />}
+              {score < 4 && <img src={patitavacia} alt="sas" />}
+              {score > 4 && score < 5 && <img src={mediapatita} alt="" />}
+              {score === 5 && <img src={patitallena} alt="" />}
+              {score < 5 && <img src={patitavacia} alt="sas" />}
+            </div>
+            {comment?.length &&
+              comment.map((el) => (
+                <div>
+                  <p> {el}</p>
+                </div>
+              ))}
+          </div>
           <div className={style.fotos}>
             <div className={style.fondoFotos}>
               <h2>Fotos</h2>
@@ -319,30 +333,38 @@ useEffect(() => {
               <span>🟢 Paseos Confirmados</span>
               <span>🟡 Pendientes</span>
             </div>
-            <FullCalendar eventClassNames={style.calendar}
-                            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-                            headerToolbar={{
-                                left: 'prev,next today',
-                                center: 'title',
-                                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-                            }}
-                            initialView="timeGridWeek"
-                            locale={esLocale}
-                            editable={true}
-                            selectable={false}
-                            selectMirror={false}
-                            dayMaxEvents={true}
-                            select={handleDateSelect}
-                            eventClick={handleEventClick}
-                            contentHeight="auto"
-                            slotDuration= {preferencias.duracion_paseos || '01:00:00'}
-                            events={ordensCliente}
-                            slotMinTime= {preferencias.comienzo_jornada || '06:00:00'}
-                            slotMaxTime={preferencias.fin_jornada || '23:00:00'}
-                            allDaySlot={false}
-                            weekends= {preferencias.dias_trabajo === "LV" ? false : true}
-                            hiddenDays={preferencias.dias_trabajo === "W" ? [1,2,3,4,5] : []}
-                        />
+            <FullCalendar
+              eventClassNames={style.calendar}
+              plugins={[
+                dayGridPlugin,
+                timeGridPlugin,
+                interactionPlugin,
+                listPlugin,
+              ]}
+              headerToolbar={{
+                left: "prev,next today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+              }}
+              initialView="timeGridWeek"
+              locale={esLocale}
+              editable={true}
+              selectable={false}
+              selectMirror={false}
+              dayMaxEvents={true}
+              select={handleDateSelect}
+              eventClick={handleEventClick}
+              contentHeight="auto"
+              slotDuration={preferencias.duracion_paseos || "01:00:00"}
+              events={ordensCliente}
+              slotMinTime={preferencias.comienzo_jornada || "06:00:00"}
+              slotMaxTime={preferencias.fin_jornada || "23:00:00"}
+              allDaySlot={false}
+              weekends={preferencias.dias_trabajo === "LV" ? false : true}
+              hiddenDays={
+                preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
+              }
+            />
           </div>
         </div>
       </div>

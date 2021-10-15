@@ -7,7 +7,7 @@ import {
   getPaseadorForId,
   postAssessment,
   getAssessment,
-  getPreferences 
+  getPreferences,
 } from "../../actions/index";
 
 import style from "./PerfilWalker.module.css";
@@ -22,48 +22,47 @@ import interactionPlugin from "@fullcalendar/interaction";
 import esLocale from "@fullcalendar/core/locales/es";
 import momentPlugin from "@fullcalendar/moment";
 import moment from "moment";
-import Swal from 'sweetalert2'
-import patitallena from '../../media/patitallena.png'
-import patitavacia from '../../media/patitavacia.png'
-import mediapatita from '../../media/mediapatita.png'
-
+import Swal from "sweetalert2";
+import patitallena from "../../media/patitallena.png";
+import patitavacia from "../../media/patitavacia.png";
+import mediapatita from "../../media/mediapatita.png";
 
 const PerfilWalker = () => {
   const { id } = useParams();
-  
+  const token = localStorage.getItem("userToken");
   const dispatch = useDispatch();
 
   const history = useHistory();
 
   const Walker = useSelector((state) => state.detailWalker);
   const comment = useSelector((state) => state.comment);
-    const score = useSelector((state) => state.score);
+  const score = useSelector((state) => state.score);
 
   const ordensCliente = useSelector((state) => state.ordensCliente);
-  const preferencias = useSelector(state => state.preferencias)
+  const preferencias = useSelector((state) => state.preferencias);
   var idClient = localStorage.getItem("userId");
 
   const [ordenload, setOrdenLoad] = useState(false);
 
   const [input, setInput] = useState({
     score: 0,
-    comment: '' })
+    comment: "",
+  });
 
-    const inputChange = (e) => {
-      setInput({
-          ...input,
-          [e.target.name]: e.target.value
-      })
-  }
-
+  const inputChange = (e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   useEffect(() => {
-    dispatch(getPaseadorForId(id));
-    dispatch(getAssessment(id))
+    dispatch(getPaseadorForId(id, token));
+    dispatch(getAssessment(id, token));
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getOrdenCliente(id));
+    dispatch(getOrdenCliente(id, token));
   }, [dispatch]);
   // const [file, setFile] = useState('')
   // const handleInputChange = (e) => {
@@ -85,39 +84,38 @@ const PerfilWalker = () => {
 
   useEffect(() => {
     if (ordenload === true) {
-      dispatch(getOrdenCliente(id));
+      dispatch(getOrdenCliente(id, token));
     }
   }, [ordenload]);
 
   useEffect(() => {
-    dispatch(getPreferences(id))
- }, [dispatch])
+    dispatch(getPreferences(id, token));
+  }, [dispatch]);
 
-  const  handlerSubmit = async (e) => {
+  const handlerSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(postAssessment({...input, idUser:id, idClient:idClient}))
-    dispatch(getAssessment(id))
+    await dispatch(
+      postAssessment({ ...input, idUser: id, idClient: idClient })
+    );
+    dispatch(getAssessment(id, token));
     //dispatch(putDetailsProfileCliente(id, input))
-    
+
     Swal.fire({
-        icon: 'success',
-        title: 'Tu valoración fue enviada',
-        showConfirmButton: false,
-        timer: 1500
-        
-      })
-    
-   // history.push(`/Cliente/${id}`)
+      icon: "success",
+      title: "Tu valoración fue enviada",
+      showConfirmButton: false,
+      timer: 1500,
+    });
 
-}
+    // history.push(`/Cliente/${id}`)
+  };
 
-async function  estrella(e, number) {
-  setInput({
+  async function estrella(e, number) {
+    setInput({
       ...input,
-      score: number
-  })
-}
-
+      score: number,
+    });
+  }
 
   const handleDateSelect = (selectInfo) => {
     let today = new Date();
@@ -164,7 +162,7 @@ async function  estrella(e, number) {
           ubicacion: title,
         })
       );
-      
+
       setTimeout(() => {
         setOrdenLoad(true);
       }, 1000);
@@ -188,8 +186,6 @@ async function  estrella(e, number) {
       return clickInfo.event.title; // will render immediately. will call handleEventRemove
     }
   };
-
-  
 
   return (
     <div className={style.container}>
@@ -247,32 +243,32 @@ async function  estrella(e, number) {
             <span>🟡 Pendientes</span>
           </div>
           <div>
-          <FullCalendar eventClassNames={style.calendar} 
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            headerToolbar={{
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            <FullCalendar
+              eventClassNames={style.calendar}
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              headerToolbar={{
+                left: "prev,next today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay",
               }}
-            initialView="timeGridWeek"
-            locale = {esLocale}
-            editable={true}
-            selectable= {true}
-            selectMirror={true}
-            dayMaxEvents={3}
-            select={handleDateSelect}
-            eventClick={handleEventClick}   
-            contentHeight= "auto"
-            slotDuration= {preferencias.duracion_paseos || '01:00:00'}
-            events = {
-                ordensCliente
-                
-            }
-            slotMinTime= {preferencias.comienzo_jornada || '06:00:00'}
-            slotMaxTime={preferencias.fin_jornada || '23:00:00'}
-            allDaySlot = {false}
-            weekends= {preferencias.dias_trabajo === "LV" ? false : true}
-            hiddenDays={preferencias.dias_trabajo === "W" ? [1,2,3,4,5] : []}
+              initialView="timeGridWeek"
+              locale={esLocale}
+              editable={true}
+              selectable={true}
+              selectMirror={true}
+              dayMaxEvents={3}
+              select={handleDateSelect}
+              eventClick={handleEventClick}
+              contentHeight="auto"
+              slotDuration={preferencias.duracion_paseos || "01:00:00"}
+              events={ordensCliente}
+              slotMinTime={preferencias.comienzo_jornada || "06:00:00"}
+              slotMaxTime={preferencias.fin_jornada || "23:00:00"}
+              allDaySlot={false}
+              weekends={preferencias.dias_trabajo === "LV" ? false : true}
+              hiddenDays={
+                preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
+              }
             />
           </div>
           <div className={style.price}>
@@ -286,58 +282,107 @@ async function  estrella(e, number) {
             </div>
           </div>
           <div className={style.reputacion}>
-                        <h2>Reputación</h2>
-                        <div className={style.textDescription}>
-                            <h1>{score?.toFixed(1)}</h1>
-                        <img src={patitallena}  alt=''/>
-                        {score < 1 && <img src={patitavacia} alt='sas' />}
-                        {score > 1 && score <2 && <img src={mediapatita}  alt=''/> }
-                        {score >= 2 &&<img src={patitallena}  alt=''/>}  
-                        {score < 2 && <img src={patitavacia} alt='sas' />}
-                        {score > 2 && score <3 && <img src={mediapatita}  alt=''/> }
-                        {score >= 3 && <img src={patitallena}  alt=''/> }
-                        {score < 3 && <img src={patitavacia} alt='sas' />}
-                        {score > 3 && score <4 && <img src={mediapatita}  alt=''/> }
-                        {score >= 4  &&<img src={patitallena}  alt=''/> }
-                        {score < 4 && <img src={patitavacia} alt='sas' />}
-                        {score > 4 && score <5 && <img src={mediapatita}  alt=''/> }
-                        {score === 5 && <img src={patitallena}  alt=''/> }
-                        {score < 5 && <img src={patitavacia} alt='sas' />}
+            <h2>Reputación</h2>
+            <div className={style.textDescription}>
+              <h1>{score?.toFixed(1)}</h1>
+              <img src={patitallena} alt="" />
+              {score < 1 && <img src={patitavacia} alt="sas" />}
+              {score > 1 && score < 2 && <img src={mediapatita} alt="" />}
+              {score >= 2 && <img src={patitallena} alt="" />}
+              {score < 2 && <img src={patitavacia} alt="sas" />}
+              {score > 2 && score < 3 && <img src={mediapatita} alt="" />}
+              {score >= 3 && <img src={patitallena} alt="" />}
+              {score < 3 && <img src={patitavacia} alt="sas" />}
+              {score > 3 && score < 4 && <img src={mediapatita} alt="" />}
+              {score >= 4 && <img src={patitallena} alt="" />}
+              {score < 4 && <img src={patitavacia} alt="sas" />}
+              {score > 4 && score < 5 && <img src={mediapatita} alt="" />}
+              {score === 5 && <img src={patitallena} alt="" />}
+              {score < 5 && <img src={patitavacia} alt="sas" />}
+            </div>
+            {comment?.length &&
+              comment.map((el) => (
+                <div>
+                  <p> {el}</p>
+                </div>
+              ))}
 
-                            </div>
-                            {comment?.length &&  
-            comment.map((el) => <div><p> {el}</p></div>
-            )}
-                        
-                        <button className={style.prueba} onClick={e => { estrella(e,1) }}>
-                        {input.score > 0  ?<img src={patitallena}  alt=''/>  : <img src={patitavacia} alt='sas' />}
-                        </button>
-                        <button className={style.prueba} onClick={e => { estrella(e,2) }}>
-                        {input.score > 1  ?<img src={patitallena}  alt=''/>  : <img src={patitavacia} alt='sas' />}
-                        </button>
-                        <button className={style.prueba} onClick={e => { estrella(e,3) }}>
-                        {input.score > 2  ?<img src={patitallena}  alt=''/>  : <img src={patitavacia} alt='sas' />}
-                        </button>
-                        <button className={style.prueba} onClick={e => { estrella(e,4) }}>
-                        {input.score > 3  ?<img src={patitallena}  alt=''/>  : <img src={patitavacia} alt='sas' />}
-                        </button>
-                        <button className={style.prueba} onClick={e => { estrella(e,5) }}>
-                        {input.score > 4  ?<img src={patitallena}  alt=''/>  : <img src={patitavacia} alt='sas' />}
-                        </button>
-                      
-                        <form className={style.formulario} onSubmit={handlerSubmit}>
-                        <textarea
-                    type='text'
-                    name='comment'
-                    value={input.comment}
-                    placeholder='Dejar un comentario...'
-                    onChange={e => inputChange(e)} />
-                    <div className={style.containerBtn}>
-                    <button className={style.edit} type='submit'>Enviar</button>
-                </div>
+            <button
+              className={style.prueba}
+              onClick={(e) => {
+                estrella(e, 1);
+              }}
+            >
+              {input.score > 0 ? (
+                <img src={patitallena} alt="" />
+              ) : (
+                <img src={patitavacia} alt="sas" />
+              )}
+            </button>
+            <button
+              className={style.prueba}
+              onClick={(e) => {
+                estrella(e, 2);
+              }}
+            >
+              {input.score > 1 ? (
+                <img src={patitallena} alt="" />
+              ) : (
+                <img src={patitavacia} alt="sas" />
+              )}
+            </button>
+            <button
+              className={style.prueba}
+              onClick={(e) => {
+                estrella(e, 3);
+              }}
+            >
+              {input.score > 2 ? (
+                <img src={patitallena} alt="" />
+              ) : (
+                <img src={patitavacia} alt="sas" />
+              )}
+            </button>
+            <button
+              className={style.prueba}
+              onClick={(e) => {
+                estrella(e, 4);
+              }}
+            >
+              {input.score > 3 ? (
+                <img src={patitallena} alt="" />
+              ) : (
+                <img src={patitavacia} alt="sas" />
+              )}
+            </button>
+            <button
+              className={style.prueba}
+              onClick={(e) => {
+                estrella(e, 5);
+              }}
+            >
+              {input.score > 4 ? (
+                <img src={patitallena} alt="" />
+              ) : (
+                <img src={patitavacia} alt="sas" />
+              )}
+            </button>
+
+            <form className={style.formulario} onSubmit={handlerSubmit}>
+              <textarea
+                type="text"
+                name="comment"
+                value={input.comment}
+                placeholder="Dejar un comentario..."
+                onChange={(e) => inputChange(e)}
+              />
+              <div className={style.containerBtn}>
+                <button className={style.edit} type="submit">
+                  Enviar
+                </button>
+              </div>
             </form>
-            
-                </div>
+          </div>
           <div className={style.fotos}>
             <div className={style.fondoFotos}>
               <h2>Fotos</h2>
