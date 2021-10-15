@@ -5,10 +5,34 @@ const path = require("path");
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/walker`, {
-  logging: false, // set to console.log to see the raw SQL queries
-  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-});
+let sequelize =
+  process.env.NODE_ENV === "production"
+    ? new Sequelize({
+        database: DB_NAME,
+        dialect: "postgres",
+        host: DB_HOST,
+        port: 5432,
+        username: DB_USER,
+        password: DB_PASSWORD,
+        pool: {
+          max: 3,
+          min: 1,
+          idle: 10000,
+        },
+        dialectOptions: {
+          ssl: {
+            require: true,
+            // Ref.: https://github.com/brianc/node-postgres/issues/2009
+            rejectUnauthorized: false,
+          },
+          keepAlive: true,
+        },
+        ssl: true,
+      })
+    : new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/walker`, {
+        logging: false, // set to console.log to see the raw SQL queries
+        native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+      });
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -37,8 +61,21 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 
 //TODO
-const { Client, User, Post, Complain, Horarios, Image } = sequelize.models;
+const { Client, User, Post, Complain, Preference, Image, Administrator, Orden} = sequelize.models;
 
+
+/*
+(async () => {
+  
+  const jane = await administrator.create({
+    name: "grupo",
+    surname:"4",
+    email:"paseadorescuidadores@gmail.com",
+    password: "walker2021"
+    
+  })
+  
+})();*/
 // Aca vendrian las relaciones //TODO CREAR RELACIONES
 
 User.hasMany(Post);
@@ -49,9 +86,27 @@ Complain.belongsTo(User);
 
 User.hasMany(Image);
 Image.belongsTo(User);
+/*
+User.hasMany(Client);
+Client.belongsTo(User)*/
 
-// User.hasMany(Horarios);
-// Horarios.hasOne(User);
+User.belongsToMany(Client, { through: "user_client" });
+Client.belongsToMany(User, { through: "user_client" });
+
+User.hasOne(Preference); 
+Preference.belongsTo(User);
+
+User.hasMany(Orden);
+Orden.belongsTo(User);
+
+Client.hasMany(Orden);
+Orden.belongsTo(Client);
+
+Administrator.belongsToMany(User, { through: "admin_user" });
+User.belongsToMany(Administrator, { through: "admin_user" });
+
+Administrator.belongsToMany(Client, { through: "admin_client" });
+Client.belongsToMany(Administrator, { through: "admin_client" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

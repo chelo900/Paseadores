@@ -39,7 +39,7 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       status: {
-        type: DataTypes.ENUM("active", "inactive"),
+        type: DataTypes.ENUM("active", "inactive", "removed"),
         defaultValue: "active",
         allowNull: false,
       },
@@ -73,11 +73,15 @@ module.exports = (sequelize) => {
       price: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: "0",
+        defaultValue: 0,
       },
       description: {
         type: DataTypes.TEXT,
       },
+      premium: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      }
       // morning: {
       //   type: DataTypes.ENUM("active", "inactive"),
       // },

@@ -14,6 +14,15 @@ import EditInformation from "../Components/EditWalker/EditInformation/Edit.jsx";
 import EditPrice from "../Components/EditWalker/EditPrice/Edit.jsx";
 import EditDescription from "../Components/EditWalker/EditDescription/Edit";
 import EditHorarios from "../Components/EditWalker/editHr/Edit";
+import FormClient from "../ClientsComponents/FormClient/FormClient"
+import PerfilCliente from "../ClientsComponents/perfilCliente/PerfilCliente";
+import PerfilWalkerParaCliente from "../Components/PerfilWalker/PerfilWalkerParaCliente";
+import Descripcion from "../ClientsComponents/editInfoCliente/descripcion";
+import Informacion from "../ClientsComponents/editInfoCliente/informacion";
+import Premium from "../Components/Premium/Premium";
+import admin from "../AdminComponents/Admin";
+import EditPreferencias from "../Components/EditWalker/EditPreferencias/EditPreferencias";
+import ListaFav from "../Components/ListaFav/ListaFav";
 
 
 const index = () => {
@@ -35,6 +44,19 @@ const index = () => {
         <Route exact path="/walker/editPrice/:id" component={EditPrice} />
         <Route exact path="/walker/editInformation/:id" component={EditInformation}/>
         <Route exact path="/walker/edithr/:id" component={EditHorarios}/>
+        <Route exact path="/walker/perfil/contacto/:id" component={PerfilWalkerParaCliente}/>
+        <Route exact path="/premium" component={Premium}/>
+        <Route exact path="/walker/editpreferencias/:userId" component={EditPreferencias}/>
+
+        {/* Rutas del cliente  */}
+        <Route exact path= "/login-client" component={FormClient}/>
+        <Route exact path="/Cliente/:id" component={PerfilCliente}/>
+        <Route exact path="/Cliente/editDescription/:id" component={Descripcion}/>
+        <Route exact path="/Cliente/editInformation/:id" component={Informacion}/>
+        <Route exact path="/listFav" component={ListaFav}/>
+
+        {/* Ruta del admin  */}
+        <Route exact path="/admin" component={admin}/> 
       </Switch>
     </div>
   );

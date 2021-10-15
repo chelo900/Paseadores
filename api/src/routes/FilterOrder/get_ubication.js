@@ -4,24 +4,9 @@ const { Op } = require("sequelize");
 
 const router = Router();
 
-router.get("/filter/:ubication", async (req, res) => {
-  const { ubication } = req.params;
-  try {
-    const allActiveWalkers = await User.findAll({
-      where: {
-        ubication,
-      },
-    });
-    return res.status(200).json(allActiveWalkers);
-  } catch (err) {
-    res.json({ error: err });
-  }
-});
-
-
 router.get("/", async (req, res) => {
-    const ubication = req.query.ubication
-    let ubicationSearch =[];
+  const ubication = req.query.ubication;
+  let ubicationSearch = [];
   try {
     const allActiveWalkers = await User.findAll({
       where: {
@@ -29,31 +14,29 @@ router.get("/", async (req, res) => {
       },
     });
     if (allActiveWalkers) {
-        const allUbication = await allActiveWalkers.map(w =>  w.ubication );
-        const allUbi= [...new Set(allUbication)]
+      const allUbication = await allActiveWalkers.map((w) => w.ubication);
+      const allUbi = [...new Set(allUbication)];
       //GET BY NAME
-      
+
       if (ubication) {
-        
-          ubicationSearch = allUbi.filter(
-            (user) => user.toLowerCase().includes(ubication.toLowerCase())
-          );
-        }else{ubicationSearch = allUbi}
+        ubicationSearch = allUbi.filter((user) =>
+          user.toLowerCase().includes(ubication.toLowerCase())
+        );
+      } else {
+        ubicationSearch = allUbi;
+      }
 
-          const ubicationOrdenAlfabetico = ubicationSearch.sort(function(a, b) {
-            if (a > b) {
-                return 1;
-            }
-            if (b > a) {
-                return -1;
-            }
-            return 0;
-        })
+      const ubicationOrdenAlfabetico = ubicationSearch.sort(function (a, b) {
+        if (a > b) {
+          return 1;
+        }
+        if (b > a) {
+          return -1;
+        }
+        return 0;
+      });
 
-        
-          res.status(200).send(ubicationSearch);
-         
-      
+      res.status(200).send(ubicationSearch);
     } else {
       res.status(404).send("Not found");
     }
