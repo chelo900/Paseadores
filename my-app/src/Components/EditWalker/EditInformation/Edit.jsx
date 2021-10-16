@@ -14,6 +14,8 @@ const Edit = () => {
   var id = localStorage.getItem("userId");
   var token = localStorage.getItem("userToken");
 
+  const [loading, setLoading] = useState(true)
+
   const [input, setInput] = useState({
     status: paseador.status,
     service: paseador.service,
@@ -39,6 +41,7 @@ const Edit = () => {
   };
 
   const uploadImage = async (e) => {
+    setLoading(false)
     const files = e.target.files;
     const data = new FormData();
     data.append("file", files[0]);
@@ -55,6 +58,7 @@ const Edit = () => {
       ...values,
       image: file.secure_url,
     }));
+    setLoading(true)
   };
 
   const handlerSubmit = () => {
@@ -153,7 +157,11 @@ const Edit = () => {
           </div>
         </div>
         <div className={style.containerBtn}>
-          <button className={style.edit} type="submit">Guardar cambios</button>
+          {
+            loading ? <button className={style.edit} type="submit">Guardar cambios</button> :
+            <span className={style.volver}>Cargando imagen</span>
+          }
+          
           <button className={style.volver} onClick={handleLogout}>
             Atrás
           </button>  
