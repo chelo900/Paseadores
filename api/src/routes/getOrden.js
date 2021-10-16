@@ -8,7 +8,7 @@ const router = Router();
 
 router.get("/:user", async (req, res) => {
   const { user } = req.params;
-  console.log(user)
+  
   try {
     const confirmados = await Orden.findAll({
       where: {
@@ -43,7 +43,7 @@ router.get("/:user", async (req, res) => {
 
       }
     })
-    console.log(detalleOrden)
+    
     if (detalleOrden) {
       res.status(200).send(detalleOrden); 
     } else {
