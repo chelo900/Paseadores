@@ -53,7 +53,7 @@ router.use("/createClient", postClient);
 router.use("/updateClientProfile", tokenExtractor, putClientePerfil);
 router.use("/updateCliente", tokenExtractor, putCliente);
 router.use("/Cliente", tokenExtractor, detailsClient);
-router.use("/sendOrden", tokenExtractor, sendOrden);
+router.use("/sendOrden", sendOrden);
 router.use("/getOrden", tokenExtractor, getOrden);
 router.use("/ordenAnswer", tokenExtractor, answerOrden);
 router.use("/updatePremium", tokenExtractor, postPremium);
