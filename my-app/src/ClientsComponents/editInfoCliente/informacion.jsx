@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory,useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { putDetailsCliente } from "../../actions";
 import style from "./informacion.module.css";
 import Swal from "sweetalert2";
 
 const Edit = () => {
-
   const user = useSelector((state) => state.user);
-  var id = localStorage.getItem("userId");
-  var token = localStorage.getItem("userToken");
-  
+  const id = localStorage.getItem("userId");
+  const token = localStorage.getItem("userToken");
+
   const history = useHistory();
-  
+
   const dispatch = useDispatch();
 
   const cliente = useSelector((state) => state.detailCliente);
@@ -56,17 +55,16 @@ const Edit = () => {
     }));
   };
 
-  const handlerSubmit =  () => {
+  const handlerSubmit = () => {
     console.log(user);
     dispatch(putDetailsCliente(input, id, token));
     Swal.fire({
-      icon: 'success',
-      title: 'Cambios Efectuados',
+      icon: "success",
+      title: "Cambios Efectuados",
       showConfirmButton: false,
-      timer: 1000
-    })
+      timer: 1000,
+    });
     setTimeout(history.push(`/Cliente/${id}`), 3000);
-
   };
 
   return (
@@ -112,7 +110,9 @@ const Edit = () => {
           <button className={style.volver} onClick={handleLogout}>
             Atrás
           </button>
-          <button className={style.edit} type="submit">Guardar cambios</button>
+          <button className={style.edit} type="submit">
+            Guardar cambios
+          </button>
         </div>
       </form>
     </div>

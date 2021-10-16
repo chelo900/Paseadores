@@ -50,7 +50,7 @@ const Log = () => {
     //       User Email
     //       User Profile Picture for Google
     //     */
-        const { validate, id, email, token } = googleResponse.data
+        const { validate, id, email, token, walker, admin } = googleResponse.data
 
        
        await setState({
@@ -59,10 +59,47 @@ const Log = () => {
           id: id,
           email: email,
           token: token,
+          walker:walker,
+          admin: admin
         });
 
         
         console.log(state)
+        
+        const entra = async () => {
+          const validation = await state.validate
+          
+               if (validation === true) {
+                  await Swal.fire({
+                       icon: 'success',
+                       title: 'Welcome!',
+                       showConfirmButton: false,
+                       timer: 1500
+                     })
+              // history.push(`/walker/perfil/${state.id}`)
+               localStorage.clear();
+               localStorage.setItem("userValidate", state.validate);
+               localStorage.setItem("userToken", state.token);
+               localStorage.setItem("userId", state.id);
+               localStorage.setItem("userWalker", state.walker);
+               localStorage.setItem("userAdmin", state.admin);
+               if (state.walker) {
+                 history.push(`/walker/perfil/${state.id}`);
+               } else {
+                 history.push(`/cardsUsers`);
+               }
+             } else if (state.validate === false) {
+              await Swal.fire({
+                 icon: 'error',
+                 title: 'Oops...',
+                 text: 'Chequea tus crecenciales',
+                 button:"Ok"
+               })
+               //window.location.reload();
+             }
+        //      // eslint-disable-next-line react-hooks/exhaustive-deps
+           }
+           entra()
         
         // const log = async () => {
         //   const validation = await state.validate
@@ -81,8 +118,8 @@ const Log = () => {
         // //        localStorage.setItem("userId", state.id);
         // //        localStorage.setItem("userWalker", state.walker);
         // //        localStorage.setItem("userAdmin", state.admin);
-        // //        history.push(`/walker/perfil/${state.id}`);
         // //        if (state.walker) {
+          // //        history.push(`/walker/perfil/${state.id}`);
         // //        } else {
         // //          history.push(`/cardsUsers`);
         // //        }

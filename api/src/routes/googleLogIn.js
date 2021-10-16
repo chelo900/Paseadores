@@ -63,7 +63,7 @@ router.post("/", async (req, res) => {
 
     //console.log("aaaaaaaa"+userData)
     if (isValid) {
-      const token = jwt.sign(userData, SECRET, { expiresIn: 60 * 60 * 24 });
+      const token = jwt.sign(userData, SECRET, { expiresIn: 60 * 60 });
 
       return res.status(200).send({
         validate: true,

@@ -11,8 +11,8 @@ const Edit = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const paseador = useSelector((state) => state.detailWalker);
-  var id = localStorage.getItem("userId");
-  var token = localStorage.getItem("userToken");
+  const id = localStorage.getItem("userId");
+  const token = localStorage.getItem("userToken");
 
   const [loading, setLoading] = useState(true)
 
@@ -41,7 +41,7 @@ const Edit = () => {
   };
 
   const uploadImage = async (e) => {
-    setLoading(false)
+	setLoading(false)
     const files = e.target.files;
     const data = new FormData();
     data.append("file", files[0]);
@@ -62,15 +62,14 @@ const Edit = () => {
   };
 
   const handlerSubmit = () => {
-    console.log(user);
     dispatch(putDetailsUser(input, id, token));
     Swal.fire({
-            icon: 'success',
-            title: 'Cambios Efectuados',
-            showConfirmButton: false,
-            timer: 1000
-          })
-          setTimeout(history.push(`/walker/perfil/${id}`), 3000);
+      icon: "success",
+      title: "Cambios Efectuados",
+      showConfirmButton: false,
+      timer: 1000,
+    });
+    setTimeout(history.push(`/walker/perfil/${id}`), 3000);
   };
 
   return (
@@ -146,7 +145,9 @@ const Edit = () => {
           className={style.input}
         />
         <div className={style.selectFile}>
-          <label className={style.label}>Seleccionar una imagen de perfil</label>
+          <label className={style.label}>
+            Seleccionar una imagen de perfil
+          </label>
           <div>
             <input
               type="file"
@@ -159,12 +160,11 @@ const Edit = () => {
         <div className={style.containerBtn}>
           {
             loading ? <button className={style.edit} type="submit">Guardar cambios</button> :
-            <span className={style.volver}>Cargando imagen</span>
+            <span >Cargando imagen</span>
           }
-          
           <button className={style.volver} onClick={handleLogout}>
             Atrás
-          </button>  
+          </button>
         </div>
       </form>
     </div>
