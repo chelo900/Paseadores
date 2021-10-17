@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
@@ -19,6 +19,8 @@ function EditPreferencias() {
 
   const [newPreferencias, setNewPreferencias] = useState({
     turno: preferencias.turno,
+    // (preferencias.comienzo_jornada > '6' && preferencias.fin_jornada <= '13') ? "Mañana" : 
+    // (preferencias.comienzo_jornada >= '13' && preferencias.fin_jornada < 23) ? "Tarde/Noche" : "Full"  ,
     dias_trabajo: preferencias.dias_trabajo,
     perros_por_paseo: preferencias.perros_por_paseo,
     duracion_paseos: preferencias.duracion_paseos,
@@ -60,10 +62,41 @@ function EditPreferencias() {
     }, 1500);
   };
 
+  const[array, setArray] = useState([])
+
+  let finish = 23
+  let comienzo = ['6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23']
+  comienzo.length = (comienzo.length - newPreferencias.duracion_paseos) || comienzo.length - 1 
+
+  const final = []
+
+  function handleSelect(e){
+    setNewPreferencias({
+      ...newPreferencias,
+      comienzo_jornada: e.target.value /*+ ":00:00",*/
+    })
+  }
+
+  function finJornada(){
+    
+    if(newPreferencias.comienzo_jornada && newPreferencias.duracion_paseos)
+    for (let i = parseInt(newPreferencias.comienzo_jornada) + parseInt (newPreferencias.duracion_paseos) ; i <= finish; i+= parseInt( newPreferencias.duracion_paseos)) {
+      final.push(i)
+    }
+    console.log(final)
+    setArray(final)
+    return final
+  }
+
+  useEffect(() => {
+   finJornada()
+  }, [newPreferencias.comienzo_jornada, newPreferencias.duracion_paseos])
+
   return (
     <div className={style.tt}>
       <form className={style.total} onSubmit={(e) => handleSubmit(e)}>
-        <h1 className={style.title}>Elegí tus preferencias de trabajo</h1>
+        <h1 className={style.title}>Completa tus preferencias de trabajo</h1>
+        <h2 className={style.title}>Así tus clientes te encuentran más fácil</h2>
         <div className={style.form}>
           <div className={style.izquierda}>
             <div className={style.container}>
@@ -74,9 +107,9 @@ function EditPreferencias() {
                   onChange={(e) => handleHours(e)}
                 >
                   <option value=""> Horas de paseo</option>
-                  <option value="01:00:00"> 1 hora</option>
-                  <option value="02:00:00">2 horas</option>
-                  <option value="03:00:00">3 horas</option>
+                  <option value="01"> 1 hora</option>
+                  <option value="02">2 horas</option>
+                  <option value="03">3 horas</option>
                 </select>
               </label>
             </div>
@@ -126,7 +159,7 @@ function EditPreferencias() {
             <div className={style.container}>
               <label className={style.label}>
                 Hora de comienzo jornada laboral:
-                <input
+                {/* <input
                   onChange={(e) =>
                     setNewPreferencias({
                       ...newPreferencias,
@@ -134,7 +167,18 @@ function EditPreferencias() {
                     })
                   }
                   placeholder="06,07,08"
-                />
+                /> */}
+                <select      onChange={(e) =>
+                   handleSelect(e)
+                  }>
+                    <option value=''>Hora Inicio</option>
+                    {
+                      comienzo && comienzo.map(comienzo=>(
+                        <option value={comienzo}>{comienzo}</option>
+                      ))
+                    }
+
+                </select>
               </label>
             </div>
           </div>
@@ -142,7 +186,7 @@ function EditPreferencias() {
             <div className={style.container}>
               <label className={style.label}>
                 Hora final de joranda laboral:
-                <input
+                {/* <input
                   onChange={(e) =>
                     setNewPreferencias({
                       ...newPreferencias,
@@ -150,7 +194,21 @@ function EditPreferencias() {
                     })
                   }
                   placeholder="21,22"
-                />
+                /> */}
+                <select onChange={(e) =>
+                    setNewPreferencias({
+                      ...newPreferencias,
+                      fin_jornada: e.target.value  ,
+                    })
+                  }>
+                    <option value="">Hora Final</option>
+                  {
+                    array && array.map(hora=>(
+                      <option value={hora}>{hora}</option>
+                    )
+                    )
+                  }
+                </select>
               </label>
             </div>
           </div>
