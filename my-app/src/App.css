@@ -3,3 +3,8 @@
   height: 100% !important;
   background-color: rgb(254,247, 237);
 }
+
+.leaflet-container{
+  width: 24vw;
+  height: 24vh;
+}

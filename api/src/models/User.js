@@ -81,7 +81,15 @@ module.exports = (sequelize) => {
       premium: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
-      }
+      },
+      latitude: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      longitude: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       // morning: {
       //   type: DataTypes.ENUM("active", "inactive"),
       // },
