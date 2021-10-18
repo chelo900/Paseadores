@@ -46,7 +46,7 @@ router.use("/updateuserProfile", tokenExtractor, putDetailsProfile);
 router.use("/login", login);
 router.use("/google", googleLogIn);
 router.use("/ubication", get_ubication);
-router.use("/postimages", tokenExtractor, postImages);
+router.use("/postimages", postImages);
 router.use("/forgotPassword", forgotPassword);
 router.use("/newPassword", newPassword);
 router.use("/createClient", postClient);
