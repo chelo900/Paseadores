@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Circle, CircleMarker} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import L from "leaflet"
+import L, { divIcon } from "leaflet"
 import icon from '../media/icon.png'
 
 
-const MapView = ({latitude, longitude}) => {
+const MapView = ({latitude, longitude, name, surname}) => {
 
 
-  
+  /*
     var icono = L.icon({
             iconUrl: icon,
             iconRetinaUrl: icon,
@@ -23,19 +23,20 @@ const MapView = ({latitude, longitude}) => {
            // shadowAnchor: null,
             iconSize: new L.Point(20, 25),
             className: 'Leaflet-venue-icon'
-        });
-  return <MapContainer center={{lat:"-34.6095451",lng:"-58.4391846"}} zoom={11} scrollWheelZoom={true}>
+        });*/
+  return <div>
+   {latitude && <MapContainer center={{lat:latitude,lng:longitude}} zoom={13} scrollWheelZoom={true}>
       <TileLayer
       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
-     {latitude && <Marker position={{lat: latitude, lng: longitude}} icon={icono} >
-      <Popup>
-       A pretty CSS3 popup. <br /> Easily customizable.
-     </Popup>
-    </Marker>}
-  </MapContainer>
-    
+      <CircleMarker center={{lat:latitude,lng:longitude}} color= 'blue'  fillColor= '#0000FF' fillOpacity= "0.5" radius= "50"  stroke={false} >
+    <Popup>
+      {name} {surname}
+    </Popup>
+    </CircleMarker>
+  </MapContainer>}
+  </div>
   
 };
 export default MapView;
