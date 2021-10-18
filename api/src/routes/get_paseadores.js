@@ -68,6 +68,8 @@ router.get("/", async (req, res) => {
         morning: w.morning,
         afternoon: w.afternoon,
         premium: w.premium,
+        latitude: w.latitude,
+        longitude : w.longitude
       };
     });
     if (allActiveWalkersCards) {
