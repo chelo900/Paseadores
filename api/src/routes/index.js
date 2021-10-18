@@ -36,6 +36,7 @@ const getPreferences = require("./getpreferences");
 const postAssessment = require("./postAssessment");
 const getAssessment = require("./getAssessment");
 
+
 const router = Router();
 
 router.use("/walkers", tokenExtractor, get_details);
@@ -46,7 +47,7 @@ router.use("/updateuserProfile", tokenExtractor, putDetailsProfile);
 router.use("/login", login);
 router.use("/google", googleLogIn);
 router.use("/ubication", get_ubication);
-router.use("/postimages", tokenExtractor, postImages);
+router.use("/postimages", postImages);
 router.use("/forgotPassword", forgotPassword);
 router.use("/newPassword", newPassword);
 router.use("/createClient", postClient);
