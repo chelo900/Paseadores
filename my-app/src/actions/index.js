@@ -27,6 +27,7 @@ export const GET_FOR_LIST_FAV = "GET_FOR_LIST_FAV";
 export const PASEADORES_PREMIUM = "PASEADORES_PREMIUM";
 export const POST_ASSESSMENT = "POST_ASSESSMENT";
 export const GET_ASSESSMENT = "GET_ASSESSMENT";
+export const GET_WALKERS_FOR_MAP = "GET_WALKERS_FOR_MAP";
 
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES";
@@ -53,7 +54,9 @@ export function getAllPaseadores({
   selectFilters,
   sortData,
   token,
-}) {
+}) {console.log(inputFilters)
+ console.log(selectFilters)
+ console.log(sortData)
   return async function (dispatch) {
     try {
       let result = await axios.get(
@@ -92,6 +95,28 @@ export function getPaseadorForId(id, token) {
         .then((response) =>
           dispatch({
             type: "GET_PASEADOR_FOR_ID",
+            payload: response.data,
+          })
+        );
+    } catch (error) {
+      console.error("Action getPaseadorForId: ", error);
+    }
+  };
+}
+
+export function getWalkersForMap(token) {
+  
+  return (dispatch) => {
+    try {
+      axios
+        .get(`/getWalkersForMap`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) =>
+          dispatch({
+            type: "GET_WALKERS_FOR_MAP",
             payload: response.data,
           })
         );
@@ -312,10 +337,10 @@ export function putDetailsProfileCliente(id, payload, token) {
   };
 }
 
-export function putDetailsCliente(payload, client, token) {
+export function putDetailsCliente(payload, id, token) {
   return async function (dispatch) {
     return axios
-      .put(`/updateCliente/${client.id}`, payload, {
+      .put(`/updateCliente/${id}`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

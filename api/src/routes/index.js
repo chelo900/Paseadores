@@ -35,6 +35,7 @@ const preference = require("./preference");
 const getPreferences = require("./getpreferences");
 const postAssessment = require("./postAssessment");
 const getAssessment = require("./getAssessment");
+const getWalkersForMap = require("./getWalkersForMap");
 
 
 const router = Router();
@@ -66,6 +67,7 @@ router.use("/resetPassword", tokenExtractor, resetPassword);
 router.use("/firstAdmin", firstAdmin);
 router.use("/sendPreferencias", preference);
 router.use("/getpreferences", getPreferences);
+router.use("/getWalkersForMap", tokenExtractor,  getWalkersForMap);
 
 router.use("/addFav", tokenExtractor, addFavorite);
 router.use("/getFavorite", tokenExtractor, getFavorite);
