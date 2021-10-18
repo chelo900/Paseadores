@@ -26,6 +26,8 @@ import Swal from "sweetalert2";
 import patitallena from "../../media/patitallena.png";
 import patitavacia from "../../media/patitavacia.png";
 import mediapatita from "../../media/mediapatita.png";
+import swal from "sweetalert";
+import axios from "axios";
 
 const PerfilWalker = () => {
   const { id } = useParams();
@@ -41,6 +43,8 @@ const PerfilWalker = () => {
   const ordensCliente = useSelector((state) => state.ordensCliente);
   const preferencias = useSelector((state) => state.preferencias);
   var idClient = localStorage.getItem("userId");
+
+
 
   const [ordenload, setOrdenLoad] = useState(false);
 
@@ -117,15 +121,26 @@ const PerfilWalker = () => {
     });
   }
 
-  const handleDateSelect = (selectInfo) => {
-    let today = new Date();
+  const provincias= ["Buenos Aires","Capital Federal","Catamarca","Chaco","Chubut","Córdoba","Corrientes","Entre Ríos","Formosa","Jujuy","La Pampa","La Rioja",
+    "Mendoza","Misiones","Neuquén","Río Negro","Salta","San Juan","San Luis","Santa Cruz","Santa Fe","Santiago del Estero","Tierra del Fuego","Tucumán"]
+    const [municipios, setMunicipios] = useState([])
+    const [ubicacion, setUbicacion] = useState({
+      provincia: "",
+      municipio: "",
+      localidad: ""
+    })
 
+  const handleDateSelect = async (selectInfo) => {
+
+    let today = new Date();
+    console.log(selectInfo)
     var calendarApi = selectInfo.view.calendar;
-    calendarApi.unselect(); // clear date selection
+    // calendarApi.unselect(); // clear date selection
 
     if (selectInfo.start < today) {
       calendarApi.unselect();
-      return alert("Fecha no permitida");
+      return swal({title:"Fecha no permitida, ingresa una fecha válida",
+                    icon: "warning"});
     }
     const cantOrdenes = ordensCliente.filter(
       (ordens) =>
@@ -138,39 +153,182 @@ const PerfilWalker = () => {
     }
 
     if (selectInfo.start >= today) {
-      var title = prompt(
-        `Confirma reserva con ${Walker.name}? agregue ubicación`
-      );
-      calendarApi.addEvent(
-        {
-          // will render immediately. will call handleEventAdd
-          title,
-          start: selectInfo.startStr,
-          end: selectInfo.endStr,
-          // allDay: selectInfo.allDay
-        },
-        true
-      ); // temporary=true, will get overwritten when reducer gives new events
-    }
-    if (title) {
-      dispatch(
-        clientSendOrden({
-          fechaInicio: selectInfo.startStr,
-          fechaFinal: selectInfo.endStr,
-          userId: id,
-          clientId: idClient,
-          ubicacion: title,
+      let date = selectInfo.start;
+      let horaInicio = selectInfo.startStr.slice(11,-9)
+      let horaFinal = selectInfo.endStr.slice(11,-9)
+      date = date.toLocaleDateString(undefined, {day:'2-digit'}) + ' ' + date.toLocaleDateString(undefined, {month:'long'}) + ' ' + date.toLocaleDateString(undefined, {year:'numeric'})
+      Swal.fire({
+      text: `Estás solicitando un paseo con ${Walker.name} ${Walker.surname},
+      para el ${date} desde las ${horaInicio} hasta ${horaFinal} h.`,
+      showCancelButton: true,
+      confirmButtonText: "Confirmar",
+      cancelButtonText: "Cancelar",
+       })
+       .then((respuesta)=>{
+         if (respuesta.value){
+        const pro =  Swal.fire({
+          title: "Por favor ingresa tu ubicación",
+          input: 'select',
+          // html: <select>{provincias} </select>,
+          inputOptions: provincias,
+          showCancelButton: true,
+          confirmButtonText: "Confirmar",
+          cancelButtonText: "Cancelar",
+          preConfirm: () => {
+            const provin = Swal.getInput()
+            if (!provin) {
+              Swal.showValidationMessage(`Please enter login and password`)
+            }
+            setUbicacion({
+              ...ubicacion,
+              provincia: provincias[provin.value]
+            })
+            // return { provin: provin }
+            if (provincias[provin.value] == "Buenos Aires" ){
+              axios.get(`https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincias[provin.value]}&orden=nombre&max=200`)
+              .then((munis)=>{
+                console.log(munis)
+                let m= munis.data.municipios.map(mun=>mun.nombre)
+                console.log(m)
+                // setMunicipios(m)
+                handleMunicipios(m)
+                Swal.fire({
+  
+                  title: "Por favor ingresa tu Municipio",
+                  input: 'select',
+                  inputOptions: m
+              });
+              })
+
+            }
+            else{
+            axios.get(`https://apis.datos.gob.ar/georef/api/departamentos?provincia=${provincias[provin.value]}&orden=nombre&max=200`)
+            .then((munis)=>{
+              console.log(munis)
+              let m =munis.data.departamentos.map(mun=>mun.nombre) 
+              console.log(m)
+              // setMunicipios(m)
+              handleMunicipios(m)
+              Swal.fire({
+
+                title: "Por favor ingresa tu Departamento/Comuna",
+                input: 'select',
+                inputOptions: m
+            });
+            })}
+
+          }
         })
-      );
+          // axios.get(`https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincias[result.value.provin.value]}&campos=id,nombre&max=150`)
+          // .then((munis)=>{
+          //   console.log(munis)
+          //   let m= munis.data.municipios.map(mun=>mun.nombre)
+          //   console.log(m)
+          //   // setMunicipios(m)
+          //   handleMunicipios(m)
 
-      setTimeout(() => {
-        setOrdenLoad(true);
-      }, 1000);
+          // })
+          .then((result)=>{
+            console.log(result)
+          //   Swal.fire({
 
-      setTimeout(() => {
-        setOrdenLoad(false);
-      }, 1000);
+          //     title: "Por favor ingresa tu Municipio",
+          //     input: 'select',
+          //     inputOptions: municipios
+          // });
+          })
+
+
+
+         /*   hasta aca ctrl */
+        //  .then((prov)=>{
+        //    if(prov.value){
+        //     axios.get(`https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincias[prov.value]}&campos=id,nombre&max=150`)
+        //     .then(response=>{
+        //      setMunicipios(response.data.nombre)
+
+        //     })
+        //     .then(response=>{
+        //       console.log(municipios)
+        //       Swal.fire({
+        //         input: 'text',
+        //         inputOptions: {municipios}
+        //       })
+        //     })
+
+
+        //     }
+        //   })
+
+
+
+
+        //  .then((ubicacion)=>{
+        //    if(ubicacion.value){
+        //     dispatch(
+        //       clientSendOrden({
+        //         fechaInicio: selectInfo.startStr,
+        //         fechaFinal: selectInfo.endStr,
+        //         userId: id,
+        //         clientId: idClient,
+        //         ubicacion: ubicacion.value,
+        //       })
+        //     );
+        //     setTimeout(() => {
+        //       setOrdenLoad(true);
+        //     }, 1000);
+
+        //     setTimeout(() => {
+        //       setOrdenLoad(false);
+        //     }, 1000);
+        //    }else{
+        //     calendarApi.unselect();
+        //     Swal.fire({
+        //       title: "Orden no enviada",
+        //       icon: "info"
+        //     })
+        //    }
+        //    })
+
+        }else{
+          calendarApi.unselect();
+          Swal.fire({
+            title: "Orden no enviada",
+            icon: "info"
+          })
+        }
+       })
+
+      // calendarApi.addEvent(
+      //   {
+      //     // will render immediately. will call handleEventAdd
+      //     title,
+      //     start: selectInfo.startStr,
+      //     end: selectInfo.endStr,
+      //     // allDay: selectInfo.allDay
+      //   },
+      //   true
+      // ); // temporary=true, will get overwritten when reducer gives new events
     }
+    // if (title) {
+    //   dispatch(
+    //     clientSendOrden({
+    //       fechaInicio: selectInfo.startStr,
+    //       fechaFinal: selectInfo.endStr,
+    //       userId: id,
+    //       clientId: idClient,
+    //       ubicacion: title,
+    //     })
+    //   );
+
+    //   setTimeout(() => {
+    //     setOrdenLoad(true);
+    //   }, 1000);
+
+    //   setTimeout(() => {
+    //     setOrdenLoad(false);
+    //   }, 1000);
+    // }
   };
 
   // const handleEventClick = (clickInfo) => {
@@ -179,6 +337,10 @@ const PerfilWalker = () => {
   //       clickInfo.event.remove() // will render immediately. will call handleEventRemove
   //     }
   //   }
+  function handleMunicipios(m){
+    setMunicipios(m)
+  }
+
   const handleEventClick = (clickInfo) => {
     if (clickInfo.event.extendedProps.clientId === idClient) {
       clickInfo.event.remove(); // will render immediately. will call handleEventRemove
@@ -187,11 +349,15 @@ const PerfilWalker = () => {
     }
   };
 
+  useEffect(() => {
+  handleMunicipios()
+  }, [ubicacion.provincia, ])
+
+
   return (
     <div className={style.container}>
       <Nav />
-
-      <div className={style.containerPerfil}>
+       <div className={style.containerPerfil}>
         <div className={style.personalInformation}>
           <div className={style.borderFoto}>
             <div className={style.fotoPerfil}>

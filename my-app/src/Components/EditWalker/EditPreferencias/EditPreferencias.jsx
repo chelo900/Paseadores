@@ -18,9 +18,9 @@ function EditPreferencias() {
   const history = useHistory();
 
   const [newPreferencias, setNewPreferencias] = useState({
-    turno: preferencias.turno,
-    // (preferencias.comienzo_jornada > '6' && preferencias.fin_jornada <= '13') ? "Mañana" : 
-    // (preferencias.comienzo_jornada >= '13' && preferencias.fin_jornada < 23) ? "Tarde/Noche" : "Full"  ,
+    turno: '',
+    // (newPreferencias.comienzo_jornada > '6' && newPreferencias.fin_jornada <= '13') ? "Mañana" : 
+    // (newPreferencias.comienzo_jornada >= '13' && newPreferencias.fin_jornada < 23) ? "Tarde/Noche" : "Full"  ,
     dias_trabajo: preferencias.dias_trabajo,
     perros_por_paseo: preferencias.perros_por_paseo,
     duracion_paseos: preferencias.duracion_paseos,
@@ -36,10 +36,12 @@ function EditPreferencias() {
     });
   };
 
-  const handleTurnos = (e) => {
+  function handleTurnos() {
     setNewPreferencias({
       ...newPreferencias,
-      turno: e.target.value,
+      turno:
+      (parseInt(newPreferencias.comienzo_jornada) >= 6 && parseInt(newPreferencias.fin_jornada) <= 13) ? "Mañana" :
+      (parseInt(newPreferencias.comienzo_jornada) >= 13 && parseInt(newPreferencias.fin_jornada) <= 23) ? "Tarde/Noche" : "Full" 
     });
   };
 
@@ -73,7 +75,8 @@ function EditPreferencias() {
   function handleSelect(e){
     setNewPreferencias({
       ...newPreferencias,
-      comienzo_jornada: e.target.value /*+ ":00:00",*/
+      comienzo_jornada: e.target.value, /*+ ":00:00",*/
+      
     })
   }
 
@@ -85,12 +88,18 @@ function EditPreferencias() {
     }
     console.log(final)
     setArray(final)
+    handleTurnos()
     return final
   }
 
   useEffect(() => {
    finJornada()
   }, [newPreferencias.comienzo_jornada, newPreferencias.duracion_paseos])
+
+  useEffect(() => {
+    handleTurnos()
+   
+  },[newPreferencias.comienzo_jornada, newPreferencias.fin_jornada])
 
   return (
     <div className={style.tt}>
@@ -102,7 +111,7 @@ function EditPreferencias() {
             <div className={style.container}>
               <label className={style.label}>
                 Duración de los Paseos
-                <select
+                <select 
                   className={style.select}
                   onChange={(e) => handleHours(e)}
                 >
@@ -116,7 +125,7 @@ function EditPreferencias() {
             <div className={style.container}>
               <label className={style.label}>
                 Cantidad de Perros por Paseo
-                <input
+                {/* <input
                   name="perros_por_paseo"
                   onChange={(e) =>
                     setNewPreferencias({
@@ -125,10 +134,29 @@ function EditPreferencias() {
                     })
                   }
                   placeholder="7,8,9"
-                />
+                /> */}
+                <select   onChange={(e) =>
+                    setNewPreferencias({
+                      ...newPreferencias,
+                      perros_por_paseo: e.target.value,
+                    })
+                  }>
+                  <option value="">Cantidad de Perros</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+
+                </select>
               </label>
             </div>
-            <div className={style.container}>
+            {/* <div className={style.container}>
               <label className={style.label}>
                 Elegí en que momento del día trabajas
                 <select
@@ -141,7 +169,7 @@ function EditPreferencias() {
                   <option value="Tarde/Noche">Tarde/Noche</option>
                 </select>
               </label>
-            </div>
+            </div> */}
             <div className={style.container}>
               <label className={style.label}>
                 Elegí tus días de trabajo
@@ -171,7 +199,7 @@ function EditPreferencias() {
                 <select      onChange={(e) =>
                    handleSelect(e)
                   }>
-                    <option value=''>Hora Inicio</option>
+                    <option id='Hora Inicio'  selected  value=''>Hora Inicio</option>
                     {
                       comienzo && comienzo.map(comienzo=>(
                         <option value={comienzo}>{comienzo}</option>
@@ -201,7 +229,7 @@ function EditPreferencias() {
                       fin_jornada: e.target.value  ,
                     })
                   }>
-                    <option value="">Hora Final</option>
+                    <option unselectable value="">Hora Final</option>
                   {
                     array && array.map(hora=>(
                       <option value={hora}>{hora}</option>
