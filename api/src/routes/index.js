@@ -35,6 +35,7 @@ const preference = require("./preference");
 const getPreferences = require("./getpreferences");
 const postAssessment = require("./postAssessment");
 const getAssessment = require("./getAssessment");
+const getWalkersForMap = require("./getWalkersForMap");
 
 const router = Router();
 
@@ -46,14 +47,14 @@ router.use("/updateuserProfile", tokenExtractor, putDetailsProfile);
 router.use("/login", login);
 router.use("/google", googleLogIn);
 router.use("/ubication", get_ubication);
-router.use("/postimages", tokenExtractor, postImages);
+router.use("/postimages", postImages);
 router.use("/forgotPassword", forgotPassword);
 router.use("/newPassword", newPassword);
 router.use("/createClient", postClient);
 router.use("/updateClientProfile", tokenExtractor, putClientePerfil);
 router.use("/updateCliente", tokenExtractor, putCliente);
 router.use("/Cliente", tokenExtractor, detailsClient);
-router.use("/sendOrden", tokenExtractor, sendOrden);
+router.use("/sendOrden", sendOrden);
 router.use("/getOrden", tokenExtractor, getOrden);
 router.use("/ordenAnswer", tokenExtractor, answerOrden);
 router.use("/updatePremium", tokenExtractor, postPremium);
@@ -65,6 +66,7 @@ router.use("/resetPassword", tokenExtractor, resetPassword);
 router.use("/firstAdmin", firstAdmin);
 router.use("/sendPreferencias", preference);
 router.use("/getpreferences", getPreferences);
+router.use("/getWalkersForMap", tokenExtractor, getWalkersForMap);
 
 router.use("/addFav", tokenExtractor, addFavorite);
 router.use("/getFavorite", tokenExtractor, getFavorite);

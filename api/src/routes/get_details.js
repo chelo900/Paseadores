@@ -33,6 +33,8 @@ router.get("/:id", async (req, res) => {
       images: datos.images,
       premium: datos.premium,
       status: datos.status,
+      longitude: datos.longitude,
+      latitude : datos.latitude
     };
 
     if (detallesDatos) {

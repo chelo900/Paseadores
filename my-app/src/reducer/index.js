@@ -20,6 +20,7 @@ import {
   GET_FOR_LIST_FAV,
   PASEADORES_PREMIUM,
   GET_ASSESSMENT,
+  GET_WALKERS_FOR_MAP,
 } from "../actions/index";
 
 const initialState = {
@@ -69,6 +70,11 @@ function rootReducer(state = initialState, action) {
         favorites: action.payload,
       };
     case GET_PASEADORES:
+      return {
+        ...state,
+        allPaseadores: action.payload,
+      };
+    case GET_WALKERS_FOR_MAP:
       return {
         ...state,
         allPaseadores: action.payload,

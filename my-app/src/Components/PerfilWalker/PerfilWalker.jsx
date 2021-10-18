@@ -10,6 +10,7 @@ import {
   ordenAnswer,
   getAssessment,
   getPreferences,
+  putDetailsUser,
 } from "../../actions/index";
 
 import style from "./PerfilWalker.module.css";
@@ -30,6 +31,7 @@ import esLocale from "@fullcalendar/core/locales/es";
 import dotenv from "dotenv";
 import Premium from "../../Premiums/Premium";
 import Preferencias from "./Preferencias/Preferencias";
+import MapView from "../../ComponentsMaps/MapView";
 dotenv.config();
 
 // import Footer from './footer/Footer';
@@ -42,8 +44,6 @@ const PerfilWalker = () => {
   const history = useHistory();
 
   const Walker = useSelector((state) => state.detailWalker);
-
-  console.log(Walker.hasOwnProperty("id"));
 
   const comment = useSelector((state) => state.comment);
   const score = useSelector((state) => state.score);
@@ -58,6 +58,30 @@ const PerfilWalker = () => {
     dispatch(getPaseadorForId(id, token));
     dispatch(getAssessment(id, token));
   }, [dispatch, id, token]);
+
+  useEffect(() => {
+    if (!Walker.latitude || !Walker.longitude) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          dispatch(
+            putDetailsUser(
+              {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+              },
+              id,
+              token
+            )
+          );
+          dispatch(getPaseadorForId(id, token));
+        },
+        function (error) {
+          console.log(error);
+        },
+        { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
+      );
+    }
+  }, []);
 
   // const [file, setFile] = useState('')
   // const handleInputChange = (e) => {
@@ -239,6 +263,13 @@ const PerfilWalker = () => {
               </button>
             </Link>
           </div>
+          <MapView
+            className={style.map}
+            latitude={Walker.latitude}
+            longitude={Walker.longitude}
+            name={Walker.name}
+            surname={Walker.surname}
+          />
           <Preferencias preferencias={preferencias} />
           <Link to={`/walker/editpreferencias/${id}`}>
             <button>Editar preferencias</button>

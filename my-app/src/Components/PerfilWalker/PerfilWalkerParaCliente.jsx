@@ -26,6 +26,7 @@ import Swal from "sweetalert2";
 import patitallena from "../../media/patitallena.png";
 import patitavacia from "../../media/patitavacia.png";
 import mediapatita from "../../media/mediapatita.png";
+import MapView from "../../ComponentsMaps/MapView";
 
 const PerfilWalker = () => {
   const { id } = useParams();
@@ -226,6 +227,9 @@ const PerfilWalker = () => {
               <li className={style.liUbication}>{Walker.ubication}</li>
             </ul>
           </div>
+
+          
+          <MapView latitude={Walker.latitude} longitude={Walker.longitude} />
         </div>
         <div className={style.caracteristicas}>
           <div className={style.descripcion}>
