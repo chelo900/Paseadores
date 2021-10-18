@@ -28,6 +28,8 @@ import patitavacia from "../../media/patitavacia.png";
 import mediapatita from "../../media/mediapatita.png";
 import swal from "sweetalert";
 import axios from "axios";
+import MapView from "../../ComponentsMaps/MapView";
+
 
 const PerfilWalker = () => {
   const { id } = useParams();
@@ -196,7 +198,10 @@ const PerfilWalker = () => {
   
                   title: "Por favor ingresa tu Municipio",
                   input: 'select',
-                  inputOptions: m
+                  inputOptions: m,
+                  preConfirm:()=>{
+                    const muni = Swal.getInput()
+                  }
               });
               })
 
@@ -216,7 +221,7 @@ const PerfilWalker = () => {
                 inputOptions: m
             });
             })}
-
+            
           }
         })
           // axios.get(`https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincias[result.value.provin.value]}&campos=id,nombre&max=150`)

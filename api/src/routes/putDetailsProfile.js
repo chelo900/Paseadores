@@ -5,7 +5,7 @@ const router = Router();
 
 router.put("/:id", async (req, res) => {
     const {id} = req.params
-    const {status, price, description } = req.body
+    const {status, price, description} = req.body
     
     
     try{  
