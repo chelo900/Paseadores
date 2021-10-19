@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addImage,
   clientSendOrden,
-  getOrden,
   getOrdenCliente,
-  getOrdenPaseador,
   getPaseadorForId,
   ordenAnswer,
   getAssessment,
   getPreferences,
-  putDetailsUser
+  putDetailsUser,
 } from "../../actions/index";
-
 
 import style from "./PerfilWalker.module.css";
 import foto1 from "../../media/foto1Service.jpg";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Nav from "./nav/Nav";
 import swal from "sweetalert";
 import patitallena from "../../media/patitallena.png";
@@ -27,12 +23,12 @@ import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import listPlugin, { ListView } from "@fullcalendar/list";
+import listPlugin from "@fullcalendar/list";
 import esLocale from "@fullcalendar/core/locales/es";
 import dotenv from "dotenv";
 import Premium from "../../Premiums/Premium";
 import Preferencias from "./Preferencias/Preferencias";
-import MapView from "../../ComponentsMaps/MapView"
+import MapView from "../../ComponentsMaps/MapView";
 dotenv.config();
 
 // import Footer from './footer/Footer';
@@ -43,11 +39,8 @@ const PerfilWalker = () => {
   const dispatch = useDispatch();
 
   const history = useHistory();
-  
+
   const Walker = useSelector((state) => state.detailWalker);
-  
-
-
 
   const comment = useSelector((state) => state.comment);
   const score = useSelector((state) => state.score);
@@ -59,25 +52,36 @@ const PerfilWalker = () => {
   const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
   useEffect(() => {
-    if(!token){
+    if (!token) {
       history.push(`/login`);
     }
     dispatch(getPaseadorForId(id, token));
     dispatch(getAssessment(id, token));
-  }, [dispatch, id, token]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, id]);
 
-
-  useEffect( () => {
-    if(!Walker.latitude || !Walker.longitude){
-    navigator.geolocation.getCurrentPosition(
-     function(position){
-      dispatch(putDetailsUser({latitude: position.coords.latitude, longitude:position.coords.longitude},id, token))
-      dispatch(getPaseadorForId(id, token));
+  useEffect(() => {
+    if (!Walker.latitude || !Walker.longitude) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          dispatch(
+            putDetailsUser(
+              {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+              },
+              id,
+              token
+            )
+          );
+          dispatch(getPaseadorForId(id, token));
+        },
+        function (error) {
+          console.log(error);
+        },
+        { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
+      );
     }
-      , function(error){
-        console.log(error)}
-        ,{maximumAge:10000, timeout:5000, enableHighAccuracy:true} )
-     }
   }, []);
 
   // const [file, setFile] = useState('')
@@ -257,10 +261,16 @@ const PerfilWalker = () => {
             >
               <button className={style.editDescription}>
                 Editar Informacion
-              </button >
+              </button>
             </Link>
           </div>
-            <MapView className={style.map} latitude={Walker.latitude} longitude={Walker.longitude} name={Walker.name} surname={Walker.surname} />
+          <MapView
+            className={style.map}
+            latitude={Walker.latitude}
+            longitude={Walker.longitude}
+            name={Walker.name}
+            surname={Walker.surname}
+          />
           <Preferencias preferencias={preferencias} />
           <Link to={`/walker/editpreferencias/${id}`}>
             <button>Editar preferencias</button>
@@ -390,19 +400,18 @@ const PerfilWalker = () => {
           </div>
         </div>
         <div className={style.padding}>
-                    <FullCalendar
-                    plugins={[listPlugin]}
-                    headerToolbar={{
-                                left: 'prev,next today',
-                                center: 'title',
-                            }}
-                    initialView="listWeek"
-                    events={ordensCliente}
-                    locale={esLocale}
-                    />
+          <FullCalendar
+            plugins={[listPlugin]}
+            headerToolbar={{
+              left: "prev,next today",
+              center: "title",
+            }}
+            initialView="listWeek"
+            events={ordensCliente}
+            locale={esLocale}
+          />
         </div>
       </div>
-      
     </div>
   );
 };

@@ -16,12 +16,11 @@ const Admin = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if(!token){
+    if (!token) {
       history.push(`/login`);
     }
-   
   }, []);
-  
+
   useEffect(() => {
     dispatch(getForListFav(id, token));
     dispatch(getUserFavorites(id, token));
