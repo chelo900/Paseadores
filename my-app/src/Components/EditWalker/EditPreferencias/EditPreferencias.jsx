@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
-import { putPreferencias, sendPreferencias } from "../../../actions";
+import { putDetailsUser, putPreferencias, sendPreferencias } from "../../../actions";
 import style from "./EditPreferencias.module.css";
 import swal from "sweetalert";
+import axios from "axios";
 
 function EditPreferencias() {
   const token = localStorage.getItem("userToken");
+  const id = localStorage.getItem("userId");
 
   const { userId } = useParams();
 
@@ -28,6 +30,47 @@ function EditPreferencias() {
     fin_jornada: preferencias.fin_jornada,
     userId: userId,
   });
+
+  const provincias= ["Buenos Aires","Capital Federal","Catamarca","Chaco","Chubut","Córdoba","Corrientes","Entre Ríos","Formosa","Jujuy","La Pampa","La Rioja",
+    "Mendoza","Misiones","Neuquén","Río Negro","Salta","San Juan","San Luis","Santa Cruz","Santa Fe","Santiago del Estero","Tierra del Fuego","Tucumán"]
+  
+  const [municipios, setMunicipios] = useState([])
+  const [localidad, setLocalidad] = useState([])
+  const [ubicacion, setUbicacion] = useState({
+    provincia:'',
+    municipio: '',
+    localidad: ''
+  })
+
+  const handleProvincias = async (e)=>{
+    setUbicacion({
+      ...ubicacion,
+      provincia:e.target.value})
+    if(e.target.value === "Buenos Aires"){
+      let munis =await axios.get(`https://apis.datos.gob.ar/georef/api/municipios?provincia=${e.target.value}&orden=nombre&max=135`)
+      munis = munis.data.municipios.map(mun=>mun.nombre)
+      setMunicipios(munis)
+    } else{ 
+      let munis = await axios.get(`https://apis.datos.gob.ar/georef/api/departamentos?provincia=${e.target.value}&orden=nombre&max=200`)
+      munis = munis.data.departamentos.map(dep=>dep.nombre)
+      setMunicipios(munis)
+    }
+  }
+
+  const handleMunicipios = async (e)=>{
+    setUbicacion({
+      ...ubicacion,
+      municipio: e.target.value})
+    let localidad = await axios.get(`https://apis.datos.gob.ar/georef/api/localidades?provincia=${ubicacion.provincia}&departamento=${e.target.value}&orden=nombre&max=50`)
+    localidad = localidad.data.localidades.map(local=>local.nombre)
+    setLocalidad(localidad)
+  }
+
+  const handleLocalidades = (e) =>{
+    setUbicacion({
+      ...ubicacion,
+      localidad: e.target.value})
+  }
 
   const handleHours = (e) => {
     setNewPreferencias({
@@ -59,6 +102,10 @@ function EditPreferencias() {
     if (preferencias?.length === 0)
       dispatch(sendPreferencias(newPreferencias, token));
     swal({ title: "Tus preferencias fueron actualizados", icon: "info" });
+
+    dispatch(putDetailsUser({ ubication:`${ubicacion.provincia},${ubicacion.municipio},${ubicacion.localidad}`}, id, token));
+
+
     setTimeout(() => {
       history.push(`/walker/perfil/${userId}`);
     }, 1500);
@@ -125,16 +172,6 @@ function EditPreferencias() {
             <div className={style.container}>
               <label className={style.label}>
                 Cantidad de Perros por Paseo
-                {/* <input
-                  name="perros_por_paseo"
-                  onChange={(e) =>
-                    setNewPreferencias({
-                      ...newPreferencias,
-                      perros_por_paseo: e.target.value,
-                    })
-                  }
-                  placeholder="7,8,9"
-                /> */}
                 <select   onChange={(e) =>
                     setNewPreferencias({
                       ...newPreferencias,
@@ -156,20 +193,6 @@ function EditPreferencias() {
                 </select>
               </label>
             </div>
-            {/* <div className={style.container}>
-              <label className={style.label}>
-                Elegí en que momento del día trabajas
-                <select
-                  className={style.select}
-                  onChange={(e) => handleTurnos(e)}
-                >
-                  <option name=""> Turno</option>
-                  <option value="Full"> Todo el día</option>
-                  <option value="Mañana">Mañana</option>
-                  <option value="Tarde/Noche">Tarde/Noche</option>
-                </select>
-              </label>
-            </div> */}
             <div className={style.container}>
               <label className={style.label}>
                 Elegí tus días de trabajo
@@ -187,16 +210,7 @@ function EditPreferencias() {
             <div className={style.container}>
               <label className={style.label}>
                 Hora de comienzo jornada laboral:
-                {/* <input
-                  onChange={(e) =>
-                    setNewPreferencias({
-                      ...newPreferencias,
-                      comienzo_jornada: e.target.value + ":00:00",
-                    })
-                  }
-                  placeholder="06,07,08"
-                /> */}
-                <select      onChange={(e) =>
+                <select onChange={(e) =>
                    handleSelect(e)
                   }>
                     <option id='Hora Inicio'  selected  value=''>Hora Inicio</option>
@@ -205,7 +219,6 @@ function EditPreferencias() {
                         <option value={comienzo}>{comienzo}</option>
                       ))
                     }
-
                 </select>
               </label>
             </div>
@@ -214,15 +227,6 @@ function EditPreferencias() {
             <div className={style.container}>
               <label className={style.label}>
                 Hora final de joranda laboral:
-                {/* <input
-                  onChange={(e) =>
-                    setNewPreferencias({
-                      ...newPreferencias,
-                      fin_jornada: e.target.value + ":00:00",
-                    })
-                  }
-                  placeholder="21,22"
-                /> */}
                 <select onChange={(e) =>
                     setNewPreferencias({
                       ...newPreferencias,
@@ -240,6 +244,55 @@ function EditPreferencias() {
               </label>
             </div>
           </div>
+          <div className={style.container}>
+              <label className={style.label}>
+                Elegí tu Provincia
+       
+                <select   onChange={(e) =>
+                    handleProvincias(e)
+                  }>
+                  <option value="">Provincia</option>
+                  {
+                    provincias.map(prov=>(
+                      <option value={prov}>{prov}</option>
+                    ))
+                  }
+
+                </select>
+              </label>
+            </div>
+            <div className={style.container}>
+              <label className={style.label}>
+                  Elegí Municipio/Departamento
+                <select   onChange={(e) =>
+                    handleMunicipios(e)
+                  }>
+                  <option value="">Municipios/Departamentos</option>
+                  {
+                    municipios && municipios.map(munis=>(
+                      <option value={munis}>{munis}</option>
+                    ))
+                  }
+
+                </select>
+              </label>
+            </div>
+            <div className={style.container}>
+              <label className={style.label}>
+                  Elegí Localidad
+                <select   onChange={(e) =>
+                    handleLocalidades(e)
+                  }>
+                  <option value="">Localidad</option>
+                  {
+                    localidad && localidad.map(local=>(
+                      <option value={local}>{local}</option>
+                    ))
+                  }
+
+                </select>
+              </label>
+            </div>
         </div>
         <div className={style.containerBtn}>
           <button className={style.btn} type="submit">

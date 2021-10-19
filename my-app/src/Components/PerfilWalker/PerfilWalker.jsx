@@ -373,9 +373,9 @@ console.log(Walker)
               select={handleDateSelect}
               eventClick={handleEventClick}
               contentHeight="auto"
-              slotDuration={preferencias.duracion_paseos || "3:00:00"}
+              slotDuration={preferencias.duracion_paseos || "03:00:00"}
               events={ordensCliente}
-              slotMinTime={preferencias.comienzo_jornada || "8:00:00"}
+              slotMinTime={preferencias.comienzo_jornada || "08:00:00"}
               slotMaxTime={preferencias.fin_jornada || "23:00:00"}
               allDaySlot={false}
               weekends={preferencias.dias_trabajo === "LV" ? false : true}
@@ -385,8 +385,7 @@ console.log(Walker)
             />
           </div>
         </div>
-      </div>
-      {/* <div>
+        <div>
                     <FullCalendar
                     plugins={[listPlugin]}
                     headerToolbar={{
@@ -397,7 +396,9 @@ console.log(Walker)
                     events={ordensCliente}
                     locale={esLocale}
                     />
-                </div> */}
+                </div>
+      </div>
+      
     </div>
   );
 };

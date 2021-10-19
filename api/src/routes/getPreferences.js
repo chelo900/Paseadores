@@ -21,7 +21,7 @@ router.get("/:userId", async (req, res) => {
         dias_trabajo: preferencias.dias_trabajo+":00:00" || "LV",       
         perros_por_paseo: preferencias.perros_por_paseo || 5,
         duracion_paseos: preferencias.duracion_paseos+":00:00" || '01:00',
-        comienzo_jornada: preferencias.comienzo_jornada+":00:00" ||'7:00:00',
+        comienzo_jornada: preferencias.comienzo_jornada+":00:00" ||'07:00:00',
         fin_jornada: preferencias.fin_jornada+":00:00" || '20:00:00'
              
             // eventClick={handleEventClick}
