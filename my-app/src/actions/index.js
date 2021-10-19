@@ -57,9 +57,6 @@ export function getAllPaseadores({
   name,
   token,
 }) {
-  console.log(inputFilters);
-  console.log(selectFilters);
-  console.log(sortData);
   return async function (dispatch) {
     try {
       let result = await axios.get(

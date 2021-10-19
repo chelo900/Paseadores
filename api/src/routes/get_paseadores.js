@@ -12,7 +12,6 @@ router.get("/", async (req, res) => {
   const parsedFilters = queryString.parse(inputFilters);
   const parsedSelectFilters = queryString.parse(selectFilters);
   const parsedSortData = queryString.parse(sortData);
-
   const filtersArray = parsedFilters
     ? Object.entries(parsedFilters).map((filter) => {
         return {
@@ -69,45 +68,44 @@ router.get("/", async (req, res) => {
         afternoon: w.afternoon,
         premium: w.premium,
         latitude: w.latitude,
-        longitude : w.longitude
+        longitude: w.longitude,
       };
     });
     if (allActiveWalkersCards) {
       //GET BY NAME
       if (name) {
-        try {
-          const nameSearch = allActiveWalkersCards.filter(
-            (user) =>
-              user.name.toLowerCase().startsWith(name.toLowerCase()) ||
-              user.surname.toLowerCase().startsWith(name.toLowerCase())
-          );
-          res.status(200).send(nameSearch);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-      if (sortData || filtersArray.length || selectFiltersArray.length) {
-        const filteredWalkers = filterAndSortWalkers({
-          walkers: allActiveWalkersCards,
-          filtersArray,
-          selectFiltersArray,
-          parsedSortData,
-        });
-        res.json({
-          content: filteredWalkers,
-          totalPages: Math.ceil(filteredWalkers.length / limit),
-        });
-      } else {
-        res.json({
-          content: allActiveWalkersCards,
-          totalPages: Math.ceil(allActiveWalkersCards.length / limit),
+        const nameSearch = allActiveWalkersCards.filter(
+          (user) =>
+            user.name.toLowerCase().startsWith(name.toLowerCase()) ||
+            user.surname.toLowerCase().startsWith(name.toLowerCase())
+        );
+        console.log(nameSearch);
+        return res.status(200).send({
+          content: nameSearch,
+          totalPages: Math.ceil(nameSearch.length / limit),
         });
       }
+    }
+    if (sortData || filtersArray.length || selectFiltersArray.length) {
+      const filteredWalkers = filterAndSortWalkers({
+        walkers: allActiveWalkersCards,
+        filtersArray,
+        selectFiltersArray,
+        parsedSortData,
+      });
+      return res.json({
+        content: filteredWalkers,
+        totalPages: Math.ceil(filteredWalkers.length / limit),
+      });
     } else {
-      res.status(404).send("Not found");
+      return res.json({
+        content: allActiveWalkersCards,
+        totalPages: Math.ceil(allActiveWalkersCards.length / limit),
+      });
     }
   } catch (error) {
-    res.json(error);
+    console.log(error.message);
+    return res.status(401).json(error.message);
   }
 });
 

@@ -31,9 +31,10 @@ const filterWalkers = ({ walkers, filtersArray, selectFiltersArray }) => {
   let filteredWalkers = walkers;
   const min = filtersArray.find((filter) => filter.min);
   const max = filtersArray.find((filter) => filter.max);
-  // if (min.min > max.max) {
-  //   throw new Error("El precio minimo debe ser menor al precio maximo");
-  // }
+  if (min && max && min.min > max.max) {
+    throw new Error("El precio minimo debe ser menor al precio maximo");
+  }
+
   if (!isEmpty(selectFiltersArray) || !isEmpty(filtersArray)) {
     //FILTROS CON INPUT
 

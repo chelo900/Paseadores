@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addImage,
   clientSendOrden,
-  getOrden,
   getOrdenCliente,
-  getOrdenPaseador,
   getPaseadorForId,
   ordenAnswer,
   getAssessment,
@@ -19,7 +16,7 @@ import {
 
 import style from "./PerfilWalker.module.css";
 import foto1 from "../../media/foto1Service.jpg";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Nav from "./nav/Nav";
 import swal from "sweetalert";
 import patitallena from "../../media/patitallena.png";
@@ -30,7 +27,7 @@ import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import listPlugin, { ListView } from "@fullcalendar/list";
+import listPlugin from "@fullcalendar/list";
 import esLocale from "@fullcalendar/core/locales/es";
 import dotenv from "dotenv";
 import Premium from "../../Premiums/Premium";
@@ -73,7 +70,8 @@ const PerfilWalker = () => {
     }
     dispatch(getPaseadorForId(id, token));
     dispatch(getAssessment(id, token));
-  }, [dispatch, id, token]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, id]);
 
 
   useEffect( () => {
