@@ -7,12 +7,8 @@ import {
   ordenAnswer,
   getAssessment,
   getPreferences,
-<<<<<<< HEAD
-  putDetailsUser
-=======
->>>>>>> 24d626b (jwt fixed)
+  putDetailsUser,
 } from "../../actions/index";
-
 
 import style from "./PerfilWalker.module.css";
 import foto1 from "../../media/foto1Service.jpg";
@@ -32,7 +28,7 @@ import esLocale from "@fullcalendar/core/locales/es";
 import dotenv from "dotenv";
 import Premium from "../../Premiums/Premium";
 import Preferencias from "./Preferencias/Preferencias";
-import MapView from "../../ComponentsMaps/MapView"
+import MapView from "../../ComponentsMaps/MapView";
 dotenv.config();
 
 // import Footer from './footer/Footer';
@@ -43,16 +39,8 @@ const PerfilWalker = () => {
   const dispatch = useDispatch();
 
   const history = useHistory();
-  
+
   const Walker = useSelector((state) => state.detailWalker);
-<<<<<<< HEAD
-  
-
-
-=======
-
-  console.log(Walker.hasOwnProperty("id"));
->>>>>>> 24d626b (jwt fixed)
 
   const comment = useSelector((state) => state.comment);
   const score = useSelector((state) => state.score);
@@ -64,8 +52,7 @@ const PerfilWalker = () => {
   const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
   useEffect(() => {
-<<<<<<< HEAD
-    if(!token){
+    if (!token) {
       history.push(`/login`);
     }
     dispatch(getPaseadorForId(id, token));
@@ -73,24 +60,29 @@ const PerfilWalker = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id]);
 
-
-  useEffect( () => {
-    if(!Walker.latitude || !Walker.longitude){
-    navigator.geolocation.getCurrentPosition(
-     function(position){
-      dispatch(putDetailsUser({latitude: position.coords.latitude, longitude:position.coords.longitude},id, token))
-      dispatch(getPaseadorForId(id, token));
+  useEffect(() => {
+    if (!Walker.latitude || !Walker.longitude) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          dispatch(
+            putDetailsUser(
+              {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+              },
+              id,
+              token
+            )
+          );
+          dispatch(getPaseadorForId(id, token));
+        },
+        function (error) {
+          console.log(error);
+        },
+        { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
+      );
     }
-      , function(error){
-        console.log(error)}
-        ,{maximumAge:10000, timeout:5000, enableHighAccuracy:true} )
-     }
   }, []);
-=======
-    dispatch(getPaseadorForId(id, token));
-    dispatch(getAssessment(id, token));
-  }, [dispatch, id, token]);
->>>>>>> 24d626b (jwt fixed)
 
   // const [file, setFile] = useState('')
   // const handleInputChange = (e) => {
@@ -269,13 +261,16 @@ const PerfilWalker = () => {
             >
               <button className={style.editDescription}>
                 Editar Informacion
-              </button >
+              </button>
             </Link>
           </div>
-<<<<<<< HEAD
-            <MapView className={style.map} latitude={Walker.latitude} longitude={Walker.longitude} name={Walker.name} surname={Walker.surname} />
-=======
->>>>>>> 24d626b (jwt fixed)
+          <MapView
+            className={style.map}
+            latitude={Walker.latitude}
+            longitude={Walker.longitude}
+            name={Walker.name}
+            surname={Walker.surname}
+          />
           <Preferencias preferencias={preferencias} />
           <Link to={`/walker/editpreferencias/${id}`}>
             <button>Editar preferencias</button>
@@ -392,15 +387,9 @@ const PerfilWalker = () => {
               select={handleDateSelect}
               eventClick={handleEventClick}
               contentHeight="auto"
-<<<<<<< HEAD
               slotDuration={preferencias.duracion_paseos || "03:00:00"}
               events={ordensCliente}
               slotMinTime={preferencias.comienzo_jornada || "08:00:00"}
-=======
-              slotDuration={preferencias.duracion_paseos || "01:00:00"}
-              events={ordensCliente}
-              slotMinTime={preferencias.comienzo_jornada || "06:00:00"}
->>>>>>> 24d626b (jwt fixed)
               slotMaxTime={preferencias.fin_jornada || "23:00:00"}
               allDaySlot={false}
               weekends={preferencias.dias_trabajo === "LV" ? false : true}
@@ -411,19 +400,18 @@ const PerfilWalker = () => {
           </div>
         </div>
         <div className={style.padding}>
-                    <FullCalendar
-                    plugins={[listPlugin]}
-                    headerToolbar={{
-                                left: 'prev,next today',
-                                center: 'title',
-                            }}
-                    initialView="listWeek"
-                    events={ordensCliente}
-                    locale={esLocale}
-                    />
+          <FullCalendar
+            plugins={[listPlugin]}
+            headerToolbar={{
+              left: "prev,next today",
+              center: "title",
+            }}
+            initialView="listWeek"
+            events={ordensCliente}
+            locale={esLocale}
+          />
         </div>
       </div>
-      
     </div>
   );
 };

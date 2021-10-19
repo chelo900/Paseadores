@@ -8,10 +8,7 @@ import {
   postAssessment,
   getAssessment,
   getPreferences,
-<<<<<<< HEAD
   putDetailsCliente,
-=======
->>>>>>> 24d626b (jwt fixed)
 } from "../../actions/index";
 
 import style from "./PerfilWalker.module.css";
@@ -30,13 +27,9 @@ import Swal from "sweetalert2";
 import patitallena from "../../media/patitallena.png";
 import patitavacia from "../../media/patitavacia.png";
 import mediapatita from "../../media/mediapatita.png";
-<<<<<<< HEAD
 import swal from "sweetalert";
 import axios from "axios";
 import MapView from "../../ComponentsMaps/MapView";
-
-=======
->>>>>>> 24d626b (jwt fixed)
 
 const PerfilWalker = () => {
   const { id } = useParams();
@@ -53,8 +46,6 @@ const PerfilWalker = () => {
   const preferencias = useSelector((state) => state.preferencias);
   var idClient = localStorage.getItem("userId");
 
-
-
   const [ordenload, setOrdenLoad] = useState(false);
 
   const [input, setInput] = useState({
@@ -70,12 +61,9 @@ const PerfilWalker = () => {
   };
 
   useEffect(() => {
-<<<<<<< HEAD
-    if(!token){
+    if (!token) {
       history.push(`/login`);
     }
-=======
->>>>>>> 24d626b (jwt fixed)
     dispatch(getPaseadorForId(id, token));
     dispatch(getAssessment(id, token));
   }, [dispatch]);
@@ -135,29 +123,50 @@ const PerfilWalker = () => {
       score: number,
     });
   }
-<<<<<<< HEAD
 
-  const provincias= ["Buenos Aires","Capital Federal","Catamarca","Chaco","Chubut","Córdoba","Corrientes","Entre Ríos","Formosa","Jujuy","La Pampa","La Rioja",
-    "Mendoza","Misiones","Neuquén","Río Negro","Salta","San Juan","San Luis","Santa Cruz","Santa Fe","Santiago del Estero","Tierra del Fuego","Tucumán"]
+  const provincias = [
+    "Buenos Aires",
+    "Capital Federal",
+    "Catamarca",
+    "Chaco",
+    "Chubut",
+    "Córdoba",
+    "Corrientes",
+    "Entre Ríos",
+    "Formosa",
+    "Jujuy",
+    "La Pampa",
+    "La Rioja",
+    "Mendoza",
+    "Misiones",
+    "Neuquén",
+    "Río Negro",
+    "Salta",
+    "San Juan",
+    "San Luis",
+    "Santa Cruz",
+    "Santa Fe",
+    "Santiago del Estero",
+    "Tierra del Fuego",
+    "Tucumán",
+  ];
   // const [municipios, setMunicipios] = useState([])
-  const [provincia, setProvincia] = useState('')
-  const [municipio, setMunicipio] = useState('')
-  const [localidad, setLocalidad] = useState('')
-    
+  const [provincia, setProvincia] = useState("");
+  const [municipio, setMunicipio] = useState("");
+  const [localidad, setLocalidad] = useState("");
 
   const handleDateSelect = async (selectInfo) => {
-=======
->>>>>>> 24d626b (jwt fixed)
-
     let today = new Date();
-    console.log(selectInfo)
+    console.log(selectInfo);
     var calendarApi = selectInfo.view.calendar;
     // calendarApi.unselect(); // clear date selection
 
     if (selectInfo.start < today) {
       calendarApi.unselect();
-      return swal({title:"Fecha no permitida, ingresa una fecha válida",
-                    icon: "warning"});
+      return swal({
+        title: "Fecha no permitida, ingresa una fecha válida",
+        icon: "warning",
+      });
     }
     const cantOrdenes = ordensCliente.filter(
       (ordens) =>
@@ -171,160 +180,178 @@ const PerfilWalker = () => {
 
     if (selectInfo.start >= today) {
       let date = selectInfo.start;
-      let horaInicio = selectInfo.startStr.slice(11,-9)
-      let horaFinal = selectInfo.endStr.slice(11,-9)
-      date = date.toLocaleDateString(undefined, {day:'2-digit'}) + ' ' + date.toLocaleDateString(undefined, {month:'long'}) + ' ' + date.toLocaleDateString(undefined, {year:'numeric'})
+      let horaInicio = selectInfo.startStr.slice(11, -9);
+      let horaFinal = selectInfo.endStr.slice(11, -9);
+      date =
+        date.toLocaleDateString(undefined, { day: "2-digit" }) +
+        " " +
+        date.toLocaleDateString(undefined, { month: "long" }) +
+        " " +
+        date.toLocaleDateString(undefined, { year: "numeric" });
       Swal.fire({
-      text: `Estás solicitando un paseo con ${Walker.name} ${Walker.surname},
+        text: `Estás solicitando un paseo con ${Walker.name} ${Walker.surname},
       para el ${date} desde las ${horaInicio} hasta ${horaFinal} h.`,
-      showCancelButton: true,
-      confirmButtonText: "Confirmar",
-      cancelButtonText: "Cancelar",
-       })
-       .then((respuesta)=>{
-        if (respuesta.value){
+        showCancelButton: true,
+        confirmButtonText: "Confirmar",
+        cancelButtonText: "Cancelar",
+      }).then((respuesta) => {
+        if (respuesta.value) {
           Swal.fire({
-          title: "Por favor ingresa tu ubicación",
-          input: 'select',
-          inputOptions: provincias,
-          showCancelButton: true,
-          confirmButtonText: "Confirmar",
-          cancelButtonText: "Cancelar",
-          preConfirm: () => {
-            const provin = Swal.getInput()
-            console.log(provin.value)
-            if (!provin) {
-              Swal.showValidationMessage(`Please enter login and password`)
-            }
-            setProvincia(provincias[provin.value])
-            if (provincias[provin.value] == "Buenos Aires" ){
-              axios.get(`https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincias[provin.value]}&orden=nombre&max=135`)
-              .then((munis)=>{
-                console.log(munis)
-                let m= munis.data.municipios.map(mun=>mun.nombre)
-                // setMunicipios(m)
-                console.log(m)
-                // setMunicipios(m)
-                // handleMunicipios(m)
-                Swal.fire({  
-                  title: "Por favor ingresa tu Municipio",
-                  input: 'select',
-                  inputOptions: m,
-                  preConfirm:()=>{
-                    const muni = Swal.getInput()
-                    setMunicipio(m[muni.value])
-                    // console.log(muni.value)
-                    // console.log(m[muni.value])
-                    axios.get(`https://apis.datos.gob.ar/georef/api/localidades?provincia=${provincias[provin.value]}&departamento=${(m[muni.value])}&orden=nombre&max=50`)
-                    .then((local)=>{
-                      console.log(local)
-                      let l = local.data.localidades.map(local=>local.nombre)
-                      console.log(l)
-                      Swal.fire({  
-                        title: "Por favor ingresa tu Localidad",
-                        input: 'select',
-                        inputOptions: l,
-                        preConfirm:()=>{
-                          const local = Swal.getInput()
-                          setLocalidad(l[local.value])
-                          console.log(l[local.value])
+            title: "Por favor ingresa tu ubicación",
+            input: "select",
+            inputOptions: provincias,
+            showCancelButton: true,
+            confirmButtonText: "Confirmar",
+            cancelButtonText: "Cancelar",
+            preConfirm: () => {
+              const provin = Swal.getInput();
+              console.log(provin.value);
+              if (!provin) {
+                Swal.showValidationMessage(`Please enter login and password`);
+              }
+              setProvincia(provincias[provin.value]);
+              if (provincias[provin.value] == "Buenos Aires") {
+                axios
+                  .get(
+                    `https://apis.datos.gob.ar/georef/api/municipios?provincia=${
+                      provincias[provin.value]
+                    }&orden=nombre&max=135`
+                  )
+                  .then((munis) => {
+                    console.log(munis);
+                    let m = munis.data.municipios.map((mun) => mun.nombre);
+                    // setMunicipios(m)
+                    console.log(m);
+                    // setMunicipios(m)
+                    // handleMunicipios(m)
+                    Swal.fire({
+                      title: "Por favor ingresa tu Municipio",
+                      input: "select",
+                      inputOptions: m,
+                      preConfirm: () => {
+                        const muni = Swal.getInput();
+                        setMunicipio(m[muni.value]);
+                        // console.log(muni.value)
+                        // console.log(m[muni.value])
+                        axios
+                          .get(
+                            `https://apis.datos.gob.ar/georef/api/localidades?provincia=${
+                              provincias[provin.value]
+                            }&departamento=${m[muni.value]}&orden=nombre&max=50`
+                          )
+                          .then((local) => {
+                            console.log(local);
+                            let l = local.data.localidades.map(
+                              (local) => local.nombre
+                            );
+                            console.log(l);
+                            Swal.fire({
+                              title: "Por favor ingresa tu Localidad",
+                              input: "select",
+                              inputOptions: l,
+                              preConfirm: () => {
+                                const local = Swal.getInput();
+                                setLocalidad(l[local.value]);
+                                console.log(l[local.value]);
 
-                          dispatch(
-                            clientSendOrden({
-                              fechaInicio: selectInfo.startStr,
-                              fechaFinal: selectInfo.endStr,
-                              userId: id,
-                              clientId: idClient,
-                              ubicacion: `${provincias[provin.value]}, ${m[muni.value]}, ${l[local.value]}`
-                            })
-                          );
-                          setTimeout(() => {
-                            setOrdenLoad(true);
-                          }, 1000);
-                    
-                          setTimeout(() => {
-                            setOrdenLoad(false);  
-                          }, 1000);      
-                          
+                                dispatch(
+                                  clientSendOrden({
+                                    fechaInicio: selectInfo.startStr,
+                                    fechaFinal: selectInfo.endStr,
+                                    userId: id,
+                                    clientId: idClient,
+                                    ubicacion: `${provincias[provin.value]}, ${
+                                      m[muni.value]
+                                    }, ${l[local.value]}`,
+                                  })
+                                );
+                                setTimeout(() => {
+                                  setOrdenLoad(true);
+                                }, 1000);
 
-                        }
-                    })
-                    })
-                  }
-              });
-              })
-
-            }
-            else{
-            axios.get(`https://apis.datos.gob.ar/georef/api/departamentos?provincia=${provincias[provin.value]}&orden=nombre&max=200`)
-            .then((depas)=>{
-              console.log(depas)
-              let d =depas.data.departamentos.map(dep=>dep.nombre) 
-              console.log(d)
-              // setMunicipios(m)
-              // handleMunicipios(d)
-              Swal.fire({
-                title: "Por favor ingresa tu Departamento/Comuna",
-                input: 'select',
-                inputOptions: d,
-                preConfirm: ()=>{
-                  const deptos= Swal.getInput()
-                  setMunicipio(d[deptos.value])
-                  axios.get(`https://apis.datos.gob.ar/georef/api/localidades?provincia=${provincias[provin.value]}&departamento=${(d[deptos.value])}&orden=nombre&max=50`)
-                  .then((local)=>{
-                    let l = local.data.localidades.map(local=>local.nombre)
-                    Swal.fire({  
-                      title: "Por favor ingresa tu Localidad",
-                      input: 'select',
-                      inputOptions: l,
-                      preConfirm:()=>{
-                        const local = Swal.getInput()
-                        setLocalidad(l[local.value])
-                        console.log(l[local.value])
-                            dispatch(
-                              clientSendOrden({
-                                fechaInicio: selectInfo.startStr,
-                                fechaFinal: selectInfo.endStr,
-                                userId: id,
-                                clientId: idClient,
-                                ubicacion: `${provincias[provin.value]}, ${d[deptos.value]}, ${l[local.value]}`
-                              })  
-                            );                      
-                            setTimeout(() => {
-                              setOrdenLoad(true);
-                            }, 1000);                      
-                            setTimeout(() => {
-                              setOrdenLoad(false);  
-                            }, 1000);                                                  
-                      }
-                    })                
+                                setTimeout(() => {
+                                  setOrdenLoad(false);
+                                }, 1000);
+                              },
+                            });
+                          });
+                      },
+                    });
                   });
-                }
-              })
-              })
-            }
-          } 
-        })
-<<<<<<< HEAD
-        }else{
+              } else {
+                axios
+                  .get(
+                    `https://apis.datos.gob.ar/georef/api/departamentos?provincia=${
+                      provincias[provin.value]
+                    }&orden=nombre&max=200`
+                  )
+                  .then((depas) => {
+                    console.log(depas);
+                    let d = depas.data.departamentos.map((dep) => dep.nombre);
+                    console.log(d);
+                    // setMunicipios(m)
+                    // handleMunicipios(d)
+                    Swal.fire({
+                      title: "Por favor ingresa tu Departamento/Comuna",
+                      input: "select",
+                      inputOptions: d,
+                      preConfirm: () => {
+                        const deptos = Swal.getInput();
+                        setMunicipio(d[deptos.value]);
+                        axios
+                          .get(
+                            `https://apis.datos.gob.ar/georef/api/localidades?provincia=${
+                              provincias[provin.value]
+                            }&departamento=${
+                              d[deptos.value]
+                            }&orden=nombre&max=50`
+                          )
+                          .then((local) => {
+                            let l = local.data.localidades.map(
+                              (local) => local.nombre
+                            );
+                            Swal.fire({
+                              title: "Por favor ingresa tu Localidad",
+                              input: "select",
+                              inputOptions: l,
+                              preConfirm: () => {
+                                const local = Swal.getInput();
+                                setLocalidad(l[local.value]);
+                                console.log(l[local.value]);
+                                dispatch(
+                                  clientSendOrden({
+                                    fechaInicio: selectInfo.startStr,
+                                    fechaFinal: selectInfo.endStr,
+                                    userId: id,
+                                    clientId: idClient,
+                                    ubicacion: `${provincias[provin.value]}, ${
+                                      d[deptos.value]
+                                    }, ${l[local.value]}`,
+                                  })
+                                );
+                                setTimeout(() => {
+                                  setOrdenLoad(true);
+                                }, 1000);
+                                setTimeout(() => {
+                                  setOrdenLoad(false);
+                                }, 1000);
+                              },
+                            });
+                          });
+                      },
+                    });
+                  });
+              }
+            },
+          });
+        } else {
           calendarApi.unselect();
           Swal.fire({
             title: "Orden no enviada",
-            icon: "info"
-          })
+            icon: "info",
+          });
         }
-       })
-=======
-      );
-
-      setTimeout(() => {
-        setOrdenLoad(true);
-      }, 1000);
-
-      setTimeout(() => {
-        setOrdenLoad(false);
-      }, 1000);
->>>>>>> 24d626b (jwt fixed)
+      });
     }
   };
   const handleEventClick = (clickInfo) => {
@@ -335,17 +362,13 @@ const PerfilWalker = () => {
     }
   };
 
-<<<<<<< HEAD
   // useEffect(() => {
   // }, [ubicacion.provincia,ubicacion.municipio,ubicacion.localidad ])
 
-
-=======
->>>>>>> 24d626b (jwt fixed)
   return (
     <div className={style.container}>
       <Nav />
-       <div className={style.containerPerfil}>
+      <div className={style.containerPerfil}>
         <div className={style.personalInformation}>
           <div className={style.borderFoto}>
             <div className={style.fotoPerfil}>
