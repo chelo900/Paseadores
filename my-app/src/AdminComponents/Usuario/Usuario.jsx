@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React,{useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import style from "./Usuario.module.css";
 import {
   makeAdmin,
@@ -7,19 +7,19 @@ import {
   deleteUserAccount,
   getClients,
   getWalkers,
+  getAssessment
 } from "../../actions/index";
 
 const Usuario = (props) => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("userToken");
-
-  /*
+  const score = useSelector((state) => state.score);
+  console.log(score)
+  
     useEffect(() => {
-        if(props.usuario === "PASEADORES/CUIDADORES"){
-            dispatch(getWalkers())
-        }else if(props.usuario === "DUEÑOS DE LAS MASCOTAS"){ dispatch(getClients())}
-    },[getClients])
-    */
+      dispatch(getAssessment(props.id, token));
+    },[dispatch])
+    
   function handleOnClickAdmin(e, usuario) {
     dispatch(makeAdmin({ id: props.id }, token));
     setTimeout(function () {
@@ -62,7 +62,7 @@ const Usuario = (props) => {
         <div>
           <p className={style.p}> Email : {props.email}</p>
           <p className={style.p}> Descripción : {props.description}</p>
-          <p className={style.p}> Reputación : {props.reputation}</p>
+          <p className={style.p}> Reputación : {score}</p>
         </div>
       </div>
       <div className={style.der}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { useHistory } from "react-router";
@@ -16,6 +16,13 @@ const Edit = () => {
   const dispatch = useDispatch();
 
   const history = useHistory();
+
+  useEffect(() => {
+    if(!token){
+      history.push(`/login`);
+    }
+   
+  }, []);
 
   const inputChange = (e) => {
     setInput({

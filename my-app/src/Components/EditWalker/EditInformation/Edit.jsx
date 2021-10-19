@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { putDetailsUser } from "../../../actions";
@@ -15,6 +15,13 @@ const Edit = () => {
   const token = localStorage.getItem("userToken");
 
   const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if(!token){
+      history.push(`/login`);
+    }
+   
+  }, []);
 
   const [input, setInput] = useState({
     status: paseador.status,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
@@ -16,6 +16,13 @@ function EditPreferencias() {
   const preferencias = useSelector((state) => state.preferencias);
 
   const history = useHistory();
+
+  useEffect(() => {
+    if(!token){
+      history.push(`/login`);
+    }
+   
+  }, []);
 
   const [newPreferencias, setNewPreferencias] = useState({
     turno: preferencias.turno,

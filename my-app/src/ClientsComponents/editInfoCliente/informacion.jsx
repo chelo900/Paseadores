@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { putDetailsCliente } from "../../actions";
@@ -15,6 +15,13 @@ const Edit = () => {
   const dispatch = useDispatch();
 
   const cliente = useSelector((state) => state.detailCliente);
+
+  useEffect(() => {
+    if(!token){
+      history.push(`/login`);
+    }
+   
+  }, []);
 
   const [input, setInput] = useState({
     phone: cliente.phone,

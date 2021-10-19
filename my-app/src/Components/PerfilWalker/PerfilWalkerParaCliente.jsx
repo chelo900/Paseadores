@@ -58,6 +58,9 @@ const PerfilWalker = () => {
   };
 
   useEffect(() => {
+    if(!token){
+      history.push(`/login`);
+    }
     dispatch(getPaseadorForId(id, token));
     dispatch(getAssessment(id, token));
   }, [dispatch]);
