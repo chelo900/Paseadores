@@ -68,7 +68,7 @@ router.get("/", async (req, res) => {
         premium: w.premium,
         latitude: w.latitude,
         longitude: w.longitude,
-        horario: w.preference.turno,
+        horario: w.preference?.turno,
         description : w.description      };
     });
     
