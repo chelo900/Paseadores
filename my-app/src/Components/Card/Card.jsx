@@ -81,7 +81,7 @@ function Card({
             </button>
           </div>
         )}
-        )
+        
       </div>
       <div className={styles.title}>
         <h1 className={styles.name}>{name + " " + surname}</h1>

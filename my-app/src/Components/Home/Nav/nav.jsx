@@ -1,9 +1,34 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import style from "./nav.module.css";
+import { getPaseadorForId, getClienteForId } from "../../../actions/index";
+import { useDispatch, useSelector } from "react-redux";
 
 const Nav = () => {
+
   var id = localStorage.getItem("userId");
+  const token = localStorage.getItem("userToken");
+  const walker = localStorage.getItem("userWalker");
+  var admin = localStorage.getItem("userAdmin");
+  console.log(admin)
+
+  const dispatch = useDispatch();
+  const Walker = useSelector((state) => state.detailWalker);
+  const Client = useSelector((state) => state.detailCliente);
+
+  console.log(Walker)
+
+  useEffect(() => {
+    if (id) {
+      if( walker === "true"){
+      dispatch(getPaseadorForId(id, token));
+      }
+      if(walker === "false" &&  admin === "false"){
+        dispatch(getClienteForId(id, token));
+      }
+    }
+  }, []);
+
 
   return (
     <nav className={style.navBar}>
@@ -17,14 +42,39 @@ const Nav = () => {
           <a href="#services">Servicios</a>
           <a href="#contact">Contacto</a>
         </div>
-        <Link to="/login" className={style.login}>
+        { id && walker === "true" && <Link to={"/walker/perfil/"+id}  className={style.login}>
+        <div className={style.containerLogin}>
+            <span className={style.icon} class="material-icons-outlined">
+              account_circle
+            </span>
+            <span className={style.log}>{Walker.name} {Walker.surname}</span>
+          </div>
+          </Link>}
+        { id && walker === "false" &&  admin === "false" && <Link to={"/Cliente/"+id} className={style.login}>
+        <div className={style.containerLogin}>
+            <span className={style.icon} class="material-icons-outlined">
+              account_circle
+            </span>
+            <span className={style.log}>{Client.name} {Client.surname}</span>
+          </div>
+          </Link>}
+        { id && admin === "true" && <Link to={"/admin"} className={style.login}>
+        <div className={style.containerLogin}>
+            <span className={style.icon} class="material-icons-outlined">
+              account_circle
+            </span>
+            <span className={style.log}>Admin</span>
+          </div>
+          </Link>}
+          
+        {!id && <Link to="/login" className={style.login}>
           <div className={style.containerLogin}>
             <span className={style.icon} class="material-icons-outlined">
               account_circle
             </span>
             <span className={style.log}>Iniciar Sesión</span>
           </div>
-        </Link>
+        </Link>}
       </div>
     </nav>
   );
