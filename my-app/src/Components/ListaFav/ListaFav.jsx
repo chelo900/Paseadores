@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-<<<<<<< HEAD
 import { useHistory } from "react-router";
-=======
->>>>>>> 24d626b (jwt fixed)
 import Nav from "../../ClientsComponents/perfilCliente/nav/Nav";
 import { useDispatch, useSelector } from "react-redux";
 import { getForListFav, getUserFavorites } from "../../../src/actions/index";
@@ -16,20 +13,14 @@ const Admin = () => {
   const favorites = useSelector((state) => state.favorites);
   const dataFavorites = useSelector((state) => state.dataFavorites);
 
-<<<<<<< HEAD
   const history = useHistory();
 
   useEffect(() => {
-    if(!token){
+    if (!token) {
       history.push(`/login`);
     }
-   
   }, []);
-  
-=======
-  //console.log(dataFavorites)
-  //console.log("aaaaaaaaaa")
->>>>>>> 24d626b (jwt fixed)
+
   useEffect(() => {
     dispatch(getForListFav(id, token));
     dispatch(getUserFavorites(id, token));
