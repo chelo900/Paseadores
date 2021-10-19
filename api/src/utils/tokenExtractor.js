@@ -8,7 +8,7 @@ module.exports = (request, response, next) => {
   if (authorization && authorization.toLowerCase().startsWith("bearer")) {
     token = authorization.substring(7);
   }
-  console.log("middleware: ", token);
+  // console.log("middleware: ", token);
   let decodedToken = {};
 
   try {
