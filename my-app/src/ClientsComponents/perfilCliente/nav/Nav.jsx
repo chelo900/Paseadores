@@ -5,6 +5,7 @@ import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { clearUser } from "../../../actions/index";
 import menu from '../../../media/menu.png'
+import SearchBar from '../../../Components/SearchBar/SearchBar';
 
 const Nav = ({id}) => {
     const [open, setOpen] = useState(false)

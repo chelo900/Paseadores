@@ -105,7 +105,7 @@ const UsersCards = () => {
 
   return (
     <div className={style.container}>
-      <Nav />
+      <Nav page={page} pageSize={pageSize}/>
 
       <div className={style.containerDOS}>
         <div className={style.carrusel}>

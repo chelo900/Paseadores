@@ -21,6 +21,7 @@ import {
   PASEADORES_PREMIUM,
   GET_ASSESSMENT,
   GET_WALKERS_FOR_MAP,
+  GET_WALKERS_BY_NAME,
 } from "../actions/index";
 
 const initialState = {
@@ -74,6 +75,16 @@ function rootReducer(state = initialState, action) {
         ...state,
         allPaseadores: action.payload,
       };
+      // case GET_WALKERS_BY_NAME:
+      // return {
+      //   ...state,
+      //   allPaseadores: action.payload
+      // }
+      case GET_WALKERS_BY_NAME:
+      return {
+        ...state,
+        allPaseadores:  state.allPaseadores.content.filter(walker => walker.name.includes(action.payload)) 
+      }
     case GET_WALKERS_FOR_MAP:
       return {
         ...state,
