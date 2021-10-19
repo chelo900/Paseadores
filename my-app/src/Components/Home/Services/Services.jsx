@@ -15,7 +15,7 @@ const Services = () => {
                         <img className={style.imagen} src={foto1} alt=''/>
                         <h3>Paseo</h3>
                         <p>Registate como paseador, coloca tus datos, y espera a que te conctacten.</p>
-                        <p>Registate como paseador, coloca tus datos, y espera a que te conctacten.</p>
+                        
                         
                     </div>
                 </div>
@@ -23,8 +23,8 @@ const Services = () => {
                    <div className={style.serv} >
                         <img  className={style.imagen} src={foto2} alt=''/>
                         <h3>Cuidado</h3>
-                        <p>Registate como paseador, coloca tus datos, y espera a que te conctacten.</p>
-                        <p>Registate como paseador, coloca tus datos, y espera a que te conctacten.</p>
+                        <p>Registate como cuidador, coloca tus datos, y espera a que te conctacten.</p>
+                        
                       
                    </div>
                 </div>

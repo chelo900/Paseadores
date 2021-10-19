@@ -12,7 +12,7 @@ const Premium = () => {
                 <img className={style.imag} src={foto1} />
             <div className={style.premium}>
                 <h3 className={style.nombre} > Beneficios </h3>
-                <p className = {style.uno} > Permanecer simpre en la primera pagina.</p>
+                <p className = {style.uno} > Mayor exposición.</p>
                 <p className = {style.dos} > Subir ilimitadas publicaciones de tu trabajo.</p>
                 <p className = {style.tres} > Mantener simpre el historial de los chats con los clientes.</p>
                 <p className = {style.cuatro} > El costo es de tan solo $12 dolares por unica vez. </p>
