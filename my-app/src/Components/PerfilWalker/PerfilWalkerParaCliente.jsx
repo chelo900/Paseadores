@@ -213,6 +213,7 @@ const PerfilWalker = () => {
                           const local = Swal.getInput()
                           setLocalidad(l[local.value])
                           console.log(l[local.value])
+
                           dispatch(
                             clientSendOrden({
                               fechaInicio: selectInfo.startStr,
@@ -222,20 +223,22 @@ const PerfilWalker = () => {
                               ubicacion: `${provincias[provin.value]}, ${m[muni.value]}, ${l[local.value]}`
                             })
                           );
-                          dispatch(putDetailsCliente({ubication: `${provincias[provin.value]}, ${m[muni.value]}, ${l[local.value]}`}, id,token))
                           setTimeout(() => {
                             setOrdenLoad(true);
                           }, 1000);
                     
                           setTimeout(() => {
                             setOrdenLoad(false);  
-                          }, 1000);                
+                          }, 1000);      
+                          
+
                         }
                     })
                     })
                   }
               });
               })
+
             }
             else{
             axios.get(`https://apis.datos.gob.ar/georef/api/departamentos?provincia=${provincias[provin.value]}&orden=nombre&max=200`)

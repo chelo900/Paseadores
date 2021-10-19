@@ -385,7 +385,7 @@ console.log(Walker)
             />
           </div>
         </div>
-        <div>
+        <div className={style.padding}>
                     <FullCalendar
                     plugins={[listPlugin]}
                     headerToolbar={{
@@ -396,7 +396,7 @@ console.log(Walker)
                     events={ordensCliente}
                     locale={esLocale}
                     />
-                </div>
+        </div>
       </div>
       
     </div>
