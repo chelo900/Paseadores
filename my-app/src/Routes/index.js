@@ -23,7 +23,6 @@ import Premium from "../Components/Premium/Premium";
 import admin from "../AdminComponents/Admin";
 import EditPreferencias from "../Components/EditWalker/EditPreferencias/EditPreferencias";
 import ListaFav from "../Components/ListaFav/ListaFav";
-import MapWalkers from "../Components/UsersCards/MapWalkers"
 
 
 const index = () => {
@@ -48,7 +47,6 @@ const index = () => {
         <Route exact path="/walker/perfil/contacto/:id" component={PerfilWalkerParaCliente}/>
         <Route exact path="/premium" component={Premium}/>
         <Route exact path="/walker/editpreferencias/:userId" component={EditPreferencias}/>
-        <Route exact path="/cardsUsers/map" component={MapWalkers}/>
 
         {/* Rutas del cliente  */}
         <Route exact path= "/login-client" component={FormClient}/>

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import style from "./Admin.module.css";
 import { getClients, getWalkers } from "../../src/actions/index";
 import Nav from "./nav/Nav";
@@ -15,15 +16,24 @@ const Admin = () => {
     email: "",
   });
 
+  const history = useHistory();
+
+  useEffect(() => {
+    if(!token){
+      history.push(`/login`);
+    }
+   
+  }, []);
+
   function handleOnClickWalker(e) {
     e.preventDefault();
-    dispatch(getWalkers(token));
+    dispatch(getWalkers(undefined,token));
     setTitulo("Paseadores / Cuidadores");
   }
 
   function handleOnClickClients(e) {
     e.preventDefault();
-    dispatch(getClients(token));
+    dispatch(getClients(undefined, token));
     setTitulo("Dueños");
   }
 

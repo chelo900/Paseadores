@@ -13,6 +13,7 @@ import {
   putDetailsUser
 } from "../../actions/index";
 
+
 import style from "./PerfilWalker.module.css";
 import foto1 from "../../media/foto1Service.jpg";
 import { Link, useParams, useHistory } from "react-router-dom";
@@ -42,11 +43,11 @@ const PerfilWalker = () => {
   const dispatch = useDispatch();
 
   const history = useHistory();
-
+  
   const Walker = useSelector((state) => state.detailWalker);
-  console.log("aaaaaaaaaaaaaaaaa")
-console.log(Walker)
-  console.log(Walker.hasOwnProperty("id"));
+  
+
+
 
   const comment = useSelector((state) => state.comment);
   const score = useSelector((state) => state.score);
@@ -58,6 +59,9 @@ console.log(Walker)
   const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
   useEffect(() => {
+    if(!token){
+      history.push(`/login`);
+    }
     dispatch(getPaseadorForId(id, token));
     dispatch(getAssessment(id, token));
   }, [dispatch, id, token]);
