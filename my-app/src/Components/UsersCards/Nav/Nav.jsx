@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { clearUser } from "../../../actions/index";
+import SearchBar from "../../SearchBar/SearchBar";
 
-const Nav = () => {
+const Nav = ({page, pageSize}) => {
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -24,6 +25,7 @@ const Nav = () => {
             <div className={style.serviceContainer}>
                 <h2 className={style.service}>Happy Dog!</h2>
             </div>
+            <h1><SearchBar page={page} pageSize={pageSize}/></h1>
             <div className={style.log}>
                 {walker === "true" && <Link to={`/walker/perfil/${id}`} className={style.home}>
                     <span class="material-icons-outlined">school</span>
