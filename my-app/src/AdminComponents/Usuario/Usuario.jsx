@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Usuario.module.css";
 import {
@@ -7,19 +7,19 @@ import {
   deleteUserAccount,
   getClients,
   getWalkers,
-  getAssessment
+  getAssessment,
 } from "../../actions/index";
 
 const Usuario = (props) => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("userToken");
   const score = useSelector((state) => state.score);
-  console.log(score)
-  
-    useEffect(() => {
-      dispatch(getAssessment(props.id, token));
-    },[dispatch])
-    
+  console.log(score);
+
+  useEffect(() => {
+    dispatch(getAssessment(props.id, token));
+  }, [dispatch]);
+
   function handleOnClickAdmin(e, usuario) {
     dispatch(makeAdmin({ id: props.id }, token));
     setTimeout(function () {

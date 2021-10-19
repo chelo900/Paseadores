@@ -90,12 +90,6 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      // morning: {
-      //   type: DataTypes.ENUM("active", "inactive"),
-      // },
-      // afternoon: {
-      //   type: DataTypes.ENUM("active", "inactive"),
-      // },
     },
     { timestamps: false }
   );

@@ -17,7 +17,7 @@ const PerfilCliente = () => {
   const Client = useSelector((state) => state.detailCliente);
 
   useEffect(() => {
-    if(!token){
+    if (!token) {
       history.push(`/login`);
     }
     dispatch(getClienteForId(id, token));

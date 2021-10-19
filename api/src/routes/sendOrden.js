@@ -33,7 +33,7 @@ router.post("/",  async (req,res)=>{
         })
 
         const body =  
-        {from: '"Tenés una solicitud de un turno 👻" <paseadorescuidadores@gmail.com>',
+        {from: '"Tenés una solicitud de un turno 🐶" <paseadorescuidadores@gmail.com>',
          to: paseador.email, 
          subject: "Solicitud de turno", 
          html: `<b>Hola ${paseador.name}, te queremos informar que ${dueño.name} requiere tus servicios durante el dia y las horas: ${orden.fechaInicio} - ${orden.fechaFinal} en la ubicación: ${orden.ubicacion}.</b>

@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import style from "./Admin.module.css";
@@ -19,15 +19,14 @@ const Admin = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if(!token){
+    if (!token) {
       history.push(`/login`);
     }
-   
   }, []);
 
   function handleOnClickWalker(e) {
     e.preventDefault();
-    dispatch(getWalkers(undefined,token));
+    dispatch(getWalkers(undefined, token));
     setTitulo("Paseadores / Cuidadores");
   }
 

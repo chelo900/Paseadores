@@ -20,12 +20,10 @@ const EditDescripcion = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if(!token){
+    if (!token) {
       history.push(`/login`);
     }
-   
   }, []);
-
 
   const handleLogout = (event) => {
     event.preventDefault();
