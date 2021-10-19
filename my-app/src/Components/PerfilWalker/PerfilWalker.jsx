@@ -377,9 +377,9 @@ const PerfilWalker = () => {
               select={handleDateSelect}
               eventClick={handleEventClick}
               contentHeight="auto"
-              slotDuration={preferencias.duracion_paseos || "01:00:00"}
+              slotDuration={preferencias.duracion_paseos || "03:00:00"}
               events={ordensCliente}
-              slotMinTime={preferencias.comienzo_jornada || "06:00:00"}
+              slotMinTime={preferencias.comienzo_jornada || "08:00:00"}
               slotMaxTime={preferencias.fin_jornada || "23:00:00"}
               allDaySlot={false}
               weekends={preferencias.dias_trabajo === "LV" ? false : true}
@@ -389,8 +389,7 @@ const PerfilWalker = () => {
             />
           </div>
         </div>
-      </div>
-      {/* <div>
+        <div className={style.padding}>
                     <FullCalendar
                     plugins={[listPlugin]}
                     headerToolbar={{
@@ -401,7 +400,9 @@ const PerfilWalker = () => {
                     events={ordensCliente}
                     locale={esLocale}
                     />
-                </div> */}
+        </div>
+      </div>
+      
     </div>
   );
 };
