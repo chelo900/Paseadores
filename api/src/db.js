@@ -60,9 +60,16 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 
-//TODO
-const { Client, User, Post, Complain, Preference, Image, Administrator, Orden} = sequelize.models;
-
+const {
+  Client,
+  User,
+  Post,
+  Complain,
+  Preference,
+  Image,
+  Administrator,
+  Orden,
+} = sequelize.models;
 
 /*
 (async () => {
@@ -76,7 +83,7 @@ const { Client, User, Post, Complain, Preference, Image, Administrator, Orden} =
   })
   
 })();*/
-// Aca vendrian las relaciones //TODO CREAR RELACIONES
+// Aca vendrian las relaciones
 
 User.hasMany(Post);
 Post.belongsTo(User);
@@ -93,7 +100,7 @@ Client.belongsTo(User)*/
 User.belongsToMany(Client, { through: "user_client" });
 Client.belongsToMany(User, { through: "user_client" });
 
-User.hasOne(Preference); 
+User.hasOne(Preference);
 Preference.belongsTo(User);
 
 User.hasMany(Orden);
