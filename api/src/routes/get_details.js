@@ -15,16 +15,32 @@ router.get("/:id", async (req, res) => {
         model: Image,
       },
     });
+    let servicio;
+    if(datos.service === "Walker") servicio = "Paseador"
+    if(datos.service === "Carer") servicio = "Cuidador"
+    if(datos.service === "Walker and Carer") servicio = "Paseador y Cuidador"
+    
+
+    let hoy = new Date();
+    let cumpleanos = datos.birth_day;
+    let edad = hoy.getFullYear() - cumpleanos.getFullYear();
+    let m = hoy.getMonth() - cumpleanos.getMonth();
+
+    if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+        edad--;
+    }
+
+    
     const detallesDatos = {
       id: datos.id,
       name: datos.name,
       surname: datos.surname,
-      birth_day: datos.birth_day,
+      birth_day: edad + " años",
       image: datos.image,
       phone: datos.phone,
       email: datos.email,
       ubication: datos.ubication,
-      service: datos.service,
+      service: servicio,
       price: datos.price,
       description: datos.description,
       dni: datos.dni,

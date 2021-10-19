@@ -50,7 +50,7 @@ const UsersCards = () => {
 
   useEffect(() => {
     if (walker === "false" && admin === "false") {
-      dispatch(getUserFavorites(id));
+      dispatch(getUserFavorites(id, token));
     }
   }, []);
 
@@ -245,6 +245,12 @@ const UsersCards = () => {
                 }
               }
 
+          let servicio;    
+
+          if(el.service === "Walker") servicio = "Paseador"
+          if(el.service === "Carer") servicio = "Cuidador"
+          if(el.service === "Walker and Carer") servicio = "Paseador y Cuidador"
+
               return (
                 <Card
                   key={el.id}
@@ -252,7 +258,7 @@ const UsersCards = () => {
                   name={el.name}
                   surname={el.surname}
                   image={el.image}
-                  service={el.service}
+                  service={servicio}
                   price={el.price}
                   reputation={el.reputation}
                   description={el.description}

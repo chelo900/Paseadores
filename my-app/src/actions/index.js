@@ -177,10 +177,10 @@ export function putDetailsProfile(id, payload, token) {
   };
 }
 
-export function putDetailsUser(payload, id, token) {
+export function putDetailsUser(detail, id, token) {
   return async function (dispatch) {
-    return axios
-      .put(`/updateuser/${id}`, payload, {
+      return axios
+      .put(`/updateuser/${id}`, detail, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

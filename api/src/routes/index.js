@@ -42,7 +42,7 @@ const router = Router();
 router.use("/walkers", tokenExtractor, get_details);
 router.use("/allActiveWalkers", tokenExtractor, get_paseadores);
 router.use("/createUser", postUser);
-router.use("/updateuser", tokenExtractor, putDetailsUser);
+router.use("/updateuser", putDetailsUser);
 router.use("/updateuserProfile", tokenExtractor, putDetailsProfile);
 router.use("/login", login);
 router.use("/google", googleLogIn);
