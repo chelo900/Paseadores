@@ -12,7 +12,8 @@ import {
 
 import style from "./PerfilWalker.module.css";
 import foto1 from "../../media/foto1Service.jpg";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
+
 import Nav from "./nav/Nav";
 import swal from "sweetalert";
 import patitallena from "../../media/patitallena.png";
@@ -365,6 +366,15 @@ const PerfilWalker = () => {
                   Subir
                 </button>
               </form>
+              {/* <button onClick={history.push("/chat")} >Chat</button> */}
+              <Link
+              to={`/chat`}
+              className={style.editContainerInfo}
+            >
+              <button className={style.editDescription}>
+                CHAT
+              </button >
+            </Link>
             </div>
             <div>
               <span>🟢 Paseos Confirmados</span>
