@@ -16,6 +16,9 @@ const Edit = () => {
 
   const cliente = useSelector((state) => state.detailCliente);
 
+  const [loading, setLoading] = useState(true)
+
+
   useEffect(() => {
     if(!token){
       history.push(`/login`);
@@ -44,6 +47,7 @@ const Edit = () => {
   };
 
   const uploadImage = async (e) => {
+    setLoading(false)
     const files = e.target.files;
     const data = new FormData();
     data.append("file", files[0]);
@@ -60,6 +64,7 @@ const Edit = () => {
       ...values,
       image: file.secure_url,
     }));
+    setLoading(true)
   };
 
   const handlerSubmit = () => {
@@ -117,9 +122,12 @@ const Edit = () => {
           <button className={style.volver} onClick={handleLogout}>
             Atrás
           </button>
-          <button className={style.edit} type="submit">
-            Guardar cambios
-          </button>
+          {
+            loading ?   <button className={style.edit} type="submit">Guardar cambios</button> :
+            <span >Cargando imagen</span>
+
+          }
+        
         </div>
       </form>
     </div>
