@@ -36,7 +36,7 @@ router.put("/", async (req, res) => {
   })
   
   const body =  
-  {from: `Solicitud ${orden.estadoReserva} 👻 <paseadorescuidadores@gmail.com>`,
+  {from: `Solicitud ${orden.estadoReserva} 🐶 <paseadorescuidadores@gmail.com>`,
    to: dueño.email, 
    subject: "Solicitud de turno", 
    html: `<b>Hola ${dueño.name}, te queremos informar que tu solicitud  ha sido ${orden.estadoReserva} por ${paseador.name}. </b>
