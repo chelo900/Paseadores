@@ -256,7 +256,7 @@ console.log(Walker)
               </button >
             </Link>
           </div>
-            <MapView latitude={Walker.latitude} longitude={Walker.longitude} />
+            <MapView className={style.map} latitude={Walker.latitude} longitude={Walker.longitude} name={Walker.name} surname={Walker.surname} />
           <Preferencias preferencias={preferencias} />
           <Link to={`/walker/editpreferencias/${id}`}>
             <button>Editar preferencias</button>

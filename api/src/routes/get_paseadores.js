@@ -6,8 +6,8 @@ const queryString = require("query-string");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { name } = req.params;
-  const { currentPage, limitPerPage, inputFilters, selectFilters, sortData } =
+  // const { name } = req.params;
+  const { page, pageSize, inputFilters, selectFilters, sortData, name } =
     req.query;
   const parsedFilters = queryString.parse(inputFilters);
   const parsedSelectFilters = queryString.parse(selectFilters);
@@ -33,12 +33,12 @@ router.get("/", async (req, res) => {
     ? (parsedSortData.isSortAscending = true)
     : (parsedSortData.isSortAscending = false);
 
-  const pageN = Number.parseInt(currentPage);
-  const pageL = Number.parseInt(limitPerPage);
+  const pageN = Number.parseInt(page);
+  const pageL = Number.parseInt(pageSize);
 
-  let page = 0;
+  let pageDb = 0;
   if (!Number.isNaN(pageN) && pageN > 0) {
-    page = pageN;
+    pageDb = pageN;
   }
 
   let limit = 10;
@@ -49,7 +49,7 @@ router.get("/", async (req, res) => {
   try {
     const allActiveWalkers = await User.findAndCountAll({
       limit: limit,
-      offset: page * limit,
+      offset: pageDb * limit,
       where: {
         status: "active",
       },
@@ -68,6 +68,8 @@ router.get("/", async (req, res) => {
         morning: w.morning,
         afternoon: w.afternoon,
         premium: w.premium,
+        latitude: w.latitude,
+        longitude : w.longitude
       };
     });
     if (allActiveWalkersCards) {

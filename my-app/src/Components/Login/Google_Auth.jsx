@@ -134,7 +134,7 @@ const Log = () => {
         //      }
         // //      // eslint-disable-next-line react-hooks/exhaustive-deps
         //    }
-        //    log()
+        //    entra()
 
        }
       

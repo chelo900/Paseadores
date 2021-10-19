@@ -5,6 +5,7 @@ import Nav from "./Nav/Nav";
 import style from "../UsersCards/UsersCards.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPaseadores, getUserFavorites } from "../../actions/index";
+import { Link} from "react-router-dom";
 
 const UsersCards = () => {
   const dispatch = useDispatch();
@@ -77,7 +78,6 @@ const UsersCards = () => {
 
   function handleFiltersSubmit(event) {
     event.preventDefault();
-
     dispatch(
       getAllPaseadores({
         page,
@@ -105,7 +105,7 @@ const UsersCards = () => {
 
   return (
     <div className={style.container}>
-      <Nav />
+      <Nav page={page} pageSize={pageSize}/>
 
       <div className={style.containerDOS}>
         <div className={style.carrusel}>
@@ -204,6 +204,11 @@ const UsersCards = () => {
                 Todos los Paseadores{" "}
               </button>
             </div>
+        <Link to={`/cardsUsers/map`} >
+                <button className={style.atc} >
+                  Ver en Mapa
+                </button >
+              </Link>
           </div>
         </div>
 
