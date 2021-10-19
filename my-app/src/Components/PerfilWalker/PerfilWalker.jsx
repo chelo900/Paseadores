@@ -45,10 +45,8 @@ const PerfilWalker = () => {
   const history = useHistory();
 
   const Walker = useSelector((state) => state.detailWalker);
-
   const comment = useSelector((state) => state.comment);
   const score = useSelector((state) => state.score);
-
   const ordensCliente = useSelector((state) => state.ordensCliente);
   const preferencias = useSelector((state) => state.preferencias);
   const [ordenload, setOrdenLoad] = useState(false);
