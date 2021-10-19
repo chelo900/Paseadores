@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { User } = require("../db");
+const { User, Preference } = require("../db");
 const { filterAndSortWalkers } = require("../utils/filterAndSort");
 const queryString = require("query-string");
 
@@ -52,6 +52,7 @@ router.get("/", async (req, res) => {
       where: {
         status: "active",
       },
+      include: Preference,
     });
     const allActiveWalkersCards = await allActiveWalkers.rows.map((w) => {
       return {
@@ -64,13 +65,13 @@ router.get("/", async (req, res) => {
         ubication: w.ubication,
         reputation: w.reputation,
         price: w.price,
-        morning: w.morning,
-        afternoon: w.afternoon,
         premium: w.premium,
         latitude: w.latitude,
         longitude: w.longitude,
+        horario: w.preference.turno,
       };
     });
+    console.log(allActiveWalkersCards[0]);
     if (allActiveWalkersCards) {
       //GET BY NAME
       if (name) {

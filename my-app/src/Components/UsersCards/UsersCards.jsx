@@ -5,7 +5,7 @@ import Nav from "./Nav/Nav";
 import style from "../UsersCards/UsersCards.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPaseadores, getUserFavorites } from "../../actions/index";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
 const UsersCards = () => {
@@ -31,7 +31,7 @@ const UsersCards = () => {
   const admin = localStorage.getItem("userAdmin");
 
   useEffect(() => {
-    if(!token){
+    if (!token) {
       history.push(`/login`);
     }
     dispatch(
@@ -109,7 +109,7 @@ const UsersCards = () => {
 
   return (
     <div className={style.container}>
-      <Nav page={page} pageSize={pageSize}/>
+      <Nav page={page} pageSize={pageSize} />
 
       <div className={style.containerDOS}>
         <div className={style.carrusel}>
@@ -185,9 +185,9 @@ const UsersCards = () => {
                 name={"horario"}
               >
                 <option> Filtrar por Horario </option>
-                <option value="morning"> Mañana </option>
-                <option value="afternoon"> Tarde </option>
-                <option value="all"> Todos </option>
+                <option value="Mañana"> Mañana </option>
+                <option value="Tarde/Noche"> Tarde/Noche </option>
+                <option value="Full"> Todos </option>
               </select>
             </div>
             <div>
@@ -208,11 +208,9 @@ const UsersCards = () => {
                 Todos los Paseadores{" "}
               </button>
             </div>
-        <Link to={`/cardsUsers/map`} >
-                <button className={style.atc} >
-                  Ver en Mapa
-                </button >
-              </Link>
+            <Link to={`/cardsUsers/map`}>
+              <button className={style.atc}>Ver en Mapa</button>
+            </Link>
           </div>
         </div>
 
