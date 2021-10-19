@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addImage,
   clientSendOrden,
-  getOrden,
   getOrdenCliente,
-  getOrdenPaseador,
   getPaseadorForId,
   ordenAnswer,
   getAssessment,
@@ -15,7 +12,7 @@ import {
 
 import style from "./PerfilWalker.module.css";
 import foto1 from "../../media/foto1Service.jpg";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Nav from "./nav/Nav";
 import swal from "sweetalert";
 import patitallena from "../../media/patitallena.png";
@@ -26,7 +23,7 @@ import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import listPlugin, { ListView } from "@fullcalendar/list";
+import listPlugin from "@fullcalendar/list";
 import esLocale from "@fullcalendar/core/locales/es";
 import dotenv from "dotenv";
 import Premium from "../../Premiums/Premium";
@@ -55,6 +52,9 @@ const PerfilWalker = () => {
   const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
   useEffect(() => {
+    if (!token) {
+      history.push(`/login`);
+    }
     dispatch(getPaseadorForId(id, token));
     dispatch(getAssessment(id, token));
   }, [dispatch, id, token]);
@@ -386,9 +386,9 @@ const PerfilWalker = () => {
               select={handleDateSelect}
               eventClick={handleEventClick}
               contentHeight="auto"
-              slotDuration={preferencias.duracion_paseos || "01:00:00"}
+              slotDuration={preferencias.duracion_paseos || "03:00:00"}
               events={ordensCliente}
-              slotMinTime={preferencias.comienzo_jornada || "06:00:00"}
+              slotMinTime={preferencias.comienzo_jornada || "08:00:00"}
               slotMaxTime={preferencias.fin_jornada || "23:00:00"}
               allDaySlot={false}
               weekends={preferencias.dias_trabajo === "LV" ? false : true}
@@ -398,19 +398,19 @@ const PerfilWalker = () => {
             />
           </div>
         </div>
+        <div className={style.padding}>
+          <FullCalendar
+            plugins={[listPlugin]}
+            headerToolbar={{
+              left: "prev,next today",
+              center: "title",
+            }}
+            initialView="listWeek"
+            events={ordensCliente}
+            locale={esLocale}
+          />
+        </div>
       </div>
-      {/* <div>
-                    <FullCalendar
-                    plugins={[listPlugin]}
-                    headerToolbar={{
-                                left: 'prev,next today',
-                                center: 'title',
-                            }}
-                    initialView="listWeek"
-                    events={ordensCliente}
-                    locale={esLocale}
-                    />
-                </div> */}
     </div>
   );
 };

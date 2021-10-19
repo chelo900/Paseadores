@@ -6,8 +6,9 @@ const queryString = require("query-string");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { name } = req.params;
-  const { page, pageSize, inputFilters, selectFilters, sortData } = req.query;
+  // const { name } = req.params;
+  const { page, pageSize, inputFilters, selectFilters, sortData, name } =
+    req.query;
   const parsedFilters = queryString.parse(inputFilters);
   const parsedSelectFilters = queryString.parse(selectFilters);
   const parsedSortData = queryString.parse(sortData);
@@ -35,9 +36,9 @@ router.get("/", async (req, res) => {
   const pageN = Number.parseInt(page);
   const pageL = Number.parseInt(pageSize);
 
-  let pageDB = 0;
+  let pageDb = 0;
   if (!Number.isNaN(pageN) && pageN > 0) {
-    pageDB = pageN;
+    pageDb = pageN;
   }
 
   let limit = 10;
@@ -48,7 +49,7 @@ router.get("/", async (req, res) => {
   try {
     const allActiveWalkers = await User.findAndCountAll({
       limit: limit,
-      offset: pageDB * limit,
+      offset: pageDb * limit,
       where: {
         status: "active",
       },

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router";
+import { useHistory} from "react-router";
 import { putDetailsProfile } from "../../../actions";
 
 import Swal from "sweetalert2";
@@ -18,6 +18,13 @@ const Edit = () => {
   const dispatch = useDispatch();
 
   const history = useHistory();
+
+  useEffect(() => {
+    if(!token){
+      history.push(`/login`);
+    }
+   
+  }, []);
 
   const inputChange = (e) => {
     setInput({

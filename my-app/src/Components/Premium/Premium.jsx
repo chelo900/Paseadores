@@ -32,6 +32,9 @@ const Form = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if(!token){
+      history.push(`/login`);
+    }
     dispatch(getPaseadorForId(id));
   }, [dispatch, id]);
 
