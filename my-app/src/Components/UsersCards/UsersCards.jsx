@@ -6,11 +6,12 @@ import style from "../UsersCards/UsersCards.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPaseadores, getUserFavorites } from "../../actions/index";
 import { Link} from "react-router-dom";
+import { useHistory } from "react-router";
 
 const UsersCards = () => {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allPaseadores);
-
+  const history = useHistory();
   const favorites = useSelector((state) => state.favorites);
 
   const [inputFilters, setInputFilters] = useState({});
@@ -30,6 +31,9 @@ const UsersCards = () => {
   const admin = localStorage.getItem("userAdmin");
 
   useEffect(() => {
+    if(!token){
+      history.push(`/login`);
+    }
     dispatch(
       getAllPaseadores({
         page,

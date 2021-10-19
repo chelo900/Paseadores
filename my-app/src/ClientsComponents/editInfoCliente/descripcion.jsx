@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { putDetailsProfileCliente } from "../../actions/index";
@@ -18,6 +18,14 @@ const EditDescripcion = () => {
   const dispatch = useDispatch();
 
   const history = useHistory();
+
+  useEffect(() => {
+    if(!token){
+      history.push(`/login`);
+    }
+   
+  }, []);
+
 
   const handleLogout = (event) => {
     event.preventDefault();
