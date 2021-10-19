@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { User } = require("../db");
+const { User, Preference } = require("../db");
 const { filterAndSortWalkers } = require("../utils/filterAndSort");
 const queryString = require("query-string");
 
@@ -12,7 +12,6 @@ router.get("/", async (req, res) => {
   const parsedFilters = queryString.parse(inputFilters);
   const parsedSelectFilters = queryString.parse(selectFilters);
   const parsedSortData = queryString.parse(sortData);
-
   const filtersArray = parsedFilters
     ? Object.entries(parsedFilters).map((filter) => {
         return {
@@ -53,6 +52,7 @@ router.get("/", async (req, res) => {
       where: {
         status: "active",
       },
+      include: Preference,
     });
     const allActiveWalkersCards = await allActiveWalkers.rows.map((w) => {
       return {
@@ -65,52 +65,50 @@ router.get("/", async (req, res) => {
         ubication: w.ubication,
         reputation: w.reputation,
         price: w.price,
-        morning: w.morning,
-        afternoon: w.afternoon,
         premium: w.premium,
         latitude: w.latitude,
         longitude: w.longitude,
+        horario: w.preference?.turno,
+        description: w.description,
       };
     });
+
+    console.log(allActiveWalkersCards[0]);
     if (allActiveWalkersCards) {
       //GET BY NAME
       if (name) {
-        try {
-          const nameSearch = allActiveWalkersCards.filter(
-            (user) =>
-              user.name.toLowerCase().startsWith(name.toLowerCase()) ||
-              user.surname.toLowerCase().startsWith(name.toLowerCase())
-          );
-          res.status(200).send(nameSearch);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-
-      console.log("Get paseadores: ", page, pageSize, parsedSortData);
-
-      if (sortData || filtersArray.length || selectFiltersArray.length) {
-        const filteredWalkers = filterAndSortWalkers({
-          walkers: allActiveWalkersCards,
-          filtersArray,
-          selectFiltersArray,
-          parsedSortData,
-        });
-        res.json({
-          content: filteredWalkers,
-          totalPages: Math.ceil(filteredWalkers.length / limit),
-        });
-      } else {
-        res.json({
-          content: allActiveWalkersCards,
-          totalPages: Math.ceil(allActiveWalkersCards.length / limit),
+        const nameSearch = allActiveWalkersCards.filter(
+          (user) =>
+            user.name.toLowerCase().startsWith(name.toLowerCase()) ||
+            user.surname.toLowerCase().startsWith(name.toLowerCase())
+        );
+        console.log(nameSearch);
+        return res.status(200).send({
+          content: nameSearch,
+          totalPages: Math.ceil(nameSearch.length / limit),
         });
       }
+    }
+    if (sortData || filtersArray.length || selectFiltersArray.length) {
+      const filteredWalkers = filterAndSortWalkers({
+        walkers: allActiveWalkersCards,
+        filtersArray,
+        selectFiltersArray,
+        parsedSortData,
+      });
+      return res.json({
+        content: filteredWalkers,
+        totalPages: Math.ceil(filteredWalkers.length / limit),
+      });
     } else {
-      res.status(404).send("Not found");
+      return res.json({
+        content: allActiveWalkersCards,
+        totalPages: Math.ceil(allActiveWalkersCards.length / limit),
+      });
     }
   } catch (error) {
-    res.json(error);
+    console.log(error.message);
+    return res.status(401).json(error.message);
   }
 });
 

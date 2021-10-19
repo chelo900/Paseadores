@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { putDetailsUser } from "../../../actions";
@@ -17,10 +17,9 @@ const Edit = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if(!token){
+    if (!token) {
       history.push(`/login`);
     }
-   
   }, []);
 
   const [input, setInput] = useState({

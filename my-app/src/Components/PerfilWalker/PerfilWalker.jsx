@@ -12,7 +12,8 @@ import {
 
 import style from "./PerfilWalker.module.css";
 import foto1 from "../../media/foto1Service.jpg";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
+
 import Nav from "./nav/Nav";
 import swal from "sweetalert";
 import patitallena from "../../media/patitallena.png";
@@ -57,7 +58,8 @@ const PerfilWalker = () => {
     }
     dispatch(getPaseadorForId(id, token));
     dispatch(getAssessment(id, token));
-  }, [dispatch, id, token]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, id]);
 
   useEffect(() => {
     if (!Walker.latitude || !Walker.longitude) {
@@ -317,27 +319,32 @@ const PerfilWalker = () => {
             <h2>Reputación</h2>
             <div className={style.textDescription}>
               <h1>{score?.toFixed(1)}</h1>
+
               <img src={patitallena} alt="" />
-              {score < 1 && <img src={patitavacia} alt="sas" />}
+
+              {score <= 1 && <img src={patitavacia} alt="sas" />}
               {score > 1 && score < 2 && <img src={mediapatita} alt="" />}
               {score >= 2 && <img src={patitallena} alt="" />}
-              {score < 2 && <img src={patitavacia} alt="sas" />}
+
+              {score <= 2 && <img src={patitavacia} alt="sas" />}
               {score > 2 && score < 3 && <img src={mediapatita} alt="" />}
               {score >= 3 && <img src={patitallena} alt="" />}
-              {score < 3 && <img src={patitavacia} alt="sas" />}
+
+              {score <= 3 && <img src={patitavacia} alt="sas" />}
               {score > 3 && score < 4 && <img src={mediapatita} alt="" />}
               {score >= 4 && <img src={patitallena} alt="" />}
-              {score < 4 && <img src={patitavacia} alt="sas" />}
+
+              {score <= 4 && <img src={patitavacia} alt="sas" />}
               {score > 4 && score < 5 && <img src={mediapatita} alt="" />}
               {score === 5 && <img src={patitallena} alt="" />}
-              {score < 5 && <img src={patitavacia} alt="sas" />}
             </div>
-            {comment?.length &&
-              comment.map((el) => (
-                <div>
-                  <p> {el}</p>
-                </div>
-              ))}
+            {comment?.length
+              ? comment.map((el) => (
+                  <div>
+                    <p> {el}</p>
+                  </div>
+                ))
+              : ""}
           </div>
           <div className={style.fotos}>
             <div className={style.fondoFotos}>
@@ -359,6 +366,10 @@ const PerfilWalker = () => {
                   Subir
                 </button>
               </form>
+              {/* <button onClick={history.push("/chat")} >Chat</button> */}
+              <Link to={`/chat`} className={style.editContainerInfo}>
+                <button className={style.editDescription}>CHAT</button>
+              </Link>
             </div>
             <div>
               <span>🟢 Paseos Confirmados</span>

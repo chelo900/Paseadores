@@ -8,13 +8,12 @@ module.exports = (request, response, next) => {
   if (authorization && authorization.toLowerCase().startsWith("bearer")) {
     token = authorization.substring(7);
   }
-  // console.log("middleware: ", token);
   let decodedToken = {};
 
   try {
     decodedToken = jwt.verify(token, SECRET);
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
     return response.status(401).json(error);
   }
 

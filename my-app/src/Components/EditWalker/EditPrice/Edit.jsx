@@ -17,10 +17,9 @@ const Edit = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if(!token){
+    if (!token) {
       history.push(`/login`);
     }
-   
   }, []);
 
   const inputChange = (e) => {
