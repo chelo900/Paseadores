@@ -318,27 +318,32 @@ const PerfilWalker = () => {
             <h2>Reputación</h2>
             <div className={style.textDescription}>
               <h1>{score?.toFixed(1)}</h1>
+
               <img src={patitallena} alt="" />
-              {score < 1 && <img src={patitavacia} alt="sas" />}
+
+              {score <= 1 && <img src={patitavacia} alt="sas" />}
               {score > 1 && score < 2 && <img src={mediapatita} alt="" />}
               {score >= 2 && <img src={patitallena} alt="" />}
-              {score < 2 && <img src={patitavacia} alt="sas" />}
+
+              {score <= 2 && <img src={patitavacia} alt="sas" />}
               {score > 2 && score < 3 && <img src={mediapatita} alt="" />}
               {score >= 3 && <img src={patitallena} alt="" />}
-              {score < 3 && <img src={patitavacia} alt="sas" />}
+
+              {score <= 3 && <img src={patitavacia} alt="sas" />}
               {score > 3 && score < 4 && <img src={mediapatita} alt="" />}
               {score >= 4 && <img src={patitallena} alt="" />}
-              {score < 4 && <img src={patitavacia} alt="sas" />}
+
+              {score <= 4 && <img src={patitavacia} alt="sas" />}
               {score > 4 && score < 5 && <img src={mediapatita} alt="" />}
               {score === 5 && <img src={patitallena} alt="" />}
-              {score < 5 && <img src={patitavacia} alt="sas" />}
+              
             </div>
-            {comment?.length &&
+            {comment?.length ?
               comment.map((el) => (
                 <div>
                   <p> {el}</p>
                 </div>
-              ))}
+              )) : ""}
           </div>
           <div className={style.fotos}>
             <div className={style.fondoFotos}>

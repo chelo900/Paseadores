@@ -69,8 +69,9 @@ router.get("/", async (req, res) => {
         latitude: w.latitude,
         longitude: w.longitude,
         horario: w.preference.turno,
-      };
+        description : w.description      };
     });
+    
     console.log(allActiveWalkersCards[0]);
     if (allActiveWalkersCards) {
       //GET BY NAME

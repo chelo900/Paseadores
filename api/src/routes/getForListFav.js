@@ -9,7 +9,10 @@ router.get('/:id', async(req, res, next) => {
    try {
        
     const client = await Client.findOne({
-        where: { id: id },
+        where: { 
+            id: id,
+            status: "active"
+        },
         include: User,
       });
         

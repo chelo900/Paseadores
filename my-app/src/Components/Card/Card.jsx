@@ -45,6 +45,8 @@ function Card({
   const admin = localStorage.getItem("userAdmin");
   const token = localStorage.getItem("userToken");
 
+  
+
   async function addFavorite() {
     if (fv === false) {
       await dispatch(

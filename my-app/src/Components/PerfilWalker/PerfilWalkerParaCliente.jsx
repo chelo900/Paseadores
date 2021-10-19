@@ -383,6 +383,9 @@ const PerfilWalker = () => {
             </div>
           </div>
           <div className={style.informacion}>
+          <h2>
+              {Walker.name} {Walker.surname}
+            </h2>
             {Walker.status === "active" ? (
               <p className={style.activo}>Disponible</p>
             ) : (
@@ -400,6 +403,7 @@ const PerfilWalker = () => {
             )}
             <ul>
               <li className={style.liService}>{Walker.service}</li>
+              <li className={style.libirth}>{Walker.birth_day}</li>
               <li className={style.liUbication}>{Walker.ubication}</li>
             </ul>
           </div>
@@ -462,27 +466,32 @@ const PerfilWalker = () => {
             <h2>Reputación</h2>
             <div className={style.textDescription}>
               <h1>{score?.toFixed(1)}</h1>
+
               <img src={patitallena} alt="" />
-              {score < 1 && <img src={patitavacia} alt="sas" />}
+
+              {score <= 1 && <img src={patitavacia} alt="sas" />}
               {score > 1 && score < 2 && <img src={mediapatita} alt="" />}
               {score >= 2 && <img src={patitallena} alt="" />}
-              {score < 2 && <img src={patitavacia} alt="sas" />}
+
+              {score <= 2 && <img src={patitavacia} alt="sas" />}
               {score > 2 && score < 3 && <img src={mediapatita} alt="" />}
               {score >= 3 && <img src={patitallena} alt="" />}
-              {score < 3 && <img src={patitavacia} alt="sas" />}
+
+              {score <= 3 && <img src={patitavacia} alt="sas" />}
               {score > 3 && score < 4 && <img src={mediapatita} alt="" />}
               {score >= 4 && <img src={patitallena} alt="" />}
-              {score < 4 && <img src={patitavacia} alt="sas" />}
+
+              {score <= 4 && <img src={patitavacia} alt="sas" />}
               {score > 4 && score < 5 && <img src={mediapatita} alt="" />}
               {score === 5 && <img src={patitallena} alt="" />}
-              {score < 5 && <img src={patitavacia} alt="sas" />}
+              
             </div>
-            {comment?.length &&
+            {comment?.length ?
               comment.map((el) => (
                 <div>
                   <p> {el}</p>
                 </div>
-              ))}
+              )) : ""}
 
             <button
               className={style.prueba}
