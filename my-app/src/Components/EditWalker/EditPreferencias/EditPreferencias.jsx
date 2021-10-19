@@ -318,8 +318,7 @@ function EditPreferencias() {
                   <option unselectable value="">
                     Hora Final
                   </option>
-                  {array &&
-                    array.map((hora) => <option value={hora}>{hora}</option>)}
+                  {array && array.map((hora) => <option>{hora}</option>)}
                 </select>
               </label>
             </div>
