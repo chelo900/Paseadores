@@ -14,6 +14,7 @@ import {
 import style from "./PerfilWalker.module.css";
 import foto1 from "../../media/foto1Service.jpg";
 import { Link, useParams, useHistory } from "react-router-dom";
+import Chat from "../Chat/Chat";
 import Nav from "./nav/Nav";
 
 import FullCalendar, { EventContentArg } from "@fullcalendar/react"; // must go before plugins
@@ -383,7 +384,7 @@ const PerfilWalker = () => {
             </div>
           </div>
           <div className={style.informacion}>
-          <h2>
+            <h2>
               {Walker.name} {Walker.surname}
             </h2>
             {Walker.status === "active" ? (
@@ -484,14 +485,14 @@ const PerfilWalker = () => {
               {score <= 4 && <img src={patitavacia} alt="sas" />}
               {score > 4 && score < 5 && <img src={mediapatita} alt="" />}
               {score === 5 && <img src={patitallena} alt="" />}
-              
             </div>
-            {comment?.length ?
-              comment.map((el) => (
-                <div>
-                  <p> {el}</p>
-                </div>
-              )) : ""}
+            {comment?.length
+              ? comment.map((el) => (
+                  <div>
+                    <p> {el}</p>
+                  </div>
+                ))
+              : ""}
 
             <button
               className={style.prueba}
@@ -568,6 +569,9 @@ const PerfilWalker = () => {
                 </button>
               </div>
             </form>
+            <Link to={`/chat`} className={style.editContainerInfo}>
+              <button className={style.editDescription}>CHAT</button>
+            </Link>
           </div>
           <div className={style.fotos}>
             <div className={style.fondoFotos}>
