@@ -237,6 +237,7 @@ const UsersCards = () => {
         <div className={style.cards}>
           {allUsers.content?.length > 0 ? (
             allUsers.content.map((el) => {
+              {console.log(el, 'todo')}
               var fv;
 
               for (var i = 0; i < favorites.length; i++) {
@@ -260,7 +261,7 @@ const UsersCards = () => {
                   image={el.image}
                   service={servicio}
                   price={el.price}
-                  reputation={el.reputation}
+                  ubication={el.ubication}
                   description={el.description}
                   fv={fv}
                 />

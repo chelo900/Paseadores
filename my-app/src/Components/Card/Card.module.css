@@ -98,14 +98,27 @@
     width: 90%;
     background-color: rgb(58,84,180);
     height: 3px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.title h2{
+    margin-bottom: 20px;
 }
 
 .title h3{
+    color:rgb(58,84,180);
+    margin-bottom: 5px;
+}
+
+.title p{
     margin-bottom: 20px;
 }
 .imageContainer{
     background-color: rgb(58,84,180, 0.2);
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
 }
 
 .imageContainer ul{
@@ -115,23 +128,7 @@
 
 }
 
-.reputacion{
-    display: flex;
-    justify-content: space-around;
-}
-.good{
-    background-color: transparent;
-    border: none;
-    font-size:x-large;
-    cursor: pointer;
-}
 
-.bad{
-    background-color: transparent;
-    border: none;
-    font-size:x-large;
-    cursor: pointer;
-}
 .image{
     border-radius: 50%;
     width: 200px;
@@ -159,12 +156,12 @@
 }
 
 .title span{
-    margin: 0px 20px 10px 20px ;
-    height: 100px;
+    margin: 0px 5px 10px 20px ;
+    height: 70px;
     letter-spacing: 1px;
     font-size: large;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis !important
    
 
 }
@@ -181,6 +178,7 @@
     cursor: pointer;
 }
 .boton{
+    margin-top: 10px;
     padding-bottom: 15px;
 }
 
@@ -200,4 +198,23 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+.scoreContain{
+    margin-top: 20px;
+    display: grid;
+    grid-template-rows: repeat(2,1fr);
+    align-items: center;
+}
+.scoreContain h1{
+grid-template-rows: 1 span;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+
+}
+
+.estrellas{
+  grid-template-rows: 1 span;
 }
