@@ -19,9 +19,9 @@ const Nav = ({id}) => {
     }
 
     function handleOnClick(e) {
-      localStorage.clear();
-      history.push(`/login`);
-      dispatch(clearUser({}))
+        localStorage.clear();
+        history.push(`/`);
+        dispatch(clearUser({}))
     }
     return (
         <div className={style.container}>

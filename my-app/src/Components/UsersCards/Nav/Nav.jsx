@@ -12,10 +12,9 @@ const Nav = ({page, pageSize}) => {
 
     function handleOnClick(e) {
         localStorage.clear();
-        history.push(`/login`);
-        dispatch(clearUser({}));
+        history.push(`/`);
+        dispatch(clearUser({}))
     }
-
     var id = localStorage.getItem("userId");
     var walker = localStorage.getItem("userWalker");
     var admin = localStorage.getItem("userAdmin");

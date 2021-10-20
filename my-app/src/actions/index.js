@@ -313,6 +313,23 @@ export function getPaseadorPremuim(token) {
   };
 }
 
+export function deleteImage( public_id ,token) {
+  return async function (dispatch){
+    return axios.delete(`/deleteImages/${public_id}`,{
+      headers:{
+        Authorization: `Bearer ${token}`,
+      }
+    })
+    .then(user=>{
+      dispatch({
+        type: "DELETE_IMAGE",
+        payload: user.data.id
+
+      })
+    })
+  }
+}
+
 //    CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE ----- CLIENTE
 
 export function newClient(payload) {

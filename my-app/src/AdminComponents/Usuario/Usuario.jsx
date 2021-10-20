@@ -9,6 +9,7 @@ import {
   getWalkers,
   getAssessment,
 } from "../../actions/index";
+import swal from "sweetalert";
 
 const Usuario = (props) => {
   const dispatch = useDispatch();
@@ -21,35 +22,79 @@ const Usuario = (props) => {
   }, [dispatch]);
 
   function handleOnClickAdmin(e, usuario) {
-    dispatch(makeAdmin({ id: props.id }, token));
-    setTimeout(function () {
-      if (usuario === "Paseadores / Cuidadores") {
-        dispatch(getWalkers(token));
-      } else if (usuario === "Dueños") {
-        dispatch(getClients(token));
-      }
-    }, 2000);
+    (() => {
+      swal({
+        title: "Confirmar si quiere que el usuario "+ props.email +" se convierta en admin",
+        icon: "info",
+        buttons: ["Cancelar", "Aceptar"],
+      }).then((respuesta) => {
+        if (respuesta) {
+          swal({ text: "Convertido a admin", icon: "success" });
+          dispatch(makeAdmin({ id: props.id }, token));
+          setTimeout(function () {
+            if (usuario === "Paseadores / Cuidadores") {
+              dispatch(getWalkers(undefined, token));
+            } else if (usuario === "Dueños") {
+              dispatch(getClients(undefined, token));
+            }
+          }, 2000);
+        } else {
+          swal({ text: "Cancelado", icon: "warning" });
+        }
+      });
+    })()
+    
   }
+
+
   function handleOnClickResetPassword(e, usuario) {
-    console.log(usuario);
-    dispatch(resetPassword({ id: props.id }, token));
-    setTimeout(function () {
-      if (usuario === "Paseadores / Cuidadores") {
-        dispatch(getWalkers(token));
-      } else if (usuario === "Dueños") {
-        dispatch(getClients(token));
-      }
-    }, 2000);
+    (() => {
+      swal({
+        title: "Confirmar si quiere enviar mail a: "+ props.email +" para resetear su contraseña",
+        icon: "info",
+        buttons: ["Cancelar", "Aceptar"],
+      }).then((respuesta) => {
+        if (respuesta) {
+          swal({ text: "Email enviado", icon: "success" });
+          dispatch(resetPassword({ id: props.id }, token));
+          setTimeout(function () {
+            if (usuario === "Paseadores / Cuidadores") {
+              dispatch(getWalkers(undefined, token));
+            } else if (usuario === "Dueños") {
+              dispatch(getClients(undefined, token));
+            }
+          }, 2000);
+        } else {
+          swal({ text: "Cancelado", icon: "warning" });
+        }
+      });
+    })()
   }
+
+  
   function handleOnClickDelete(e, usuario) {
-    dispatch(deleteUserAccount({ id: props.id }, token));
-    setTimeout(function () {
-      if (usuario === "Paseadores / Cuidadores") {
-        dispatch(getWalkers(token));
-      } else if (usuario === "Dueños") {
-        dispatch(getClients(token));
-      }
-    }, 2000);
+    (() => {
+      swal({
+        title: "Confirmar si quiere eliminar al usuario: "+ props.email,
+        icon: "info",
+        buttons: ["Cancelar", "Aceptar"],
+      }).then((respuesta) => {
+        if (respuesta) {
+          swal({ text: "Usuario eliminado", icon: "success" });
+          dispatch(deleteUserAccount({ id: props.id }, token));
+          setTimeout(function () {
+            if (usuario === "Paseadores / Cuidadores") {
+              dispatch(getWalkers(undefined, token));
+            } else if (usuario === "Dueños") {
+              dispatch(getClients(undefined, token));
+            }
+          }, 2000);
+        } else {
+          swal({ text: "Cancelado", icon: "warning" });
+        }
+      });
+    })()
+   
   }
   return (
     <div className={style.container}>

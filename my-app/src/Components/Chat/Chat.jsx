@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import "./Chat.css";
 
 let socket;
-const CONNECTION_PORT = "localhost:3002/";
+const CONNECTION_PORT = "localhost:3001/";
 
 function Chat() {
   // Before Login
@@ -57,7 +57,7 @@ function Chat() {
             />
             <input
               type="text"
-              placeholder="Buscar Usuario..."
+              placeholder="Nombre del paseador..."
               onChange={(e) => {
                 setRoom(e.target.value);
               }}

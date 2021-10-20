@@ -17,7 +17,7 @@ const Nav = (props) => {
 
     function handleOnClick(e) {
         localStorage.clear();
-        history.push(`/login`);
+        history.push(`/`);
         dispatch(clearUser({}))
     }
     return (

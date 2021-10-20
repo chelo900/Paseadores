@@ -11,7 +11,7 @@ const About = () => {
             <div className={style.info}>
                 <h1>Sobre Nosotros</h1>
                 <p>Crea gratis tu perfil, elige los servicios que brindas y comienza a recibir contrataciones. Puedes brindar servicios caninos de cuidado o paseos.</p>
-                <p>Crea tu cuenta y completa tu perfil con tus datos, fotos, precio, disponibilidad de días y horarios, zona, etc. Nosotros revisaremos tu perfil y te avisaremos cuando haya sido aprobado.</p>
+                <p>Crea tu cuenta y completa tu perfil con tus datos, fotos, precio, disponibilidad de días y horarios, zona, etc.</p>
                 <p>Los clientes podrán hacerte consultas y, si se deciden por tí, te enviarán una solicitud de contratación. Podrás elegir aceptar o no cada pedido de contratación que recibas.</p>
                 <p>Una vez aceptado el pedido de contratación recibirás los datos del cliente para encontrarse. Tus clientes podrán calificarte a través de nuestra web, así que brindales lo mejor de tí!</p>
             </div>
