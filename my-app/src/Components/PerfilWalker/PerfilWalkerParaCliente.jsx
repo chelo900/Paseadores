@@ -524,6 +524,15 @@ const PerfilWalker = () => {
                 </button>
               </div>
             </form>
+<<<<<<< HEAD
+=======
+            <Link to={`/chat`} className={style.editContainerInfo}>
+              <button className={style.editDescription}>CHAT ROOMS</button>
+            </Link>
+            <Link to={`/messenger`} className={style.editContainerInfo}>
+              <button className={style.editDescription}>CHAT</button>
+            </Link>
+>>>>>>> e3f07b3 (Back chat and some bugs)
           </div>
           <div className={style.fotos}>
             <div className={style.fondoFotos}>
