@@ -66,6 +66,10 @@ const PerfilWalker = () => {
   // useEffect(() => {
   //   if (delImage === true) dispatch(getPaseadorForId(id, token));
   // }, [dispatch]);
+  
+  useEffect(() => {
+    dispatch(getPaseadorPremuim())
+  },[])
 
   useEffect(() => {
     dispatch(getOrdenCliente(id, token));
