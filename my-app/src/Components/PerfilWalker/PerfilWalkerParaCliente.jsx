@@ -17,7 +17,7 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import Chat from "../Chat/Chat";
 import Nav from "./nav/Nav";
 
-import chat from '../../media/chat.png'
+import chat from "../../media/chat.png";
 
 import FullCalendar, { EventContentArg } from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -439,8 +439,8 @@ const PerfilWalker = () => {
           </div>
           <div className={style.reputacion}>
             <h2>Deja tu opinon:</h2>
-           <div className={style.opinion}>
-            {comment?.length
+            <div className={style.opinion}>
+              {comment?.length
                 ? comment.map((el) => (
                     <div>
                       <p> {el}</p>
@@ -508,7 +508,7 @@ const PerfilWalker = () => {
                   <img src={patitavacia} alt="sas" />
                 )}
               </button>
-           </div>
+            </div>
 
             <form className={style.formulario} onSubmit={handlerSubmit}>
               <textarea
@@ -524,6 +524,12 @@ const PerfilWalker = () => {
                 </button>
               </div>
             </form>
+            <Link to={`/chat`} className={style.editContainerInfo}>
+              <button className={style.editDescription}>CHAT ROOMS</button>
+            </Link>
+            <Link to={`/messenger`} className={style.editContainerInfo}>
+              <button className={style.editDescription}>CHAT</button>
+            </Link>
           </div>
           <div className={style.fotos}>
             <div className={style.fondoFotos}>
@@ -540,50 +546,47 @@ const PerfilWalker = () => {
         </div>
         <div className={style.padding}>
           <h2>Solicita un Turno:</h2>
-          <div >
-              <span>🟢 Paseos Confirmados</span>
-              <span>🟡 Pendientes</span>
-            </div> 
-            <div>
-              <FullCalendar
-                eventClassNames={style.calendar}
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                headerToolbar={{
-                  left: "prev,next today",
-                  center: "title",
-                  right: "dayGridMonth,timeGridWeek,timeGridDay",
-                }}
-                initialView="timeGridWeek"
-                locale={esLocale}
-                editable={true}
-                selectable={true}
-                selectMirror={true}
-                dayMaxEvents={3}
-                select={handleDateSelect}
-                eventClick={handleEventClick}
-                contentHeight="auto"
-                slotDuration={preferencias.duracion_paseos || "01:00:00"}
-                events={ordensCliente}
-                slotMinTime={preferencias.comienzo_jornada || "06:00:00"}
-                slotMaxTime={preferencias.fin_jornada || "23:00:00"}
-                allDaySlot={false}
-                weekends={preferencias.dias_trabajo === "LV" ? false : true}
-                hiddenDays={
-                  preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
-                }
-              />
-            </div> 
+          <div>
+            <span>🟢 Paseos Confirmados</span>
+            <span>🟡 Pendientes</span>
+          </div>
+          <div>
+            <FullCalendar
+              eventClassNames={style.calendar}
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              headerToolbar={{
+                left: "prev,next today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay",
+              }}
+              initialView="timeGridWeek"
+              locale={esLocale}
+              editable={true}
+              selectable={true}
+              selectMirror={true}
+              dayMaxEvents={3}
+              select={handleDateSelect}
+              eventClick={handleEventClick}
+              contentHeight="auto"
+              slotDuration={preferencias.duracion_paseos || "01:00:00"}
+              events={ordensCliente}
+              slotMinTime={preferencias.comienzo_jornada || "06:00:00"}
+              slotMaxTime={preferencias.fin_jornada || "23:00:00"}
+              allDaySlot={false}
+              weekends={preferencias.dias_trabajo === "LV" ? false : true}
+              hiddenDays={
+                preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
+              }
+            />
+          </div>
         </div>
       </div>
-      
-      <Link
-              to={`/chat`}
-              className={style.editContainerChat}
-            >
-              <button className={style.editchat}>
-                <img src={chat} alt='chat' title="Conectar" />
-              </button >
-            </Link>
+
+      <Link to={`/chat`} className={style.editContainerChat}>
+        <button className={style.editchat}>
+          <img src={chat} alt="chat" title="Conectar" />
+        </button>
+      </Link>
     </div>
   );
 };
