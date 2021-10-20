@@ -103,7 +103,6 @@ function rootReducer(state = initialState, action) {
         detailWalker: action.payload,
       };
     case GET_PASEADOR_FOR_ID:
-      console.log("reducer payload: ", action.payload);
       return {
         ...state,
         detailWalker: action.payload,
@@ -184,7 +183,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         allPaseadores: action.payload,
       };
-  /*  case ALERT_ADMIN:
+    /*  case ALERT_ADMIN:
       alert(action.payload);
       break;*/
 

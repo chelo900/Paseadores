@@ -6,7 +6,6 @@ const queryString = require("query-string");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  // const { name } = req.params;
   const { page, pageSize, inputFilters, selectFilters, sortData, name } =
     req.query;
   const parsedFilters = queryString.parse(inputFilters);
@@ -73,7 +72,6 @@ router.get("/", async (req, res) => {
       };
     });
 
-    console.log(allActiveWalkersCards[0]);
     if (allActiveWalkersCards) {
       //GET BY NAME
       if (name) {
@@ -82,7 +80,6 @@ router.get("/", async (req, res) => {
             user.name.toLowerCase().startsWith(name.toLowerCase()) ||
             user.surname.toLowerCase().startsWith(name.toLowerCase())
         );
-        console.log(nameSearch);
         return res.status(200).send({
           content: nameSearch,
           totalPages: Math.ceil(nameSearch.length / limit),
@@ -108,7 +105,7 @@ router.get("/", async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
-    return res.status(401).json(error.message);
+    return res.status(404).json(error.message);
   }
 });
 

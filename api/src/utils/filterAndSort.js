@@ -6,7 +6,6 @@ const sortNumberValue = (a, b) => sortNumber(a.value, b.value);
 
 const sortWalkersBy = ({ walkers, parsedSortData }) => {
   const { sortField, isSortAscending } = parsedSortData;
-  console.log(sortField, isSortAscending, "utils");
   if (sortField) {
     const walkerValues = walkers.map((walker) => {
       return { id: walker.id, value: Number(walker[sortField]) };
@@ -39,7 +38,7 @@ const filterWalkers = ({ walkers, filtersArray, selectFiltersArray }) => {
     //FILTROS CON INPUT
 
     filtersArray.forEach((filter) => {
-      if (filter.hasOwnProperty("min")) {
+      if (filter.hasOwnProperty("min") && filter.min) {
         filteredWalkers = filteredWalkers.filter((walker) => {
           if (filter.min) {
             return walker.price >= [filter.min];
@@ -48,7 +47,7 @@ const filterWalkers = ({ walkers, filtersArray, selectFiltersArray }) => {
           }
         });
       }
-      if (filter.hasOwnProperty("max")) {
+      if (filter.hasOwnProperty("max") && filter.max) {
         filteredWalkers = filteredWalkers.filter((walker) => {
           if (filter.max) {
             return walker.price <= [filter.max];
@@ -58,7 +57,7 @@ const filterWalkers = ({ walkers, filtersArray, selectFiltersArray }) => {
         });
       }
 
-      if (filter.hasOwnProperty("ubication")) {
+      if (filter.hasOwnProperty("ubication") && filter.ubication) {
         filteredWalkers = filteredWalkers.filter((walker) =>
           walker.ubication
             ?.toLowerCase()

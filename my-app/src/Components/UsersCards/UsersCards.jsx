@@ -14,7 +14,11 @@ const UsersCards = () => {
   const history = useHistory();
   const favorites = useSelector((state) => state.favorites);
 
-  const [inputFilters, setInputFilters] = useState({});
+  const [inputFilters, setInputFilters] = useState({
+    min: "",
+    max: "",
+    ubication: "",
+  });
   const [selectFilters, setSelectFilters] = useState({});
   const [sortData, setSortData] = useState({});
 
@@ -102,11 +106,10 @@ const UsersCards = () => {
   function handleOnClick(event) {
     event.preventDefault();
     setSelectFilters({});
-    setInputFilters({});
+    setInputFilters({ min: "", max: "", ubication: "" });
     setSortData({});
     setPage(0);
   }
-
   return (
     <div className={style.container}>
       <Nav page={page} pageSize={pageSize} />
@@ -143,6 +146,7 @@ const UsersCards = () => {
                 type="number"
                 placeholder=" $ Mínimo "
                 name="min"
+                value={inputFilters.min}
                 onChange={handleFiltersOnChange}
               />
 
@@ -151,6 +155,7 @@ const UsersCards = () => {
                 type="number"
                 placeholder=" $ Maximo "
                 name="max"
+                value={inputFilters.max}
                 onChange={handleFiltersOnChange}
               />
               <button className={style.btn}> Buscar </button>
@@ -168,6 +173,7 @@ const UsersCards = () => {
                 type="search"
                 placeholder="Zona "
                 name="ubication"
+                value={inputFilters.ubication}
                 onChange={handleFiltersOnChange}
                 list="ubi"
               />
@@ -245,11 +251,12 @@ const UsersCards = () => {
                 }
               }
 
-          let servicio;    
+              let servicio;
 
-          if(el.service === "Walker") servicio = "Paseador"
-          if(el.service === "Carer") servicio = "Cuidador"
-          if(el.service === "Walker and Carer") servicio = "Paseador y Cuidador"
+              if (el.service === "Walker") servicio = "Paseador";
+              if (el.service === "Carer") servicio = "Cuidador";
+              if (el.service === "Walker and Carer")
+                servicio = "Paseador y Cuidador";
 
               return (
                 <Card
