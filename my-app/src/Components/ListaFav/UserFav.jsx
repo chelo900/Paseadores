@@ -64,10 +64,7 @@ function UserFav({
 
   return (
     <div className={styles.card} draggable>
-      <div className={styles.title}>
-        <h1 className={styles.name}>{name + " " + surname}</h1>
-        {/* <hr></hr> */}
-        {walker === "false" && (
+      {walker === "false" && (
           <button
             className={styles.prueba}
             onClick={(e) => {
@@ -81,13 +78,17 @@ function UserFav({
             )}
           </button>
         )}
+      <div className={styles.title}>
+        <h1 className={styles.name}>{name}</h1>
+        {/* <hr></hr> */}
+        
         {image ? (
           <img className={styles.image} src={image} alt="foto paseador" />
         ) : (
           <img className={styles.image} src={fotoDefault} alt="a" />
         )}
         <h3>{service}</h3>
-        <div>{price}</div>
+        <div>${price}</div>
         {walker === "false" && (
           <div className={styles.boton}>
             <Link to={`/walker/perfil/contacto/${id}`}>

@@ -2,6 +2,9 @@
     background-color: rgb(254,247, 237);
     min-height: 100vh;
     margin: 0;
+    z-index: -2;
+    position: absolute;
+    padding: 0
 }
 
 
@@ -12,13 +15,15 @@
     background-color: white;
     position: absolute;
     top:90px;
-    left: 200px;
+    left: 100px;
     z-index: 1;
 }
 .borderFoto{
-    background-color: rgb(58,84,180, 0.2);
+    /* background-color: rgb(58,84,180, 0.2); */
     width: 100%;
     height: 330px;
+    background-image: url("../../media/fondo4.jpg");
+   background-size: cover;
 }
 
 .fotoPerfil img {
@@ -34,20 +39,21 @@
 
 .containerPerfil{
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(4,1fr);
     height: auto;
 }
 
 .personalInformation{
     grid-column: 1span;
     background-color: white;
-    width: 400px;
-    height: 750px;
-    margin-left: 100px;
+    width: 350px;
+    height:auto;
+    margin-left: 30px;
 }
 
 .informacion{
     margin: 30px 0 0 25%;
+    height: auto;
 }
 .informacion ul{
     width: 300px;
@@ -91,16 +97,23 @@
     list-style-image: url("../../media/iconDni.png");
     font-family: 'Nunito', sans-serif;
 }
+.liRep{
+    margin: 10px 0 20px 0;
+    list-style-image: url("../../media/estrella.png");
+    font-family: 'Nunito', sans-serif;
+    font-size: 23px;
+    font-weight: 500;
+}
 
 
 .caracteristicas{
-    grid-column: 1span;
-    width: 100%;
+    grid-column: 2 span;
+    width: 95%
 }
 
 .descripcion{
-    margin: 170px 20px 0 20px;
-    width: 600px;
+    margin: 170px 0px 0 20px;
+    width: 95%;
     height: auto;
     background-color: white;
     /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
@@ -115,9 +128,27 @@
     font-family: 'Nunito', sans-serif;
     
 }
+
+.descripcionWalker{
+    margin: 100px 0px 0 20px;
+    width: 95%;
+    height: auto;
+    background-color: white;
+    /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
+}
+.descripcionWalker h2{
+    padding: 10px ;
+    font-family: 'Work Sans', sans-serif;
+    color:rgb(58,84,180);
+}
+.descripcionWalker p{
+    padding: 10px;
+    font-family: 'Nunito', sans-serif;
+    
+}
 .price{
     margin: 20px;
-    width: 600px;
+    width: 95%;
     height: auto;
     background-color: white;
     /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
@@ -134,7 +165,7 @@
 
 .reputacion{
     margin: 20px;
-    width: 600px;
+    width: 95%;
     height: auto;
     background-color: white;
     padding-bottom: 10PX;
@@ -151,6 +182,7 @@
     padding: 5px;
     font-family: 'Nunito', sans-serif;
 }
+
 .galeria{
     display: grid;
     grid-template-columns: repeat(5,1fr);
@@ -167,7 +199,7 @@
     object-position: center;
     cursor: pointer;
 }
-
+/* 
 .galeria img:hover{
     width: 400px;
     height: auto;
@@ -175,12 +207,12 @@
     top:100px;
     left: 600px;
     -webkit-transform:scale(1.0);transform:scale(1.0);
-}
+} */
 
 .fotos{
     margin: 20px;
-    width: 600px;
-    height: auto;
+    width: 95%;
+        height: auto;
     /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
     
 }
@@ -273,10 +305,26 @@
 }
 
 .editDescription{
-    width: 150px;
+    /* width: 150px;
+    height: 25px;
+    background-color: rgb(58,84,180,0.8);; */
+    border: none;
+    text-decoration: none;
+    /* box-shadow: 1px 1px 2px rgb(0, 0, 0); */
+    margin: 5px 20px 10px 0;
+    color: black;
+    cursor: pointer;
+    background-color: transparent;
+    font-weight: 500;
+    /* letter-spacing: 0.5px; */
+    
+}
+.edit{
+    width: auto;
     height: 25px;
     background-color: rgb(58,84,180,0.8);;
     border: none;
+    padding: 5px 10px 5px 10px;
     text-decoration: none;
     box-shadow: 1px 1px 2px rgb(0, 0, 0);
     margin: 5px 20px 10px 0;
@@ -286,6 +334,22 @@
     letter-spacing: 0.5px;
 }
 
+.preferencias{
+    margin-left:30px ;
+    line-height: 30px;
+}
+
+.preferencias button{
+    margin-top: 20px;
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
 .editDescription:hover{
     box-shadow: none;
 }
@@ -294,8 +358,7 @@
 }
 
 .calendario{
-    width: 359px;
-    height: 300px;
+    width: 95%;
 }
 
 .textDescription{
@@ -387,8 +450,8 @@
 .Premuim{
     grid-column: 1span;
     margin: 60px 20px -80px 20px;
-    width: 600px;
-    height: 12%;
+    width: 95%;
+        height: 12%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -409,13 +472,24 @@
 
 .formulario{
     width: 600px;
-    height: 300px;
     background-color: white;
-    box-shadow: 1px 2px 10px rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-left: 40px;
+  }
+
+  .formulario textarea{
+      width: 95%;
+      height: 100px;
+      padding: 10px;
+      margin-top: 10px;
+      border: solid 3px rgb(58,84,180);
+  }
+  .formularioButton{
+      margin-top: 10px;
+
   }
 
   .containerBtn{
@@ -434,13 +508,60 @@
     border: none;
     cursor: pointer;
 }
+.textDescriptionReputacion{
+    width:570px ;
+    height: auto;
+    margin: 20px;
+
+}
+.textDescriptionReputacion h1{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+}
+.textDescriptionReputacion img{
+    width: 50px;
+    margin: 20px;
+}
+
 
 .map{
-    margin-top: 50px;
-    width: 100vw;
-  height: 100vh;
+    margin: 0;
+    width: 250px;
+  height: 200px;
 }
 
 .padding{
-    padding-top: 100px;
+   background-color: white;
+   margin: 100px 0px 10px 10px;
+   height: 70%;
+   position: relative;
+   width: 400px;
+   right: 30px;
+}
+.padding h2{
+    color: rgb(58,84,180);
+    margin:10px
+ }
+.editchat{
+   position: fixed;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.editContainerChat{
+    position: absolute;
+    top: 650px;
+    right: 150px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.opinion{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
 }

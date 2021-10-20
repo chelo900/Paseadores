@@ -12,6 +12,7 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import { getPaseadorForId } from "../../actions/index";
 import style from "./Premium.module.css";
 import dotenv from "dotenv";
+import Swal from 'sweetalert2';
 dotenv.config();
 const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
@@ -57,7 +58,12 @@ const Form = () => {
         },
         { headers: header }
       );
-      alert("pago exitoso! Redirigiendo al perfil");
+      Swal.fire({
+        icon: "success",
+        title: "Pago exitoso!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       console.log(data);
       history.push(`/walker/perfil/${walker.id}`);
     }

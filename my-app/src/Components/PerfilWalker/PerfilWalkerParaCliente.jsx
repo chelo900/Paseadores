@@ -17,6 +17,8 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import Chat from "../Chat/Chat";
 import Nav from "./nav/Nav";
 
+import chat from "../../media/chat.png";
+
 import FullCalendar, { EventContentArg } from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -31,6 +33,10 @@ import mediapatita from "../../media/mediapatita.png";
 import swal from "sweetalert";
 import axios from "axios";
 import MapView from "../../ComponentsMaps/MapView";
+
+import favorito from "../../media/favorito.png";
+import media from "../../media/media.png";
+import estrella from "../../media/estrella.png";
 
 const PerfilWalker = () => {
   const { id } = useParams();
@@ -406,20 +412,140 @@ const PerfilWalker = () => {
               <li className={style.liService}>{Walker.service}</li>
               <li className={style.libirth}>{Walker.birth_day}</li>
               <li className={style.liUbication}>{Walker.ubication}</li>
+              <li className={style.liRep}>Score: {score?.toFixed(1)}</li>
             </ul>
           </div>
         </div>
         <div className={style.caracteristicas}>
-          <div className={style.descripcion}>
+          <div className={style.descripcionWalker}>
             <h2>Descripción</h2>
             <div className={style.textDescription}>
               {Walker.description ? (
                 <p className={style.textDescriptionNew}>{Walker.description}</p>
               ) : (
-                <p>Agrega una descripcion</p>
+                <p>Descripcion no disponilbe</p>
               )}
             </div>
           </div>
+          <div className={style.price}>
+            <h2>Precio</h2>
+            <div className={style.textDescription}>
+              {Walker.price != 0 ? (
+                <p>{Walker.price} x Hour</p>
+              ) : (
+                <p>Precio no disponible</p>
+              )}
+            </div>
+          </div>
+          <div className={style.reputacion}>
+            <h2>Deja tu opinon:</h2>
+            <div className={style.opinion}>
+              {comment?.length
+                ? comment.map((el) => (
+                    <div>
+                      <p> {el}</p>
+                    </div>
+                  ))
+                : ""}
+
+              <button
+                className={style.prueba}
+                onClick={(e) => {
+                  estrella(e, 1);
+                }}
+              >
+                {input.score > 0 ? (
+                  <img src={patitallena} alt="" />
+                ) : (
+                  <img src={patitavacia} alt="sas" />
+                )}
+              </button>
+              <button
+                className={style.prueba}
+                onClick={(e) => {
+                  estrella(e, 2);
+                }}
+              >
+                {input.score > 1 ? (
+                  <img src={patitallena} alt="" />
+                ) : (
+                  <img src={patitavacia} alt="sas" />
+                )}
+              </button>
+              <button
+                className={style.prueba}
+                onClick={(e) => {
+                  estrella(e, 3);
+                }}
+              >
+                {input.score > 2 ? (
+                  <img src={patitallena} alt="" />
+                ) : (
+                  <img src={patitavacia} alt="sas" />
+                )}
+              </button>
+              <button
+                className={style.prueba}
+                onClick={(e) => {
+                  estrella(e, 4);
+                }}
+              >
+                {input.score > 3 ? (
+                  <img src={patitallena} alt="" />
+                ) : (
+                  <img src={patitavacia} alt="sas" />
+                )}
+              </button>
+              <button
+                className={style.prueba}
+                onClick={(e) => {
+                  estrella(e, 5);
+                }}
+              >
+                {input.score > 4 ? (
+                  <img src={patitallena} alt="" />
+                ) : (
+                  <img src={patitavacia} alt="sas" />
+                )}
+              </button>
+            </div>
+
+            <form className={style.formulario} onSubmit={handlerSubmit}>
+              <textarea
+                type="text"
+                name="comment"
+                value={input.comment}
+                placeholder="Dejar un comentario..."
+                onChange={(e) => inputChange(e)}
+              />
+              <div className={style.formularioButton}>
+                <button className={style.edit} type="submit">
+                  Enviar
+                </button>
+              </div>
+            </form>
+            <Link to={`/chat`} className={style.editContainerInfo}>
+              <button className={style.editDescription}>CHAT ROOMS</button>
+            </Link>
+            <Link to={`/messenger`} className={style.editContainerInfo}>
+              <button className={style.editDescription}>CHAT</button>
+            </Link>
+          </div>
+          <div className={style.fotos}>
+            <div className={style.fondoFotos}>
+              <h2>Fotos</h2>
+              <div className={style.galeria}>
+                {Walker.images?.map((i) => (
+                  <div key={i.public_id}>
+                    <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={style.padding}>
+          <h2>Solicita un Turno:</h2>
           <div>
             <span>🟢 Paseos Confirmados</span>
             <span>🟡 Pendientes</span>
@@ -453,140 +579,14 @@ const PerfilWalker = () => {
               }
             />
           </div>
-          <div className={style.price}>
-            <h2>Precio</h2>
-            <div className={style.textDescription}>
-              {Walker.price != 0 ? (
-                <p>{Walker.price} x Hour</p>
-              ) : (
-                <p>Ponle un precio a tu servicio</p>
-              )}
-            </div>
-          </div>
-          <div className={style.reputacion}>
-            <h2>Reputación</h2>
-            <div className={style.textDescription}>
-              <h1>{score?.toFixed(1)}</h1>
-
-              <img src={patitallena} alt="" />
-
-              {score <= 1 && <img src={patitavacia} alt="sas" />}
-              {score > 1 && score < 2 && <img src={mediapatita} alt="" />}
-              {score >= 2 && <img src={patitallena} alt="" />}
-
-              {score <= 2 && <img src={patitavacia} alt="sas" />}
-              {score > 2 && score < 3 && <img src={mediapatita} alt="" />}
-              {score >= 3 && <img src={patitallena} alt="" />}
-
-              {score <= 3 && <img src={patitavacia} alt="sas" />}
-              {score > 3 && score < 4 && <img src={mediapatita} alt="" />}
-              {score >= 4 && <img src={patitallena} alt="" />}
-
-              {score <= 4 && <img src={patitavacia} alt="sas" />}
-              {score > 4 && score < 5 && <img src={mediapatita} alt="" />}
-              {score === 5 && <img src={patitallena} alt="" />}
-            </div>
-            {comment?.length
-              ? comment.map((el) => (
-                  <div>
-                    <p> {el}</p>
-                  </div>
-                ))
-              : ""}
-
-            <button
-              className={style.prueba}
-              onClick={(e) => {
-                estrella(e, 1);
-              }}
-            >
-              {input.score > 0 ? (
-                <img src={patitallena} alt="" />
-              ) : (
-                <img src={patitavacia} alt="sas" />
-              )}
-            </button>
-            <button
-              className={style.prueba}
-              onClick={(e) => {
-                estrella(e, 2);
-              }}
-            >
-              {input.score > 1 ? (
-                <img src={patitallena} alt="" />
-              ) : (
-                <img src={patitavacia} alt="sas" />
-              )}
-            </button>
-            <button
-              className={style.prueba}
-              onClick={(e) => {
-                estrella(e, 3);
-              }}
-            >
-              {input.score > 2 ? (
-                <img src={patitallena} alt="" />
-              ) : (
-                <img src={patitavacia} alt="sas" />
-              )}
-            </button>
-            <button
-              className={style.prueba}
-              onClick={(e) => {
-                estrella(e, 4);
-              }}
-            >
-              {input.score > 3 ? (
-                <img src={patitallena} alt="" />
-              ) : (
-                <img src={patitavacia} alt="sas" />
-              )}
-            </button>
-            <button
-              className={style.prueba}
-              onClick={(e) => {
-                estrella(e, 5);
-              }}
-            >
-              {input.score > 4 ? (
-                <img src={patitallena} alt="" />
-              ) : (
-                <img src={patitavacia} alt="sas" />
-              )}
-            </button>
-
-            <form className={style.formulario} onSubmit={handlerSubmit}>
-              <textarea
-                type="text"
-                name="comment"
-                value={input.comment}
-                placeholder="Dejar un comentario..."
-                onChange={(e) => inputChange(e)}
-              />
-              <div className={style.containerBtn}>
-                <button className={style.edit} type="submit">
-                  Enviar
-                </button>
-              </div>
-            </form>
-            <Link to={`/chat`} className={style.editContainerInfo}>
-              <button className={style.editDescription}>CHAT</button>
-            </Link>
-          </div>
-          <div className={style.fotos}>
-            <div className={style.fondoFotos}>
-              <h2>Fotos</h2>
-              <div className={style.galeria}>
-                {Walker.images?.map((i) => (
-                  <div key={i.public_id}>
-                    <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
         </div>
       </div>
+
+      <Link to={`/chat`} className={style.editContainerChat}>
+        <button className={style.editchat}>
+          <img src={chat} alt="chat" title="Conectar" />
+        </button>
+      </Link>
     </div>
   );
 };

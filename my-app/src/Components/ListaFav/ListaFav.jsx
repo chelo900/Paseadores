@@ -27,9 +27,10 @@ const Admin = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className={styles.container}>
       <Nav />
-
+      <h1>FAVOTRITOS</h1>
+      <hr></hr>
       <div className={styles.wrapper}>
         {dataFavorites?.length > 0 ? (
           dataFavorites.map((el) => {
@@ -58,7 +59,7 @@ const Admin = () => {
             );
           })
         ) : (
-          <div>
+          <div className ={styles.notFound}>
             <p>No se encontraron usuarios</p>
           </div>
         )}
