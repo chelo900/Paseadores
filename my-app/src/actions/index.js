@@ -82,6 +82,31 @@ export function getAllPaseadores({
   };
 }
 
+<<<<<<< HEAD
+=======
+// export const getPaseadoresByName = (name, token) => dispatch => {
+//   try{
+//       if(name) {
+//            return axios.get(`/allActiveWalkers/:${name}`, {
+//             headers: {
+//               Authorization: `Bearer ${token}`,
+//             },
+//           })
+//            .then(res => dispatch({type: GET_WALKERS_BY_NAME, payload: res.data}))
+//           }
+//   }catch(e) {
+//       console.log(e)
+//   }
+// }
+
+export const getPaseadoresByName = (payload) => {
+  return {
+    type: GET_WALKERS_BY_NAME,
+    payload,
+  };
+};
+
+>>>>>>> b990dc6 (clean)
 export function getPaseadorForId(id, token) {
   return (dispatch) => {
     try {

@@ -23,11 +23,16 @@ const UsersCards = () => {
     max: "",
     ubication: "",
   });
+<<<<<<< HEAD
   const [selectFilters, setSelectFilters] = useState({
     horario: "",
     service: "",
   });
   const [sortData, setSortData] = useState({ sortField: "" });
+=======
+  const [selectFilters, setSelectFilters] = useState({});
+  const [sortData, setSortData] = useState({});
+>>>>>>> b990dc6 (clean)
 
   // Paginado
   const [page, setPage] = useState(0);
@@ -126,12 +131,17 @@ const UsersCards = () => {
 
   function handleOnClick(event) {
     event.preventDefault();
+<<<<<<< HEAD
     setSelectFilters({ horario: "", service: "" });
     setInputFilters({ min: "", max: "", ubication: "" });
     setSortData({ sortField: "" });
+=======
+    setSelectFilters({});
+    setInputFilters({ min: "", max: "", ubication: "" });
+    setSortData({});
+>>>>>>> b990dc6 (clean)
     setPage(0);
   }
-
   return (
     <div className={style.container}>
       <Nav />
@@ -293,6 +303,16 @@ const UsersCards = () => {
                 }
               }
 
+<<<<<<< HEAD
+=======
+              let servicio;
+
+              if (el.service === "Walker") servicio = "Paseador";
+              if (el.service === "Carer") servicio = "Cuidador";
+              if (el.service === "Walker and Carer")
+                servicio = "Paseador y Cuidador";
+
+>>>>>>> b990dc6 (clean)
               return (
                 <Card
                   key={el.id}

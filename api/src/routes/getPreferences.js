@@ -5,8 +5,6 @@ const router = Router();
 
 router.get("/:userId", async (req, res) => {
   const { userId } = req.params;
-  // console.log('preferences',userId)
-  
 
   const preferencias = await Preference.findOne({
     where: {
@@ -14,38 +12,43 @@ router.get("/:userId", async (req, res) => {
     },
   });
 
-  if (preferencias){
+  if (preferencias) {
     const detalleOrden = {
-      turno: preferencias.turno ,
+      turno: preferencias.turno,
       dias_trabajo: preferencias.dias_trabajo,
-      perros_por_paseo: preferencias.perros_por_paseo ,
-      duracion_paseos: preferencias.duracion_paseos?.length <=2 ?  preferencias.duracion_paseos + ":00:00" : preferencias.duracion_paseos,
-      comienzo_jornada: preferencias.comienzo_jornada.length <= 2 ? preferencias.comienzo_jornada + ":00:00" : preferencias.comienzo_jornada,
-      fin_jornada: preferencias.fin_jornada.length <= 2 ? preferencias.fin_jornada + ":00:00" : preferencias.fin_jornada
-  
+      perros_por_paseo: preferencias.perros_por_paseo,
+      duracion_paseos:
+        preferencias.duracion_paseos?.length <= 2
+          ? preferencias.duracion_paseos + ":00:00"
+          : preferencias.duracion_paseos,
+      comienzo_jornada:
+        preferencias.comienzo_jornada.length <= 2
+          ? preferencias.comienzo_jornada + ":00:00"
+          : preferencias.comienzo_jornada,
+      fin_jornada:
+        preferencias.fin_jornada.length <= 2
+          ? preferencias.fin_jornada + ":00:00"
+          : preferencias.fin_jornada,
+
       // eventClick={handleEventClick}
-     
     };
     console.log("PREFERENCIAAAAAAS", detalleOrden);
 
     res.status(200).send(detalleOrden);
-  } else{
+  } else {
+    const detalleOrden = {
+      turno: "",
+      dias_trabajo: "",
+      perros_por_paseo: "",
+      duracion_paseos: "",
+      comienzo_jornada: "",
+      fin_jornada: "",
 
-  const detalleOrden = {
-    turno: "",
-    dias_trabajo: "",
-    perros_por_paseo: '',
-    duracion_paseos: "",
-    comienzo_jornada: "",
-    fin_jornada: "",
+      // eventClick={handleEventClick}
+    };
 
-    // eventClick={handleEventClick}
+    res.status(200).send(detalleOrden);
   }
-  console.log("PREFERENCIAAAAAAS", detalleOrden);
-
-  res.status(200).send(detalleOrden);
-
-}  
 });
 
 module.exports = router;
