@@ -8,6 +8,7 @@ import {
   getAssessment,
   getPreferences,
   putDetailsUser,
+  deleteImage,
 } from "../../actions/index";
 
 import style from "./PerfilWalker.module.css";
@@ -49,7 +50,7 @@ const PerfilWalker = () => {
   const ordensCliente = useSelector((state) => state.ordensCliente);
   const preferencias = useSelector((state) => state.preferencias);
   const [ordenload, setOrdenLoad] = useState(false);
-
+  const [delImage, setDelImage] = useState(false);
   const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
   useEffect(() => {
@@ -59,7 +60,7 @@ const PerfilWalker = () => {
     dispatch(getPaseadorForId(id, token));
     dispatch(getAssessment(id, token));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, id]);
+  }, [dispatch, id, delImage]);
 
   useEffect(() => {
     if (!Walker.latitude || !Walker.longitude) {
@@ -85,10 +86,9 @@ const PerfilWalker = () => {
     }
   }, []);
 
-  // const [file, setFile] = useState('')
-  // const handleInputChange = (e) => {
-  //     setFile(e.target.files[0])
-  // };
+  // useEffect(() => {
+  //   if (delImage === true) dispatch(getPaseadorForId(id, token));
+  // }, [dispatch]);
 
   useEffect(() => {
     dispatch(getOrdenCliente(id, token));
@@ -118,103 +118,89 @@ const PerfilWalker = () => {
     dispatch(getPreferences(id, token));
   }, [dispatch]);
 
-  const handleDateSelect = (selectInfo) => {
-    let calendarApi = selectInfo.view.calendar;
-    let title = prompt(`Confirma reserva con ${Walker.name}`);
+  // const handleDateSelect = (selectInfo) => {
+  //   let calendarApi = selectInfo.view.calendar;
+  //   let title = prompt(`Confirma reserva con ${Walker.name}`);
 
-    calendarApi.unselect(); // clear date selection
+  //   calendarApi.unselect(); // clear date selection
 
-    if (title) {
-      calendarApi.addEvent(
-        {
-          // will render immediately. will call handleEventAdd
-          title,
-          start: selectInfo.startStr,
-          end: selectInfo.endStr,
-          // allDay: selectInfo.allDay
-        },
-        true
-      ); // temporary=true, will get overwritten when reducer gives new events
-    }
-    dispatch(
-      clientSendOrden(
-        {
-          fecha: selectInfo.startStr,
-          userId: id,
-        },
-        token
-      )
-    );
-  };
-
-  // const handleEventClick = (clickInfo) => {
-  //     dispatch(ordenAnswer({
-  //         title: clickInfo.event.title
-  //     }))
-  //     console.log(clickInfo.event.title)
-  //     if (prompt(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-  //       clickInfo.event.remove() // will render immediately. will call handleEventRemove
-  //     }
-
-  // }
+  //   if (title) {
+  //     calendarApi.addEvent(
+  //       {
+  //         // will render immediately. will call handleEventAdd
+  //         title,
+  //         start: selectInfo.startStr,
+  //         end: selectInfo.endStr,
+  //         // allDay: selectInfo.allDay
+  //       },
+  //       true
+  //     ); // temporary=true, will get overwritten when reducer gives new events
+  //   }
+  //   dispatch(
+  //     clientSendOrden(
+  //       {
+  //         fecha: selectInfo.startStr,
+  //         userId: id,
+  //       },
+  //       token
+  //     )
+  //   );
+  // };
 
   const handleEventClick = (clickInfo) => {
-    const confirm = () => {
-      swal({
-        title: "Confirmar orden de paseo",
-        text: `Cliente de la zona de ${clickInfo.event.extendedProps.ubicacion}`,
-        icon: "info",
-        buttons: ["Cancelar", "Aceptar"],
-      }).then((respuesta) => {
-        if (respuesta) {
-          swal({ text: "Orden confirmada", icon: "success" });
-          dispatch(
-            ordenAnswer(
-              {
-                id: clickInfo.event.extendedProps.idOrden,
-                estadoReserva: "confirmada",
-              },
-              token
-            )
-          );
-          setTimeout(() => {
-            setOrdenLoad(true);
-          }, 1000);
-          setOrdenLoad(false);
-        } else {
-          swal({ text: "Orden rechazada", icon: "warning" });
-          dispatch(
-            ordenAnswer(
-              {
-                id: clickInfo.event.extendedProps.idOrden,
-                estadoReserva: "rechazada",
-              },
-              token
-            )
-          );
-          setTimeout(() => {
-            setOrdenLoad(true);
-          }, 1000);
-          setOrdenLoad(false);
-        }
-      });
-    };
-    if (clickInfo.event.extendedProps.estadoReserva === "pendiente") {
-      // console.log(clickInfo.event.extendedProps.idOrden)
-      confirm(
-        `Confirmar la orden? ubicacion: ${clickInfo.event.extendedProps.ubicacion}`
-      );
-      // dispatch(ordenAnswer({
-      //     id: clickInfo.event.extendedProps.idOrden
-      // }))
-      // setTimeout(() => {
-      //     setOrdenLoad(true)
-      // }, 1000);
-      // setOrdenLoad(false)
-      // console.log(ordenload)
-    } else {
-      return clickInfo.event.title; // will render immediately. will call handleEventRemove
-    }
+    swal({
+      title: "Confirmar orden de paseo",
+      text: `Cliente de la zona de ${clickInfo.event.extendedProps.ubicacion}`,
+      icon: "info",
+      buttons: ["Cancelar", "Aceptar"],
+    }).then((respuesta) => {
+      if (respuesta) {
+        swal({ text: "Orden confirmada", icon: "success" });
+        dispatch(
+          ordenAnswer(
+            {
+              id: clickInfo.event.extendedProps.idOrden,
+              estadoReserva: "confirmada",
+            },
+            token
+          )
+        );
+        setTimeout(() => {
+          setOrdenLoad(true);
+        }, 1000);
+        setOrdenLoad(false);
+      } else {
+        swal({ text: "Orden rechazada", icon: "warning" });
+        dispatch(
+          ordenAnswer(
+            {
+              id: clickInfo.event.extendedProps.idOrden,
+              estadoReserva: "rechazada",
+            },
+            token
+          )
+        );
+        setTimeout(() => {
+          setOrdenLoad(true);
+        }, 1000);
+        setOrdenLoad(false);
+      }
+    });
+  };
+
+  const handleDelete = (public_id, token) => {
+    swal({
+      title: "¿Desea borrar imagen?",
+      icon: "warning",
+      buttons: ["Cancelar", "Aceptar"],
+    }).then((respuesta) => {
+      if (respuesta) {
+        setDelImage(true);
+        swal({ text: "Imagen eliminada", icon: "success" });
+        dispatch(deleteImage(public_id, token));
+      }
+      setDelImage(false);
+    });
   };
 
   return (
@@ -337,14 +323,14 @@ const PerfilWalker = () => {
               {score <= 4 && <img src={patitavacia} alt="sas" />}
               {score > 4 && score < 5 && <img src={mediapatita} alt="" />}
               {score === 5 && <img src={patitallena} alt="" />}
-              
             </div>
-            {comment?.length ?
-              comment.map((el) => (
-                <div>
-                  <p> {el}</p>
-                </div>
-              )) : ""}
+            {comment?.length
+              ? comment.map((el) => (
+                  <div>
+                    <p> {el}</p>
+                  </div>
+                ))
+              : ""}
           </div>
           <div className={style.fotos}>
             <div className={style.fondoFotos}>
@@ -353,6 +339,13 @@ const PerfilWalker = () => {
                 {Walker.images?.map((i) => (
                   <div key={i.public_id}>
                     <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
+                    <button
+                      onClick={() => handleDelete(i.public_id, token)}
+                      className="p"
+                      className="btn"
+                    >
+                      <i className="fa fa-trash"></i>
+                    </button>
                   </div>
                 ))}
               </div>
@@ -367,14 +360,9 @@ const PerfilWalker = () => {
                 </button>
               </form>
               {/* <button onClick={history.push("/chat")} >Chat</button> */}
-              <Link
-              to={`/chat`}
-              className={style.editContainerInfo}
-            >
-              <button className={style.editDescription}>
-                CHAT
-              </button >
-            </Link>
+              <Link to={`/chat`} className={style.editContainerInfo}>
+                <button className={style.editDescription}>CHAT</button>
+              </Link>
             </div>
             <div>
               <span>🟢 Paseos Confirmados</span>
@@ -399,7 +387,7 @@ const PerfilWalker = () => {
               selectable={false}
               selectMirror={false}
               dayMaxEvents={true}
-              select={handleDateSelect}
+              // select={handleDateSelect}
               eventClick={handleEventClick}
               contentHeight="auto"
               slotDuration={preferencias.duracion_paseos || "03:00:00"}

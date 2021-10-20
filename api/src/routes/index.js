@@ -36,6 +36,8 @@ const getPreferences = require("./getpreferences");
 const postAssessment = require("./postAssessment");
 const getAssessment = require("./getAssessment");
 const getWalkersForMap = require("./getWalkersForMap");
+const deleteImages = require("./deleteImages")
+
 
 const router = Router();
 
@@ -67,6 +69,7 @@ router.use("/firstAdmin", firstAdmin);
 router.use("/sendPreferencias", preference);
 router.use("/getpreferences", getPreferences);
 router.use("/getWalkersForMap", tokenExtractor, getWalkersForMap);
+router.use("/deleteImages",tokenExtractor,deleteImages)
 
 router.use("/addFav", tokenExtractor, addFavorite);
 router.use("/getFavorite", tokenExtractor, getFavorite);
