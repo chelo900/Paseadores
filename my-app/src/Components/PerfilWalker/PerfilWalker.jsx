@@ -359,7 +359,6 @@ const PerfilWalker = () => {
                   Subir
                 </button>
               </form>
-              {/* <button onClick={history.push("/chat")} >Chat</button> */}
               <Link to={`/chat`} className={style.editContainerInfo}>
                 <button className={style.editDescription}>CHAT</button>
               </Link>

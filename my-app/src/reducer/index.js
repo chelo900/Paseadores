@@ -184,9 +184,9 @@ function rootReducer(state = initialState, action) {
         ...state,
         allPaseadores: action.payload,
       };
-    case ALERT_ADMIN:
+  /*  case ALERT_ADMIN:
       alert(action.payload);
-      break;
+      break;*/
 
     // case GET_BY_EMAIL_CLIENTE:
     //   const { token, validate, id, cliente} = action.payload;
