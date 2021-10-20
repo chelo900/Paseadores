@@ -195,11 +195,15 @@ const PerfilWalker = () => {
       buttons: ["Cancelar", "Aceptar"],
     }).then((respuesta) => {
       if (respuesta) {
-        setDelImage(true);
+        setTimeout(() => {
+          setDelImage(true);
+        }, 1000);
         swal({ text: "Imagen eliminada", icon: "success" });
         dispatch(deleteImage(public_id, token));
       }
-      setDelImage(false);
+      setTimeout(() => {
+        setDelImage(false);
+      }, 1000);
     });
   };
 
