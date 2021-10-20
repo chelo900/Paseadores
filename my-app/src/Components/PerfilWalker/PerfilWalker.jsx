@@ -11,6 +11,7 @@ import {
   deleteImage,
 } from "../../actions/index";
 
+
 import style from "./PerfilWalker.module.css";
 import foto1 from "../../media/foto1Service.jpg";
 import { Link, useParams, useHistory } from "react-router-dom";
@@ -19,6 +20,7 @@ import Nav from "./nav/Nav";
 import swal from "sweetalert";
 import patitallena from "../../media/patitallena.png";
 import patitavacia from "../../media/patitavacia.png";
+import chat from '../../media/chat.png'
 import mediapatita from "../../media/mediapatita.png";
 
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
@@ -118,34 +120,34 @@ const PerfilWalker = () => {
     dispatch(getPreferences(id, token));
   }, [dispatch]);
 
-  // const handleDateSelect = (selectInfo) => {
-  //   let calendarApi = selectInfo.view.calendar;
-  //   let title = prompt(`Confirma reserva con ${Walker.name}`);
+  const handleDateSelect = (selectInfo) => {
+    let calendarApi = selectInfo.view.calendar;
+    let title = prompt(`Confirma reserva con ${Walker.name}`);
 
-  //   calendarApi.unselect(); // clear date selection
+    calendarApi.unselect(); // clear date selection
 
-  //   if (title) {
-  //     calendarApi.addEvent(
-  //       {
-  //         // will render immediately. will call handleEventAdd
-  //         title,
-  //         start: selectInfo.startStr,
-  //         end: selectInfo.endStr,
-  //         // allDay: selectInfo.allDay
-  //       },
-  //       true
-  //     ); // temporary=true, will get overwritten when reducer gives new events
-  //   }
-  //   dispatch(
-  //     clientSendOrden(
-  //       {
-  //         fecha: selectInfo.startStr,
-  //         userId: id,
-  //       },
-  //       token
-  //     )
-  //   );
-  // };
+    if (title) {
+      calendarApi.addEvent(
+        {
+          // will render immediately. will call handleEventAdd
+          title,
+          start: selectInfo.startStr,
+          end: selectInfo.endStr,
+          // allDay: selectInfo.allDay
+        },
+        true
+      ); // temporary=true, will get overwritten when reducer gives new events
+    }
+    dispatch(
+      clientSendOrden(
+        {
+          fecha: selectInfo.startStr,
+          userId: id,
+        },
+        token
+      )
+    );
+  };
 
   const handleEventClick = (clickInfo) => {
     swal({
@@ -243,36 +245,38 @@ const PerfilWalker = () => {
               <li className={style.libirth}>{Walker.birth_day}</li>
               <li className={style.liPhone}>{Walker.phone}</li>
               <li className={style.liEmail}>{Walker.email}</li>
-              <li className={style.liUbication}>{Walker.ubication}</li>
               <li className={style.liDni}>{Walker.dni}</li>
+              <li className={style.liUbication}>{Walker.ubication}</li>
             </ul>
             <Link
               to={`/walker/editInformation/${id}`}
               className={style.editContainerInfo}
             >
-              <button className={style.editDescription}>
+              <button className={style.edit}>
                 Editar Informacion
               </button>
             </Link>
           </div>
-          <MapView
-            className={style.map}
-            latitude={Walker.latitude}
-            longitude={Walker.longitude}
-            name={Walker.name}
-            surname={Walker.surname}
-          />
-          <Preferencias preferencias={preferencias} />
-          <Link to={`/walker/editpreferencias/${id}`}>
-            <button>Editar preferencias</button>
-          </Link>
+          <div className={style.preferencias}>
+            <Preferencias preferencias={preferencias} />
+            <Link to={`/walker/editpreferencias/${id}`}>
+              <button className={style.edit}>Editar preferencias</button>
+            </Link>
+          </div>
+              <MapView
+                className={style.map}
+                latitude={Walker.latitude}
+                longitude={Walker.longitude}
+                name={Walker.name}
+                surname={Walker.surname}
+              />
         </div>
         <div className={style.caracteristicas}>
           <div className={style.Premuim}>
             <Premium />
           </div>
           <div className={style.descripcion}>
-            <h2>Description</h2>
+            <h2>Descripcion:</h2>
             <div className={style.textDescription}>
               {Walker.description ? (
                 <p className={style.textDescriptionNew}>{Walker.description}</p>
@@ -285,56 +289,51 @@ const PerfilWalker = () => {
               className={style.editContainer}
             >
               <button className={style.editDescription}>
-                Editar Descripcion
+                <span class="material-icons-outlined">edit</span>
               </button>
             </Link>
           </div>
           <div className={style.price}>
-            <h2>Price per Hour</h2>
+            <h2>Precio por Hora:</h2>
             <div className={style.textDescription}>
               {Walker.price != 0 ? (
-                <p>{Walker.price} x Hour</p>
+                <p>${Walker.price}</p>
               ) : (
                 <p>Ponle un precio a tu servicio</p>
               )}
             </div>
-            <Link
-              to={`/walker/editPrice/${id}`}
-              className={style.editContainer}
-            >
-              <button className={style.edit}>Editar Precio</button>
+            <Link to={`/walker/editPrice/${id}`} className={style.editContainer}>
+              <button className={style.editDescription}>
+                <span class="material-icons-outlined">edit</span>
+              </button>
             </Link>
           </div>
           <div className={style.reputacion}>
-            <h2>Reputación</h2>
-            <div className={style.textDescription}>
+            <h2>Reputación:</h2>
+            <div className={style.textDescriptionReputacion}>
               <h1>{score?.toFixed(1)}</h1>
-
               <img src={patitallena} alt="" />
-
-              {score <= 1 && <img src={patitavacia} alt="sas" />}
+              {score < 1 && <img src={patitavacia} alt="sas" />}
               {score > 1 && score < 2 && <img src={mediapatita} alt="" />}
               {score >= 2 && <img src={patitallena} alt="" />}
-
-              {score <= 2 && <img src={patitavacia} alt="sas" />}
+              {score < 2 && <img src={patitavacia} alt="sas" />}
               {score > 2 && score < 3 && <img src={mediapatita} alt="" />}
               {score >= 3 && <img src={patitallena} alt="" />}
-
-              {score <= 3 && <img src={patitavacia} alt="sas" />}
+              {score < 3 && <img src={patitavacia} alt="sas" />}
               {score > 3 && score < 4 && <img src={mediapatita} alt="" />}
               {score >= 4 && <img src={patitallena} alt="" />}
-
-              {score <= 4 && <img src={patitavacia} alt="sas" />}
+              {score < 4 && <img src={patitavacia} alt="sas" />}
               {score > 4 && score < 5 && <img src={mediapatita} alt="" />}
               {score === 5 && <img src={patitallena} alt="" />}
+              {score < 5 && <img src={patitavacia} alt="sas" />}
             </div>
-            {comment?.length
-              ? comment.map((el) => (
-                  <div>
-                    <p> {el}</p>
-                  </div>
-                ))
-              : ""}
+            <h2>Comentarios:</h2>
+            {comment?.length &&
+              comment.map((el) => (
+                <div>
+                  <p> {el}</p>
+                </div>
+              ))}
           </div>
           <div className={style.fotos}>
             <div className={style.fondoFotos}>
@@ -363,13 +362,45 @@ const PerfilWalker = () => {
                   Subir
                 </button>
               </form>
-              <Link to={`/chat`} className={style.editContainerInfo}>
-                <button className={style.editDescription}>CHAT</button>
-              </Link>
+              {/* <button onClick={history.push("/chat")} >Chat</button> */}
             </div>
             <div>
-              <span>🟢 Paseos Confirmados</span>
-              <span>🟡 Pendientes</span>
+              <div>
+                <span>🟢 Paseos Confirmados</span>
+                <span>🟡 Pendientes</span>
+              </div>
+              <FullCalendar
+                eventClassNames={style.calendar}
+                plugins={[
+                  dayGridPlugin,
+                  timeGridPlugin,
+                  interactionPlugin,
+                  listPlugin,
+                ]}
+                headerToolbar={{
+                  left: "prev,next today",
+                  center: "title",
+                  right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+                }}
+                initialView="timeGridWeek"
+                locale={esLocale}
+                editable={true}
+                selectable={false}
+                selectMirror={false}
+                dayMaxEvents={true}
+                select={handleDateSelect}
+                eventClick={handleEventClick}
+                contentHeight="auto"
+                slotDuration={preferencias.duracion_paseos || "03:00:00"}
+                events={ordensCliente}
+                slotMinTime={preferencias.comienzo_jornada || "08:00:00"}
+                slotMaxTime={preferencias.fin_jornada || "23:00:00"}
+                allDaySlot={false}
+                weekends={preferencias.dias_trabajo === "LV" ? false : true}
+                hiddenDays={
+                  preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
+                }
+              />
             </div>
             <FullCalendar
               eventClassNames={style.calendar}
@@ -407,6 +438,7 @@ const PerfilWalker = () => {
         </div>
         <div className={style.padding}>
           <FullCalendar
+          className={style.calendario}
             plugins={[listPlugin]}
             headerToolbar={{
               left: "prev,next today",
@@ -418,6 +450,14 @@ const PerfilWalker = () => {
           />
         </div>
       </div>
+      <Link
+              to={`/chat`}
+              className={style.editContainerChat}
+            >
+              <button className={style.editchat}>
+                <img src={chat} alt='chat' title="Conectar" />
+              </button >
+      </Link>
     </div>
   );
 };
