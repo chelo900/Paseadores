@@ -11,7 +11,6 @@ import {
   deleteImage,
 } from "../../actions/index";
 
-
 import style from "./PerfilWalker.module.css";
 import foto1 from "../../media/foto1Service.jpg";
 import { Link, useParams, useHistory } from "react-router-dom";
@@ -20,7 +19,7 @@ import Nav from "./nav/Nav";
 import swal from "sweetalert";
 import patitallena from "../../media/patitallena.png";
 import patitavacia from "../../media/patitavacia.png";
-import chat from '../../media/chat.png'
+import chat from "../../media/chat.png";
 import mediapatita from "../../media/mediapatita.png";
 
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
@@ -252,9 +251,7 @@ const PerfilWalker = () => {
               to={`/walker/editInformation/${id}`}
               className={style.editContainerInfo}
             >
-              <button className={style.edit}>
-                Editar Informacion
-              </button>
+              <button className={style.edit}>Editar Informacion</button>
             </Link>
           </div>
           <div className={style.preferencias}>
@@ -263,13 +260,13 @@ const PerfilWalker = () => {
               <button className={style.edit}>Editar preferencias</button>
             </Link>
           </div>
-              <MapView
-                className={style.map}
-                latitude={Walker.latitude}
-                longitude={Walker.longitude}
-                name={Walker.name}
-                surname={Walker.surname}
-              />
+          <MapView
+            className={style.map}
+            latitude={Walker.latitude}
+            longitude={Walker.longitude}
+            name={Walker.name}
+            surname={Walker.surname}
+          />
         </div>
         <div className={style.caracteristicas}>
           <div className={style.Premuim}>
@@ -302,7 +299,10 @@ const PerfilWalker = () => {
                 <p>Ponle un precio a tu servicio</p>
               )}
             </div>
-            <Link to={`/walker/editPrice/${id}`} className={style.editContainer}>
+            <Link
+              to={`/walker/editPrice/${id}`}
+              className={style.editContainer}
+            >
               <button className={style.editDescription}>
                 <span class="material-icons-outlined">edit</span>
               </button>
@@ -362,16 +362,12 @@ const PerfilWalker = () => {
                   Subir
                 </button>
               </form>
-<<<<<<< HEAD
-              {/* <button onClick={history.push("/chat")} >Chat</button> */}
-=======
               <Link to={`/chat`} className={style.editContainerInfo}>
                 <button className={style.editDescription}>CHAT ROOMS</button>
               </Link>
               <Link to={`/messenger`} className={style.editContainerInfo}>
                 <button className={style.editDescription}>CHAT</button>
               </Link>
->>>>>>> e3f07b3 (Back chat and some bugs)
             </div>
             <div>
               <div>
@@ -447,7 +443,7 @@ const PerfilWalker = () => {
         </div>
         <div className={style.padding}>
           <FullCalendar
-          className={style.calendario}
+            className={style.calendario}
             plugins={[listPlugin]}
             headerToolbar={{
               left: "prev,next today",
@@ -459,13 +455,10 @@ const PerfilWalker = () => {
           />
         </div>
       </div>
-      <Link
-              to={`/chat`}
-              className={style.editContainerChat}
-            >
-              <button className={style.editchat}>
-                <img src={chat} alt='chat' title="Conectar" />
-              </button >
+      <Link to={`/chat`} className={style.editContainerChat}>
+        <button className={style.editchat}>
+          <img src={chat} alt="chat" title="Conectar" />
+        </button>
       </Link>
     </div>
   );
