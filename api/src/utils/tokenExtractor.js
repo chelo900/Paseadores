@@ -9,7 +9,6 @@ module.exports = (request, response, next) => {
     token = authorization.substring(7);
   }
   let decodedToken = {};
-
   try {
     decodedToken = jwt.verify(token, SECRET);
   } catch (error) {

@@ -84,7 +84,6 @@ export function getAllPaseadores({
 }
 
 export function getPaseadorForId(id, token) {
-  console.log("entro a la action: ");
   return (dispatch) => {
     try {
       axios
@@ -155,6 +154,7 @@ export function putDetailsProfile(id, payload, token) {
 }
 
 export function putDetailsUser(detail, id, token) {
+  console.log("action token: ", token);
   return async function (dispatch) {
     return axios
       .put(`/updateuser/${id}`, detail, {
@@ -258,7 +258,6 @@ export function getPreferences(userId, token) {
 }
 
 export function putPreferencias(userId, payload, token) {
-  console.log(userId);
   return async function (dispatch) {
     return axios
       .put("/sendPreferencias/updatePreferencias/" + userId, payload, {
@@ -412,7 +411,6 @@ export function clientSendOrden(payload, token) {
 // }
 
 export function getOrdenCliente(userId, token) {
-  console.log("geeetordenCliente", userId);
   return (dispatch) => {
     axios
       .get(`/getOrden/${userId}`, {
@@ -631,7 +629,6 @@ export function deleteUserFavorite(payload, token) {
 export function postAssessment(payload, token) {
   return async function (dispatch) {
     try {
-      console.log(payload);
       let result = await axios.post(`/postAssessment`, payload, {
         headers: { Authorization: `Bearer ${token}` },
       });

@@ -6,7 +6,6 @@ const sortNumberValue = (a, b) => sortNumber(a.value, b.value);
 
 const sortWalkersBy = ({ walkers, parsedSortData }) => {
   const { sortField, isSortAscending } = parsedSortData;
-  console.log(sortField, isSortAscending, "utils");
   if (sortField) {
     const walkerValues = walkers.map((walker) => {
       return { id: walker.id, value: Number(walker[sortField]) };
