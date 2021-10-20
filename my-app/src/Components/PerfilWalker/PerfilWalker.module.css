@@ -15,13 +15,15 @@
     background-color: white;
     position: absolute;
     top:90px;
-    left: 120px;
+    left: 100px;
     z-index: 1;
 }
 .borderFoto{
-    background-color: rgb(58,84,180, 0.2);
+    /* background-color: rgb(58,84,180, 0.2); */
     width: 100%;
     height: 330px;
+    background-image: url("../../media/fondo4.jpg");
+   background-size: cover;
 }
 
 .fotoPerfil img {
