@@ -1,6 +1,8 @@
 .container{
   background-color: rgb(254,247, 237)!important;
   height: auto;
+  width: 100%;
+  padding-right: 40px;
 }
 
 .container h1{
