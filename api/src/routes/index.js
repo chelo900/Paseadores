@@ -37,6 +37,7 @@ const postAssessment = require("./postAssessment");
 const getAssessment = require("./getAssessment");
 const getWalkersForMap = require("./getWalkersForMap");
 const deleteImages = require("./deleteImages");
+const contacto = require ("./contacto")
 
 const conversations = require("./conversations");
 const messages = require("./messages");
@@ -74,6 +75,7 @@ router.use("/getWalkersForMap", tokenExtractor, getWalkersForMap);
 router.use("/deleteImages", tokenExtractor, deleteImages);
 router.use("/conversations", conversations);
 router.use("/messages", messages);
+router.use("/contacto", contacto);
 
 router.use("/addFav", tokenExtractor, addFavorite);
 router.use("/getFavorite", tokenExtractor, getFavorite);
