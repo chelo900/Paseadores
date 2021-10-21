@@ -14,7 +14,7 @@ import style from "./PerfilWalker.module.css";
 import foto1 from "../../media/foto1Service.jpg";
 import { Link, useParams, useHistory } from "react-router-dom";
 import fotosola from "../../media/fotosola.png";
-
+import Swal from 'sweetalert2';
 import Nav from "./nav/Nav";
 import swal from "sweetalert";
 import patitallena from "../../media/patitallena.png";
@@ -88,7 +88,15 @@ const PerfilWalker = () => {
     }
   }, []);
 
-
+  useEffect(() => {
+    setTimeout(() => {
+      if ( !preferencias.turno  && preferencias.turno?.length === 0 ){
+        swal({title: "Elegí tus preferencias para que te empiecen a contratar",
+       icon: "info"})
+      }
+    }, 1000);
+    
+   }, [dispatch])
   // useEffect(() => {
   //   if (delImage === true) dispatch(getPaseadorForId(id, token));
   // }, [dispatch]);
@@ -110,10 +118,10 @@ const PerfilWalker = () => {
 
   useEffect(() => {
     let ordenespendientes = ordensCliente.filter(
-      (ordenes) => ordenes.estadoReserva === "pendiente"
+      (ordenes) => ordenes.estadoReserva.toString() === "pendiente" && ordenes.color.toString() === "yellow"
     );
     setTimeout(() => {
-      if (ordenespendientes.length !== 0) {
+      if (ordenespendientes.length >0 ) {
         swal({
           title: "Tenes ordenes pendientes que contestar!",
           info: "info",
@@ -189,15 +197,19 @@ const PerfilWalker = () => {
   //       clickInfo.event.remove() // will render immediately. will call handleEventRemove
   //     }
   // }
-
+  
   const handleEventClick = (clickInfo) => {
-    swal({
+    if(clickInfo.event.extendedProps.estadoReserva === "pendiente"){
+    Swal.fire({
       title: "Confirmar orden de paseo",
       text: `Cliente de la zona de ${clickInfo.event.extendedProps.ubicacion}`,
       icon: "info",
-      buttons: ["Cancelar", "Aceptar"],
+      showCloseButton: true,
+      confirmButtonText: "Aceptar",
+      showDenyButton: "true",
+      denyButtonText: "Cancelar"
     }).then((respuesta) => {
-      if (respuesta) {
+      if (respuesta.isConfirmed) {
         swal({ text: "Orden confirmada", icon: "success" });
         dispatch(
           ordenAnswer(
@@ -212,7 +224,7 @@ const PerfilWalker = () => {
           setOrdenLoad(true);
         }, 1000);
         setOrdenLoad(false);
-      } else {
+      } else if (respuesta.isDenied) {
         swal({ text: "Orden rechazada", icon: "warning" });
         dispatch(
           ordenAnswer(
@@ -229,7 +241,8 @@ const PerfilWalker = () => {
         setOrdenLoad(false);
       }
     });
-  };
+  }}
+
 
   const handleDelete = (public_id, token) => {
     swal({
@@ -474,9 +487,9 @@ const PerfilWalker = () => {
                 select={handleDateSelect}
                 eventClick={handleEventClick}
                 contentHeight="auto"
-                slotDuration={preferencias.duracion_paseos || "03:00:00"}
+                slotDuration={preferencias.duracion_paseos || "01:00:00"}
                 events={ordensCliente}
-                slotMinTime={preferencias.comienzo_jornada || "08:00:00"}
+                slotMinTime={preferencias.comienzo_jornada || "06:00:00"}
                 slotMaxTime={preferencias.fin_jornada || "23:00:00"}
                 allDaySlot={false}
                 weekends={preferencias.dias_trabajo === "LV" ? false : true}

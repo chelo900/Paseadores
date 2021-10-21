@@ -6,6 +6,7 @@ const router = Router();
 router.get("/:userId", async (req, res) => {
   const { userId } = req.params;
   // console.log('preferences',userId)
+  
 
   const preferencias = await Preference.findOne({
     where: {
@@ -13,31 +14,38 @@ router.get("/:userId", async (req, res) => {
     },
   });
 
+  if (preferencias){
+    const detalleOrden = {
+      turno: preferencias.turno ,
+      dias_trabajo: preferencias.dias_trabajo,
+      perros_por_paseo: preferencias.perros_por_paseo ,
+      duracion_paseos: preferencias.duracion_paseos?.length <=2 ?  preferencias.duracion_paseos + ":00:00" : preferencias.duracion_paseos,
+      comienzo_jornada: preferencias.comienzo_jornada.length <= 2 ? preferencias.comienzo_jornada + ":00:00" : preferencias.comienzo_jornada,
+      fin_jornada: preferencias.fin_jornada.length <= 2 ? preferencias.fin_jornada + ":00:00" : preferencias.fin_jornada
+  
+      // eventClick={handleEventClick}
+     
+    };
+    console.log("PREFERENCIAAAAAAS", detalleOrden);
+
+    res.status(200).send(detalleOrden);
+  } else{
+
   const detalleOrden = {
-    turno: preferencias?.turno ? preferencias.turno + ":00:00" || "Mañana" : "",
-    dias_trabajo: preferencias?.dias_trabajo
-      ? preferencias.dias_trabajo + ":00:00" || "LV"
-      : "",
-    perros_por_paseo: preferencias?.perros_por_paseo
-      ? preferencias.perros_por_paseo || 5
-      : "",
-    duracion_paseos: preferencias?.duracion_paseos
-      ? preferencias.duracion_paseos + ":00:00" || "01:00"
-      : "",
-    comienzo_jornada: preferencias?.comienzo_jornada
-      ? preferencias.comienzo_jornada + ":00:00" || "07:00:00"
-      : "",
-    fin_jornada: preferencias?.fin_jornada
-      ? preferencias.fin_jornada + ":00:00" || "20:00:00"
-      : "",
+    turno: "",
+    dias_trabajo: "",
+    perros_por_paseo: '',
+    duracion_paseos: "",
+    comienzo_jornada: "",
+    fin_jornada: "",
 
     // eventClick={handleEventClick}
-  };
+  }
   console.log("PREFERENCIAAAAAAS", detalleOrden);
 
   res.status(200).send(detalleOrden);
 
-  // res.status(500).send("Ecurrió un error");
+}  
 });
 
 module.exports = router;
