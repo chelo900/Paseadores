@@ -90,6 +90,7 @@ function Card({
           </div>
         </div>
       </div>
+      <div className={styles.conteinerDerecha}>
       <div className={styles.title}>
         <h1 className={styles.name}>{name + " " + surname}</h1>
         <hr></hr>
@@ -104,7 +105,7 @@ function Card({
         )} */}
         <h3>Precio:</h3>
         <p> ${price}</p>
-        <h3>Ubication:</h3>
+        <h3>Ubicación:</h3>
         {ubication ? <span>{ubication}</span> : <p>Ubicacion no disponible.</p>}
 
         {walker === "false" && (
@@ -129,6 +130,7 @@ function Card({
           )}
         </button>
       )}
+      </div>
     </div>
   );
 }

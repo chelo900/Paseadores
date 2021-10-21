@@ -40,9 +40,8 @@ router.get("/", async (req, res) => {
         ubication: w.ubication,
         reputation: w.reputation,
         price: w.price,
-        morning: w.morning,
-        afternoon: w.afternoon,
         premium: w.premium,
+      
       };
     });
 

@@ -4,22 +4,39 @@ import { Link } from 'react-router-dom'
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { clearUser } from "../../../actions/index";
-import menu from '../../../media/menu.png'
+import Swal from "sweetalert2";
+
 const Nav = (props) => {
     const [open, setOpen] = useState(false)
 
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const handlerHamburguer = () => {
-        setOpen(!open)
-    }
-
     function handleOnClick(e) {
         localStorage.clear();
         history.push(`/`);
         dispatch(clearUser({}))
     }
+
+    const handleSalir = (e) => {
+        Swal.fire({
+          title: "¿Desea cerrar sesion?",
+          icon: "warning",
+          showDenyButton: true,
+          confirmButtonText: 'Si',
+          denyButtonText: `No`,
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            handleOnClick(e)
+            Swal.fire('Sesion cerrada')
+          } else if (result.isDenied) {
+            Swal.fire('Sesion no cerrada')
+          }
+        })
+        console.log("holaallala")
+    }
+
     return (
         <div className={style.container}>
             <div className={style.serviceContainer}>
@@ -30,6 +47,14 @@ const Nav = (props) => {
                     <span class="material-icons-outlined">home</span>
                     <p>Home</p>
                 </Link>
+            </div>
+            <div>
+                <button className={style.logout} onClick={e => { handleSalir(e) }}>
+                    <div className={style.home2}>
+                        <span class="material-icons-outlined"> logout </span>
+                        <span> Log Out </span>
+                    </div>
+                </button>
             </div>
         </div>
     )

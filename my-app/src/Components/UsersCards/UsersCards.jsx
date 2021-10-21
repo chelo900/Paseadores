@@ -90,6 +90,7 @@ const UsersCards = () => {
     event.preventDefault();
     const { min, max } = inputFilters;
     if (min && max && min > max) {
+      setInputFilters({ ...inputFilters, min: "", max: "" });
       return Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -199,7 +200,7 @@ const UsersCards = () => {
               <input
                 className={style.zon}
                 type="search"
-                placeholder="Zona "
+                placeholder="Zona"
                 name="ubication"
                 value={inputFilters.ubication}
                 onChange={handleFiltersOnChange}
@@ -233,9 +234,9 @@ const UsersCards = () => {
                 value={selectFilters.service}
               >
                 <option> Filtrar por Servicio </option>
-                <option value="walker"> Paseador </option>
-                <option value="carer"> Cuidador </option>
-                <option value="walker and carer"> Paseador y Cuidador </option>
+                <option value="Paseador"> Paseador </option>
+                <option value="Cuidador"> Cuidador </option>
+                <option value=" Paseador y Cuidador"> Paseador y Cuidador </option>
               </select>
             </div>
             <div>
@@ -292,6 +293,7 @@ const UsersCards = () => {
                   price={el.price}
                   reputation={el.reputation}
                   description={el.description}
+                  ubication={el.ubication}
                   fv={fv}
                 />
               );

@@ -74,13 +74,15 @@
 
 .card {
     border: none;
-    width: 1000px;
+    width: 900px;
     height: 350px;
     display: flex;
     margin: 0 0 20px 100px;
     background-color:white;
     box-shadow: 1px 2px 10px rgb(0, 0, 0);
     text-decoration: none;
+    z-index: 2;
+
 
 }
 
@@ -218,3 +220,5 @@ justify-content: center;
 .estrellas{
   grid-template-rows: 1 span;
 }
+
+

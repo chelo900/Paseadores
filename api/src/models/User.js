@@ -66,9 +66,9 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       service: {
-        type: DataTypes.ENUM("Walker", "Carer", "Walker and Carer"),
+        type: DataTypes.ENUM("Paseador", "Cuidador", "Paseador y Cuidador"),
         allowNull: false,
-        defaultValue: "Walker",
+        defaultValue: "Paseador",
       },
       price: {
         type: DataTypes.INTEGER,
