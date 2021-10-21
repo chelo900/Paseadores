@@ -33,36 +33,23 @@
 
   .selector{
     margin: 10px 20px 10px 20px;
-     padding: 10px;
-     width: 90%;
-     height: 50px;
-     border: solid rgb(192, 192, 192) 1px;
- }
-  .formulario button{
-    width: 100px;
-    height: 30px;
-    margin: 10px 20px 20px 550px;
-    border:none;
-    background-color: rgb(58,84,180);
-    color: white;
-    text-decoration: none;
-    box-shadow: 1px 1px 2px rgb(0, 0, 0);
-    cursor: pointer;
+    padding: 10px;
+    width: 90%;
+    height: 50px;
+    border: solid rgb(192, 192, 192) 1px;
   }
-  
   .formulario button:hover{
     box-shadow: none;
   }
   
   .file{
-      border: none !important;
-
+    border: none !important;
   }
   .selectFile label{
-      margin: 20px 0 10px 20px;
-      font-size: 20px;
-      font-weight: 600;
-      color: rgb(58,84,180);
+    margin: 20px 0 10px 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(58,84,180);
   }
 .containerBtn{
   width: 80%;
@@ -70,6 +57,7 @@
   display: flex;
   justify-content:space-between;
   align-items: center;
+  margin-bottom: 25px;
 }
 .edit{
   width: 150px;
@@ -130,4 +118,15 @@
 .label{
   font-size: 22px;
   color: rgb(58,84,180);
+}
+.cargando{
+  width: 150px;
+  padding: auto;
+  height: 30px;
+  border:none;
+  background-color: rgb(58,84,180);
+  color: white;
+  text-decoration: none;
+  box-shadow: 1px 1px 2px rgb(0, 0, 0);
+  cursor: pointer;
 }

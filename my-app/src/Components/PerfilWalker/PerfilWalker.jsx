@@ -409,16 +409,20 @@ const PerfilWalker = () => {
           )}
         </div>
         <div className={style.caracteristicas}>
-          <div className={style.Premuim}>
-            <Premium />
-          </div>
+          {Walker.premium ? (
+            <div></div>)
+            : (
+              <div className={style.Premuim}>
+                <Premium />
+              </div>)
+          }
           <div className={style.descripcion}>
             <h2>Descripcion:</h2>
             <div className={style.textDescription}>
               {Walker.description ? (
                 <p className={style.textDescriptionNew}>{Walker.description}</p>
               ) : (
-                <p>Agrega una descripcion</p>
+                <p>Agrega una descripción</p>
               )}
             </div>
             <Link
