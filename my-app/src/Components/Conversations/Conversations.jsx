@@ -1,7 +1,17 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import "./Conversations.css";
 
-export default function Conversations() {
+export default function Conversations({ conversation, currentUser }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const friendId = conversation.member.find((m) => m !== currentUser);
+
+    const getUser = async () => {
+      const res = await axios("/users");
+    };
+  });
   return (
     <div className="conversation">
       <img

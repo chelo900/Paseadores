@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Messenger.css";
 import Nav from "../PerfilWalker/nav/Nav";
 import Conversations from "../Conversations/Conversations";
@@ -12,11 +12,26 @@ export default function Messenger() {
   const users = useSelector((state) => state.allPaseadores);
   const id = localStorage.getItem("userId");
 
+  console.log("IDDDDDDDDDDDDD: ", id);
+  let arr = [];
+  const isFirstRun = useRef(true);
   useEffect(() => {
+    if (isFirstRun.current) {
+      console.log(isFirstRun);
+      isFirstRun.current = false; //i'm using useRef to not run this code on the first run
+      return;
+    }
     const getConversations = async () => {
-      const res = await axios.get("/conversations/" + id);
+      try {
+        const res = await axios.get("/conversations/" + id);
+        setConversations(res.data);
+        // arr = conversations;
+      } catch (e) {
+        console.log(e);
+      }
     };
-  });
+    getConversations();
+  }, [id]);
 
   return (
     <div>
@@ -31,7 +46,9 @@ export default function Messenger() {
               placeholder="Buscar Amigos"
               className="chatMenuInput"
             />
-            <Conversations />
+            {conversations.map((c) =>
+              c(<Conversations conversations={c} currentUser={id} />)
+            )}
           </div>
         </div>
 
