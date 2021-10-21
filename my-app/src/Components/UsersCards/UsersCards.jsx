@@ -4,7 +4,7 @@ import Carrusel from "../Carrusel/Carrusel";
 import Nav from "./Nav/Nav";
 import style from "../UsersCards/UsersCards.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPaseadores, getUserFavorites } from "../../actions/index";
+import { getAllPaseadores, getUserFavorites,putDetailsUser } from "../../actions/index";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
@@ -48,7 +48,7 @@ const UsersCards = () => {
         token,
       })
     );
-
+   
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, pageSize, selectFilters, sortData, dispatch]);
 
