@@ -111,6 +111,12 @@ const PerfilWalker = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    if (Walker.premium === false){
+    handleNotPremium()
+    }
+  },[]);
+
+  useEffect(() => {
     if (ordenload === true) {
       dispatch(getOrdenCliente(id, token));
     }
@@ -134,6 +140,7 @@ const PerfilWalker = () => {
     dispatch(getPreferences(id, token));
   }, [dispatch]);
 
+<<<<<<< HEAD
   const handleDateSelect = (selectInfo) => {
     let calendarApi = selectInfo.view.calendar;
     let title = prompt(`Confirma reserva con ${Walker.name}`);
@@ -162,8 +169,42 @@ const PerfilWalker = () => {
       )
     );
   };
+=======
+<<<<<<< HEAD
+  // const handleDateSelect = (selectInfo) => {
+  //   let calendarApi = selectInfo.view.calendar;
+  //   let title = prompt(`Confirma reserva con ${Walker.name}`);
+>>>>>>> 0f7728f (a)
 
   //   calendarApi.unselect(); // clear date selection
+=======
+  const handleDateSelect = (selectInfo) => {
+    let calendarApi = selectInfo.view.calendar;
+    let title = prompt(`Confirma reserva con ${Walker.name}`);
+    calendarApi.unselect(); // clear date selection
+    if (title) {
+      calendarApi.addEvent(
+        {
+          // will render immediately. will call handleEventAdd
+          title,
+          start: selectInfo.startStr,
+          end: selectInfo.endStr,
+          // allDay: selectInfo.allDay
+        },
+        true
+      ); // temporary=true, will get overwritten when reducer gives new events
+    }
+    dispatch(
+      clientSendOrden(
+        {
+          fecha: selectInfo.startStr,
+          userId: id,
+        },
+        token
+      )
+    );
+  };
+>>>>>>> 5dd0bfc (a)
 
   //   if (title) {
   //     calendarApi.addEvent(
@@ -199,6 +240,7 @@ const PerfilWalker = () => {
   // }
 
   const handleEventClick = (clickInfo) => {
+<<<<<<< HEAD
     swal({
       title: "Confirmar orden de paseo",
       text: `Cliente de la zona de ${clickInfo.event.extendedProps.ubicacion}`,
@@ -256,6 +298,65 @@ const PerfilWalker = () => {
         setDelImage(false);
       }, 1000);
     });
+=======
+    
+    const confirm = () => {
+      swal({
+        title: "Confirmar orden de paseo",
+        text: `Cliente de la zona de ${clickInfo.event.extendedProps.ubicacion}`,
+        icon: "info",
+        buttons: ["Cancelar", "Aceptar"],
+      }).then((respuesta) => {
+        if (respuesta) {
+          swal({ text: "Orden confirmada", icon: "success" });
+          dispatch(
+            ordenAnswer(
+              {
+                id: clickInfo.event.extendedProps.idOrden,
+                estadoReserva: "confirmada",
+              },
+              token
+            )
+          );
+          setTimeout(() => {
+            setOrdenLoad(true);
+          }, 1000);
+          setOrdenLoad(false);
+        } else {
+          swal({ text: "Orden rechazada", icon: "warning" });
+          dispatch(
+            ordenAnswer(
+              {
+                id: clickInfo.event.extendedProps.idOrden,
+                estadoReserva: "rechazada",
+              },
+              token
+            )
+          );
+          setTimeout(() => {
+            setOrdenLoad(true);
+          }, 1000);
+          setOrdenLoad(false);
+        }
+      });
+    };
+    if (clickInfo.event.extendedProps.estadoReserva === "pendiente") {
+      // console.log(clickInfo.event.extendedProps.idOrden)
+      confirm(
+        `Confirmar la orden? ubicacion: ${clickInfo.event.extendedProps.ubicacion}`
+      );
+      // dispatch(ordenAnswer({
+      //     id: clickInfo.event.extendedProps.idOrden
+      // }))
+      // setTimeout(() => {
+      //     setOrdenLoad(true)
+      // }, 1000);
+      // setOrdenLoad(false)
+      // console.log(ordenload)
+    } else {
+      return clickInfo.event.title; // will render immediately. will call handleEventRemove
+    }
+>>>>>>> 5dd0bfc (a)
   };
 
   const handleNotPremium = () => {
@@ -267,34 +368,17 @@ const PerfilWalker = () => {
       insert: "top",
       animationIn:["animated","fadeIn"],
       animationOut:["animated","fadeOut"],
-
       dismiss:{
-        duration:3000
+        duration:2000
       }
     })
   }
 
-
- 
-  // Push.create("Hello world!", {
-  //   body: "How's it hangin'?",
-  //   icon: '/icon.png',
-  //   timeout: 4000,
-  //   onClick: function () {
-  //       window.focus();
-  //       this.close();
-  //   }
-  // });
-
-
   return (
     <div className={style.container}>
       <Nav />
-      
       <div className={style.containerPerfil}>
-
       <ReactNotification/>
-
         <div className={style.personalInformation}>
           <div className={style.borderFoto}>
             <div className={style.fotoPerfil}>
@@ -334,8 +418,12 @@ const PerfilWalker = () => {
               to={`/walker/editInformation/${id}`}
               className={style.editContainerInfo}
             >
+<<<<<<< HEAD
               <button className={style.edit}>Editar Informacion</button>
              <button className={style.editDescription} onClick={e => handleNotPremium(e)}>
+=======
+              <button className={style.editDescription}>
+>>>>>>> 0f7728f (a)
                 Editar Informacion
               </button>
 
@@ -371,9 +459,13 @@ const PerfilWalker = () => {
               to={`/walker/editDescription/${id}`}
               className={style.editContainer}
             >
+<<<<<<< HEAD
               <div className={style.editDescription}>
                 <span class="material-icons-outlined">edit</span>
               <button onClick={handleNotPremium} className={style.editDescription}>
+=======
+              <button className={style.editDescription}>
+>>>>>>> 0f7728f (a)
                 Editar Descripcion
               </button>
               </div>
@@ -416,6 +508,7 @@ const PerfilWalker = () => {
               {score === 5 && <img src={patitallena} alt="" />}
               {score < 5 && <img src={patitavacia} alt="sas" />}
             </div>
+<<<<<<< HEAD
             <h2>Comentarios:</h2>
             {comment?.length &&
               comment.map((el) => (
@@ -423,6 +516,24 @@ const PerfilWalker = () => {
                   <p> {el}</p>
                 </div>
               ))}
+=======
+<<<<<<< HEAD
+            {comment?.length
+              ? comment.map((el) => (
+                  <div>
+                    <p> {el}</p>
+                  </div>
+                ))
+              : ""}
+=======
+            {comment?.length ?
+              comment.map((el) => (
+                <div  key={id}>
+                  <p> {el}</p>
+                </div>
+              )) : ""}
+>>>>>>> 5dd0bfc (a)
+>>>>>>> 0f7728f (a)
           </div>
           <div className={style.fotos}>
             <div className={style.fondoFotos}>

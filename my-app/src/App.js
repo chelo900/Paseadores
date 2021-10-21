@@ -10,7 +10,7 @@ const App = () => {
     return (
         <Router>
             <Routes/>
-            <ReactNotification/>
+            
         </Router>
     )
 
