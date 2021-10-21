@@ -41,12 +41,14 @@ const Nav = ({page, pageSize}) => {
                         <span>Usuarios</span>
                     </Link>}
                 <button className={style.logout} onClick={e => { handleOnClick(e) }}>
-                    <span class="material-icons-outlined">
-                        logout
-                    </span>
-                    <span>
-                        Log Out
-                    </span>
+                    <div className={style.home2}>
+                        <span class="material-icons-outlined">
+                            logout
+                        </span>
+                        <span>
+                            Log Out
+                        </span>
+                    </div>
                 </button>
             </div>
         </div>

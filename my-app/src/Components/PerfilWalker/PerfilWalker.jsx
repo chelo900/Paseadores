@@ -14,6 +14,7 @@ import {
 import style from "./PerfilWalker.module.css";
 import foto1 from "../../media/foto1Service.jpg";
 import { Link, useParams, useHistory } from "react-router-dom";
+import fotosola from "../../media/fotosola.png";
 
 import Nav from "./nav/Nav";
 import swal from "sweetalert";
@@ -382,7 +383,7 @@ const PerfilWalker = () => {
                 }
               />
             </div>
-            <FullCalendar
+            {/* <FullCalendar
               eventClassNames={style.calendar}
               plugins={[
                 dayGridPlugin,
@@ -413,10 +414,10 @@ const PerfilWalker = () => {
               hiddenDays={
                 preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
               }
-            />
+            /> */}
           </div>
         </div>
-        <div className={style.padding}>
+        <div className={style.paddingWalker}>
           <FullCalendar
             className={style.calendario}
             plugins={[listPlugin]}
@@ -428,6 +429,7 @@ const PerfilWalker = () => {
             events={ordensCliente}
             locale={esLocale}
           />
+          {/* <img className={style.decoracion} src ={fotosola} alt="fotoFondo" /> */}
         </div>
       </div>
       <Link to={`/chat`} className={style.editContainerChat}>

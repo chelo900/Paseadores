@@ -122,18 +122,18 @@ console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
 console.log(pos)
   return <div className={style.map}>
  
-       
-         <button  onClick={(e) => {
-            handleOnClick1(e)}}>Detectar mi ubicación</button>
+       <h2 className={style.ubicacion}>Ubicacion:</h2>
+         <button   className={style.botones} onClick={(e) => {
+            handleOnClick1(e)}}>Detectar </button>
             
-         <button onClick={(e) => {
-            handleOnClick2(e)}}>Agregar ubicacion manualmente</button>
+         <button  className={style.botones} onClick={(e) => {
+            handleOnClick2(e)}}>Agregar  manualmente</button>
             
             {localization === "localization manual" && 
-            <h3>Selecion tu ubicación en el mapa</h3>
+            <h3 >Selecion tu ubicación en el mapa</h3>
             }
             {localization === "localization auto" &&
-            <h3>Haz click en el mapa para localizarte</h3>
+            <h3 >Haz click en el mapa para localizarte</h3>
             }
             
     

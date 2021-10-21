@@ -33,6 +33,7 @@
     width: 500px;
 }
 
+
 .service{
     display: flex;
     flex-direction: column;
@@ -53,6 +54,7 @@
 .home{
     display: flex;
     justify-content:center;
+    align-items: center;
     font-size: 15px;
     padding: 25px;
     width: auto;
@@ -60,6 +62,23 @@
     text-decoration: none;
     color:rgb(58,84,180);
     margin: 0 20px 0 20px;
+}
+.home span{
+    margin: 2px;
+}
+.home2{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    font-size: 15px;
+    width: auto;
+    font-family: 'Work Sans', sans-serif;
+    text-decoration: none;
+    color:rgb(58,84,180);
+    margin: 0 20px 0 20px;
+}
+.home2 span{
+    margin: 2px;
 }
 
 .home:hover{
