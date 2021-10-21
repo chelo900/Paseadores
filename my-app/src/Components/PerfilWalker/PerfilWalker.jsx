@@ -10,7 +10,6 @@ import {
   putDetailsUser,
   deleteImage,
 } from "../../actions/index";
-
 import style from "./PerfilWalker.module.css";
 import foto1 from "../../media/foto1Service.jpg";
 import { Link, useParams, useHistory } from "react-router-dom";
@@ -21,7 +20,6 @@ import patitallena from "../../media/patitallena.png";
 import patitavacia from "../../media/patitavacia.png";
 import chat from "../../media/chat.png";
 import mediapatita from "../../media/mediapatita.png";
-
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -32,7 +30,13 @@ import dotenv from "dotenv";
 import Premium from "../../Premiums/Premium";
 import Preferencias from "./Preferencias/Preferencias";
 import MapView from "../../ComponentsMaps/MapView";
+<<<<<<< HEAD
 import SelectorMap from "../../ComponentsMaps/SelectorMap";
+=======
+import  ReactNotification  from  'react-notifications-component';
+import { store } from 'react-notifications-component' ;
+import 'react-notifications-component/dist/theme.css';
+>>>>>>> 4dc79e3 (a)
 dotenv.config();
 
 // import Footer from './footer/Footer';
@@ -62,6 +66,32 @@ const PerfilWalker = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id, delImage]);
 
+<<<<<<< HEAD
+
+  useEffect(() => {
+    if (!Walker.latitude || !Walker.longitude) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          dispatch(
+            putDetailsUser(
+              {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+              },
+              id,
+              token
+            )
+          );
+          dispatch(getPaseadorForId(id, token));
+        },
+        function (error) {
+          console.log(error);
+        },
+        { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
+      );
+    }
+  }, []);
+
 
   // useEffect(() => {
   //   if (delImage === true) dispatch(getPaseadorForId(id, token));
@@ -70,6 +100,11 @@ const PerfilWalker = () => {
   useEffect(() => {
     dispatch(getPaseadorPremuim())
   },[])
+  
+  // const [file, setFile] = useState('')
+  // const handleInputChange = (e) => {
+  //     setFile(e.target.files[0])
+  // };
 
   useEffect(() => {
     dispatch(getOrdenCliente(id, token));
@@ -127,6 +162,41 @@ const PerfilWalker = () => {
       )
     );
   };
+
+  //   calendarApi.unselect(); // clear date selection
+
+  //   if (title) {
+  //     calendarApi.addEvent(
+  //       {
+  //         // will render immediately. will call handleEventAdd
+  //         title,
+  //         start: selectInfo.startStr,
+  //         end: selectInfo.endStr,
+  //         // allDay: selectInfo.allDay
+  //       },
+  //       true
+  //     ); // temporary=true, will get overwritten when reducer gives new events
+  //   }
+  //   dispatch(
+  //     clientSendOrden(
+  //       {
+  //         fecha: selectInfo.startStr,
+  //         userId: id,
+  //       },
+  //       token
+  //     )
+  //   );
+  // };
+
+  // const handleEventClick = (clickInfo) => {
+  //     dispatch(ordenAnswer({
+  //         title: clickInfo.event.title
+  //     }))
+  //     console.log(clickInfo.event.title)
+  //     if (prompt(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+  //       clickInfo.event.remove() // will render immediately. will call handleEventRemove
+  //     }
+  // }
 
   const handleEventClick = (clickInfo) => {
     swal({
@@ -188,10 +258,43 @@ const PerfilWalker = () => {
     });
   };
 
+  const handleNotPremium = () => {
+    store.addNotification({
+      title:"Premium",
+      message:"Hacete premium y conta con beneficios exclusivos",
+      type:"info",
+      container:"top-right",
+      insert: "top",
+      animationIn:["animated","fadeIn"],
+      animationOut:["animated","fadeOut"],
+
+      dismiss:{
+        duration:3000
+      }
+    })
+  }
+
+
+ 
+  // Push.create("Hello world!", {
+  //   body: "How's it hangin'?",
+  //   icon: '/icon.png',
+  //   timeout: 4000,
+  //   onClick: function () {
+  //       window.focus();
+  //       this.close();
+  //   }
+  // });
+
+
   return (
     <div className={style.container}>
       <Nav />
+      
       <div className={style.containerPerfil}>
+
+      <ReactNotification/>
+
         <div className={style.personalInformation}>
           <div className={style.borderFoto}>
             <div className={style.fotoPerfil}>
@@ -232,6 +335,10 @@ const PerfilWalker = () => {
               className={style.editContainerInfo}
             >
               <button className={style.edit}>Editar Informacion</button>
+             <button className={style.editDescription} onClick={e => handleNotPremium(e)}>
+                Editar Informacion
+              </button>
+
             </Link>
           </div>
           <div className={style.preferencias}>
@@ -240,7 +347,6 @@ const PerfilWalker = () => {
               <button className={style.edit}>Editar preferencias</button>
             </Link>
           </div>
-          
           <SelectorMap
             name={Walker.name}
             surname={Walker.surname}
@@ -265,9 +371,12 @@ const PerfilWalker = () => {
               to={`/walker/editDescription/${id}`}
               className={style.editContainer}
             >
-              <button className={style.editDescription}>
+              <div className={style.editDescription}>
                 <span class="material-icons-outlined">edit</span>
+              <button onClick={handleNotPremium} className={style.editDescription}>
+                Editar Descripcion
               </button>
+              </div>
             </Link>
           </div>
           <div className={style.price}>
