@@ -68,17 +68,16 @@ const filterWalkers = ({ walkers, filtersArray, selectFiltersArray }) => {
 
     //FILTROS CON SELECT
     selectFiltersArray.forEach((filter) => {
-      if (filter.hasOwnProperty("service")) {
+      if (filter.hasOwnProperty("service") && filter.service) {
         filteredWalkers = filteredWalkers.filter(
           (walker) =>
-            walker.service.toLowerCase() === filter.service.toLowerCase()
+            walker.service?.toLowerCase() === filter.service.toLowerCase()
         );
       }
-      if (filter.hasOwnProperty("horario")) {
-        filteredWalkers = filteredWalkers.filter(
-          (walker) =>
-            walker.horario.toLowerCase() === filter.horario.toLowerCase()
-        );
+      if (filter.hasOwnProperty("horario") && filter.horario) {
+        filteredWalkers = filteredWalkers.filter((walker) => {
+          return walker.horario?.toLowerCase() === filter.horario.toLowerCase();
+        });
       }
     });
   }

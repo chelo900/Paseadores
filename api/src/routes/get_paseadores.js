@@ -2,6 +2,8 @@ const { Router } = require("express");
 const { User, Preference } = require("../db");
 const { filterAndSortWalkers } = require("../utils/filterAndSort");
 const queryString = require("query-string");
+const shuffle = require("lodash/shuffle");
+const { filtersAndSortValues } = require("../utils/utils");
 
 const router = Router();
 
@@ -86,7 +88,14 @@ router.get("/", async (req, res) => {
         });
       }
     }
-    if (sortData || filtersArray.length || selectFiltersArray.length) {
+    if (
+      filtersAndSortValues(filtersArray, selectFiltersArray, parsedSortData)
+    ) {
+      return res.json({
+        content: shuffle(allActiveWalkersCards),
+        totalPages: Math.ceil(allActiveWalkersCards.length / limit),
+      });
+    } else {
       const filteredWalkers = filterAndSortWalkers({
         walkers: allActiveWalkersCards,
         filtersArray,
@@ -96,11 +105,6 @@ router.get("/", async (req, res) => {
       return res.json({
         content: filteredWalkers,
         totalPages: Math.ceil(filteredWalkers.length / limit),
-      });
-    } else {
-      return res.json({
-        content: allActiveWalkersCards,
-        totalPages: Math.ceil(allActiveWalkersCards.length / limit),
       });
     }
   } catch (error) {
