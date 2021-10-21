@@ -4,7 +4,7 @@ import style from "./PerfilCliente.module.css";
 import { Link, useHistory } from "react-router-dom";
 import { getClienteForId } from "../../actions/index";
 import Nav from "./nav/Nav";
-import ListaFav from "./Favoritos/ListaFav"
+import ListaFav from "./Favoritos/ListaFav";
 
 const PerfilCliente = () => {
   const id = localStorage.getItem("userId");
@@ -69,7 +69,8 @@ const PerfilCliente = () => {
                 <p>Agrega una descripcion</p>
               )}
             </div>
-            <Link to={`/Cliente/editDescription/${id}`}
+            <Link
+              to={`/Cliente/editDescription/${id}`}
               className={style.editContainer}
             >
               <button className={style.editDescription}>
@@ -80,7 +81,7 @@ const PerfilCliente = () => {
           <div className={style.favoritos}>
             <h2 className={style.favTitulo}>Favoritos</h2>
             <div className={style.listfav}>
-            <ListaFav/>
+              <ListaFav />
             </div>
           </div>
         </div>

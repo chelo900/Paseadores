@@ -4,14 +4,14 @@ import Carrusel from "../Carrusel/Carrusel";
 import Nav from "./Nav/Nav";
 import style from "../UsersCards/UsersCards.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPaseadores, getUserFavorites,putDetailsUser } from "../../actions/index";
+import { getAllPaseadores, getUserFavorites } from "../../actions/index";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
-import fotoFondo from '../../media/proceso2.jpg'
-import fotoFondo2 from '../../media/foto2Service.jpg'
-import fotoFondo3 from '../../media/premiumcortada.jpg'
-import fotoFondo4 from '../../media/fotoAbout.jpg'
+import fotoFondo from "../../media/proceso2.jpg";
+import fotoFondo2 from "../../media/foto2Service.jpg";
+import fotoFondo3 from "../../media/premiumcortada.jpg";
+import fotoFondo4 from "../../media/fotoAbout.jpg";
 
 const UsersCards = () => {
   const dispatch = useDispatch();
@@ -19,9 +19,16 @@ const UsersCards = () => {
 
   const favorites = useSelector((state) => state.favorites);
 
-  const [inputFilters, setInputFilters] = useState({});
-  const [selectFilters, setSelectFilters] = useState({});
-  const [sortData, setSortData] = useState({});
+  const [inputFilters, setInputFilters] = useState({
+    min: "",
+    max: "",
+    ubication: "",
+  });
+  const [selectFilters, setSelectFilters] = useState({
+    horario: "",
+    service: "",
+  });
+  const [sortData, setSortData] = useState({ sortField: "" });
 
   // Paginado
   const [page, setPage] = useState(0);
@@ -46,7 +53,6 @@ const UsersCards = () => {
         token,
       })
     );
-   
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, pageSize, selectFilters, sortData, dispatch]);
 
@@ -67,7 +73,6 @@ const UsersCards = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     setPage(page - 1);
   }
-
   function handleSort(event) {
     event.preventDefault();
     setSortData({
@@ -84,6 +89,10 @@ const UsersCards = () => {
 
   function handleFiltersSubmit(event) {
     event.preventDefault();
+    const { min, max } = inputFilters;
+    if (min && max && min > max) {
+      return alert("El precio minimo debe ser menor que el maximo");
+    }
 
     dispatch(
       getAllPaseadores({
@@ -104,19 +113,24 @@ const UsersCards = () => {
 
   function handleOnClick(event) {
     event.preventDefault();
-    setSelectFilters({});
-    setInputFilters({});
-    setSortData({});
+    setSelectFilters({ horario: "", service: "" });
+    setInputFilters({ min: "", max: "", ubication: "" });
+    setSortData({ sortField: "" });
     setPage(0);
   }
-
   return (
     <div className={style.container}>
       <Nav />
-      <img className={style.fotoFondo} src ={fotoFondo} alt="fotoFondo" />
-      {allUsers.content?.length > 1 ? <img className={style.fotoFondo2} src ={fotoFondo2} alt="fotoFondo" /> : null}
-      {allUsers.content?.length > 2 ? <img className={style.fotoFondo3} src ={fotoFondo3} alt="fotoFondo" /> : null}
-      {allUsers.content?.length > 3 ? <img className={style.fotoFondo4} src ={fotoFondo4} alt="fotoFondo" /> : null}
+      <img className={style.fotoFondo} src={fotoFondo} alt="fotoFondo" />
+      {allUsers.content?.length > 1 ? (
+        <img className={style.fotoFondo2} src={fotoFondo2} alt="fotoFondo" />
+      ) : null}
+      {allUsers.content?.length > 2 ? (
+        <img className={style.fotoFondo3} src={fotoFondo3} alt="fotoFondo" />
+      ) : null}
+      {allUsers.content?.length > 3 ? (
+        <img className={style.fotoFondo4} src={fotoFondo4} alt="fotoFondo" />
+      ) : null}
       <div className={style.containerDOS}>
         <div className={style.carrusel}>
           <Carrusel />
@@ -127,6 +141,7 @@ const UsersCards = () => {
               name="reputation"
               className={style.rep}
               onChange={handleSort}
+              value={sortData.sortField}
             >
               <option value="order"> Ordenar por Reputacion </option>
               <option value="DESC"> Mayor reputacion </option>
@@ -134,7 +149,12 @@ const UsersCards = () => {
             </select>
           </div>
           <div>
-            <select name="price" className={style.pre} onChange={handleSort}>
+            <select
+              name="price"
+              className={style.pre}
+              onChange={handleSort}
+              value={sortData.sortField}
+            >
               <option value="order"> Ordenar por Precio</option>
               <option value="DESC"> Mayor precio </option>
               <option value="ASC"> Menor precio </option>
@@ -149,6 +169,7 @@ const UsersCards = () => {
                 type="number"
                 placeholder=" $ Mínimo "
                 name="min"
+                value={inputFilters.min}
                 onChange={handleFiltersOnChange}
               />
 
@@ -157,6 +178,7 @@ const UsersCards = () => {
                 type="number"
                 placeholder=" $ Maximo "
                 name="max"
+                value={inputFilters.max}
                 onChange={handleFiltersOnChange}
               />
               <button className={style.btn}> Buscar </button>
@@ -174,6 +196,7 @@ const UsersCards = () => {
                 type="search"
                 placeholder="Zona "
                 name="ubication"
+                value={inputFilters.ubication}
                 onChange={handleFiltersOnChange}
                 list="ubi"
               />
@@ -214,10 +237,8 @@ const UsersCards = () => {
                 Todos los Paseadores{" "}
               </button>
               <Link to="/cardsUsers/map">
-                  <button className={style.atc}>
-                   Ver en mapa
-                  </button>
-                  </Link>
+                <button className={style.atc}>Ver en mapa</button>
+              </Link>
             </div>
           </div>
         </div>
@@ -273,7 +294,7 @@ const UsersCards = () => {
               <p>No se encontraron usuarios</p>
             </div>
           )}
-                  
+
           <div className={style.pagination}>
             {page === 0 ? null : (
               <button className={style.prev} onClick={handlePrevPage}>
@@ -293,4 +314,3 @@ const UsersCards = () => {
 };
 
 export default UsersCards;
-

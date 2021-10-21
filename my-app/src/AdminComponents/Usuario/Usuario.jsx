@@ -24,7 +24,10 @@ const Usuario = (props) => {
   function handleOnClickAdmin(e, usuario) {
     (() => {
       swal({
-        title: "Confirmar si quiere que el usuario "+ props.email +" se convierta en admin",
+        title:
+          "Confirmar si quiere que el usuario " +
+          props.email +
+          " se convierta en admin",
         icon: "info",
         buttons: ["Cancelar", "Aceptar"],
       }).then((respuesta) => {
@@ -42,15 +45,16 @@ const Usuario = (props) => {
           swal({ text: "Cancelado", icon: "warning" });
         }
       });
-    })()
-    
+    })();
   }
-
 
   function handleOnClickResetPassword(e, usuario) {
     (() => {
       swal({
-        title: "Confirmar si quiere enviar mail a: "+ props.email +" para resetear su contraseña",
+        title:
+          "Confirmar si quiere enviar mail a: " +
+          props.email +
+          " para resetear su contraseña",
         icon: "info",
         buttons: ["Cancelar", "Aceptar"],
       }).then((respuesta) => {
@@ -68,14 +72,13 @@ const Usuario = (props) => {
           swal({ text: "Cancelado", icon: "warning" });
         }
       });
-    })()
+    })();
   }
 
-  
   function handleOnClickDelete(e, usuario) {
     (() => {
       swal({
-        title: "Confirmar si quiere eliminar al usuario: "+ props.email,
+        title: "Confirmar si quiere eliminar al usuario: " + props.email,
         icon: "info",
         buttons: ["Cancelar", "Aceptar"],
       }).then((respuesta) => {
@@ -93,8 +96,7 @@ const Usuario = (props) => {
           swal({ text: "Cancelado", icon: "warning" });
         }
       });
-    })()
-   
+    })();
   }
   return (
     <div className={style.container}>

@@ -64,13 +64,13 @@ function Card({
 
   return (
     <div className={styles.card}>
-         <div className={styles.imageContainer}>
+      <div className={styles.imageContainer}>
         {image ? (
           <img className={styles.image} src={image} alt="foto paseador" />
         ) : (
           <img className={styles.image} src={fotoDefault} alt="a" />
         )}
-        <div className={styles.scoreContain} >
+        <div className={styles.scoreContain}>
           <h1>{score?.toFixed(1)}</h1>
           <div className={styles.estrellas}>
             <img src={estrella} alt="" />
@@ -106,7 +106,7 @@ function Card({
         <p> ${price}</p>
         <h3>Ubication:</h3>
         {ubication ? <span>{ubication}</span> : <p>Ubicacion no disponible.</p>}
-       
+
         {walker === "false" && (
           <div className={styles.boton}>
             <Link to={`/walker/perfil/contacto/${id}`}>

@@ -32,9 +32,9 @@ import Premium from "../../Premiums/Premium";
 import Preferencias from "./Preferencias/Preferencias";
 import MapView from "../../ComponentsMaps/MapView";
 import SelectorMap from "../../ComponentsMaps/SelectorMap";
-import  ReactNotification  from  'react-notifications-component';
-import { store } from 'react-notifications-component' ;
-import 'react-notifications-component/dist/theme.css';
+import ReactNotification from "react-notifications-component";
+import { store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
 import LocationMarker from "../../ComponentsMaps/LocationMarker";
 import AddMarkerToClick from "../../ComponentsMaps/AddMarkerToClick";
 dotenv.config();
@@ -50,6 +50,9 @@ const PerfilWalker = () => {
   const [mapa, setMapa] = useState("");
 
   const Walker = useSelector((state) => state.detailWalker);
+
+  console.log(Walker.hasOwnProperty("id"));
+
   const comment = useSelector((state) => state.comment);
   const score = useSelector((state) => state.score);
   const ordensCliente = useSelector((state) => state.ordensCliente);
@@ -91,11 +94,10 @@ const PerfilWalker = () => {
     }
   }, []);
 
-
   // useEffect(() => {
   //   if (delImage === true) dispatch(getPaseadorForId(id, token));
   // }, [dispatch]);
- 
+
   // const [file, setFile] = useState('')
   // const handleInputChange = (e) => {
   //     setFile(e.target.files[0])
@@ -159,12 +161,12 @@ const PerfilWalker = () => {
   };
   function handleOnClick1(e) {
     e.preventDefault();
-   setMapa("auto")
-}
-function handleOnClick2(e) {
+    setMapa("auto");
+  }
+  function handleOnClick2(e) {
     e.preventDefault();
-    setMapa("manual")
-}
+    setMapa("manual");
+  }
 
   //   calendarApi.unselect(); // clear date selection
 
@@ -263,22 +265,20 @@ function handleOnClick2(e) {
 
   const handleNotPremium = () => {
     store.addNotification({
-      title:"Premium",
-      message:"Hacete premium y conta con beneficios exclusivos",
-      type:"info",
-      container:"top-right",
+      title: "Premium",
+      message: "Hacete premium y conta con beneficios exclusivos",
+      type: "info",
+      container: "top-right",
       insert: "top",
-      animationIn:["animated","fadeIn"],
-      animationOut:["animated","fadeOut"],
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
 
-      dismiss:{
-        duration:3000
-      }
-    })
-  }
+      dismiss: {
+        duration: 3000,
+      },
+    });
+  };
 
-
- 
   // Push.create("Hello world!", {
   //   body: "How's it hangin'?",
   //   icon: '/icon.png',
@@ -289,14 +289,12 @@ function handleOnClick2(e) {
   //   }
   // });
 
-
   return (
     <div className={style.container}>
       <Nav />
-      
-      <div className={style.containerPerfil}>
 
-      <ReactNotification/>
+      <div className={style.containerPerfil}>
+        <ReactNotification />
 
         <div className={style.personalInformation}>
           <div className={style.borderFoto}>
@@ -338,10 +336,12 @@ function handleOnClick2(e) {
               className={style.editContainerInfo}
             >
               <button className={style.edit}>Editar Informacion</button>
-             <button className={style.editDescription} onClick={e => handleNotPremium(e)}>
+              <button
+                className={style.editDescription}
+                onClick={(e) => handleNotPremium(e)}
+              >
                 Editar Informacion
               </button>
-
             </Link>
           </div>
           <div className={style.preferencias}>
@@ -350,36 +350,46 @@ function handleOnClick2(e) {
               <button className={style.edit}>Editar preferencias</button>
             </Link>
           </div>
-          <button  onClick={(e) => {
-            handleOnClick1(e)}}>Detectar mi ubicación</button>
-            
-         <button onClick={(e) => {
-            handleOnClick2(e)}}>Agregar ubicacion manualmente</button>
+          <button
+            onClick={(e) => {
+              handleOnClick1(e);
+            }}
+          >
+            Detectar mi ubicación
+          </button>
 
-         { Walker.latitude && mapa === "" &&
-          <SelectorMap
-            name={Walker.name}
-            surname={Walker.surname}
-            latitude={Walker.latitude}
-            longitude={Walker.longitude}
-          />
-         }
-         { mapa === "auto" &&
-          <LocationMarker
-            name={Walker.name}
-            surname={Walker.surname}
-            latitude={Walker.latitude}
-            longitude={Walker.longitude}
-          />
-         }
-         { mapa === "manual" &&
-          <AddMarkerToClick
-            name={Walker.name}
-            surname={Walker.surname}
-            latitude={Walker.latitude}
-            longitude={Walker.longitude}
-          />
-         }
+          <button
+            onClick={(e) => {
+              handleOnClick2(e);
+            }}
+          >
+            Agregar ubicacion manualmente
+          </button>
+
+          {Walker.latitude && mapa === "" && (
+            <SelectorMap
+              name={Walker.name}
+              surname={Walker.surname}
+              latitude={Walker.latitude}
+              longitude={Walker.longitude}
+            />
+          )}
+          {mapa === "auto" && (
+            <LocationMarker
+              name={Walker.name}
+              surname={Walker.surname}
+              latitude={Walker.latitude}
+              longitude={Walker.longitude}
+            />
+          )}
+          {mapa === "manual" && (
+            <AddMarkerToClick
+              name={Walker.name}
+              surname={Walker.surname}
+              latitude={Walker.latitude}
+              longitude={Walker.longitude}
+            />
+          )}
         </div>
         <div className={style.caracteristicas}>
           <div className={style.Premuim}>
@@ -400,9 +410,12 @@ function handleOnClick2(e) {
             >
               <div className={style.editDescription}>
                 <span class="material-icons-outlined">edit</span>
-              <button onClick={handleNotPremium} className={style.editDescription}>
-                Editar Descripcion
-              </button>
+                <button
+                  onClick={handleNotPremium}
+                  className={style.editDescription}
+                >
+                  Editar Descripcion
+                </button>
               </div>
             </Link>
           </div>

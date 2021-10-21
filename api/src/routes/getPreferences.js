@@ -5,7 +5,6 @@ const router = Router();
 
 router.get("/:userId", async (req, res) => {
   const { userId } = req.params;
-  // console.log('preferences',userId)
 
   const preferencias = await Preference.findOne({
     where: {
@@ -33,7 +32,6 @@ router.get("/:userId", async (req, res) => {
 
     // eventClick={handleEventClick}
   };
-  console.log("PREFERENCIAAAAAAS", detalleOrden);
 
   res.status(200).send(detalleOrden);
 
