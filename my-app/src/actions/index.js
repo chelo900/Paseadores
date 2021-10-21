@@ -1,6 +1,10 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 const queryString = require("query-string");
+<<<<<<< HEAD
+=======
+
+>>>>>>> cb9bd37 (Paginacion, premium, css)
 export const GET_PASEADORES = "GET_PASEADORES";
 export const GET_PASEADOR_FOR_ID = "GET_PASEADOR_FOR_ID";
 export const PUT_DETAILS_PROFILE = "PUT_DETAILS_PROFILE";
