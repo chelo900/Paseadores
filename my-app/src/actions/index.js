@@ -1,5 +1,6 @@
 import axios from "axios";
 const queryString = require("query-string");
+import Swal from "sweetalert2";
 
 export const GET_PASEADORES = "GET_PASEADORES";
 export const GET_PASEADOR_FOR_ID = "GET_PASEADOR_FOR_ID";
@@ -653,3 +654,23 @@ export function getAssessment(id, token) {
     });
   };
 }
+export function contacto(payload){
+  return async function(dispatch){
+      try{ 
+          const json = await axios.post("/contacto",payload);
+          await Swal.fire({
+            icon: 'success',
+            title: json.data,
+            showConfirmButton: false,
+            timer: 1500
+          })
+      }catch(error){
+        await Swal.fire({
+          icon: 'error',
+          title: 'No se pudo enviar el mensaje',
+          showConfirmButton: false,
+        })
+      }
+
+      }
+} 
