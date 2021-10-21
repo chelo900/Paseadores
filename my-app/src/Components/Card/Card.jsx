@@ -3,10 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./Card.module.css";
 import god from "../../media/DontLike.png";
 import favorito from "../../media/favorito.png";
-<<<<<<< HEAD
 import media from "../../media/media.png";
-=======
->>>>>>> 24d626b (jwt fixed)
 import estrella from "../../media/estrella.png";
 import { useDispatch, useSelector } from "react-redux";
 import fotoDefault from "../../media/fotoAnonima.jpg";
@@ -45,32 +42,11 @@ function Card({
   const idClient = localStorage.getItem("userId");
   const [fav, setFav] = useState(true);
 
-<<<<<<< HEAD
   const walker = localStorage.getItem("userWalker");
   const admin = localStorage.getItem("userAdmin");
   const token = localStorage.getItem("userToken");
 
   const score = useSelector((state) => state.score);
-=======
-function Card({
-  id,
-  name,
-  surname,
-  image,
-  reputation,
-  service,
-  price,
-  description,
-  fv = false,
-}) {
-  const dispatch = useDispatch();
-  const idClient = localStorage.getItem("userId");
-  const [fav, setFav] = useState(true);
-
-  const walker = localStorage.getItem("userWalker");
-  const admin = localStorage.getItem("userAdmin");
-  const token = localStorage.getItem("userToken");
->>>>>>> 24d626b (jwt fixed)
 
   async function addFavorite() {
     if (fv === false) {
@@ -88,18 +64,13 @@ function Card({
 
   return (
     <div className={styles.card}>
-<<<<<<< HEAD
-         <div className={styles.imageContainer}>
-=======
       <div className={styles.imageContainer}>
->>>>>>> 24d626b (jwt fixed)
         {image ? (
           <img className={styles.image} src={image} alt="foto paseador" />
         ) : (
           <img className={styles.image} src={fotoDefault} alt="a" />
         )}
-<<<<<<< HEAD
-        <div className={styles.scoreContain} >
+        <div className={styles.scoreContain}>
           <h1>{score?.toFixed(1)}</h1>
           <div className={styles.estrellas}>
             <img src={estrella} alt="" />
@@ -118,21 +89,6 @@ function Card({
             {score < 5 && <img src={favorito} alt="sas" />}
           </div>
         </div>
-=======
-        {walker === "false" && admin === "false" && (
-          <div className={styles.reputacion}>
-            <button className={styles.good}>
-              <img src={god} alt="" />
-              <span>{reputation}</span>
-            </button>
-            <button className={styles.bad}>
-              <img src={god} alt="" />
-              <span>{reputation}</span>
-            </button>
-          </div>
-        )}
-        )
->>>>>>> 24d626b (jwt fixed)
       </div>
       <div className={styles.title}>
         <h1 className={styles.name}>{name + " " + surname}</h1>
@@ -150,7 +106,7 @@ function Card({
         <p> ${price}</p>
         <h3>Ubication:</h3>
         {ubication ? <span>{ubication}</span> : <p>Ubicacion no disponible.</p>}
-       
+
         {walker === "false" && (
           <div className={styles.boton}>
             <Link to={`/walker/perfil/contacto/${id}`}>
