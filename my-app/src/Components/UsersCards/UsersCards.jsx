@@ -52,10 +52,6 @@ const UsersCards = () => {
         token,
       })
     );
-<<<<<<< HEAD
-=======
-    console.log(allUsers)
->>>>>>> 7df6f5d (.)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, pageSize, selectFilters, sortData, dispatch]);
 
