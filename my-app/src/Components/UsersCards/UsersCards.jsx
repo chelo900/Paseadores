@@ -90,6 +90,7 @@ const UsersCards = () => {
     event.preventDefault();
     const { min, max } = inputFilters;
     if (min && max && min > max) {
+      setInputFilters({ ...inputFilters, min: "", max: "" });
       return Swal.fire({
         icon: "error",
         title: "Oops...",
