@@ -69,7 +69,7 @@ const PerfilWalker = () => {
     dispatch(getPaseadorForId(id, token));
     dispatch(getAssessment(id, token));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, id, token]);
+  }, [dispatch, id, token, delImage]);
 
   useEffect(() => {
     if (!Walker.latitude || !Walker.longitude) {
