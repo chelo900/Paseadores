@@ -94,7 +94,7 @@ const PerfilWalker = () => {
         swal({title: "Elegí tus preferencias para que te empiecen a contratar",
        icon: "info"})
       }
-    }, 1000);
+    }, 2000);
     
    }, [dispatch])
   // useEffect(() => {
