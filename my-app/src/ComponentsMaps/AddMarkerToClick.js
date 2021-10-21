@@ -66,6 +66,5 @@ function AddMarkerToClick({name,surname,latitude,longitude}) {
       </MapContainer>
   </div>
    )
-      
 }
       export default AddMarkerToClick;
