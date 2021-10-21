@@ -6,8 +6,7 @@ import style from "../UsersCards/UsersCards.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPaseadores, getUserFavorites } from "../../actions/index";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router";
-
+import Swal from "sweetalert2";
 import fotoFondo from "../../media/proceso2.jpg";
 import fotoFondo2 from "../../media/foto2Service.jpg";
 import fotoFondo3 from "../../media/premiumcortada.jpg";
@@ -91,7 +90,12 @@ const UsersCards = () => {
     event.preventDefault();
     const { min, max } = inputFilters;
     if (min && max && min > max) {
-      return alert("El precio minimo debe ser menor que el maximo");
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "El precio minimo debe ser menor que el precio máximo",
+        showDenyButton: false,
+      });
     }
 
     dispatch(
@@ -118,6 +122,7 @@ const UsersCards = () => {
     setSortData({ sortField: "" });
     setPage(0);
   }
+
   return (
     <div className={style.container}>
       <Nav />
@@ -212,6 +217,7 @@ const UsersCards = () => {
                 className={style.hora}
                 onChange={handleSelectFilters}
                 name={"horario"}
+                value={selectFilters.horario}
               >
                 <option> Filtrar por Horario </option>
                 <option value="Mañana"> Mañana </option>
@@ -224,6 +230,7 @@ const UsersCards = () => {
                 className={style.serv}
                 onChange={handleSelectFilters}
                 name={"service"}
+                value={selectFilters.service}
               >
                 <option> Filtrar por Servicio </option>
                 <option value="walker"> Paseador </option>

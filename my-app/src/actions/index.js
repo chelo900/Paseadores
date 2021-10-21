@@ -1,7 +1,6 @@
 import axios from "axios";
-
 import Swal from "sweetalert2";
-
+const queryString = require("query-string");
 export const GET_PASEADORES = "GET_PASEADORES";
 export const GET_PASEADOR_FOR_ID = "GET_PASEADOR_FOR_ID";
 export const PUT_DETAILS_PROFILE = "PUT_DETAILS_PROFILE";
@@ -33,7 +32,6 @@ export const GET_WALKERS_BY_NAME = "GET_WALKERS_BY_NAME";
 
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES";
-const queryString = require("query-string");
 
 export function login(payload) {
   return async function (dispatch) {
@@ -655,23 +653,22 @@ export function getAssessment(id, token) {
     });
   };
 }
-export function contacto(payload){
-  return async function(dispatch){
-      try{ 
-          const json = await axios.post("/contacto",payload);
-          await Swal.fire({
-            icon: 'success',
-            title: json.data,
-            showConfirmButton: false,
-            timer: 1500
-          })
-      }catch(error){
-        await Swal.fire({
-          icon: 'error',
-          title: 'No se pudo enviar el mensaje',
-          showConfirmButton: false,
-        })
-      }
-
-      }
-} 
+export function contacto(payload) {
+  return async function (dispatch) {
+    try {
+      const json = await axios.post("/contacto", payload);
+      await Swal.fire({
+        icon: "success",
+        title: json.data,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      await Swal.fire({
+        icon: "error",
+        title: "No se pudo enviar el mensaje",
+        showConfirmButton: false,
+      });
+    }
+  };
+}
