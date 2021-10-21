@@ -56,6 +56,10 @@ const PerfilWalker = () => {
   const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
   useEffect(() => {
+    dispatch(getPreferences(id, token));
+  }, [dispatch]);
+
+  useEffect(() => {
     if (!token) {
       history.push(`/login`);
     }
@@ -88,15 +92,10 @@ const PerfilWalker = () => {
     }
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if ( !preferencias.turno  && preferencias.turno?.length === 0 ){
-        swal({title: "Elegí tus preferencias para que te empiecen a contratar",
-       icon: "info"})
-      }
-    }, 2000);
-    
-   }, [dispatch])
+
+  
+
+
   // useEffect(() => {
   //   if (delImage === true) dispatch(getPaseadorForId(id, token));
   // }, [dispatch]);
@@ -131,8 +130,16 @@ const PerfilWalker = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getPreferences(id, token));
-  }, [dispatch]);
+    setTimeout(() => {
+      if ( !preferencias.turno  && preferencias.turno?.length === 0 ){
+        swal({title: "Elegí tus preferencias para que te empiecen a contratar",
+       icon: "info"})
+      }
+    }, 1500);
+    
+   }, [dispatch])
+
+  
 
   const handleDateSelect = (selectInfo) => {
     let calendarApi = selectInfo.view.calendar;
