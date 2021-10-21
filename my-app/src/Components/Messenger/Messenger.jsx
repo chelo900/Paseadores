@@ -9,11 +9,15 @@ import axios from "axios";
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
+  const [currentChat, setCurrentChat] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
   const users = useSelector((state) => state.allPaseadores);
   const id = localStorage.getItem("userId");
+  const scrollRef = useRef();
 
   console.log("IDDDDDDDDDDDDD: ", id);
-  let arr = [];
+
   const isFirstRun = useRef(true);
   useEffect(() => {
     if (isFirstRun.current) {
@@ -33,9 +37,42 @@ export default function Messenger() {
     getConversations();
   }, [id]);
 
+  useEffect(() => {
+    const getMessages = async () => {
+      try {
+        const res = await axios.get("/messages/" + currentChat?.id);
+        setMessages(res.data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getMessages();
+  }, [currentChat]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefaul();
+    const message = {
+      sender: id,
+      text: newMessage,
+      conversationId: currentChat.id,
+    };
+
+    try {
+      const res = await axios.post("/messages", message);
+      setMessages([...messages, res.data]);
+      setNewMessage("");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
     <div>
-      {/* <Nav /> */}
+      <Nav />
       <div className="messenger">
         <div className="chatmenu">
           <div className="chatMenuWrapper">
@@ -46,26 +83,42 @@ export default function Messenger() {
               placeholder="Buscar Amigos"
               className="chatMenuInput"
             />
-            {conversations.map((c) =>
-              c(<Conversations conversations={c} currentUser={id} />)
-            )}
+            {conversations.map((c) => (
+              <div onClick={() => setCurrentChat(c)}>
+                <Conversations conversations={c} currentUser={id} />
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="chatBox">
           <div className="chatBoxWrapper">
-            <div className="chatBoxTop">
-              <Message />
-              <Message own={true} />
-              <Message />
-            </div>
-            <div className="chatBoxBottom">
-              <textarea
-                className="chatMessageInput"
-                placeholder="Escriba aqui"
-              ></textarea>
-              <button className="chatSubmitButton">Enviar</button>
-            </div>
+            {currentChat ? (
+              <div>
+                <div className="chatBoxTop">
+                  {messages.map((m) => (
+                    <div ref={scrollRef}>
+                      <Message message={m} own={m.sender === id} />
+                    </div>
+                  ))}
+                </div>
+                <div className="chatBoxBottom">
+                  <textarea
+                    className="chatMessageInput"
+                    placeholder="Escriba aqui"
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    value={newMessage}
+                  ></textarea>
+                  <button className="chatSubmitButton" onClick={handleSubmit}>
+                    Enviar
+                  </button>
+                </div>{" "}
+              </div>
+            ) : (
+              <span className="noConversationText">
+                Inicia una conversación
+              </span>
+            )}
           </div>
         </div>
 

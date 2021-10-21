@@ -6,20 +6,23 @@ export default function Conversations({ conversation, currentUser }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const friendId = conversation.member.find((m) => m !== currentUser);
+    const friendId = conversation.members.find((m) => m !== currentUser);
 
     const getUser = async () => {
-      const res = await axios("/users");
+      try {
+        const res = await axios("/walkers/" + friendId);
+        console.log(res);
+        setUser(res.data);
+      } catch (e) {
+        console.log(e);
+      }
     };
-  });
+    getUser();
+  }, [currentUser, conversation]);
   return (
     <div className="conversation">
-      <img
-        className="conversationImg"
-        src="https://www.cronica.com.ar/__export/1580407745588/sites/cronica/img/2020/01/30/imagen_crop1580407486161.jpg_543804098.jpg"
-        alt=""
-      />
-      <span className="conversationName">Homero</span>
+      <img className="conversationImg" src={user.images} alt="" />
+      <span className="conversationName">{user.name}</span>
     </div>
   );
 }
