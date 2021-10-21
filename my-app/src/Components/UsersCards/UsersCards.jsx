@@ -52,6 +52,10 @@ const UsersCards = () => {
         token,
       })
     );
+<<<<<<< HEAD
+=======
+    console.log(allUsers)
+>>>>>>> 7df6f5d (.)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, pageSize, selectFilters, sortData, dispatch]);
 
@@ -63,14 +67,23 @@ const UsersCards = () => {
 
   function handleNextPage(e) {
     e.preventDefault();
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    setPage(page + 1);
+    if(page < allUsers.totalPages ){
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      setPage(page + 1);
+    }else{
+      return alert("hol")
+    }
   }
 
   function handlePrevPage(e) {
     e.preventDefault();
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    setPage(page - 1);
+    if (page === 0) {
+      return alert("Hola")
+    }
+    else {
+      setPage(page - 1);
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
   }
   function handleSort(event) {
     event.preventDefault();
@@ -305,16 +318,16 @@ const UsersCards = () => {
           )}
 
           <div className={style.pagination}>
-            {page === 0 ? null : (
-              <button className={style.prev} onClick={handlePrevPage}>
-                <p>&#60;</p>
-              </button>
-            )}
-            {page === allUsers.totalPages - 1 ? null : (
-              <button className={style.next} onClick={handleNextPage}>
-                <p>&#62;</p>
-              </button>
-            )}
+            {/* {page === 0 ? null : ( */}
+            <button className={style.prev} onClick={handlePrevPage}>
+              <p>&#60;</p>
+            </button>
+            {/* )} */}
+            {/* {page === allUsers.totalPages - 1 ? null : ( */}
+            <button className={style.next} onClick={handleNextPage}>
+              <p>&#62;</p>
+            </button>
+            {/* )} */}
           </div>
         </div>
       </div>

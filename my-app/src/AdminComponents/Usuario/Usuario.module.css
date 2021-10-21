@@ -52,7 +52,7 @@ rgb(254,247, 237)
 .btnAdmin{
     font-size: 16px;
     width: 85%;
-    height: 25px;
+    height: 30%;
     margin-top: 10px;
     margin-bottom: 10px;
     border: none;
@@ -68,7 +68,8 @@ rgb(254,247, 237)
 .btnContra{
     font-size: 16px;
     width: 85%;
-    height: 25px;
+    /* height: 25px; */
+    height: 30%;
     margin-bottom: 10px;
     border: none;
     cursor:pointer;
@@ -83,7 +84,8 @@ rgb(254,247, 237)
 .btnEliminar{
     font-size: 16px;
     width: 85%;
-    height: 25px;
+    /* height: 25px; */
+    height: 30%;
     margin-bottom: 10px;
     border: none;
     cursor:pointer;

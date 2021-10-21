@@ -201,6 +201,7 @@
 }
 /* 
 .galeria img:hover{
+<<<<<<< HEAD
     width: 400px;
     height: auto;
     position: absolute;
@@ -208,6 +209,10 @@
     left: 600px;
     -webkit-transform:scale(1.0);transform:scale(1.0);
 } */
+=======
+
+}
+>>>>>>> 7df6f5d (.)
 
 .fotos{
     margin: 20px;
@@ -417,7 +422,6 @@
 }
 
 .calendar{
-   
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -527,9 +531,16 @@
 
 
 .map{
+<<<<<<< HEAD
     margin: 0;
     width: 250px;
     height: 200px;
+=======
+    margin-top: 50px;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+>>>>>>> 7df6f5d (.)
 }
 
 .padding{

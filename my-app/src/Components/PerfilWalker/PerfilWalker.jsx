@@ -308,8 +308,7 @@ const PerfilWalker = () => {
 
   return (
     <div className={style.container}>
-      <Nav />
-
+      <Nav className={style.nav} />
       <div className={style.containerPerfil}>
         <ReactNotification />
 

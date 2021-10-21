@@ -4,7 +4,7 @@ import foto1 from '../../../media/premiumcortada.jpg'
 
 const Premium = () => {
     return (
-        <div className={style.total}>
+        <div className={style.total} id='premium'>
             <div className={style.titulo}>
                 <h1> Cuenta Premuim </h1>
             </div>

@@ -250,15 +250,6 @@ function EditPreferencias() {
                   <option value="03">3 horas</option>
                 </select>
               </label>
-              <select
-                className={style.select}
-                onChange={(e) => handleHours(e)}
-              >
-                <option value=""> Horas de paseo</option>
-                <option value="01:00:00"> 1 hora</option>
-                <option value="02:00:00">2 horas</option>
-                <option value="03:00:00">3 horas</option>
-              </select>
             </div>
             <div className={style.container}>
               <label className={style.label}>
@@ -284,17 +275,15 @@ function EditPreferencias() {
                   <option value="10">10</option>
                 </select>
               </label>
-              <select
+              {/* <select
                 className={style.select}
                 onChange={(e) => handleTurnos(e)}
               >
                 <option value="Full"> Todo el día</option>
                 <option value="Mañana">Mañana</option>
                 <option value="Tarde/Noche">Tarde/Noche</option>
-              </select>
+              </select> */}
             </div>
-          </div>
-          <div className={style.derecha}>
             <div className={style.container}>
               <label className={style.label}>
                 Elegí tus días de trabajo
@@ -333,6 +322,8 @@ function EditPreferencias() {
                 className={style.inputComun}
               />
             </div>
+          </div>
+          <div className={style.derecha}>
             <div className={style.container}>
               <label className={style.label}>
                 Hora final de joranda laboral:
