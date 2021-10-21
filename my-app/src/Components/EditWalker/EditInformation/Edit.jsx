@@ -157,6 +157,9 @@ const Edit = () => {
           </div>
         </div>
         <div className={style.containerBtn}>
+          <button className={style.volver} onClick={handleLogout}>
+            Atrás
+          </button>
           {loading ? (
             <button className={style.edit} type="submit">
               Guardar cambios
@@ -164,13 +167,6 @@ const Edit = () => {
           ) : (
             <span>Cargando imagen</span>
           )}
-          <button className={style.volver} onClick={handleLogout}>
-            Atrás
-          </button>
-          {
-            loading ? <button className={style.edit} type="submit">Guardar cambios</button> :
-            <span className={style.cargando} >Cargando imagen</span>
-          }
         </div>
       </form>
     </div>

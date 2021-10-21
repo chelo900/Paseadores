@@ -275,14 +275,6 @@ function EditPreferencias() {
                   <option value="10">10</option>
                 </select>
               </label>
-              {/* <select
-                className={style.select}
-                onChange={(e) => handleTurnos(e)}
-              >
-                <option value="Full"> Todo el día</option>
-                <option value="Mañana">Mañana</option>
-                <option value="Tarde/Noche">Tarde/Noche</option>
-              </select> */}
             </div>
             <div className={style.container}>
               <label className={style.label}>
@@ -301,7 +293,9 @@ function EditPreferencias() {
             <div className={style.container}>
               <label className={style.label}>
                 Hora de comienzo jornada laboral:
-                <select onChange={(e) => handleSelect(e)}>
+                <select
+                  className={style.select}
+                  onChange={(e) => handleSelect(e)}>
                   <option id="Hora Inicio" selected value="">
                     Hora Inicio
                   </option>
@@ -311,82 +305,69 @@ function EditPreferencias() {
                     ))}
                 </select>
               </label>
-              <input
-                onChange={(e) =>
-                  setNewPreferencias({
-                    ...newPreferencias,
-                    comienzo_jornada: e.target.value + ":00:00",
-                  })
-                }
-                placeholder="En horas..."
-                className={style.inputComun}
-              />
             </div>
           </div>
           <div className={style.derecha}>
             <div className={style.container}>
               <label className={style.label}>
-                Hora final de joranda laboral:
-                <select
-                  onChange={(e) =>
-                    setNewPreferencias({
-                      ...newPreferencias,
-                      fin_jornada: e.target.value,
-                    })
-                  }
-                >
-                  <option unselectable value="">
-                    Hora Final
-                  </option>
-                  {array && array.map((hora) => <option>{hora}</option>)}
-                </select>
+                Hora final de jornada laboral:
               </label>
-              <input
+              <select
                 onChange={(e) =>
                   setNewPreferencias({
                     ...newPreferencias,
-                    fin_jornada: e.target.value + ":00:00",
+                    fin_jornada: e.target.value,
                   })
                 }
-                placeholder="En horas..."
-                className={style.inputComun}
-              />
+                className={style.select}
+              >
+                <option unselectable value="">
+                  Hora Final
+                </option>
+                {array && array.map((hora) => <option>{hora}</option>)}
+              </select>
             </div>
-          </div>
-          <div className={style.container}>
-            <label className={style.label}>
-              Elegí tu Provincia
-              <select onChange={(e) => handleProvincias(e)}>
+            <div className={style.container}>
+              <label className={style.label}>
+                Elegí tu Provincia
+              </label>
+              <select
+                className={style.select}
+                onChange={(e) => handleProvincias(e)}>
                 <option value="">Provincia</option>
                 {provincias.map((prov) => (
                   <option value={prov}>{prov}</option>
                 ))}
               </select>
-            </label>
-          </div>
-          <div className={style.container}>
-            <label className={style.label}>
-              Elegí Municipio/Departamento
-              <select onChange={(e) => handleMunicipios(e)}>
+            </div>
+            <div className={style.container}>
+              <label className={style.label}>
+                Elegí Municipio/Departamento
+              </label>
+              <select
+                className={style.select}
+                onChange={(e) => handleMunicipios(e)}>
                 <option value="">Municipios/Departamentos</option>
                 {municipios &&
                   municipios.map((munis) => (
                     <option value={munis}>{munis}</option>
                   ))}
               </select>
-            </label>
-          </div>
-          <div className={style.container}>
-            <label className={style.label}>
-              Elegí Localidad
-              <select onChange={(e) => handleLocalidades(e)}>
+            </div>
+            <div className={style.container}>
+              <label className={style.label}>
+                Elegí Localidad
+              </label>
+              <select
+                className={style.select}
+                onChange={(e) => handleLocalidades(e)}>
                 <option value="">Localidad</option>
                 {localidad &&
                   localidad.map((local) => (
                     <option value={local}>{local}</option>
                   ))}
               </select>
-            </label>
+            </div>
           </div>
         </div>
         <div className={style.containerBtn}>
