@@ -5,10 +5,10 @@ import L, { divIcon } from "leaflet"
 import icon from '../media/icon.png'
 import style from "../ComponentsMaps/MapView.module.css"
 import { useSelector, useDispatch } from "react-redux";
-import { getPaseadorForId, putDetailsUser } from "../actions/index";
+import { getPaseadorForId, putDetailsUser, putDetailsCliente, getClienteForId } from "../actions/index";
 import Markers from "./Markers"
 
-function LocationMarker({name,surname,latitude,longitude}) {
+function LocationMarker({name,surname,latitude,longitude, client =false}) {
 
     const id = localStorage.getItem("userId");
     const token = localStorage.getItem("userToken");
@@ -25,16 +25,25 @@ function LocationMarker({name,surname,latitude,longitude}) {
       map.locate()
     },
     locationfound(e) {
-        dispatch(
-            putDetailsUser(
-              {
-                latitude: e.latlng.lat,
-                longitude: e.latlng.lng,
-              },
-              id,
-              token))
-              dispatch(getPaseadorForId(id, token));
-        console.log(e.latlng.lng)
+      !client && (dispatch(
+                putDetailsUser(
+                  {
+                    latitude: e.latlng.lat,
+                    longitude: e.latlng.lng,
+                  },
+                  id,
+                  token)),
+                  dispatch(getPaseadorForId(id, token)))
+      client && (dispatch(
+        putDetailsCliente(
+                  {
+                    latitude: e.latlng.lat,
+                    longitude: e.latlng.lng,
+                  },
+                  id,
+                  token)),
+                  dispatch(getClienteForId(id, token)))
+      console.log(e.latlng.lng)
         const { lat, lng } = e.latlng;
       setPosition({
         latitude: lat,
@@ -43,17 +52,24 @@ function LocationMarker({name,surname,latitude,longitude}) {
       map.flyTo(e.latlng, map.getZoom())
     },
   })
+  client && (latitude = position.latitude)
+  client && (longitude = position.longitude)
 
   return (
-      
-      position.latitude !== 0 ? (
+      <div>
+  {position.latitude !== 0 && !client && ( 
           <CircleMarker center={[position.latitude, position.longitude]} color= 'blue'  fillColor= '#0000FF' fillOpacity= "0.5" radius= "50"  stroke={false} >
        <Popup>
     {name} {surname}
   </Popup>
   </CircleMarker>
-    ) : null
-    ); 
+    ) }
+  {position.latitude !== 0 && client && ( 
+         <Markers allUsers= {[{name, surname, latitude, longitude}]}/>
+    ) }
+  {position.latitude == 0 && null }
+    </div>
+  )
 }
     
 
