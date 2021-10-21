@@ -22,6 +22,8 @@ router.get("/:id", async (req, res) => {
       email: dato.email,
       ubication: dato.ubication,
       description: dato.description,
+      latitude: dato.latitude,
+      longitude: dato.longitude
     };
 
     if (detalleDatos) {

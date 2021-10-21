@@ -5,10 +5,10 @@ import L, { divIcon } from "leaflet"
 import icon from '../media/icon.png'
 import style from "../ComponentsMaps/MapView.module.css"
 import { useSelector, useDispatch } from "react-redux";
-import { getPaseadorForId, putDetailsUser } from "../actions/index";
+import { getPaseadorForId, putDetailsUser, putDetailsCliente, getClienteForId } from "../actions/index";
 import Markers from "./Markers"
 
-function AddMarkerToClick({name,surname,latitude,longitude}) {
+function AddMarkerToClick({name,surname,latitude,longitude,client =false}) {
 
     const id = localStorage.getItem("userId");
     const token = localStorage.getItem("userToken");
@@ -21,33 +21,51 @@ function AddMarkerToClick({name,surname,latitude,longitude}) {
 
     function AddMarker() {
     const map = useMapEvents({
-        click(event) {
-            const { lat, lng } = event.latlng;
-            dispatch(
-                putDetailsUser(
-              {
-                latitude: event.latlng.lat,
-                longitude: event.latlng.lng,
-              },
-              id,
-              token))
-              dispatch(getPaseadorForId(id, token));
+        click(e) {
+            const { lat, lng } = e.latlng;
+            !client && (dispatch(
+              putDetailsUser(
+                {
+                  latitude: e.latlng.lat,
+                  longitude: e.latlng.lng,
+                },
+                id,
+                token)),
+                dispatch(getPaseadorForId(id, token)))
+    client && (dispatch(
+      putDetailsCliente(
+                {
+                  latitude: e.latlng.lat,
+                  longitude: e.latlng.lng,
+                },
+                id,
+                token)),
+                dispatch(getClienteForId(id, token)))
         setPosition({
           latitude: lat,
           longitude: lng,
         });
       },
     });
+
+    client && (latitude = position.latitude)
+    client && (longitude = position.longitude)
     
     return (
-      position.latitude !== 0 ? (
-        <CircleMarker center={[position.latitude, position.longitude]} color= 'blue'  fillColor= '#0000FF' fillOpacity= "0.5" radius= "50"  stroke={false} >
-         <Popup>
-      {name} {surname}
-    </Popup>
-    </CircleMarker>
-      ) : null
-      );
+      <div>
+  {position.latitude !== 0 && !client && ( 
+          <CircleMarker center={[position.latitude, position.longitude]} color= 'blue'  fillColor= '#0000FF' fillOpacity= "0.5" radius= "50"  stroke={false} >
+       <Popup>
+    {name} {surname}
+  </Popup>
+  </CircleMarker>
+    ) }
+  {position.latitude !== 0 && client && ( 
+         <Markers allUsers= {[{name, surname, latitude, longitude}]}/>
+    ) }
+  {position.latitude == 0 && null }
+    </div>
+  )
      }
 
 

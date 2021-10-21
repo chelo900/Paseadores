@@ -5,16 +5,30 @@ import { Link, useHistory } from "react-router-dom";
 import { getClienteForId } from "../../actions/index";
 import Nav from "./nav/Nav";
 import ListaFav from "./Favoritos/ListaFav";
+import LocationMarker from "../../ComponentsMaps/LocationMarker";
+import AddMarkerToClick from "../../ComponentsMaps/AddMarkerToClick";
+import SelectorMap from "../../ComponentsMaps/SelectorMap";
 
 const PerfilCliente = () => {
   const id = localStorage.getItem("userId");
   const token = localStorage.getItem("userToken");
+ 
 
+const [mapa, setMapa] = useState("");
   const dispatch = useDispatch();
+
   const history = useHistory();
 
-  const Client = useSelector((state) => state.detailCliente);
+  function handleOnClick1(e) {
+    e.preventDefault();
+    setMapa("auto");
+  }
+  function handleOnClick2(e) {
+    e.preventDefault();
+    setMapa("manual");
+  }
 
+  const Client = useSelector((state) => state.detailCliente);
   useEffect(() => {
     if (!token) {
       history.push(`/login`);
@@ -57,6 +71,49 @@ const PerfilCliente = () => {
               </button>
             </Link>
           </div>
+          <button
+            onClick={(e) => {
+              handleOnClick1(e);
+            }}
+          >
+            Detectar mi ubicación
+          </button>
+
+          <button
+            onClick={(e) => {
+              handleOnClick2(e);
+            }}
+          >
+            Agregar ubicacion manualmente
+          </button>
+
+          {Client.latitude && mapa === "" && (
+            <SelectorMap
+              name={Client.name}
+              surname={Client.surname}
+              latitude={Client.latitude}
+              longitude={Client.longitude}
+              client={true}
+            />
+          )}
+          {mapa === "auto" && (
+            <LocationMarker
+              name={Client.name}
+              surname={Client.surname}
+              latitude={Client.latitude}
+              longitude={Client.longitude} 
+              client={true}
+            />
+          )}
+          {mapa === "manual" && (
+            <AddMarkerToClick
+              name={Client.name}
+              surname={Client.surname}
+              latitude={Client.latitude}
+              longitude={Client.longitude}
+              client={true}
+            />
+          )}
         </div>
 
         <div className={style.caracteristicas}>

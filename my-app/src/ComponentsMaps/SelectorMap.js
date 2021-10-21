@@ -13,7 +13,7 @@ import AddMarkerToClick from "./AddMarkerToClick"
 
 
 
-const SelectorMap = ({name, surname, latitude, longitude}) => {
+const SelectorMap = ({name, surname, latitude, longitude, client =false}) => {
 
     
     const id = localStorage.getItem("userId");
@@ -31,12 +31,15 @@ const SelectorMap = ({name, surname, latitude, longitude}) => {
       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
- 
+ {!client ?
 <CircleMarker center={[latitude, longitude]} color= 'blue'  fillColor= '#0000FF' fillOpacity= "0.5" radius= "50"  stroke={false} >
            <Popup>
         {name} {surname}
       </Popup>
       </CircleMarker>
+      :
+      <Markers allUsers= {[{name, surname, latitude, longitude}]}/>
+      }
   </MapContainer>
  }
    

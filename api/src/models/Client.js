@@ -56,6 +56,14 @@ module.exports = (sequelize) => {
         defaultValue: "active",
         allowNull: false,
       },
+      latitude: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      longitude: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     { timestamps: false }
   );
