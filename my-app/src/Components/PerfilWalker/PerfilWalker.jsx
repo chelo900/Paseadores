@@ -340,9 +340,6 @@ const PerfilWalker = () => {
                   Subir
                 </button>
               </form>
-              <Link to={`/chat`} className={style.editContainerInfo}>
-                <button className={style.editDescription}>CHAT ROOMS</button>
-              </Link>
               <Link to={`/messenger`} className={style.editContainerInfo}>
                 <button className={style.editDescription}>CHAT</button>
               </Link>
