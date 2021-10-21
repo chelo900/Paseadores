@@ -213,29 +213,34 @@ const UsersCards = () => {
                 {" "}
                 Todos los Paseadores{" "}
               </button>
+              <Link to="/cardsUsers/map">
+                  <button className={style.atc}>
+                   Ver en mapa
+                  </button>
+                  </Link>
             </div>
           </div>
         </div>
 
         {/* <div className = {style.premium}>
           {usersPremium.length > 0 ? (
-              usersPremium.map((pr) => {
-                return (
-                  <CardCarrusel
+            usersPremium.map((pr) => {
+              return (
+                <CardCarrusel
                     key={pr.id}
                     id={pr.id}
                     name={pr.name}
                     surname={pr.surname}
                     image={pr.image}
-                  />
-                );
-              })
-            ) : (
-              <div>
-                <p>No hay usuarios premium</p>
-              </div>
-            )}
-        </div> */}
+                    />
+                    );
+                  })
+                  ) : (
+                    <div>
+                    <p>No hay usuarios premium</p>
+                    </div>
+                    )}
+                  </div> */}
 
         <div className={style.cards}>
           {allUsers.content?.length > 0 ? (
@@ -268,6 +273,7 @@ const UsersCards = () => {
               <p>No se encontraron usuarios</p>
             </div>
           )}
+                  
           <div className={style.pagination}>
             {page === 0 ? null : (
               <button className={style.prev} onClick={handlePrevPage}>

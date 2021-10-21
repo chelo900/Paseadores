@@ -73,7 +73,7 @@ const PerfilWalker = () => {
     }
     dispatch(getPaseadorForId(id, token));
     dispatch(getAssessment(id, token));
-  }, [dispatch]);
+  }, [dispatch,id,token]);
 
   useEffect(() => {
     dispatch(getOrdenCliente(id, token));
