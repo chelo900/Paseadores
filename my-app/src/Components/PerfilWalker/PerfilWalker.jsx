@@ -35,6 +35,8 @@ import SelectorMap from "../../ComponentsMaps/SelectorMap";
 import  ReactNotification  from  'react-notifications-component';
 import { store } from 'react-notifications-component' ;
 import 'react-notifications-component/dist/theme.css';
+import LocationMarker from "../../ComponentsMaps/LocationMarker";
+import AddMarkerToClick from "../../ComponentsMaps/AddMarkerToClick";
 dotenv.config();
 
 // import Footer from './footer/Footer';
@@ -45,6 +47,7 @@ const PerfilWalker = () => {
   const dispatch = useDispatch();
 
   const history = useHistory();
+  const [mapa, setMapa] = useState("");
 
   const Walker = useSelector((state) => state.detailWalker);
   const comment = useSelector((state) => state.comment);
@@ -66,7 +69,7 @@ const PerfilWalker = () => {
     dispatch(getPaseadorForId(id, token));
     dispatch(getAssessment(id, token));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, id, delImage]);
+  }, [dispatch, id, token]);
 
   useEffect(() => {
     if (!Walker.latitude || !Walker.longitude) {
@@ -169,6 +172,14 @@ const PerfilWalker = () => {
       )
     );
   };
+  function handleOnClick1(e) {
+    e.preventDefault();
+   setMapa("auto")
+}
+function handleOnClick2(e) {
+    e.preventDefault();
+    setMapa("manual")
+}
 
   //   calendarApi.unselect(); // clear date selection
 
@@ -359,12 +370,36 @@ const PerfilWalker = () => {
               <button className={style.edit}>Editar preferencias</button>
             </Link>
           </div>
+          <button  onClick={(e) => {
+            handleOnClick1(e)}}>Detectar mi ubicación</button>
+            
+         <button onClick={(e) => {
+            handleOnClick2(e)}}>Agregar ubicacion manualmente</button>
+
+         { Walker.latitude && mapa === "" &&
           <SelectorMap
             name={Walker.name}
             surname={Walker.surname}
             latitude={Walker.latitude}
             longitude={Walker.longitude}
           />
+         }
+         { mapa === "auto" &&
+          <LocationMarker
+            name={Walker.name}
+            surname={Walker.surname}
+            latitude={Walker.latitude}
+            longitude={Walker.longitude}
+          />
+         }
+         { mapa === "manual" &&
+          <AddMarkerToClick
+            name={Walker.name}
+            surname={Walker.surname}
+            latitude={Walker.latitude}
+            longitude={Walker.longitude}
+          />
+         }
         </div>
         <div className={style.caracteristicas}>
           <div className={style.Premuim}>
