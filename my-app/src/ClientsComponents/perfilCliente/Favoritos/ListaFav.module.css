@@ -21,9 +21,10 @@
   margin-bottom: 30px;
 }
 .wrapper {
-    display: flex;
+    /* display: flex;
     flex-direction: row;
     flex-wrap:wrap;
+<<<<<<< HEAD:my-app/src/Components/ListaFav/ListaFav.module.css
     justify-content: center;
     margin-top: 0px;
     
@@ -32,4 +33,8 @@
 
   .notFound{
     margin-bottom: 550px;
+=======
+    justify-content: center; */
+    margin-top: 10px;
+>>>>>>> 4b5a5e5 (noti,cliente,etc):my-app/src/ClientsComponents/perfilCliente/Favoritos/ListaFav.module.css
   }

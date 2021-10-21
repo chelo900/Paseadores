@@ -1,31 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./UserFav.module.css";
-import god from "../../media/DontLike.png";
-import favorito from "../../media/favorito.png";
-import estrella from "../../media/estrella.png";
-import { useDispatch, useSelector } from "react-redux";
-import fotoDefault from "../../media/fotoAnonima.jpg";
+import favorito from "../../../media/favorito.png";
+import estrella from "../../../media/estrella.png";
+import { useDispatch } from "react-redux";
+import fotoDefault from "../../../media/fotoAnonima.jpg";
 import {
   postUserFavorite,
   getUserFavorites,
   deleteUserFavorite,
-  getForListFav,
-} from "../../actions/index";
-
-// function Card({
-//   id,
-//   name,
-//   surname,
-//   image,
-//   reputation,
-//   service,
-//   price,
-//   description,
-// }) {
-//   const [fav, setFav] = useState(true);
-//   const handlerFavorite = () => {
-//     console.log("estaentrando", fav);
+  getForListFav } from "../../../actions/index";
 
 function UserFav({
   id,
@@ -63,13 +47,24 @@ function UserFav({
   }
 
   return (
-    <div className={styles.card} draggable>
-      {walker === "false" && (
+      <div className={styles.card}>
+        <div className={styles.izquierda}>
+          <Link to={`/walker/perfil/contacto/${id}`}>
+            {image ? (
+              <img className={styles.image} src={image} alt="foto paseador" />
+            ) : (
+              <img className={styles.image} src={fotoDefault} alt="a" />
+            )}
+          </Link>
+        </div>
+        <div className={styles.derecha}>
+          <h1 className={styles.name}>{name + " " + surname}</h1>
+          <h3 className={styles.servicio}>{service}</h3>
+          {walker === "false" && (
           <button
             className={styles.prueba}
             onClick={(e) => {
-              addFavorite(e);
-            }}
+              addFavorite(e);}}
           >
             {fv ? (
               <img src={estrella} alt="" />
@@ -78,26 +73,8 @@ function UserFav({
             )}
           </button>
         )}
-      <div className={styles.title}>
-        <h1 className={styles.name}>{name}</h1>
-        {/* <hr></hr> */}
-        
-        {image ? (
-          <img className={styles.image} src={image} alt="foto paseador" />
-        ) : (
-          <img className={styles.image} src={fotoDefault} alt="a" />
-        )}
-        <h3>{service}</h3>
-        <div>${price}</div>
-        {walker === "false" && (
-          <div className={styles.boton}>
-            <Link to={`/walker/perfil/contacto/${id}`}>
-              <button>Saber mas...</button>
-            </Link>
-          </div>
-        )}
+        </div>
       </div>
-    </div>
   );
 }
 

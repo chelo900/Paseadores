@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import Nav from "../../ClientsComponents/perfilCliente/nav/Nav";
 import { useDispatch, useSelector } from "react-redux";
-import { getForListFav, getUserFavorites } from "../../../src/actions/index";
+import { getForListFav, getUserFavorites } from "../../../actions/index";
 import styles from "./ListaFav.module.css";
 import UserFav from "./UserFav";
 
@@ -27,10 +26,14 @@ const Admin = () => {
   }, [dispatch]);
 
   return (
+<<<<<<< HEAD:my-app/src/Components/ListaFav/ListaFav.jsx
     <div className={styles.container}>
       <Nav />
       <h1>FAVOTRITOS</h1>
       <hr></hr>
+=======
+    <div>
+>>>>>>> 4b5a5e5 (noti,cliente,etc):my-app/src/ClientsComponents/perfilCliente/Favoritos/ListaFav.jsx
       <div className={styles.wrapper}>
         {dataFavorites?.length > 0 ? (
           dataFavorites.map((el) => {
@@ -42,7 +45,6 @@ const Admin = () => {
                 fv = true;
               }
             }
-
             return (
               <UserFav
                 key={el.id}
