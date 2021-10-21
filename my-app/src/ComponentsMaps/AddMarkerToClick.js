@@ -66,7 +66,5 @@ function AddMarkerToClick({name,surname,latitude,longitude}) {
       </MapContainer>
   </div>
    )
-      {localization === "localization manual" && 
-      <h3>Selecion tu ubicación en el mapa</h3>}
 }
       export default AddMarkerToClick;
