@@ -19,7 +19,7 @@ const markers = allUsers.map((el,i) => (
   <Marker key={i} position={[el.latitude,el.longitude]} icon={icono} >
        
   <Popup>
-  <Link to={`/walker/perfil/${el.id}`} >
+  <Link to={`/walker/perfil/contacto/${el.id}`} >
    <h3> {el.name} {el.surname}</h3>
   </Link>
   {el.service === "Walker" && "Paseador"}

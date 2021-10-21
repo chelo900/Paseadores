@@ -14,7 +14,7 @@ const updateUser = async (req, res) => {
     });
     return res
       .status(200)
-      .json({ message: "Tus datos fueron actualizados correctamente" });
+      .json(user);
   } catch (error) {
     res.status(401).json({
       error: "No se pudieron realizar los cambios",

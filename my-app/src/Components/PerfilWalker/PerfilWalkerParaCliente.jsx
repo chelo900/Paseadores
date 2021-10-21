@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addImage,
   clientSendOrden,
   getOrdenCliente,
   getPaseadorForId,
   postAssessment,
   getAssessment,
   getPreferences,
-  putDetailsCliente,
 } from "../../actions/index";
 
 import style from "./PerfilWalker.module.css";
@@ -27,8 +25,8 @@ import esLocale from "@fullcalendar/core/locales/es";
 import momentPlugin from "@fullcalendar/moment";
 import moment from "moment";
 import Swal from "sweetalert2";
-import patitallena from "../../media/patitallena.png";
-import patitavacia from "../../media/patitavacia.png";
+import patitallena from "../../media/estrellallenamediana.png";
+import patitavacia from "../../media/estrellavaciamediana.png";
 import mediapatita from "../../media/mediapatita.png";
 import swal from "sweetalert";
 import axios from "axios";
@@ -73,7 +71,7 @@ const PerfilWalker = () => {
     }
     dispatch(getPaseadorForId(id, token));
     dispatch(getAssessment(id, token));
-  }, [dispatch]);
+  }, [dispatch,id,token]);
 
   useEffect(() => {
     dispatch(getOrdenCliente(id, token));
@@ -525,9 +523,6 @@ const PerfilWalker = () => {
                 </button>
               </div>
             </form>
-            <Link to={`/chat`} className={style.editContainerInfo}>
-              <button className={style.editDescription}>CHAT ROOMS</button>
-            </Link>
             <Link to={`/messenger`} className={style.editContainerInfo}>
               <button className={style.editDescription}>CHAT</button>
             </Link>

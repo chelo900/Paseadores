@@ -4,14 +4,19 @@ import Carrusel from "../Carrusel/Carrusel";
 import Nav from "./Nav/Nav";
 import style from "../UsersCards/UsersCards.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPaseadores, getUserFavorites,putDetailsUser } from "../../actions/index";
+import { getAllPaseadores, getUserFavorites } from "../../actions/index";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
+
+import fotoFondo from "../../media/proceso2.jpg";
+import fotoFondo2 from "../../media/foto2Service.jpg";
+import fotoFondo3 from "../../media/premiumcortada.jpg";
+import fotoFondo4 from "../../media/fotoAbout.jpg";
 
 const UsersCards = () => {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allPaseadores);
-  const history = useHistory();
+
   const favorites = useSelector((state) => state.favorites);
 
   const [inputFilters, setInputFilters] = useState({
@@ -19,8 +24,11 @@ const UsersCards = () => {
     max: "",
     ubication: "",
   });
-  const [selectFilters, setSelectFilters] = useState({});
-  const [sortData, setSortData] = useState({});
+  const [selectFilters, setSelectFilters] = useState({
+    horario: "",
+    service: "",
+  });
+  const [sortData, setSortData] = useState({ sortField: "" });
 
   // Paginado
   const [page, setPage] = useState(0);
@@ -35,9 +43,6 @@ const UsersCards = () => {
   const admin = localStorage.getItem("userAdmin");
 
   useEffect(() => {
-    if (!token) {
-      history.push(`/login`);
-    }
     dispatch(
       getAllPaseadores({
         page,
@@ -48,13 +53,12 @@ const UsersCards = () => {
         token,
       })
     );
-   
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, pageSize, selectFilters, sortData, dispatch]);
 
   useEffect(() => {
     if (walker === "false" && admin === "false") {
-      dispatch(getUserFavorites(id, token));
+      dispatch(getUserFavorites(id));
     }
   }, []);
 
@@ -69,7 +73,6 @@ const UsersCards = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     setPage(page - 1);
   }
-
   function handleSort(event) {
     event.preventDefault();
     setSortData({
@@ -86,6 +89,11 @@ const UsersCards = () => {
 
   function handleFiltersSubmit(event) {
     event.preventDefault();
+    const { min, max } = inputFilters;
+    if (min && max && min > max) {
+      return alert("El precio minimo debe ser menor que el maximo");
+    }
+
     dispatch(
       getAllPaseadores({
         page,
@@ -105,15 +113,24 @@ const UsersCards = () => {
 
   function handleOnClick(event) {
     event.preventDefault();
-    setSelectFilters({});
+    setSelectFilters({ horario: "", service: "" });
     setInputFilters({ min: "", max: "", ubication: "" });
-    setSortData({});
+    setSortData({ sortField: "" });
     setPage(0);
   }
   return (
     <div className={style.container}>
-      <Nav page={page} pageSize={pageSize} />
-
+      <Nav />
+      <img className={style.fotoFondo} src={fotoFondo} alt="fotoFondo" />
+      {allUsers.content?.length > 1 ? (
+        <img className={style.fotoFondo2} src={fotoFondo2} alt="fotoFondo" />
+      ) : null}
+      {allUsers.content?.length > 2 ? (
+        <img className={style.fotoFondo3} src={fotoFondo3} alt="fotoFondo" />
+      ) : null}
+      {allUsers.content?.length > 3 ? (
+        <img className={style.fotoFondo4} src={fotoFondo4} alt="fotoFondo" />
+      ) : null}
       <div className={style.containerDOS}>
         <div className={style.carrusel}>
           <Carrusel />
@@ -124,6 +141,7 @@ const UsersCards = () => {
               name="reputation"
               className={style.rep}
               onChange={handleSort}
+              value={sortData.sortField}
             >
               <option value="order"> Ordenar por Reputacion </option>
               <option value="DESC"> Mayor reputacion </option>
@@ -131,7 +149,12 @@ const UsersCards = () => {
             </select>
           </div>
           <div>
-            <select name="price" className={style.pre} onChange={handleSort}>
+            <select
+              name="price"
+              className={style.pre}
+              onChange={handleSort}
+              value={sortData.sortField}
+            >
               <option value="order"> Ordenar por Precio</option>
               <option value="DESC"> Mayor precio </option>
               <option value="ASC"> Menor precio </option>
@@ -191,9 +214,9 @@ const UsersCards = () => {
                 name={"horario"}
               >
                 <option> Filtrar por Horario </option>
-                <option value="Mañana"> Mañana </option>
-                <option value="Tarde/Noche"> Tarde/Noche </option>
-                <option value="Full"> Todos </option>
+                <option value="morning"> Mañana </option>
+                <option value="afternoon"> Tarde </option>
+                <option value="all"> Todos </option>
               </select>
             </div>
             <div>
@@ -213,37 +236,36 @@ const UsersCards = () => {
                 {" "}
                 Todos los Paseadores{" "}
               </button>
+              <Link to="/cardsUsers/map">
+                <button className={style.atc}>Ver en mapa</button>
+              </Link>
             </div>
-            <Link to={`/cardsUsers/map`}>
-              <button className={style.atc}>Ver en Mapa</button>
-            </Link>
           </div>
         </div>
 
         {/* <div className = {style.premium}>
           {usersPremium.length > 0 ? (
-              usersPremium.map((pr) => {
-                return (
-                  <CardCarrusel
+            usersPremium.map((pr) => {
+              return (
+                <CardCarrusel
                     key={pr.id}
                     id={pr.id}
                     name={pr.name}
                     surname={pr.surname}
                     image={pr.image}
-                  />
-                );
-              })
-            ) : (
-              <div>
-                <p>No hay usuarios premium</p>
-              </div>
-            )}
-        </div> */}
+                    />
+                    );
+                  })
+                  ) : (
+                    <div>
+                    <p>No hay usuarios premium</p>
+                    </div>
+                    )}
+                  </div> */}
 
         <div className={style.cards}>
           {allUsers.content?.length > 0 ? (
             allUsers.content.map((el) => {
-              {console.log(el, 'todo')}
               var fv;
 
               for (var i = 0; i < favorites.length; i++) {
@@ -252,13 +274,6 @@ const UsersCards = () => {
                 }
               }
 
-              let servicio;
-
-              if (el.service === "Walker") servicio = "Paseador";
-              if (el.service === "Carer") servicio = "Cuidador";
-              if (el.service === "Walker and Carer")
-                servicio = "Paseador y Cuidador";
-
               return (
                 <Card
                   key={el.id}
@@ -266,9 +281,9 @@ const UsersCards = () => {
                   name={el.name}
                   surname={el.surname}
                   image={el.image}
-                  service={servicio}
+                  service={el.service}
                   price={el.price}
-                  ubication={el.ubication}
+                  reputation={el.reputation}
                   description={el.description}
                   fv={fv}
                 />
@@ -279,6 +294,7 @@ const UsersCards = () => {
               <p>No se encontraron usuarios</p>
             </div>
           )}
+
           <div className={style.pagination}>
             {page === 0 ? null : (
               <button className={style.prev} onClick={handlePrevPage}>

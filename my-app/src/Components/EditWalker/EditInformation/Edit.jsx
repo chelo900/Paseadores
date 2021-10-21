@@ -21,11 +21,13 @@ const Edit = () => {
       history.push(`/login`);
     }
   }, []);
-
+  let servicio;
+  if (paseador.service === "Paseador") servicio = "Walker";
+  if (paseador.service === "Cuidador") servicio = "Carer";
+  if (paseador.service === "Paseador y Cuidador") servicio = "Walker and Carer";
   const [input, setInput] = useState({
     status: paseador.status,
-    service: paseador.service,
-    birth_day: paseador.birth_day,
+    service: servicio,
     phone: paseador.phone,
     email: paseador.email,
     ubication: paseador.ubication,
@@ -105,15 +107,6 @@ const Edit = () => {
           <option value="Carer">Cuidador</option>
           <option value="Walker and Carer">Paseador y Cuidador</option>
         </select>
-        <input
-          type="date"
-          name="birth_day"
-          // defaultValue={paseador.birth_day}
-          value={input.value}
-          placeholder={`Fecha de nacimiento : ${paseador.birth_day}`}
-          onChange={(e) => inputChange(e)}
-          className={style.input}
-        />
         <input
           type="text"
           name="phone"

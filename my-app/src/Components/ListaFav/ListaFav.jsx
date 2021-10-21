@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router";
 import Nav from "../../ClientsComponents/perfilCliente/nav/Nav";
 import { useDispatch, useSelector } from "react-redux";
 import { getForListFav, getUserFavorites } from "../../../src/actions/index";
@@ -13,24 +12,17 @@ const Admin = () => {
   const favorites = useSelector((state) => state.favorites);
   const dataFavorites = useSelector((state) => state.dataFavorites);
 
-  const history = useHistory();
-
-  useEffect(() => {
-    if (!token) {
-      history.push(`/login`);
-    }
-  }, []);
-
+  //console.log(dataFavorites)
+  //console.log("aaaaaaaaaa")
   useEffect(() => {
     dispatch(getForListFav(id, token));
     dispatch(getUserFavorites(id, token));
   }, [dispatch]);
 
   return (
-    <div className={styles.container}>
+    <div>
       <Nav />
-      <h1>FAVOTRITOS</h1>
-      <hr></hr>
+
       <div className={styles.wrapper}>
         {dataFavorites?.length > 0 ? (
           dataFavorites.map((el) => {
@@ -59,7 +51,7 @@ const Admin = () => {
             );
           })
         ) : (
-          <div className ={styles.notFound}>
+          <div>
             <p>No se encontraron usuarios</p>
           </div>
         )}

@@ -1,7 +1,33 @@
 import React from 'react'
 import style from './Contact.module.css'
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import {contacto} from "../../../actions/index"
 
 const Contact = () => {
+    
+    const dispatch = useDispatch();
+
+    const [input, setInput] = useState({
+        name : "",
+        mail : "",
+        message : "",
+    })
+
+    function handleChange(e){
+        setInput({
+            ...input,
+            [e.target.name] : e.target.value
+        })
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        console.log(input)
+        dispatch(contacto(input))
+        }
+      
+    
 
     return (
         <div className={style.container} id='contact'>
@@ -28,28 +54,41 @@ const Contact = () => {
                     <p>Cordoba</p>
                 </div>
             </div>
-            <div>
+            <form onSubmit={(e) => handleSubmit(e)}>
                 <div className={style.form1}>
                     <div className={style.formName}>
                         <input
                             type='text'
-                            placeholder='Nombre' />
+                            placeholder='Nombre' 
+                            value={input.name}
+                             name="name"
+                            onChange={(e) => handleChange(e)}
+                        />
+                            
                     </div>
                     <div className={style.formEmail}>
                         <input
                             type='text'
-                            placeholder='Email' />
+                            placeholder='Email'
+                            value={input.mail}
+                             name="mail"
+                            onChange={(e) => handleChange(e)}
+                        />
                     </div>
                 </div>
                 <div className={style.form2}>
-                    <textarea type='text' placeholder='Escribe tu mensaje aquí...' />
+                    <textarea type='text' placeholder='Escribe tu mensaje aquí...'
+                    value={input.message}
+                    name="message"
+                   onChange={(e) => handleChange(e)}
+                    />
                 </div>
                 <div className={style.divBtn}>
                     <div className={style.botonContainer}>
-                        <button className={style.boton}>Enviar</button>
+                    <button className = {style.boton} type = "submit">Enviar </button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     )
 }

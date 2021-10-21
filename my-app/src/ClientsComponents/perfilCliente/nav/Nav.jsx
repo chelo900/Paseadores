@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom'
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { clearUser } from "../../../actions/index";
-import menu from '../../../media/menu.png'
-import SearchBar from '../../../Components/SearchBar/SearchBar';
 
 const Nav = ({id}) => {
     const [open, setOpen] = useState(false)
@@ -13,10 +11,6 @@ const Nav = ({id}) => {
     const history = useHistory();
 
     const dispatch = useDispatch();
-
-    const handlerHamburguer = ()=>{
-        setOpen(!open)
-    }
 
     function handleOnClick(e) {
         localStorage.clear();
@@ -28,24 +22,13 @@ const Nav = ({id}) => {
             <div className={style.serviceContainer}>
                 <h2 className={style.service}>Happy Dog!</h2>
             </div>
-           <div className={style.log}>
-               <button className={style.hamburguesa} onClick={e =>handlerHamburguer()}><img src={menu} alt='a'/></button>
-               {open?<div className={style.menu}>
-                   <ul>
-                       <Link to={`/cardsUsers`} className={style.textdeco}>
-                            <li>Home</li>
-                       </Link>
-                       <Link to={`/listFav`} className={style.textdeco}>
-                            <li>Favoritos</li>
-                        </Link>
-                       <button onClick={handleOnClick}>
-                            <li className={style.cerrar}>Logout</li>
-                       </button>
-                   </ul>
-
-               </div>:null}
-            </div>  
-         </div>
+            <div className={style.log}>
+                <Link to={`/cardsUsers`} className={style.textdeco}>
+                <span class="material-icons-outlined">home</span>
+                    <p>Home</p>
+                </Link>
+            </div>
+        </div>
     )
 }
 
