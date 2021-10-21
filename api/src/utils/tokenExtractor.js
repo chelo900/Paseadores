@@ -16,12 +16,5 @@ module.exports = (request, response, next) => {
     return response.status(401).json(error);
   }
 
-  // if (isNull(token) || !decodedToken.id) {
-  //   console.log("entro al error");
-  //   return response.status(401).json({ error: "Token inexistente o invalido" });
-  // }
-  // const { id: userId } = decodedToken;
-  // request.userId = userId;
-
   next();
 };

@@ -1,7 +1,6 @@
 import axios from "axios";
-const queryString = require("query-string");
 import Swal from "sweetalert2";
-
+const queryString = require("query-string");
 export const GET_PASEADORES = "GET_PASEADORES";
 export const GET_PASEADOR_FOR_ID = "GET_PASEADOR_FOR_ID";
 export const PUT_DETAILS_PROFILE = "PUT_DETAILS_PROFILE";
