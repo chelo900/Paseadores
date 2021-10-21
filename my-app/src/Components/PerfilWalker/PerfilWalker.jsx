@@ -32,6 +32,7 @@ import dotenv from "dotenv";
 import Premium from "../../Premiums/Premium";
 import Preferencias from "./Preferencias/Preferencias";
 import MapView from "../../ComponentsMaps/MapView";
+import SelectorMap from "../../ComponentsMaps/SelectorMap";
 dotenv.config();
 
 // import Footer from './footer/Footer';
@@ -63,29 +64,6 @@ const PerfilWalker = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id, delImage]);
 
-  useEffect(() => {
-    if (!Walker.latitude || !Walker.longitude) {
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          dispatch(
-            putDetailsUser(
-              {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-              },
-              id,
-              token
-            )
-          );
-          dispatch(getPaseadorForId(id, token));
-        },
-        function (error) {
-          console.log(error);
-        },
-        { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
-      );
-    }
-  }, []);
 
   // useEffect(() => {
   //   if (delImage === true) dispatch(getPaseadorForId(id, token));
@@ -260,12 +238,12 @@ const PerfilWalker = () => {
               <button className={style.edit}>Editar preferencias</button>
             </Link>
           </div>
-          <MapView
-            className={style.map}
-            latitude={Walker.latitude}
-            longitude={Walker.longitude}
+          
+          <SelectorMap
             name={Walker.name}
             surname={Walker.surname}
+            latitude={Walker.latitude}
+            longitude={Walker.longitude}
           />
         </div>
         <div className={style.caracteristicas}>

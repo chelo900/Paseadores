@@ -21,7 +21,8 @@ const MapView = ({latitude, longitude, name, surname, fullscream = false}) => {
   }, [dispatch]);
 
   const allUsers = useSelector((state) => state.allPaseadores)
-
+  
+  
 
   return <div className={style.map}>
    {latitude && !fullscream && <MapContainer center={{lat:latitude,lng:longitude}} zoom={13} scrollWheelZoom={true}>
@@ -39,8 +40,8 @@ const MapView = ({latitude, longitude, name, surname, fullscream = false}) => {
 
   {allUsers.length && fullscream && <MapContainer className={style.map} center={{lat: "-34.606783",lng:"-58.435958"}} zoom={13} scrollWheelZoom={true}>
     <TileLayer
-    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+   attribution='Map data © OpenStreetMap contributors, CC-BY-SA, Jortilles'
+    url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
   />
 
 

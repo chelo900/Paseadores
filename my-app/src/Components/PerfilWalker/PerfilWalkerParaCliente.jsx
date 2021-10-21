@@ -415,6 +415,7 @@ const PerfilWalker = () => {
               <li className={style.liRep}>Score: {score?.toFixed(1)}</li>
             </ul>
           </div>
+          <MapView latitude={Walker.latitude} longitude={Walker.longitude} name={Walker.name} surname={Walker.surname}/>
         </div>
         <div className={style.caracteristicas}>
           <div className={style.descripcionWalker}>
