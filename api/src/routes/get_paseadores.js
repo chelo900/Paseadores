@@ -2,11 +2,12 @@ const { Router } = require("express");
 const { User, Preference } = require("../db");
 const { filterAndSortWalkers } = require("../utils/filterAndSort");
 const queryString = require("query-string");
+const shuffle = require("lodash/shuffle");
+const { filtersAndSortValues } = require("../utils/utils");
 
 const router = Router();
 
 router.get("/", async (req, res) => {
-  // const { name } = req.params;
   const { page, pageSize, inputFilters, selectFilters, sortData, name } =
     req.query;
   const parsedFilters = queryString.parse(inputFilters);
@@ -69,10 +70,10 @@ router.get("/", async (req, res) => {
         latitude: w.latitude,
         longitude: w.longitude,
         horario: w.preference?.turno,
-        description : w.description      };
+        description: w.description,
+      };
     });
-    
-    console.log(allActiveWalkersCards[0]);
+
     if (allActiveWalkersCards) {
       //GET BY NAME
       if (name) {
@@ -81,14 +82,20 @@ router.get("/", async (req, res) => {
             user.name.toLowerCase().startsWith(name.toLowerCase()) ||
             user.surname.toLowerCase().startsWith(name.toLowerCase())
         );
-        console.log(nameSearch);
         return res.status(200).send({
           content: nameSearch,
           totalPages: Math.ceil(nameSearch.length / limit),
         });
       }
     }
-    if (sortData || filtersArray.length || selectFiltersArray.length) {
+    if (
+      filtersAndSortValues(filtersArray, selectFiltersArray, parsedSortData)
+    ) {
+      return res.json({
+        content: shuffle(allActiveWalkersCards),
+        totalPages: Math.ceil(allActiveWalkersCards.length / limit),
+      });
+    } else {
       const filteredWalkers = filterAndSortWalkers({
         walkers: allActiveWalkersCards,
         filtersArray,
@@ -99,15 +106,10 @@ router.get("/", async (req, res) => {
         content: filteredWalkers,
         totalPages: Math.ceil(filteredWalkers.length / limit),
       });
-    } else {
-      return res.json({
-        content: allActiveWalkersCards,
-        totalPages: Math.ceil(allActiveWalkersCards.length / limit),
-      });
     }
   } catch (error) {
     console.log(error.message);
-    return res.status(401).json(error.message);
+    return res.status(404).json(error.message);
   }
 });
 

@@ -31,18 +31,34 @@ const googleVerify = async function (token = "") {
     // Or, if multiple clients access the backend:
     //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
   });
-  const {name , picture, email} = ticket.getPayload();
-
-  
+  const { name, picture, email } = ticket.getPayload();
 
   return {
     name: name,
     image: picture,
-    email: email
-  }
+    email: email,
+  };
+};
+
+const filtersAndSortValues = function (
+  filtersArray,
+  selectFiltersArray,
+  parsedSortData
+) {
+  if (
+    !filtersArray[0].max &&
+    !filtersArray[1].min &&
+    !filtersArray[2].ubication &&
+    !selectFiltersArray[0].horario &&
+    !selectFiltersArray[1].service &&
+    !parsedSortData.sortField
+  ) {
+    return true;
+  } else return false;
 };
 
 module.exports = {
   sendEmail,
   googleVerify,
+  filtersAndSortValues,
 };
