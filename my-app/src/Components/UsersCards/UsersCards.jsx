@@ -113,7 +113,7 @@ const UsersCards = () => {
 
   function handleOnClick(event) {
     event.preventDefault();
-    setSelectFilters({ turno: "", service: "" });
+    setSelectFilters({ horario: "", service: "" });
     setInputFilters({ min: "", max: "", ubication: "" });
     setSortData({ sortField: "" });
     setPage(0);

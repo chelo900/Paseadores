@@ -74,9 +74,9 @@ const filterWalkers = ({ walkers, filtersArray, selectFiltersArray }) => {
             walker.service?.toLowerCase() === filter.service.toLowerCase()
         );
       }
-      if (filter.hasOwnProperty("turno") && filter.horario) {
+      if (filter.hasOwnProperty("horario") && filter.horario) {
         filteredWalkers = filteredWalkers.filter((walker) => {
-          return walker.turno?.toLowerCase() === filter.horario.toLowerCase();
+          return walker.horario?.toLowerCase() === filter.horario.toLowerCase();
         });
       }
     });

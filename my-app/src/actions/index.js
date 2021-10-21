@@ -1,5 +1,5 @@
 import axios from "axios";
-const queryString = require("query-string");
+
 import Swal from "sweetalert2";
 
 export const GET_PASEADORES = "GET_PASEADORES";
@@ -33,6 +33,7 @@ export const GET_WALKERS_BY_NAME = "GET_WALKERS_BY_NAME";
 
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES";
+const queryString = require("query-string");
 
 export function login(payload) {
   return async function (dispatch) {
