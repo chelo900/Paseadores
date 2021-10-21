@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { clearUser } from "../../../actions/index";
 import SearchBar from "../../SearchBar/SearchBar";
+import Swal from "sweetalert2";
 
 const Nav = ({page, pageSize}) => {
     const history = useHistory();
@@ -15,6 +16,25 @@ const Nav = ({page, pageSize}) => {
         history.push(`/`);
         dispatch(clearUser({}))
     }
+
+    const handleSalir = (e) => {
+        Swal.fire({
+          title: "¿Desea cerrar sesion?",
+          icon: "warning",
+          showDenyButton: true,
+          confirmButtonText: 'Si',
+          denyButtonText: `No`,
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            handleOnClick(e)
+            Swal.fire('Sesion cerrada')
+          } else if (result.isDenied) {
+            Swal.fire('Sesion no cerrada')
+          }
+        })
+    }
+    
     var id = localStorage.getItem("userId");
     var walker = localStorage.getItem("userWalker");
     var admin = localStorage.getItem("userAdmin");
@@ -40,7 +60,7 @@ const Nav = ({page, pageSize}) => {
                         <span class="material-icons-outlined">school</span>
                         <span>Usuarios</span>
                     </Link>}
-                <button className={style.logout} onClick={e => { handleOnClick(e) }}>
+                <button className={style.logout} onClick={e => handleSalir(e) }>
                     <div className={style.home2}>
                         <span class="material-icons-outlined">
                             logout

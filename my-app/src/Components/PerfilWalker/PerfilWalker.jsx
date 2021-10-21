@@ -112,6 +112,11 @@ const PerfilWalker = () => {
   // };
 
   useEffect(() => {
+    if(Walker.premium === false)
+    handleNotPremium();
+  }, []);
+
+  useEffect(() => {
     dispatch(getOrdenCliente(id, token));
   }, [dispatch]);
 
@@ -295,20 +300,11 @@ const PerfilWalker = () => {
       animationOut: ["animated", "fadeOut"],
 
       dismiss: {
-        duration: 3000,
+        duration: 2000,
       },
     });
   };
 
-  // Push.create("Hello world!", {
-  //   body: "How's it hangin'?",
-  //   icon: '/icon.png',
-  //   timeout: 4000,
-  //   onClick: function () {
-  //       window.focus();
-  //       this.close();
-  //   }
-  // });
 
   return (
     <div className={style.container}>
@@ -432,7 +428,6 @@ const PerfilWalker = () => {
               <div className={style.editDescription}>
                 <span class="material-icons-outlined">edit</span>
                 <button
-                  onClick={handleNotPremium}
                   className={style.editDescription}
                 >
                   Editar Descripcion
@@ -455,6 +450,9 @@ const PerfilWalker = () => {
             >
               <button className={style.editDescription}>
                 <span class="material-icons-outlined">edit</span>
+                <button className={style.editDescription}>
+                  Editar Precio
+                </button>
               </button>
             </Link>
           </div>

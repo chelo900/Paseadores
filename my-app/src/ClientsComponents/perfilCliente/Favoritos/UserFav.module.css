@@ -40,10 +40,9 @@ display: flex;
 
 
 .image{
-    width: 140px;
-    height: 120px;
+    width: 130px;
+    height: 130px;
     display: flex; 
-   
 }
 
 .name{
@@ -60,6 +59,7 @@ display: flex;
     border: 1px;
     background-color: rgba(254, 247, 237, 0.171);
     padding: 2px 4px;
+    margin-bottom: 10px;
 }
 
 .prueba{

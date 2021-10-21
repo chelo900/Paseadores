@@ -16,9 +16,9 @@ router.get("/:id", async (req, res) => {
       },
     });
     let servicio;
-    if(datos.service === "Walker") servicio = "Paseador"
-    if(datos.service === "Carer") servicio = "Cuidador"
-    if(datos.service === "Walker and Carer") servicio = "Paseador y Cuidador"
+    if(datos.service === "Paseador") servicio = "Paseador"
+    if(datos.service === "Cuidador") servicio = "Cuidador"
+    if(datos.service === "Paseador y Cuidador") servicio = "Paseador y Cuidador"
     
 
     let hoy = new Date();
