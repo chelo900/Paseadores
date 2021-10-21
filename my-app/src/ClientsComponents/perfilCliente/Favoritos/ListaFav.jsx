@@ -26,14 +26,7 @@ const Admin = () => {
   }, [dispatch]);
 
   return (
-<<<<<<< HEAD:my-app/src/Components/ListaFav/ListaFav.jsx
     <div className={styles.container}>
-      <Nav />
-      <h1>FAVOTRITOS</h1>
-      <hr></hr>
-=======
-    <div>
->>>>>>> 4b5a5e5 (noti,cliente,etc):my-app/src/ClientsComponents/perfilCliente/Favoritos/ListaFav.jsx
       <div className={styles.wrapper}>
         {dataFavorites?.length > 0 ? (
           dataFavorites.map((el) => {

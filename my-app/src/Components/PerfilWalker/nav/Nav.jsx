@@ -26,18 +26,10 @@ const Nav = (props) => {
                 <h2 className={style.service}>Happy Dog!</h2>
             </div>
             <div className={style.log}>
-                <button className={style.hamburguesa} onClick={e => handlerHamburguer()}><img src={menu} alt='a' /></button>
-                {open ? <div className={style.menu}>
-                    <ul>
-                        <Link to={`/cardsUsers`} className={style.textdeco}>
-                            <li>Home</li>
-                        </Link>
-                        <button onClick={handleOnClick}>
-                            <li className={style.cerrar}>Logout</li>
-                        </button>
-                    </ul>
-
-                </div> : null}
+                <Link to={`/cardsUsers`} className={style.textdeco}>
+                    <span class="material-icons-outlined">home</span>
+                    <p>Home</p>
+                </Link>
             </div>
         </div>
     )

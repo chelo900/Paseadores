@@ -1,40 +1,8 @@
-.container{
-  background-color: rgb(254,247, 237)!important;
-  height: auto;
-  width: 100%;
-  padding-right: 40px;
-}
-
-.container h1{
-  color: rgb(58,84,180);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 50px;
-}
-.container hr{
-  background-color: rgb(58,84,180);
-  height: 2px;
-  width: 80%;
-  margin-left: 130px;
-  margin-bottom: 30px;
-}
 .wrapper {
-    /* display: flex;
-    flex-direction: row;
-    flex-wrap:wrap;
-<<<<<<< HEAD:my-app/src/Components/ListaFav/ListaFav.module.css
-    justify-content: center;
-    margin-top: 0px;
-    
+  display: flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
 
-  }
-
-  .notFound{
-    margin-bottom: 550px;
-=======
-    justify-content: center; */
-    margin-top: 10px;
->>>>>>> 4b5a5e5 (noti,cliente,etc):my-app/src/ClientsComponents/perfilCliente/Favoritos/ListaFav.module.css
-  }
