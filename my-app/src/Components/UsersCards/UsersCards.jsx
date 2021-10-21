@@ -214,9 +214,9 @@ const UsersCards = () => {
                 name={"horario"}
               >
                 <option> Filtrar por Horario </option>
-                <option value="morning"> Mañana </option>
-                <option value="afternoon"> Tarde </option>
-                <option value="all"> Todos </option>
+                <option value="Mañana"> Mañana </option>
+                <option value="Tarde/Noche"> Tarde </option>
+                <option value="Full"> Todos </option>
               </select>
             </div>
             <div>
