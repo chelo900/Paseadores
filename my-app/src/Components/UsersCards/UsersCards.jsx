@@ -137,13 +137,13 @@ const UsersCards = () => {
     <div className={style.container}>
       <Nav />
       <img className={style.fotoFondo} src={fotoFondo} alt="fotoFondo" />
-      {allUsers.content?.length > 1 ? (
+      {allUsers.content?.length > 0 ? (
         <img className={style.fotoFondo2} src={fotoFondo2} alt="fotoFondo" />
       ) : null}
       {allUsers.content?.length > 2 ? (
         <img className={style.fotoFondo3} src={fotoFondo3} alt="fotoFondo" />
       ) : null}
-      {allUsers.content?.length > 3 ? (
+      {allUsers.content?.length > 4 ? (
         <img className={style.fotoFondo4} src={fotoFondo4} alt="fotoFondo" />
       ) : null}
       <div className={style.containerDOS}>
@@ -248,91 +248,18 @@ const UsersCards = () => {
                 <option value=" Paseador y Cuidador"> Paseador y Cuidador </option>
               </select>
             </div>
-            <form onSubmit={handleFiltersSubmit} name={"price"}>
-              <div className={style.precio}>
-                <label className={style.pri}> Precio : </label>
-                <div>
-
-                <input
-                  className={style.min}
-                  type="number"
-                  placeholder=" $ Mínimo "
-                  name="min"
-                  value={inputFilters.min}
-                  onChange={handleFiltersOnChange}
-                  />
-
-                <input
-                  className={style.max}
-                  type="number"
-                  placeholder=" $ Maximo "
-                  name="max"
-                  value={inputFilters.max}
-                  onChange={handleFiltersOnChange}
-                  />
-                  </div>
-                <button className={style.btn}> Buscar </button>
-              </div>
-            </form>
             <div>
-              <form
-                autocomplete="off"
-                className={style.precio}
-                onSubmit={handleFiltersSubmit}
-              >
-                <label className={style.ubi}> Ubicación : </label>
-                <input
-                  className={style.zon}
-                  type="search"
-                  placeholder="Zona "
-                  name="ubication"
-                  value={inputFilters.ubication}
-                  onChange={handleFiltersOnChange}
-                  list="ubi"
-                />
-                <datalist id="ubi">
-                  {ubica?.map((t) => {
-                    return <option key={t} value={t}></option>;
-                  })}
-                </datalist>
-                <button className={style.btn}> Buscar </button>
-              </form>
-              <div>
-                <select
-                  className={style.hora}
-                  onChange={handleSelectFilters}
-                  name={"horario"}
-                >
-                  <option> Filtrar por Horario </option>
-                  <option value="morning"> Mañana </option>
-                  <option value="afternoon"> Tarde </option>
-                  <option value="all"> Todos </option>
-                </select>
-              </div>
-              <div>
-                <select
-                  className={style.serv}
-                  onChange={handleSelectFilters}
-                  name={"service"}
-                >
-                  <option> Filtrar por Servicio </option>
-                  <option value="walker"> Paseador </option>
-                  <option value="carer"> Cuidador </option>
-                  <option value="walker and carer"> Paseador y Cuidador </option>
-                </select>
-              </div>
-              <div>
-                <button className={style.atc} onClick={handleOnClick}>
-                  {" "}
-                  Todos los Paseadores{" "}
-                </button>
-                <Link to="/cardsUsers/map">
-                  <button className={style.atc}>Ver en mapa</button>
-                </Link>
-              </div>
+              <button className={style.atc} onClick={handleOnClick}>
+                {" "}
+                Todos los Paseadores{" "}
+              </button>
+              <Link to="/cardsUsers/map">
+                <button className={style.atc}>Ver en mapa</button>
+              </Link>
             </div>
           </div>
         </div>
+
         {/* <div className = {style.premium}>
           {usersPremium.length > 0 ? (
             usersPremium.map((pr) => {
@@ -398,6 +325,7 @@ const UsersCards = () => {
             </button>
             {/* )} */}
           </div>
+
         </div>
       </div>
     </div>
