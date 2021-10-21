@@ -7,11 +7,11 @@ const router = Router();
 router.post("/",  async (req,res)=>{
     // const {userId, clientId} = req.params;
 
-    const {dias_trabajo,perros_por_paseo,duracion_paseos, comienzo_jornada,fin_jornada,userId} = req.body;
-    console.log(userId)
+    const {turno,dias_trabajo,perros_por_paseo,duracion_paseos, comienzo_jornada,fin_jornada,userId} = req.body;
     try {
     const orden = await Preference.create({
         
+        turno,
         dias_trabajo,
         perros_por_paseo,
         duracion_paseos,
@@ -20,6 +20,7 @@ router.post("/",  async (req,res)=>{
         userId
         
     })
+    console.log(orden)
     res.status(200).send('preferencia enviada')
     } catch (error) {
         console.log(error)

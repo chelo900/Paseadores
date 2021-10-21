@@ -180,7 +180,8 @@ const PerfilWalker = () => {
     );
 
     if (cantOrdenes.length >= preferencias.perros_por_paseo) {
-      return alert("No hay disponibilidad horaria en este turno");
+      return swal({title:"No hay disponibilidad horaria en este turno",
+    icon: "info"});
     }
 
     if (selectInfo.start >= today) {
@@ -562,7 +563,7 @@ const PerfilWalker = () => {
               selectMirror={true}
               dayMaxEvents={3}
               select={handleDateSelect}
-              eventClick={handleEventClick}
+              // eventClick={handleEventClick}
               contentHeight="auto"
               slotDuration={preferencias.duracion_paseos || "01:00:00"}
               events={ordensCliente}

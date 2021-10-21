@@ -29,6 +29,8 @@ function EditPreferencias() {
     }
   }, []);
 
+
+
   const [newPreferencias, setNewPreferencias] = useState({
     turno: "",
     // (newPreferencias.comienzo_jornada > '6' && newPreferencias.fin_jornada <= '13') ? "Mañana" :
@@ -144,10 +146,10 @@ function EditPreferencias() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (preferencias?.length !== 0) {
+    if (preferencias?.duracion_paseos) {
       dispatch(putPreferencias(userId, newPreferencias, token));
     }
-    if (preferencias?.length === 0)
+    if (!preferencias?.duracion_paseos)
       dispatch(sendPreferencias(newPreferencias, token));
     swal({ title: "Tus preferencias fueron actualizados", icon: "info" });
 
@@ -360,11 +362,19 @@ function EditPreferencias() {
           </div>
         </div>
         <div className={style.containerBtn}>
-          <button className={style.btn} type="submit">
-            {" "}
-            Enviar Preferencias{" "}
-          </button>
-        </div>
+        {
+           newPreferencias.dias_trabajo && newPreferencias.dias_trabajo.length !== 0 &&
+           newPreferencias.perros_por_paseo && newPreferencias.perros_por_paseo.length !== 0 &&
+           newPreferencias.duracion_paseos && newPreferencias.duracion_paseos.length !== 0 &&
+           newPreferencias.comienzo_jornada && newPreferencias.comienzo_jornada.length !== 0 &&
+           newPreferencias.fin_jornada && newPreferencias.fin_jornada.length !== 0 ?
+           <button className={style.btn} type="submit">
+             {" "}
+             Enviar Preferencias{" "}
+           </button>
+         : <></>
+        }
+         </div>
       </form>
     </div>
   );
