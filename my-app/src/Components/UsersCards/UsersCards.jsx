@@ -8,17 +8,18 @@ import { getAllPaseadores, getUserFavorites,putDetailsUser } from "../../actions
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
+import fotoFondo from '../../media/proceso2.jpg'
+import fotoFondo2 from '../../media/foto2Service.jpg'
+import fotoFondo3 from '../../media/premiumcortada.jpg'
+import fotoFondo4 from '../../media/fotoAbout.jpg'
+
 const UsersCards = () => {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allPaseadores);
-  const history = useHistory();
+
   const favorites = useSelector((state) => state.favorites);
 
-  const [inputFilters, setInputFilters] = useState({
-    min: "",
-    max: "",
-    ubication: "",
-  });
+  const [inputFilters, setInputFilters] = useState({});
   const [selectFilters, setSelectFilters] = useState({});
   const [sortData, setSortData] = useState({});
 
@@ -35,9 +36,6 @@ const UsersCards = () => {
   const admin = localStorage.getItem("userAdmin");
 
   useEffect(() => {
-    if (!token) {
-      history.push(`/login`);
-    }
     dispatch(
       getAllPaseadores({
         page,
@@ -54,7 +52,7 @@ const UsersCards = () => {
 
   useEffect(() => {
     if (walker === "false" && admin === "false") {
-      dispatch(getUserFavorites(id, token));
+      dispatch(getUserFavorites(id));
     }
   }, []);
 
@@ -86,6 +84,7 @@ const UsersCards = () => {
 
   function handleFiltersSubmit(event) {
     event.preventDefault();
+
     dispatch(
       getAllPaseadores({
         page,
@@ -106,15 +105,18 @@ const UsersCards = () => {
   function handleOnClick(event) {
     event.preventDefault();
     setSelectFilters({});
-    setInputFilters({ min: "", max: "", ubication: "" });
+    setInputFilters({});
     setSortData({});
     setPage(0);
   }
 
   return (
     <div className={style.container}>
-      <Nav page={page} pageSize={pageSize} />
-
+      <Nav />
+      <img className={style.fotoFondo} src ={fotoFondo} alt="fotoFondo" />
+      {allUsers.content?.length > 1 ? <img className={style.fotoFondo2} src ={fotoFondo2} alt="fotoFondo" /> : null}
+      {allUsers.content?.length > 2 ? <img className={style.fotoFondo3} src ={fotoFondo3} alt="fotoFondo" /> : null}
+      {allUsers.content?.length > 3 ? <img className={style.fotoFondo4} src ={fotoFondo4} alt="fotoFondo" /> : null}
       <div className={style.containerDOS}>
         <div className={style.carrusel}>
           <Carrusel />
@@ -147,7 +149,6 @@ const UsersCards = () => {
                 type="number"
                 placeholder=" $ Mínimo "
                 name="min"
-                value={inputFilters.min}
                 onChange={handleFiltersOnChange}
               />
 
@@ -156,7 +157,6 @@ const UsersCards = () => {
                 type="number"
                 placeholder=" $ Maximo "
                 name="max"
-                value={inputFilters.max}
                 onChange={handleFiltersOnChange}
               />
               <button className={style.btn}> Buscar </button>
@@ -174,7 +174,6 @@ const UsersCards = () => {
                 type="search"
                 placeholder="Zona "
                 name="ubication"
-                value={inputFilters.ubication}
                 onChange={handleFiltersOnChange}
                 list="ubi"
               />
@@ -192,9 +191,9 @@ const UsersCards = () => {
                 name={"horario"}
               >
                 <option> Filtrar por Horario </option>
-                <option value="Mañana"> Mañana </option>
-                <option value="Tarde/Noche"> Tarde/Noche </option>
-                <option value="Full"> Todos </option>
+                <option value="morning"> Mañana </option>
+                <option value="afternoon"> Tarde </option>
+                <option value="all"> Todos </option>
               </select>
             </div>
             <div>
@@ -215,9 +214,6 @@ const UsersCards = () => {
                 Todos los Paseadores{" "}
               </button>
             </div>
-            <Link to={`/cardsUsers/map`}>
-              <button className={style.atc}>Ver en Mapa</button>
-            </Link>
           </div>
         </div>
 
@@ -244,7 +240,6 @@ const UsersCards = () => {
         <div className={style.cards}>
           {allUsers.content?.length > 0 ? (
             allUsers.content.map((el) => {
-              {console.log(el, 'todo')}
               var fv;
 
               for (var i = 0; i < favorites.length; i++) {
@@ -253,13 +248,6 @@ const UsersCards = () => {
                 }
               }
 
-              let servicio;
-
-              if (el.service === "Walker") servicio = "Paseador";
-              if (el.service === "Carer") servicio = "Cuidador";
-              if (el.service === "Walker and Carer")
-                servicio = "Paseador y Cuidador";
-
               return (
                 <Card
                   key={el.id}
@@ -267,9 +255,9 @@ const UsersCards = () => {
                   name={el.name}
                   surname={el.surname}
                   image={el.image}
-                  service={servicio}
+                  service={el.service}
                   price={el.price}
-                  ubication={el.ubication}
+                  reputation={el.reputation}
                   description={el.description}
                   fv={fv}
                 />
@@ -299,3 +287,4 @@ const UsersCards = () => {
 };
 
 export default UsersCards;
+
