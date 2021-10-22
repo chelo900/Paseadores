@@ -78,6 +78,7 @@
 .label{
     font-size: 22px;
     color: rgb(58,84,180);
+    text-align: center;
 }
 .inputComun{
     border-radius: 5px;
@@ -184,11 +185,11 @@
     text-align: center;
     width: 100%;
 }
-.btn{
+.btnEnviar{
     background-color: rgb(58,84,180);;
     margin: 10px;
     border: none;
-    width: 120px;
+    width: 150px;
     font-size: 15px;
     height: 30px;
     border-radius: 5px;
@@ -196,11 +197,22 @@
     transition: all .3s;
     color: #fff;
 }
-
-.btn:hover{
+.volver{
+    border: none;
+    background-color: green;
+    color: white;
+    height: 30px;
+    width: 150px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
+.btnEnviar:hover,
+.voler:hover{
     background-color: #fff;
     color: rgb(58,84,180);
 }
+
 .textArea{
     width: 90%;
     margin-left: 10px;

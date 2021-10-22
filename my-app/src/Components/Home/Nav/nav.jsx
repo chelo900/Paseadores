@@ -40,6 +40,7 @@ const Nav = () => {
           <a href="#home">Home</a>
           <a href="#about">Sobre Nosotros</a>
           <a href="#services">Servicios</a>
+          <a href="#premium">Premium</a>
           <a href="#contact">Contacto</a>
         </div>
         { id && walker === "true" && <Link to={"/walker/perfil/"+id}  className={style.login}>

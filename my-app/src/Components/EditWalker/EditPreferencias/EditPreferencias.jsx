@@ -129,12 +129,12 @@ function EditPreferencias() {
       ...newPreferencias,
       turno:
         parseInt(newPreferencias.comienzo_jornada) >= 6 &&
-        parseInt(newPreferencias.fin_jornada) <= 13
+          parseInt(newPreferencias.fin_jornada) <= 13
           ? "Mañana"
           : parseInt(newPreferencias.comienzo_jornada) >= 13 &&
             parseInt(newPreferencias.fin_jornada) <= 23
-          ? "Tarde/Noche"
-          : "Full",
+            ? "Tarde/Noche"
+            : "Full",
     });
   }
 
@@ -279,21 +279,23 @@ function EditPreferencias() {
             <div className={style.container}>
               <label className={style.label}>
                 Elegí tus días de trabajo
-                <select
-                  className={style.select}
-                  onChange={(e) => handleDias(e)}
-                >
-                  <option value=""> Dias de trabajo</option>
-                  <option value="LD"> Lunes a Domingo</option>
-                  <option value="LV">Lunes a Viernes</option>
-                  <option value="W">Sabados y Domingos</option>
-                </select>
               </label>
+              <select
+                className={style.select}
+                onChange={(e) => handleDias(e)}
+              >
+                <option value=""> Dias de trabajo</option>
+                <option value="LD"> Lunes a Domingo</option>
+                <option value="LV">Lunes a Viernes</option>
+                <option value="W">Sabados y Domingos</option>
+              </select>
             </div>
             <div className={style.container}>
               <label className={style.label}>
                 Hora de comienzo jornada laboral:
-                <select onChange={(e) => handleSelect(e)}>
+                <select
+                  className={style.select}
+                  onChange={(e) => handleSelect(e)}>
                   <option id="Hora Inicio" selected value="">
                     Hora Inicio
                   </option>
@@ -308,73 +310,80 @@ function EditPreferencias() {
           <div className={style.derecha}>
             <div className={style.container}>
               <label className={style.label}>
-                Hora final de joranda laboral:
-                <select
-                  onChange={(e) =>
-                    setNewPreferencias({
-                      ...newPreferencias,
-                      fin_jornada: e.target.value,
-                    })
-                  }
-                >
-                  <option unselectable value="">
-                    Hora Final
-                  </option>
-                  {array && array.map((hora) => <option>{hora}</option>)}
-                </select>
+                Hora final de jornada laboral:
               </label>
+              <select
+                onChange={(e) =>
+                  setNewPreferencias({
+                    ...newPreferencias,
+                    fin_jornada: e.target.value,
+                  })
+                }
+                className={style.select}
+              >
+                <option unselectable value="">
+                  Hora Final
+                </option>
+                {array && array.map((hora) => <option>{hora}</option>)}
+              </select>
             </div>
-          </div>
-          <div className={style.container}>
-            <label className={style.label}>
-              Elegí tu Provincia
-              <select onChange={(e) => handleProvincias(e)}>
+            <div className={style.container}>
+              <label className={style.label}>
+                Elegí tu Provincia
+              </label>
+              <select
+                className={style.select}
+                onChange={(e) => handleProvincias(e)}>
                 <option value="">Provincia</option>
                 {provincias.map((prov) => (
                   <option value={prov}>{prov}</option>
                 ))}
               </select>
-            </label>
-          </div>
-          <div className={style.container}>
-            <label className={style.label}>
-              Elegí Municipio/Departamento
-              <select onChange={(e) => handleMunicipios(e)}>
+            </div>
+            <div className={style.container}>
+              <label className={style.label}>
+                Elegí Municipio/Departamento
+              </label>
+              <select
+                className={style.select}
+                onChange={(e) => handleMunicipios(e)}>
                 <option value="">Municipios/Departamentos</option>
                 {municipios &&
                   municipios.map((munis) => (
                     <option value={munis}>{munis}</option>
                   ))}
               </select>
-            </label>
-          </div>
-          <div className={style.container}>
-            <label className={style.label}>
-              Elegí Localidad
-              <select onChange={(e) => handleLocalidades(e)}>
+            </div>
+            <div className={style.container}>
+              <label className={style.label}>
+                Elegí Localidad
+              </label>
+              <select
+                className={style.select}
+                onChange={(e) => handleLocalidades(e)}>
                 <option value="">Localidad</option>
                 {localidad &&
                   localidad.map((local) => (
                     <option value={local}>{local}</option>
                   ))}
               </select>
-            </label>
+            </div>
           </div>
         </div>
         <div className={style.containerBtn}>
-        {
-           newPreferencias.dias_trabajo && newPreferencias.dias_trabajo.length !== 0 &&
-           newPreferencias.perros_por_paseo && newPreferencias.perros_por_paseo.length !== 0 &&
-           newPreferencias.duracion_paseos && newPreferencias.duracion_paseos.length !== 0 &&
-           newPreferencias.comienzo_jornada && newPreferencias.comienzo_jornada.length !== 0 &&
-           newPreferencias.fin_jornada && newPreferencias.fin_jornada.length !== 0 ?
-           <button className={style.btn} type="submit">
-             {" "}
-             Enviar Preferencias{" "}
-           </button>
-         : <></>
-        }
-         </div>
+          {
+            newPreferencias.dias_trabajo && newPreferencias.dias_trabajo.length !== 0 &&
+              newPreferencias.perros_por_paseo && newPreferencias.perros_por_paseo.length !== 0 &&
+              newPreferencias.duracion_paseos && newPreferencias.duracion_paseos.length !== 0 &&
+              newPreferencias.comienzo_jornada && newPreferencias.comienzo_jornada.length !== 0 &&
+              newPreferencias.fin_jornada && newPreferencias.fin_jornada.length !== 0 ?
+              <button className={style.btn} type="submit">
+                {" "}
+                Enviar Preferencias{" "}
+              </button>
+              : <></>
+          }
+        </div>
       </form>
     </div>
   );

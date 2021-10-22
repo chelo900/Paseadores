@@ -63,14 +63,23 @@ const UsersCards = () => {
 
   function handleNextPage(e) {
     e.preventDefault();
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    setPage(page + 1);
+    if (page < allUsers.totalPages) {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      setPage(page + 1);
+    } else {
+      return alert("hol")
+    }
   }
 
   function handlePrevPage(e) {
     e.preventDefault();
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    setPage(page - 1);
+    if (page === 0) {
+      return alert("Hola")
+    }
+    else {
+      setPage(page - 1);
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
   }
   function handleSort(event) {
     event.preventDefault();
@@ -128,13 +137,13 @@ const UsersCards = () => {
     <div className={style.container}>
       <Nav />
       <img className={style.fotoFondo} src={fotoFondo} alt="fotoFondo" />
-      {allUsers.content?.length > 1 ? (
+      {allUsers.content?.length > 0 ? (
         <img className={style.fotoFondo2} src={fotoFondo2} alt="fotoFondo" />
       ) : null}
       {allUsers.content?.length > 2 ? (
         <img className={style.fotoFondo3} src={fotoFondo3} alt="fotoFondo" />
       ) : null}
-      {allUsers.content?.length > 3 ? (
+      {allUsers.content?.length > 4 ? (
         <img className={style.fotoFondo4} src={fotoFondo4} alt="fotoFondo" />
       ) : null}
       <div className={style.containerDOS}>
@@ -305,17 +314,18 @@ const UsersCards = () => {
           )}
 
           <div className={style.pagination}>
-            {page === 0 ? null : (
-              <button className={style.prev} onClick={handlePrevPage}>
-                <p>&#60;</p>
-              </button>
-            )}
-            {page === allUsers.totalPages - 1 ? null : (
-              <button className={style.next} onClick={handleNextPage}>
-                <p>&#62;</p>
-              </button>
-            )}
+            {/* {page === 0 ? null : ( */}
+            <button className={style.prev} onClick={handlePrevPage}>
+              <p>&#60;</p>
+            </button>
+            {/* )} */}
+            {/* {page === allUsers.totalPages - 1 ? null : ( */}
+            <button className={style.next} onClick={handleNextPage}>
+              <p>&#62;</p>
+            </button>
+            {/* )} */}
           </div>
+
         </div>
       </div>
     </div>

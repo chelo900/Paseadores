@@ -60,6 +60,8 @@ const PerfilWalker = () => {
   const [ordenload, setOrdenLoad] = useState(false);
   const [delImage, setDelImage] = useState(false);
   const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+  const [open, setOpen] = useState(false);
+  const [img, setImg] = useState("");
 
   useEffect(() => {
     dispatch(getPreferences(id, token));
@@ -98,6 +100,7 @@ const PerfilWalker = () => {
     }
   }, []);
 
+
   // useEffect(() => {
   //   if (delImage === true) dispatch(getPaseadorForId(id, token));
   // }, [dispatch]);
@@ -108,8 +111,8 @@ const PerfilWalker = () => {
   // };
 
   useEffect(() => {
-    if(Walker.premium === false)
-    handleNotPremium();
+    if (Walker.premium === false)
+      handleNotPremium();
   }, []);
 
   useEffect(() => {
@@ -143,11 +146,13 @@ const PerfilWalker = () => {
       if (!preferencias.turno && preferencias.turno?.length === 0) {
         swal({
           title: "Elegí tus preferencias para que te empiecen a contratar",
+
           icon: "info",
         });
       }
     }, 1500);
   }, [dispatch]);
+
 
   const handleDateSelect = (selectInfo) => {
     let calendarApi = selectInfo.view.calendar;
@@ -219,7 +224,8 @@ const PerfilWalker = () => {
   //     if (prompt(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
   //       clickInfo.event.remove() // will render immediately. will call handleEventRemove
   //     }
-  // }'`Cliente de la zona de ${clickInfo.event.extendedProps.ubicacion}`,
+
+  // }
 
   const handleEventClick = (clickInfo) => {
     if (clickInfo.event.extendedProps.estadoReserva === "pendiente") {
@@ -306,11 +312,19 @@ const PerfilWalker = () => {
     });
   };
 
+  const handleOpenImg = (event) => {
+    setOpen(true);
+    setImg(event.target.src);
+  }
+
+  const handleCloseImg = () => {
+    setOpen(false);
+    setImg("");
+  }
 
   return (
     <div className={style.container}>
-      <Nav />
-
+      <Nav className={style.nav} />
       <div className={style.containerPerfil}>
         <ReactNotification />
 
@@ -410,16 +424,20 @@ const PerfilWalker = () => {
           )}
         </div>
         <div className={style.caracteristicas}>
-          <div className={style.Premuim}>
-            <Premium />
-          </div>
+          {Walker.premium ? (
+            <div></div>)
+            : (
+              <div className={style.Premuim}>
+                <Premium />
+              </div>)
+          }
           <div className={style.descripcion}>
             <h2>Descripcion:</h2>
             <div className={style.textDescription}>
               {Walker.description ? (
                 <p className={style.textDescriptionNew}>{Walker.description}</p>
               ) : (
-                <p>Agrega una descripcion</p>
+                <p>Agrega una descripción</p>
               )}
             </div>
             <Link
@@ -439,8 +457,8 @@ const PerfilWalker = () => {
           <div className={style.price}>
             <h2>Precio por Hora:</h2>
             <div className={style.textDescription}>
-              {Walker.price != 0 ? (
-                <p>${Walker.price}</p>
+            {Walker.price != 0 ? (
+                <p>$ {Walker.price}</p>
               ) : (
                 <p>Ponle un precio a tu servicio</p>
               )}
@@ -489,8 +507,10 @@ const PerfilWalker = () => {
               <h2>Fotos</h2>
               <div className={style.galeria}>
                 {Walker.images?.map((i) => (
-                  <div key={i.public_id}>
-                    <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
+                  <div className={style.containerImg} key={i.public_id}>
+                    <button className={style.btnI} onClick={handleOpenImg}>
+                      <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
+                    </button>
                     <button
                       onClick={() => handleDelete(i.public_id, token)}
                       className="p"
@@ -505,8 +525,9 @@ const PerfilWalker = () => {
                 action={`${baseURL}/postimages/${id}`}
                 method="POST"
                 encType="multipart/form-data"
+                className={style.formImg}
               >
-                <input type="file" name="image" />
+                <input className={style.inputImg} type="file" name="image" />
                 <button className={style.subir} type="submit">
                   Subir
                 </button>
@@ -514,11 +535,59 @@ const PerfilWalker = () => {
               <Link to={`/messenger`} className={style.editContainerInfo}>
                 <button className={style.editDescription}>CHAT</button>
               </Link>
-            </div>
-            <div>
+              {
+                open ? (
+                  <div className={style.modal}>
+                    <div className={style.containerImgGrande}>
+                      <button
+                        className={style.closeModal}
+                        onClick={handleCloseImg}>
+                        X
+                      </button>
+                      <img src={`${img}`} alt="Imagen" className={style.imagenModal} />
+                    </div>
+                  </div>
+                ) : (
+                  <div></div>
+                )
+              }
               <div>
-                <span>🟢 Paseos Confirmados</span>
-                <span>🟡 Pendientes</span>
+                <div>
+                  <span>🟢 Paseos Confirmados</span>
+                  <span>🟡 Pendientes</span>
+                </div>
+                <FullCalendar
+                  eventClassNames={style.calendar}
+                  plugins={[
+                    dayGridPlugin,
+                    timeGridPlugin,
+                    interactionPlugin,
+                    listPlugin,
+                  ]}
+                  headerToolbar={{
+                    left: "prev,next today",
+                    center: "title",
+                    right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+                  }}
+                  initialView="timeGridWeek"
+                  locale={esLocale}
+                  editable={true}
+                  selectable={false}
+                  selectMirror={false}
+                  dayMaxEvents={true}
+                  select={handleDateSelect}
+                  eventClick={handleEventClick}
+                  contentHeight="auto"
+                  slotDuration={preferencias.duracion_paseos || "03:00:00"}
+                  events={ordensCliente}
+                  slotMinTime={preferencias.comienzo_jornada || "08:00:00"}
+                  slotMaxTime={preferencias.fin_jornada || "23:00:00"}
+                  allDaySlot={false}
+                  weekends={preferencias.dias_trabajo === "LV" ? false : true}
+                  hiddenDays={
+                    preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
+                  }
+                />
               </div>
               <FullCalendar
                 eventClassNames={style.calendar}

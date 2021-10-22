@@ -1,7 +1,8 @@
 .total {
-    height: 100vh;
+    height: auto;
     background-color: white;
     color: rgb(58,84,180);
+    padding-bottom: 100px;
 }
 
 .titulo {
