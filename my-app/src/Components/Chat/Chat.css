@@ -49,12 +49,13 @@ body {
 
 .container {
   background-color: rgb(254, 247, 237);
+  height: 100vh;
 }
 
 .App {
+  height: 80%;
   display: grid;
   place-items: center;
-  height: 100vh;
   background-color: rgb(254, 247, 237);
 }
 

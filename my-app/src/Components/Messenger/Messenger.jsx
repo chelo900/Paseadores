@@ -6,30 +6,64 @@ import Message from "../Message/Message";
 import ChatOnline from "../ChatOnline/ChatOnline";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { io } from "socket.io-client";
+
+const CONNECTION_PORT = "localhost:3001/";
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
+
+  // const [socket, setSocket] = useState(null);
+  const socket = useRef(io(`ws://localhost:3001`));
   const users = useSelector((state) => state.allPaseadores);
   const id = localStorage.getItem("userId");
   const scrollRef = useRef();
 
-  console.log("IDDDDDDDDDDDDD: ", id);
+  // useEffect(() => {
+  //   setSocket(io(`ws://localhost:3001`));
+  // }, []);
 
-  const isFirstRun = useRef(true);
   useEffect(() => {
-    if (isFirstRun.current) {
-      console.log(isFirstRun);
-      isFirstRun.current = false; //i'm using useRef to not run this code on the first run
-      return;
-    }
+    socket.current = io(`ws://localhost:3001`);
+    socket.current.on("getMessage", (data) => {
+      setArrivalMessage({
+        sender: data.senderId,
+        text: data.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    arrivalMessage &&
+      currentChat?.members.includes(arrivalMessage.sender) &&
+      setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, currentChat]);
+
+  useEffect(() => {
+    socket.current.emit("thisUsuario", id);
+    socket.current.on("getUsers", (users) => {
+      setOnlineUsers(users);
+    });
+  }, [id]);
+
+  // useEffect(() => {
+  //   socket?.on("bienvenido", (message) => {
+  //     console.log(message);
+  //   });
+  // }, [socket]);
+
+  useEffect(() => {
     const getConversations = async () => {
       try {
         const res = await axios.get("/conversations/" + id);
         setConversations(res.data);
-        // arr = conversations;
+        console.log(res.data);
       } catch (e) {
         console.log(e);
       }
@@ -50,12 +84,20 @@ export default function Messenger() {
   }, [currentChat]);
 
   const handleSubmit = async (e) => {
-    e.preventDefaul();
+    e.preventDefault();
     const message = {
       sender: id,
       text: newMessage,
       conversationId: currentChat.id,
     };
+
+    const receiverId = currentChat.members.find((m) => m !== id);
+
+    socket.current.emit("sendMessage", {
+      senderId: id,
+      receiverId,
+      text: newMessage,
+    });
 
     try {
       const res = await axios.post("/messages", message);
@@ -65,6 +107,12 @@ export default function Messenger() {
       console.log(e);
     }
   };
+
+  // useEffect(() => {
+  //   socket.current.on("getMessage", data => {
+
+  //   })
+  // }, [])
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -94,7 +142,7 @@ export default function Messenger() {
         <div className="chatBox">
           <div className="chatBoxWrapper">
             {currentChat ? (
-              <div>
+              <>
                 <div className="chatBoxTop">
                   {messages.map((m) => (
                     <div ref={scrollRef}>
@@ -113,7 +161,7 @@ export default function Messenger() {
                     Enviar
                   </button>
                 </div>{" "}
-              </div>
+              </>
             ) : (
               <span className="noConversationText">
                 Inicia una conversación
@@ -124,7 +172,11 @@ export default function Messenger() {
 
         <div className="chatOnline">
           <div className="chatOnlineWrapper">
-            <ChatOnline />
+            <ChatOnline
+              onlineUsers={onlineUsers}
+              currentId={id}
+              setCurrentChat={setCurrentChat}
+            />
           </div>
         </div>
       </div>

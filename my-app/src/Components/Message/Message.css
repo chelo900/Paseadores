@@ -19,7 +19,7 @@
 .messageText {
   padding: 10px;
   border-radius: 20px;
-  background-color: royalblue;
+  background-color: #1877f2;
   color: white;
   max-width: 300px;
 }
@@ -33,7 +33,7 @@
   align-items: flex-end;
 }
 
-.messageOwn .messageText {
+.message.own .messageText {
   background-color: rgb(245, 241, 241);
   color: black;
 }
