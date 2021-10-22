@@ -93,20 +93,7 @@ function Card({
         </div>
       </div>
       <div className={styles.conteinerDerecha}>
-      {walker === "false" && admin === "false" && (
-        <button
-        className={styles.prueba}
-          onClick={(e) => {
-            addFavorite(e);
-          }}
-          >
-          {fv ? (
-            <img src={estrella} alt="" />
-          ) : (
-            <img src={favorito} alt="sas" />
-            )}
-        </button>
-      )}
+      
       <div className={styles.title}>
         <h1 className={styles.name}>{name + " " + surname}</h1>
         <hr></hr>
@@ -135,7 +122,27 @@ function Card({
         
       
       </div>
-      <img  className={styles.fotoFondo} src={foto} alt= "" />
+      <div className={styles.containerDerecha}>
+        <div className={styles.containerEstrella}>
+          {walker === "false" && admin === "false" && (
+            <button
+            className={styles.prueba}
+            onClick={(e) => {
+              addFavorite(e);
+            }}
+            >
+              {fv ? (
+                <img src={estrella} alt="" />
+                ) : (
+                  <img src={favorito} alt="sas" />
+                  )}
+            </button>
+          )}
+        </div>
+        <div className={styles.containerImagen}>
+          <img  className={styles.fotoFondo} src={foto} alt= "" />
+        </div>
+      </div>
     </div>
   );
 }
