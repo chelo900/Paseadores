@@ -51,6 +51,11 @@ const RecoverPassword = () => {
             <span></span>
           </div>
           <input className={style.login} type="submit" value="enviar"></input>
+          <div className={style.inicio}>
+            <Link className={style.create} to="/login">
+              <p className={style.create}> Volver a iniciar sesion</p>
+            </Link>
+          </div>
         </form>
       </div>
     </div>
