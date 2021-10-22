@@ -74,18 +74,13 @@ export default function Messenger() {
       try {
         const res = await axios.get("/conversations/" + id);
         setConversations(res.data);
-<<<<<<< HEAD
         console.log(res.data);
-=======
-        // arr = conversations;
->>>>>>> 855bbf3 (asd)
       } catch (e) {
         console.log(e);
       }
     };
     getConversations();
   }, [id]);
-<<<<<<< HEAD
 
   useEffect(() => {
     const getMessages = async () => {
@@ -135,8 +130,6 @@ export default function Messenger() {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-=======
->>>>>>> 855bbf3 (asd)
 
   return (
     <div>
@@ -151,17 +144,11 @@ export default function Messenger() {
               placeholder="Buscar Amigos"
               className="chatMenuInput"
             />
-<<<<<<< HEAD
             {conversations.map((c) => (
               <div onClick={() => setCurrentChat(c)}>
                 <Conversations conversations={c} currentUser={id} />
               </div>
             ))}
-=======
-            {conversations.map((c) =>
-              c(<Conversations conversations={c} currentUser={id} />)
-            )}
->>>>>>> 855bbf3 (asd)
           </div>
         </div>
 
