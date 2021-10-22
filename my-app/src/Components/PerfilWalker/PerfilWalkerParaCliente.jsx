@@ -7,6 +7,7 @@ import {
   postAssessment,
   getAssessment,
   getPreferences,
+  getClienteForId,
 } from "../../actions/index";
 
 import style from "./PerfilWalkerCliente.module.css";
@@ -46,6 +47,7 @@ const PerfilWalker = () => {
   const Walker = useSelector((state) => state.detailWalker);
   const comment = useSelector((state) => state.comment);
   const score = useSelector((state) => state.score);
+  const client = useSelector((state) => state.detailCliente);
 
   const ordensCliente = useSelector((state) => state.ordensCliente);
   const preferencias = useSelector((state) => state.preferencias);
@@ -70,8 +72,9 @@ const PerfilWalker = () => {
       history.push(`/login`);
     }
     dispatch(getPaseadorForId(id, token));
+    dispatch(getClienteForId(idClient, token));
     dispatch(getAssessment(id, token));
-  }, [dispatch,id,token]);
+  }, [dispatch, id, token]);
 
   useEffect(() => {
     dispatch(getOrdenCliente(id, token));
@@ -166,6 +169,14 @@ const PerfilWalker = () => {
     var calendarApi = selectInfo.view.calendar;
     // calendarApi.unselect(); // clear date selection
 
+    if (!client.latitude) {
+      return swal({
+        title:
+          "Debe ingresar una ubicación en su perfil para realizar la solicitud",
+        icon: "warning",
+      });
+    }
+
     if (selectInfo.start < today) {
       calendarApi.unselect();
       return swal({
@@ -180,8 +191,10 @@ const PerfilWalker = () => {
     );
 
     if (cantOrdenes.length >= preferencias.perros_por_paseo) {
-      return swal({title:"No hay disponibilidad horaria en este turno",
-    icon: "info"});
+      return swal({
+        title: "No hay disponibilidad horaria en este turno",
+        icon: "info",
+      });
     }
 
     if (selectInfo.start >= today) {
@@ -414,7 +427,12 @@ const PerfilWalker = () => {
               <li className={style.liRep}>Score: {score?.toFixed(1)}</li>
             </ul>
           </div>
-          <MapView latitude={Walker.latitude} longitude={Walker.longitude} name={Walker.name} surname={Walker.surname}/>
+          <MapView
+            latitude={Walker.latitude}
+            longitude={Walker.longitude}
+            name={Walker.name}
+            surname={Walker.surname}
+          />
         </div>
         <div className={style.caracteristicas}>
           <div className={style.descripcionWalker}>

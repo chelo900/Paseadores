@@ -14,7 +14,7 @@ import style from "./PerfilWalker.module.css";
 import foto1 from "../../media/foto1Service.jpg";
 import { Link, useParams, useHistory } from "react-router-dom";
 import fotosola from "../../media/fotosola.png";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import Nav from "./nav/Nav";
 import swal from "sweetalert";
 import patitallena from "../../media/patitallena.png";
@@ -101,9 +101,6 @@ const PerfilWalker = () => {
   }, []);
 
 
-
-
-
   // useEffect(() => {
   //   if (delImage === true) dispatch(getPaseadorForId(id, token));
   // }, [dispatch]);
@@ -130,7 +127,9 @@ const PerfilWalker = () => {
 
   useEffect(() => {
     let ordenespendientes = ordensCliente.filter(
-      (ordenes) => ordenes.estadoReserva.toString() === "pendiente" && ordenes.color.toString() === "yellow"
+      (ordenes) =>
+        ordenes.estadoReserva.toString() === "pendiente" &&
+        ordenes.color.toString() === "yellow"
     );
     setTimeout(() => {
       if (ordenespendientes.length > 0) {
@@ -147,13 +146,12 @@ const PerfilWalker = () => {
       if (!preferencias.turno && preferencias.turno?.length === 0) {
         swal({
           title: "Elegí tus preferencias para que te empiecen a contratar",
-          icon: "info"
-        })
+
+          icon: "info",
+        });
       }
     }, 1500);
-
-  }, [dispatch])
-
+  }, [dispatch]);
 
 
   const handleDateSelect = (selectInfo) => {
@@ -226,18 +224,23 @@ const PerfilWalker = () => {
   //     if (prompt(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
   //       clickInfo.event.remove() // will render immediately. will call handleEventRemove
   //     }
+
   // }
 
   const handleEventClick = (clickInfo) => {
     if (clickInfo.event.extendedProps.estadoReserva === "pendiente") {
       Swal.fire({
         title: "Confirmar orden de paseo",
-        text: `Cliente de la zona de ${clickInfo.event.extendedProps.ubicacion}`,
+        html:
+          `Tenes una solicitud!! ` +
+          `Ingresa a ` +
+          `<a href=http://localhost:3000/Walker/Cliente/${clickInfo.event.extendedProps.clientId}>Click aqui</a>` +
+          ` para ver mas detalles del cliente y su ubicación`,
         icon: "info",
         showCloseButton: true,
         confirmButtonText: "Aceptar",
         showDenyButton: "true",
-        denyButtonText: "Cancelar"
+        denyButtonText: "Cancelar",
       }).then((respuesta) => {
         if (respuesta.isConfirmed) {
           swal({ text: "Orden confirmada", icon: "success" });
@@ -272,8 +275,7 @@ const PerfilWalker = () => {
         }
       });
     }
-  }
-
+  };
 
   const handleDelete = (public_id, token) => {
     swal({
