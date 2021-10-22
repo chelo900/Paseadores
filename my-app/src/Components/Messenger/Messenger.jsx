@@ -61,15 +61,7 @@ export default function Messenger() {
   //   });
   // }, [socket]);
 
-  console.log("IDDDDDDDDDDDDD: ", id);
-  let arr = [];
-  const isFirstRun = useRef(true);
   useEffect(() => {
-    if (isFirstRun.current) {
-      console.log(isFirstRun);
-      isFirstRun.current = false; //i'm using useRef to not run this code on the first run
-      return;
-    }
     const getConversations = async () => {
       try {
         const res = await axios.get("/conversations/" + id);
