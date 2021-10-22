@@ -44,7 +44,19 @@
     background-color:rgb(254,247, 237);
     border-radius: 5px;
 }
-
+.procesando{
+    width: 40%;
+    height: 35px;
+    background-color: rgb(58,84,180);
+    border: none;
+    text-decoration: none;
+    color: rgb(254,247, 237);
+    font-size: 18px;
+    font-weight: 500;
+    transition: .5s;
+    text-align: center;
+    padding-top: 8px;
+}
 .datosForm{
     border: 1px solid rgb(58,84,180);
     border-radius: 5px;

@@ -9,7 +9,7 @@ import {
   getPreferences,
 } from "../../actions/index";
 
-import style from "./PerfilWalker.module.css";
+import style from "./PerfilWalkerCliente.module.css";
 import foto1 from "../../media/foto1Service.jpg";
 import { Link, useParams, useHistory } from "react-router-dom";
 import Chat from "../Chat/Chat";
@@ -540,6 +540,7 @@ const PerfilWalker = () => {
               </div>
             </div>
           </div>
+          <MapView latitude={Walker.latitude} longitude={Walker.longitude} />
         </div>
         <div className={style.padding}>
           <h2>Solicita un Turno:</h2>
