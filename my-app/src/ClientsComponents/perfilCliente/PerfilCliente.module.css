@@ -35,6 +35,7 @@
     display: grid;
     grid-template-columns: repeat(3,1fr);
     height: auto;
+    z-index: 100;
 }
 
 .personalInformation{
@@ -124,6 +125,7 @@
     flex-direction: column;
     align-items: flex-end;
     text-decoration: none;
+ 
 }
 
 .editContainerInfo{
@@ -173,7 +175,7 @@
 }
 
 .textDescription{
-    width:570px ;
+    width:70% ;
     /* background-color: rgb(58,84,180, 0.2);
     border-radius: 5px; */
     /* margin: 10px;
@@ -236,7 +238,9 @@
 .editNew{
     background-color: transparent;
     border:none;
-    margin:20px;
+    margin-right:50px;
+
+    cursor: pointer;
 
 }
 
@@ -251,9 +255,10 @@
 
 .cara{
     position: absolute;
-    width: 400px;
+    width: 200px;
     top: 50px;
     right: 0;
+    z-index: 0;
 }
 
 

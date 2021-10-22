@@ -49,6 +49,8 @@ const PerfilWalker = () => {
 
   const history = useHistory();
   const [mapa, setMapa] = useState("");
+  const [open, setOpen] = useState(false);
+  const [img, setImg] = useState("");
 
   const Walker = useSelector((state) => state.detailWalker);
 
@@ -185,6 +187,16 @@ const PerfilWalker = () => {
   function handleOnClick2(e) {
     e.preventDefault();
     setMapa("manual");
+  }
+
+  const handleOpenImg = (event) => {
+    setOpen(true);
+    setImg(event.target.src);
+  }
+
+  const handleCloseImg = () => {
+    setOpen(false);
+    setImg("");
   }
 
   //   calendarApi.unselect(); // clear date selection
@@ -474,8 +486,10 @@ const PerfilWalker = () => {
               <h2>Fotos</h2>
               <div className={style.galeria}>
                 {Walker.images?.map((i) => (
-                  <div key={i.public_id}>
-                    <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
+                  <div className={style.containerImg} key={i.public_id}>
+                    <button className={style.btnI} onClick={handleOpenImg}>
+                      <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
+                    </button>
                     <button
                       onClick={() => handleDelete(i.public_id, token)}
                       className="p"
@@ -490,8 +504,9 @@ const PerfilWalker = () => {
                 action={`${baseURL}/postimages/${id}`}
                 method="POST"
                 encType="multipart/form-data"
+                className={style.formImg}
               >
-                <input type="file" name="image" />
+                <input className={style.inputImg} type="file" name="image" />
                 <button className={style.subir} type="submit">
                   Subir
                 </button>
@@ -583,13 +598,13 @@ const PerfilWalker = () => {
           />
           <div className={style.comentariosWalker}>
             <h3>Comentarios:</h3>
-            {comment?.length &&
+            {comment?.length ?(
               comment.map((el) => (
                 <div>
                   <p> {el}</p>
                   <hr></hr>
                 </div>
-              ))}
+              ))): <p>No hay comentarios.</p>}
           </div>
           {/* <img className={style.decoracion} src ={fotosola} alt="fotoFondo" /> */}
         </div>
@@ -604,6 +619,22 @@ const PerfilWalker = () => {
           <img src={chat} alt="chat" title="Conectar" />
         </button>
       </Link>
+      {
+              open ? (
+                <div className={style.modal}>
+                  <div className={style.containerImgGrande}>
+                    <button
+                      className={style.closeModal}
+                      onClick={handleCloseImg}>
+                      X
+                    </button>
+                    <img src={`${img}`} alt="Imagen" className={style.imagenModal} />
+                  </div>
+                </div>
+              ) : (
+                <div></div>
+              )
+            }
     </div>
   );
 };

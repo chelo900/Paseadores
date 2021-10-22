@@ -89,7 +89,7 @@ const [mapa, setMapa] = useState("");
               className={style.editContainer}
             >
               <button className={style.editNew}>
-              <span class="material-icons-outlined">edit</span>
+               <span class="material-icons-outlined">edit</span>
               </button>
             </Link>
           </div>

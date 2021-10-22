@@ -57,6 +57,8 @@ const PerfilWalker = () => {
   var idClient = localStorage.getItem("userId");
 
   const [ordenload, setOrdenLoad] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [img, setImg] = useState("");
 
   const [input, setInput] = useState({
     score: 0,
@@ -132,6 +134,16 @@ const PerfilWalker = () => {
 
     // history.push(`/Cliente/${id}`)
   };
+
+  const handleOpenImg = (event) => {
+    setOpen(true);
+    setImg(event.target.src);
+  }
+
+  const handleCloseImg = () => {
+    setOpen(false);
+    setImg("");
+  }
 
   async function estrella(e, number) {
     setInput({
@@ -556,8 +568,10 @@ const PerfilWalker = () => {
               <h2>Fotos</h2>
               <div className={style.galeria}>
                 {Walker.images?.map((i) => (
-                  <div key={i.public_id}>
-                    <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
+                  <div className={style.containerImg} key={i.public_id}>
+                    <button className={style.btnI} onClick={handleOpenImg}>
+                      <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
+                    </button>
                   </div>
                 ))}
               </div>
@@ -621,6 +635,22 @@ const PerfilWalker = () => {
           <img src={chat} alt="chat" title="Conectar" />
         </button>
       </Link>
+      {
+              open ? (
+                <div className={style.modal}>
+                  <div className={style.containerImgGrande}>
+                    <button
+                      className={style.closeModal}
+                      onClick={handleCloseImg}>
+                      X
+                    </button>
+                    <img src={`${img}`} alt="Imagen" className={style.imagenModal} />
+                  </div>
+                </div>
+              ) : (
+                <div></div>
+              )
+            }
     </div>
   );
 };
