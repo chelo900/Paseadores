@@ -113,7 +113,7 @@ const Login = () => {
           </div>
           <Link to="/login/recoverPassword">
             {" "}
-            <span className={style.pass}>Forgot password?</span>{" "}
+            <span className={style.pass}>Olvidaste tu contraseña?</span>{" "}
           </Link>
           <input className={style.login} type="submit" value="login"></input>
           <div className={style.link}>

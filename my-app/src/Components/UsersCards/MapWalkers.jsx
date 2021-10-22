@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Nav from "./Nav/Nav";
+import NavMapa from "./Nav/NavMapa";
 import style from "./Nav/Nav.module.css";
 import MapView from "../../ComponentsMaps/MapView"
 
@@ -12,7 +12,7 @@ const MapWalkers = () => {
    
     return (
         <div className={style.container}>
-           <Nav/>
+          <NavMapa/>
 
                 <MapView
                   fullscream= {true}
