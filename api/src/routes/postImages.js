@@ -4,6 +4,9 @@ const cloudinary = require ('cloudinary').v2;
 const multer = require ('multer');
 const  path  = require("path");
 const fs = require('fs-extra');
+require("dotenv").config();
+const frontURL = process.env.REACT_APP || "http://localhost:3000";
+
 
 const router = Router();
 const storage = multer.diskStorage({
@@ -31,7 +34,7 @@ router.post("/:id",  async (req,res)=>{
         userId: id
     })
     await fs.unlink(req.file.path)
-    res.redirect("http:///walker/perfil/"+id)
+    res.redirect(`${frontURL}/walker/perfil/`+id)
     } catch (error) {
         console.log(error)
     }

@@ -57,7 +57,7 @@ const UsersCards = () => {
 
   useEffect(() => {
     if (walker === "false" && admin === "false") {
-      dispatch(getUserFavorites(id));
+      dispatch(getUserFavorites(id, token));
     }
   }, []);
 

@@ -37,7 +37,7 @@ import { store } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import LocationMarker from "../../ComponentsMaps/LocationMarker";
 import AddMarkerToClick from "../../ComponentsMaps/AddMarkerToClick";
-
+const frontURL = process.env.REACT_APP || "http://localhost:3000";
 dotenv.config();
 
 // import Footer from './footer/Footer';
@@ -423,9 +423,13 @@ const PerfilWalker = () => {
           )}
         </div>
         <div className={style.caracteristicas}>
-          <div className={style.Premuim}>
-            <Premium />
-          </div>
+          {!Walker.premium ? (
+            <div className={style.Premuim}>
+              <Premium />
+            </div>
+          ) : (
+            <div></div>
+          )}
           <div className={style.descripcion}>
             <h2>Descripcion:</h2>
             <div className={style.textDescription}>
