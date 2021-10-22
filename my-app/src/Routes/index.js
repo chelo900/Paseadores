@@ -16,6 +16,7 @@ import EditDescription from "../Components/EditWalker/EditDescription/Edit";
 import EditHorarios from "../Components/EditWalker/editHr/Edit";
 import FormClient from "../ClientsComponents/FormClient/FormClient";
 import PerfilCliente from "../ClientsComponents/perfilCliente/PerfilCliente";
+import PerfilClienteParaWalker from "../ClientsComponents/perfilCliente/PerfilClienteParaWalker";
 import PerfilWalkerParaCliente from "../Components/PerfilWalker/PerfilWalkerParaCliente";
 import Descripcion from "../ClientsComponents/editInfoCliente/descripcion";
 import Informacion from "../ClientsComponents/editInfoCliente/informacion";
@@ -25,6 +26,7 @@ import EditPreferencias from "../Components/EditWalker/EditPreferencias/EditPref
 import MapWalkers from "../Components/UsersCards/MapWalkers";
 import Chat from "../Components/Chat/Chat";
 import Messenger from "../Components/Messenger/Messenger";
+
 
 const index = () => {
   return (
@@ -77,6 +79,7 @@ const index = () => {
         <Route exact path="/Cliente/:id" component={PerfilCliente} />
         <Route exact path="/Cliente/editDescription/:id" component={Descripcion}/>
         <Route exact path="/Cliente/editInformation/:id" component={Informacion}/>
+        <Route exact path="/Walker/Cliente/:id" component={PerfilClienteParaWalker}/>
     
         {/* Ruta del admin  */}
         <Route exact path="/admin" component={admin} />

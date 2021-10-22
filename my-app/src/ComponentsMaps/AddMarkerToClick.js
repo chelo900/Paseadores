@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
 import {
   MapContainer,
@@ -26,19 +25,6 @@ function AddMarkerToClick({
 }) {
   const id = localStorage.getItem("userId");
   const token = localStorage.getItem("userToken");
-=======
-import React, { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Popup, CircleMarker, useMapEvents, mouseEvent, Marker} from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L, { divIcon } from "leaflet"
-import icon from '../media/icon.png'
-import style from "../ComponentsMaps/MapView.module.css"
-import { useSelector, useDispatch } from "react-redux";
-import { getPaseadorForId, putDetailsUser } from "../actions/index";
-import Markers from "./Markers"
-
-function AddMarkerToClick({name,surname,latitude,longitude}) {
->>>>>>> d8ad4dd (a)
 
   const dispatch = useDispatch();
 

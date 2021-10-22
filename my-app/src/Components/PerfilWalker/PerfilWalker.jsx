@@ -14,7 +14,7 @@ import style from "./PerfilWalker.module.css";
 import foto1 from "../../media/foto1Service.jpg";
 import { Link, useParams, useHistory } from "react-router-dom";
 import fotosola from "../../media/fotosola.png";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import Nav from "./nav/Nav";
 import swal from "sweetalert";
 import patitallena from "../../media/patitallena.png";
@@ -98,10 +98,6 @@ const PerfilWalker = () => {
     }
   }, []);
 
-
-  
-
-
   // useEffect(() => {
   //   if (delImage === true) dispatch(getPaseadorForId(id, token));
   // }, [dispatch]);
@@ -128,10 +124,12 @@ const PerfilWalker = () => {
 
   useEffect(() => {
     let ordenespendientes = ordensCliente.filter(
-      (ordenes) => ordenes.estadoReserva.toString() === "pendiente" && ordenes.color.toString() === "yellow"
+      (ordenes) =>
+        ordenes.estadoReserva.toString() === "pendiente" &&
+        ordenes.color.toString() === "yellow"
     );
     setTimeout(() => {
-      if (ordenespendientes.length >0 ) {
+      if (ordenespendientes.length > 0) {
         swal({
           title: "Tenes ordenes pendientes que contestar!",
           info: "info",
@@ -142,15 +140,14 @@ const PerfilWalker = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      if ( !preferencias.turno  && preferencias.turno?.length === 0 ){
-        swal({title: "Elegí tus preferencias para que te empiecen a contratar",
-       icon: "info"})
+      if (!preferencias.turno && preferencias.turno?.length === 0) {
+        swal({
+          title: "Elegí tus preferencias para que te empiecen a contratar",
+          icon: "info",
+        });
       }
     }, 1500);
-    
-   }, [dispatch])
-
-  
+  }, [dispatch]);
 
   const handleDateSelect = (selectInfo) => {
     let calendarApi = selectInfo.view.calendar;
@@ -222,53 +219,57 @@ const PerfilWalker = () => {
   //     if (prompt(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
   //       clickInfo.event.remove() // will render immediately. will call handleEventRemove
   //     }
-  // }
-  
-  const handleEventClick = (clickInfo) => {
-    if(clickInfo.event.extendedProps.estadoReserva === "pendiente"){
-    Swal.fire({
-      title: "Confirmar orden de paseo",
-      text: `Cliente de la zona de ${clickInfo.event.extendedProps.ubicacion}`,
-      icon: "info",
-      showCloseButton: true,
-      confirmButtonText: "Aceptar",
-      showDenyButton: "true",
-      denyButtonText: "Cancelar"
-    }).then((respuesta) => {
-      if (respuesta.isConfirmed) {
-        swal({ text: "Orden confirmada", icon: "success" });
-        dispatch(
-          ordenAnswer(
-            {
-              id: clickInfo.event.extendedProps.idOrden,
-              estadoReserva: "confirmada",
-            },
-            token
-          )
-        );
-        setTimeout(() => {
-          setOrdenLoad(true);
-        }, 1000);
-        setOrdenLoad(false);
-      } else if (respuesta.isDenied) {
-        swal({ text: "Orden rechazada", icon: "warning" });
-        dispatch(
-          ordenAnswer(
-            {
-              id: clickInfo.event.extendedProps.idOrden,
-              estadoReserva: "rechazada",
-            },
-            token
-          )
-        );
-        setTimeout(() => {
-          setOrdenLoad(true);
-        }, 1000);
-        setOrdenLoad(false);
-      }
-    });
-  }}
+  // }'`Cliente de la zona de ${clickInfo.event.extendedProps.ubicacion}`,
 
+  const handleEventClick = (clickInfo) => {
+    if (clickInfo.event.extendedProps.estadoReserva === "pendiente") {
+      Swal.fire({
+        title: "Confirmar orden de paseo",
+        html:
+          `Tenes una solicitud!! ` +
+          `Ingresa a ` +
+          `<a href=http://localhost:3000/Walker/Cliente/${clickInfo.event.extendedProps.clientId}>Click aqui</a>` +
+          ` para ver mas detalles del cliente y su ubicación`,
+        icon: "info",
+        showCloseButton: true,
+        confirmButtonText: "Aceptar",
+        showDenyButton: "true",
+        denyButtonText: "Cancelar",
+      }).then((respuesta) => {
+        if (respuesta.isConfirmed) {
+          swal({ text: "Orden confirmada", icon: "success" });
+          dispatch(
+            ordenAnswer(
+              {
+                id: clickInfo.event.extendedProps.idOrden,
+                estadoReserva: "confirmada",
+              },
+              token
+            )
+          );
+          setTimeout(() => {
+            setOrdenLoad(true);
+          }, 1000);
+          setOrdenLoad(false);
+        } else if (respuesta.isDenied) {
+          swal({ text: "Orden rechazada", icon: "warning" });
+          dispatch(
+            ordenAnswer(
+              {
+                id: clickInfo.event.extendedProps.idOrden,
+                estadoReserva: "rechazada",
+              },
+              token
+            )
+          );
+          setTimeout(() => {
+            setOrdenLoad(true);
+          }, 1000);
+          setOrdenLoad(false);
+        }
+      });
+    }
+  };
 
   const handleDelete = (public_id, token) => {
     swal({
