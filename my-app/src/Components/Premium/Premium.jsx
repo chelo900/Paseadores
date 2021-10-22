@@ -11,13 +11,13 @@ import axios from "axios";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { getPaseadorForId } from "../../actions/index";
 import style from "./Premium.module.css";
+import Swal from "sweetalert2";
 import dotenv from "dotenv";
-import Swal from 'sweetalert2';
 dotenv.config();
 const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 const token = localStorage.getItem("userToken");
-const id = localStorage.getItem("userId")
+const id = localStorage.getItem("userId");
 const header = {
   Authorization: `Bearer ${token}`,
 };
@@ -30,21 +30,21 @@ const Form = () => {
   const stripe = useStripe();
   const elements = useElements();
   const history = useHistory();
-  
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(!token){
+    if (!token) {
       history.push(`/login`);
     }
     dispatch(getPaseadorForId(id, token));
   }, [dispatch, id]);
 
   const walker = useSelector((state) => state.detailWalker);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
@@ -78,13 +78,11 @@ const Form = () => {
         <CardElement />
       </div>
       <div className={style.containerBnt}>
-        {
-          loading === false ? (
-            <button className={style.btn}> Pagar </button>
-            ):(
-              <label className={style.procesando}> Procesando... </label>
-          )
-        }
+        {loading === false ? (
+          <button className={style.btn}> Pagar </button>
+        ) : (
+          <label className={style.procesando}> Procesando... </label>
+        )}
       </div>
     </form>
   );

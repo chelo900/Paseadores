@@ -7,8 +7,11 @@ import ChatOnline from "../ChatOnline/ChatOnline";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { io } from "socket.io-client";
+import dotenv from "dotenv";
+dotenv.config();
+const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
-const CONNECTION_PORT = "localhost:3001/";
+const CONNECTION_PORT = baseURL;
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
@@ -19,7 +22,7 @@ export default function Messenger() {
   const [onlineUsers, setOnlineUsers] = useState([]);
 
   // const [socket, setSocket] = useState(null);
-  const socket = useRef(io(`ws://localhost:3001`));
+  const socket = useRef(io(`ws://${baseURL}`));
   const users = useSelector((state) => state.allPaseadores);
   const id = localStorage.getItem("userId");
   const scrollRef = useRef();
@@ -29,7 +32,7 @@ export default function Messenger() {
   // }, []);
 
   useEffect(() => {
-    socket.current = io(`ws://localhost:3001`);
+    socket.current = io(`ws://${baseURL}`);
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -58,15 +61,7 @@ export default function Messenger() {
   //   });
   // }, [socket]);
 
-  console.log("IDDDDDDDDDDDDD: ", id);
-  let arr = [];
-  const isFirstRun = useRef(true);
   useEffect(() => {
-    if (isFirstRun.current) {
-      console.log(isFirstRun);
-      isFirstRun.current = false; //i'm using useRef to not run this code on the first run
-      return;
-    }
     const getConversations = async () => {
       try {
         const res = await axios.get("/conversations/" + id);
@@ -100,6 +95,8 @@ export default function Messenger() {
     };
 
     const receiverId = currentChat.members.find((m) => m !== id);
+
+    console.log("chat", currentChat);
 
     socket.current.emit("sendMessage", {
       senderId: id,
@@ -178,7 +175,7 @@ export default function Messenger() {
           </div>
         </div>
 
-        <div className="chatOnline">
+        {/* <div className="chatOnline">
           <div className="chatOnlineWrapper">
             <ChatOnline
               onlineUsers={onlineUsers}
@@ -186,7 +183,7 @@ export default function Messenger() {
               setCurrentChat={setCurrentChat}
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

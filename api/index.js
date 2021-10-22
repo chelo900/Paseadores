@@ -29,6 +29,7 @@ const removeUsuario = (socketId) => {
 };
 
 const getUser = (userId) => {
+  console.log("user id", userId);
   return users.find((user) => user.userId === userId);
 };
 
