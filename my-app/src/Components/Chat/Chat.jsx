@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import "./Chat.css";
+import Nav from "../PerfilWalker/nav/Nav";
 
 let socket;
 const CONNECTION_PORT = "localhost:3001/";
@@ -44,56 +45,59 @@ function Chat() {
   };
 
   return (
-    <div className="App">
-      {!loggedIn ? (
-        <div className="logIn">
-          <div className="inputs">
-            <input
-              type="text"
-              placeholder="Nombre..."
-              onChange={(e) => {
-                setUserName(e.target.value);
-              }}
-            />
-            <input
-              type="text"
-              placeholder="Sala de Chat..."
-              onChange={(e) => {
-                setRoom(e.target.value);
-              }}
-            />
+    <div className="container">
+      <Nav />
+      <div className="App">
+        {!loggedIn ? (
+          <div className="logIn">
+            <div className="inputs">
+              <input
+                type="text"
+                placeholder="Nombre..."
+                onChange={(e) => {
+                  setUserName(e.target.value);
+                }}
+              />
+              <input
+                type="text"
+                placeholder="Sala de Chat..."
+                onChange={(e) => {
+                  setRoom(e.target.value);
+                }}
+              />
+            </div>
+            <button onClick={connectToRoom}>Enter Chat</button>
           </div>
-          <button onClick={connectToRoom}>Enter Chat</button>
-        </div>
-      ) : (
-        <div className="chatContainer">
-          <div className="messages">
-            {messageList.map((val, key) => {
-              return (
-                <div
-                  className="messageContainer"
-                  id={val.author == userName ? "You" : "Other"}
-                >
-                  <div className="messageIndividual">
-                    {val.author}: {val.message}
+        ) : (
+          <div className="chatContainer">
+            <div className="messages">
+              {messageList.map((val, key) => {
+                return (
+                  <div
+                    className="messageContainer"
+                    id={val.author === userName ? "You" : "Other"}
+                  >
+                    <div className="messageIndividual">
+                      {val.author}: {val.message}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
 
-          <div className="messageInputs">
-            <input
-              type="text"
-              placeholder="Message..."
-              onChange={(e) => {
-                setMessage(e.target.value);
-              }}
-            />
-            <button onClick={sendMessage}>Send</button>
+            <div className="messageInputs">
+              <input
+                type="text"
+                placeholder="Message..."
+                onChange={(e) => {
+                  setMessage(e.target.value);
+                }}
+              />
+              <button onClick={sendMessage}>Send</button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

@@ -33,4 +33,21 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
+//get conv dos user id
+
+router.get("/find/:firstUserId/:secondUserId", async (req, res) => {
+  try {
+    const conversation = await Conversation.findOne({
+      where: {
+        members: {
+          [Op.contains]: [req.params.firstUserId, req.params.secondUserId],
+        },
+      },
+    });
+    res.status(200).json(conversation);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
+
 module.exports = router;
