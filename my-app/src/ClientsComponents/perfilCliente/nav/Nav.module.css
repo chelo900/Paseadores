@@ -5,8 +5,9 @@
     display: flex;
     justify-content: space-between;
     border-bottom: solid 4px  rgb(58,84,180);
-    z-index: 2;
+    z-index: 100;
     margin-bottom: 20px;
+    position: fixed;
 }
 
 .textdeco{
@@ -45,6 +46,7 @@
 
 .logout{
     display: flex;
+    align-items: center;
     justify-content:center;
     font-size: 15px;
     padding: 25px;
@@ -58,4 +60,11 @@
 }
 .logout:hover{
     background-color: rgb(142, 142, 243,0.5);
+}
+
+.home2{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
 }

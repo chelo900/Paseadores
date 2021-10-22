@@ -8,6 +8,7 @@ import ListaFav from "./Favoritos/ListaFav";
 import LocationMarker from "../../ComponentsMaps/LocationMarker";
 import AddMarkerToClick from "../../ComponentsMaps/AddMarkerToClick";
 import SelectorMap from "../../ComponentsMaps/SelectorMap";
+import cara from '../../media/carita.png'
 
 const PerfilCliente = () => {
   const id = localStorage.getItem("userId");
@@ -60,7 +61,6 @@ const [mapa, setMapa] = useState("");
             <ul>
               <li className={style.liPhone}>{Client.phone}</li>
               <li className={style.liEmail}>{Client.email}</li>
-              <li className={style.liUbication}>{Client.ubication}</li>
             </ul>
             <Link
               to={`/Cliente/editInformation/${id}`}
@@ -71,49 +71,7 @@ const [mapa, setMapa] = useState("");
               </button>
             </Link>
           </div>
-          <button
-            onClick={(e) => {
-              handleOnClick1(e);
-            }}
-          >
-            Detectar mi ubicación
-          </button>
-
-          <button
-            onClick={(e) => {
-              handleOnClick2(e);
-            }}
-          >
-            Agregar ubicacion manualmente
-          </button>
-
-          {Client.latitude && mapa === "" && (
-            <SelectorMap
-              name={Client.name}
-              surname={Client.surname}
-              latitude={Client.latitude}
-              longitude={Client.longitude}
-              client={true}
-            />
-          )}
-          {mapa === "auto" && (
-            <LocationMarker
-              name={Client.name}
-              surname={Client.surname}
-              latitude={Client.latitude}
-              longitude={Client.longitude} 
-              client={true}
-            />
-          )}
-          {mapa === "manual" && (
-            <AddMarkerToClick
-              name={Client.name}
-              surname={Client.surname}
-              latitude={Client.latitude}
-              longitude={Client.longitude}
-              client={true}
-            />
-          )}
+          
         </div>
 
         <div className={style.caracteristicas}>
@@ -130,10 +88,61 @@ const [mapa, setMapa] = useState("");
               to={`/Cliente/editDescription/${id}`}
               className={style.editContainer}
             >
-              <button className={style.editDescription}>
-                Editar Descripción
+              <button className={style.editNew}>
+              <span class="material-icons-outlined">edit</span>
               </button>
             </Link>
+          </div>
+          <div className={style.local}>
+            <h2 className={style.ubicacion}>Ubicacion:</h2>
+            <button
+              className={style.botones}
+              onClick={(e) => {
+                handleOnClick1(e);
+              }}
+            >
+              Detectar 
+            </button>
+
+            <button
+              className={style.botones}
+              onClick={(e) => {
+                handleOnClick2(e);
+              }}
+            >
+              Agregar  manualmente
+            </button>
+          
+              <div className={style.mapaNuevo} >
+                  {Client.latitude && mapa === "" && (
+                    <SelectorMap
+                    
+                      name={Client.name}
+                      surname={Client.surname}
+                      latitude={Client.latitude}
+                      longitude={Client.longitude}
+                      client={true}
+                    />
+                  )}
+                  {mapa === "auto" && (
+                    <LocationMarker
+                      name={Client.name}
+                      surname={Client.surname}
+                      latitude={Client.latitude}
+                      longitude={Client.longitude} 
+                      client={true}
+                    />
+                  )}
+                  {mapa === "manual" && (
+                    <AddMarkerToClick
+                      name={Client.name}
+                      surname={Client.surname}
+                      latitude={Client.latitude}
+                      longitude={Client.longitude}
+                      client={true}
+                    />
+                  )}
+              </div>
           </div>
           <div className={style.favoritos}>
             <h2 className={style.favTitulo}>Favoritos</h2>
@@ -143,6 +152,7 @@ const [mapa, setMapa] = useState("");
           </div>
         </div>
       </div>
+        <img  className={style.cara} src={cara} alt="cara" />
     </div>
   );
 };

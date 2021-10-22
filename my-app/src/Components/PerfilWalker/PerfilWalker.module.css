@@ -47,7 +47,7 @@
     grid-column: 1span;
     background-color: white;
     width: 350px;
-    height:1500px;
+    height:1400px;
     margin-left: 30px;
 }
 
@@ -459,7 +459,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-left: 40px;
+    margin-left: 0px;
   }
 
   .formulario textarea{
@@ -530,7 +530,7 @@
     .paddingWalker{
     background-color: white;
     margin: 100px 0px 10px 10px;
-    height: 23%;
+    height: 30%;
     position: relative;
     width: 450px;
     right: 30px;
@@ -674,3 +674,52 @@
 .subir:hover{
     box-shadow:none; 
 }
+
+
+.botones{
+    height: 30px;
+    width: 150px;
+    margin: 10px;
+    background-color: green;
+    color: white;
+    border: none;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+    cursor: pointer;
+  }
+  .botones:hover{
+   
+    box-shadow:none;
+  }
+  .ubicacion{
+    color: rgb(58,84,180);
+    margin-bottom: 5px;
+    margin-top: 10px;
+  }
+
+  .comentarios{
+      background-color: rgb(206, 231, 167);
+      margin: 5px 10px 10px 20px;
+      }
+      .comentarios h3{
+          font-size: 25px;
+          padding: 10px;
+          color:rgb(58,84,180);
+      }
+      .comentarios p{
+        margin: 20px;
+    }
+
+    .comentariosWalker{
+        background-color: rgb(206, 231, 167);
+        margin-top: 10px;
+
+        }
+        .comentariosWalker h3{
+            font-size: 25px;
+            padding: 10px;
+            color:rgb(58,84,180);
+        }
+        .comentariosWalker p{
+          margin: 20px;
+      }
+  

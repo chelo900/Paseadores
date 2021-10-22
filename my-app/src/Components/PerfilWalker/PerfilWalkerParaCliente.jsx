@@ -17,6 +17,7 @@ import Chat from "../Chat/Chat";
 import Nav from "./nav/Nav";
 
 import chat from "../../media/chat.png";
+import chat2 from '../../media/chat2.png'
 
 import FullCalendar, { EventContentArg } from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -65,6 +66,8 @@ const PerfilWalker = () => {
       ...input,
       [e.target.name]: e.target.value,
     });
+   
+
   };
 
   useEffect(() => {
@@ -121,6 +124,10 @@ const PerfilWalker = () => {
       showConfirmButton: false,
       timer: 1500,
     });
+    setInput({
+      score:0,
+      comment:""
+    })
 
     // history.push(`/Cliente/${id}`)
   };
@@ -423,7 +430,7 @@ const PerfilWalker = () => {
             <ul>
               <li className={style.liService}>{Walker.service}</li>
               <li className={style.libirth}>{Walker.birth_day}</li>
-              <li className={style.liUbication}>{Walker.ubication}</li>
+              {/* <li className={style.liUbication}>{Walker.ubication}</li> */}
               <li className={style.liRep}>Score: {score?.toFixed(1)}</li>
             </ul>
           </div>
@@ -458,13 +465,6 @@ const PerfilWalker = () => {
           <div className={style.reputacion}>
             <h2>Deja tu opinon:</h2>
             <div className={style.opinion}>
-              {comment?.length
-                ? comment.map((el) => (
-                    <div>
-                      <p> {el}</p>
-                    </div>
-                  ))
-                : ""}
 
               <button
                 className={style.prueba}
@@ -527,6 +527,7 @@ const PerfilWalker = () => {
                 )}
               </button>
             </div>
+           
 
             <form className={style.formulario} onSubmit={handlerSubmit}>
               <textarea
@@ -542,8 +543,11 @@ const PerfilWalker = () => {
                 </button>
               </div>
             </form>
+            
             <Link to={`/messenger`} className={style.editContainerInfo}>
-              <button className={style.editDescription}>CHAT</button>
+              <button className={style.editDescription}>
+                <img src={chat2} alt="chat2" />
+              </button>
             </Link>
           </div>
           <div className={style.fotos}>
@@ -558,7 +562,18 @@ const PerfilWalker = () => {
               </div>
             </div>
           </div>
-          <MapView latitude={Walker.latitude} longitude={Walker.longitude} />
+          {/* <MapView latitude={Walker.latitude} longitude={Walker.longitude} /> */}
+          <div className={style.comentarios}>
+              <h3>Comentarios:</h3>
+              {comment?.length
+                  ? comment.map((el) => (
+                      <div>
+                        <p> {el}</p>
+                        <hr></hr>
+                      </div>
+                    ))
+                  : <p> No hay comentarios sobre este usuario.</p>}
+            </div>
         </div>
         <div className={style.padding}>
           <h2>Solicita un Turno:</h2>

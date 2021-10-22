@@ -1,6 +1,5 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-const queryString = require("query-string");
 export const GET_PASEADORES = "GET_PASEADORES";
 export const GET_PASEADOR_FOR_ID = "GET_PASEADOR_FOR_ID";
 export const PUT_DETAILS_PROFILE = "PUT_DETAILS_PROFILE";
@@ -9,7 +8,7 @@ export const NEW_PASEADOR = "NEW_PASEADOR";
 export const LOGIN = "LOGIN";
 export const UBICATION_MATCH = "UBICATION_MATCH";
 export const RECOVER_PASSWORD = "RECOVER_PASSWORD";
-export const NEW_PASSWORD = "NEW_PASSWORD";
+export const NEW_PASSWORD = "NEW_PASSWORD"; 
 export const GET_CLIENTE_FOR_ID = "GET_CLIENTE_FOR_ID";
 export const PUT_DETAILS_CLIENT = "PUT_DETAILS_CLIENT";
 export const PUT_DETAILS_PROFILE_CLIENTE = "PUT_DETAILS_PROFILE_CLIENTE";
@@ -29,7 +28,7 @@ export const POST_ASSESSMENT = "POST_ASSESSMENT";
 export const GET_ASSESSMENT = "GET_ASSESSMENT";
 export const GET_WALKERS_FOR_MAP = "GET_WALKERS_FOR_MAP";
 export const GET_WALKERS_BY_NAME = "GET_WALKERS_BY_NAME";
-
+const queryString = require("query-string");
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES";
 

@@ -44,8 +44,10 @@ const Nav = (props) => {
             </div>
             <div className={style.log}>
                 <Link to={`/cardsUsers`} className={style.textdeco}>
-                    <span class="material-icons-outlined">home</span>
-                    <p>Home</p>
+                    <div className={style.home2}>
+                        <span class="material-icons-outlined">home</span>
+                        <p>Home</p>
+                    </div>
                 </Link>
             </div>
             <div>

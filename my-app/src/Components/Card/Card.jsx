@@ -13,6 +13,8 @@ import {
   deleteUserFavorite,
 } from "../../actions/index";
 
+import foto from '../../media/fotosola.png'
+
 // function Card({
 //   id,
 //   name,
@@ -67,9 +69,9 @@ function Card({
       <div className={styles.imageContainer}>
         {image ? (
           <img className={styles.image} src={image} alt="foto paseador" />
-        ) : (
-          <img className={styles.image} src={fotoDefault} alt="a" />
-        )}
+          ) : (
+            <img className={styles.image} src={fotoDefault} alt="a" />
+            )}
         <div className={styles.scoreContain}>
           <h1>{score?.toFixed(1)}</h1>
           <div className={styles.estrellas}>
@@ -91,6 +93,20 @@ function Card({
         </div>
       </div>
       <div className={styles.conteinerDerecha}>
+      {walker === "false" && admin === "false" && (
+        <button
+        className={styles.prueba}
+          onClick={(e) => {
+            addFavorite(e);
+          }}
+          >
+          {fv ? (
+            <img src={estrella} alt="" />
+          ) : (
+            <img src={favorito} alt="sas" />
+            )}
+        </button>
+      )}
       <div className={styles.title}>
         <h1 className={styles.name}>{name + " " + surname}</h1>
         <hr></hr>
@@ -98,11 +114,11 @@ function Card({
         {/* <h3>Descripcion:</h3>
         {description ? (
           <span>{description}</span>
-        ) : (
-          <span>
+          ) : (
+            <span>
             Informacion no disponible .
-          </span>
-        )} */}
+            </span>
+          )} */}
         <h3>Precio:</h3>
         <p> ${price}</p>
         <h3>Ubicación:</h3>
@@ -116,21 +132,10 @@ function Card({
           </div>
         )}
       </div>
-      {walker === "false" && admin === "false" && (
-        <button
-          className={styles.prueba}
-          onClick={(e) => {
-            addFavorite(e);
-          }}
-        >
-          {fv ? (
-            <img src={estrella} alt="" />
-          ) : (
-            <img src={favorito} alt="sas" />
-          )}
-        </button>
-      )}
+        
+      
       </div>
+      <img  className={styles.fotoFondo} src={foto} alt= "" />
     </div>
   );
 }
