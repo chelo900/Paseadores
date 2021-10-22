@@ -37,7 +37,7 @@ import { store } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import LocationMarker from "../../ComponentsMaps/LocationMarker";
 import AddMarkerToClick from "../../ComponentsMaps/AddMarkerToClick";
-
+import styled from "styled-components";
 dotenv.config();
 
 // import Footer from './footer/Footer';
@@ -187,41 +187,7 @@ const PerfilWalker = () => {
     setMapa("manual");
   }
 
-  //   calendarApi.unselect(); // clear date selection
-
-  //   if (title) {
-  //     calendarApi.addEvent(
-  //       {
-  //         // will render immediately. will call handleEventAdd
-  //         title,
-  //         start: selectInfo.startStr,
-  //         end: selectInfo.endStr,
-  //         // allDay: selectInfo.allDay
-  //       },
-  //       true
-  //     ); // temporary=true, will get overwritten when reducer gives new events
-  //   }
-  //   dispatch(
-  //     clientSendOrden(
-  //       {
-  //         fecha: selectInfo.startStr,
-  //         userId: id,
-  //       },
-  //       token
-  //     )
-  //   );
-  // };
-
-  // const handleEventClick = (clickInfo) => {
-  //     dispatch(ordenAnswer({
-  //         title: clickInfo.event.title
-  //     }))
-  //     console.log(clickInfo.event.title)
-  //     if (prompt(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-  //       clickInfo.event.remove() // will render immediately. will call handleEventRemove
-  //     }
-
-  // }
+  
 
   const handleEventClick = (clickInfo) => {
     if (clickInfo.event.extendedProps.estadoReserva === "pendiente") {
@@ -307,6 +273,108 @@ const PerfilWalker = () => {
       },
     });
   };
+
+  const Agenda = styled.div`
+ .fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+  margin-left: 1
+  background-color: rgb(58, 84, 180, 0.8);;
+  color: white;
+}
+.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+  margin-left: -1px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: rgb(58, 84, 180, 0.8);
+}
+.gokzuw .fc .fc-button-primary:disabled {
+  border-color: #2C3E50;
+  border-color: var(--fc-button-border-color,rgb(58,84,180,0.8););
+  background-color: rgb(58, 84, 180, 0.8);
+}
+
+
+.fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: rgb(58, 84, 180, 0.8);;
+  color: white;
+}
+.fc .fc-button-primary:disabled {
+  border-color: #2C3E50;
+  border-color: var(--fc-button-border-color, rgb(58, 84, 180, 0.8););
+  background-color: blue;
+}
+.fc .fc-view-harness {
+  flex-grow: 1;
+  position: relative;
+  background-color: rgb(203, 233, 251);   
+  backdrop-filter: blur(2px);
+  backdrop-filter: contrast(40%);
+  backdrop-filter: drop-shadow(4px 4px 10px blue);
+  backdrop-filter: invert(70%);
+  backdrop-filter: opacity(20%);
+}
+.fc .fc-toolbar-title {
+  font-family: "Work Sans", sans-serif;
+  color: rgb(58, 84, 180, 0.8);;
+  font-size: 1.25em;
+  margin: 0;
+}
+.fc .fc-toolbar-title:after {
+  content: 'Lista de Paseos';
+  display: block
+}` 
+
+const StyleWrapper = styled.div`
+.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+  margin-left: -
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: rgb(58, 84, 180, 0.8);;
+  color: white;
+}
+.fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: rgb(58, 84, 180, 0.8);;
+  color: white;
+}
+.fc .fc-toolbar-title {
+  font-size: 1.10em;
+  margin: 0;
+  color: black;
+}
+.fc .fc-toolbar-title:after {
+  content: 'Chequea si tenes paseos pendientes';
+  display: block;
+  color: rgb(58, 84, 180, 0.8);;
+}
+.eLsSpQ .fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+  margin-left: - border-top-left-radius:0;
+  border-bottom-left-radius: 0;
+  background-color: rgb(58, 84, 180, 0.8);;
+  color: white;
+}
+.fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link{
+  width: 12px;
+  height: 12px;
+  margin-right: 1px;
+  border-radius: 80%;
+  display: flex;
+  top: 10px;
+  font-size: 0em;
+}
+.fc-theme-standard td, .fc-theme-standard th { border: 1px solid var(--fc-border-color, black);
+}
+
+
+.fc .fc-scroller {
+  -webkit-overflow-scrolling: touch;
+ ;
+  background-color: gokzuw .fc .fc-button-primary:disabled { border-color: #2C3E50; border-color: var(--fc-button-border-color,rgb(58,84,180,0.8);); background-color: rgb(58, 84, 180, 0.8);};
+  background-color: rgb(203, 233, 251);
+}`
+
 
   return (
     <div className={style.container}>
@@ -502,6 +570,7 @@ const PerfilWalker = () => {
                 <span>🟢 Paseos Confirmados</span>
                 <span>🟡 Pendientes</span>
               </div>
+              <StyleWrapper>
               <FullCalendar
                 eventClassNames={style.calendar}
                 plugins={[
@@ -513,7 +582,7 @@ const PerfilWalker = () => {
                 headerToolbar={{
                   left: "prev,next today",
                   center: "title",
-                  right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+                  right: "dayGridMonth,timeGridWeek",
                 }}
                 initialView="timeGridWeek"
                 locale={esLocale}
@@ -534,6 +603,8 @@ const PerfilWalker = () => {
                   preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
                 }
               />
+              </StyleWrapper>
+
             </div>
             {/* <FullCalendar
               eventClassNames={style.calendar}
@@ -570,17 +641,15 @@ const PerfilWalker = () => {
           </div>
         </div>
         <div className={style.paddingWalker}>
+          <Agenda>
           <FullCalendar
             className={style.calendario}
             plugins={[listPlugin]}
-            headerToolbar={{
-              left: "prev,next today",
-              center: "title",
-            }}
             initialView="listWeek"
             events={ordensCliente}
             locale={esLocale}
           />
+          </Agenda>
           <div className={style.comentariosWalker}>
             <h3>Comentarios:</h3>
             {comment?.length &&
