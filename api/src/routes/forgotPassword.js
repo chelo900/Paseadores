@@ -17,7 +17,7 @@ router.put("/", async (req, res) => {
             }
         })
         
-        const verificaciónLink = `http://localhost:3000/new-password/${paseador.name}`
+        const verificaciónLink = `http://:3000/new-password/${paseador.name}`
 
         const body =  
         {from: '"Cambio Contraseña 🐶" <paseadorescuidadores@gmail.com>',

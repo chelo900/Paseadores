@@ -63,6 +63,7 @@ const PerfilWalker = () => {
   const [ordenload, setOrdenLoad] = useState(false);
   const [delImage, setDelImage] = useState(false);
   const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+  const frontURL = process.env.REACT_APP || "http://localhost:3000";
 
   useEffect(() => {
     dispatch(getPreferences(id, token));
@@ -242,7 +243,7 @@ const PerfilWalker = () => {
         html:
           `Tenes una solicitud!! ` +
           `Ingresa a ` +
-          `<a href=http://localhost:3000/Walker/Cliente/${clickInfo.event.extendedProps.clientId}>Click aqui</a>` +
+          `<a href=${frontURL}/Walker/Cliente/${clickInfo.event.extendedProps.clientId}>Click aqui</a>` +
           ` para ver mas detalles del cliente y su ubicación`,
         icon: "info",
         showCloseButton: true,
