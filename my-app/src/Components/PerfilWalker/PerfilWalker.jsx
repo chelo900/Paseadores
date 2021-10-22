@@ -99,7 +99,6 @@ const PerfilWalker = () => {
     }
   }, []);
 
-
   // useEffect(() => {
   //   if (delImage === true) dispatch(getPaseadorForId(id, token));
   // }, [dispatch]);
@@ -110,8 +109,7 @@ const PerfilWalker = () => {
   // };
 
   useEffect(() => {
-    if(Walker.premium === false)
-    handleNotPremium();
+    if (Walker.premium === false) handleNotPremium();
   }, []);
 
   useEffect(() => {
@@ -131,7 +129,7 @@ const PerfilWalker = () => {
         ordenes.color.toString() === "yellow"
     );
     setTimeout(() => {
-      if (ordenespendientes.length >0 ) {
+      if (ordenespendientes.length > 0) {
         swal({
           title: "Tenes ordenes pendientes que contestar!",
           info: "info",
@@ -151,7 +149,6 @@ const PerfilWalker = () => {
       }
     }, 1500);
   }, [dispatch]);
-
 
   const handleDateSelect = (selectInfo) => {
     let calendarApi = selectInfo.view.calendar;
@@ -225,7 +222,7 @@ const PerfilWalker = () => {
   //     }
 
   // }
-  
+
   const handleEventClick = (clickInfo) => {
     if (clickInfo.event.extendedProps.estadoReserva === "pendiente") {
       Swal.fire({
@@ -311,7 +308,6 @@ const PerfilWalker = () => {
     });
   };
 
-
   return (
     <div className={style.container}>
       <Nav />
@@ -359,7 +355,6 @@ const PerfilWalker = () => {
               className={style.editContainerInfo}
             >
               <button className={style.edit}>Editar Informacion</button>
-              
             </Link>
           </div>
           <div className={style.preferencias}>
@@ -368,19 +363,19 @@ const PerfilWalker = () => {
               <button className={style.edit}>Editar preferencias</button>
             </Link>
           </div>
-          <div >
+          <div>
             <h2 className={style.ubicacion}>Ubicacion:</h2>
             <button
-            className={style.botones}
+              className={style.botones}
               onClick={(e) => {
                 handleOnClick1(e);
               }}
             >
-              Detectar 
+              Detectar
             </button>
 
             <button
-            className={style.botones}
+              className={style.botones}
               onClick={(e) => {
                 handleOnClick2(e);
               }}
@@ -430,12 +425,10 @@ const PerfilWalker = () => {
             <Link
               to={`/walker/editDescription/${id}`}
               className={style.editContainer}
-            > 
-                <button
-                  className={style.editDescription}
-                >
-                   <span class="material-icons-outlined">edit</span>
-                </button>
+            >
+              <button className={style.editDescription}>
+                <span class="material-icons-outlined">edit</span>
+              </button>
             </Link>
           </div>
           <div className={style.price}>
@@ -475,7 +468,6 @@ const PerfilWalker = () => {
               {score === 5 && <img src={patitallena} alt="" />}
               {score < 5 && <img src={patitavacia} alt="sas" />}
             </div>
-            
           </div>
           <div className={style.fotos}>
             <div className={style.fondoFotos}>
@@ -589,24 +581,29 @@ const PerfilWalker = () => {
             events={ordensCliente}
             locale={esLocale}
           />
-          <div className={style.comentariosWalker}> 
+          <div className={style.comentariosWalker}>
             <h3>Comentarios:</h3>
-              {comment?.length &&
-                comment.map((el) => (
-                  <div>
-                    <p> {el}</p>
-                    <hr></hr>
-                  </div>
-                ))}
+            {comment?.length &&
+              comment.map((el) => (
+                <div>
+                  <p> {el}</p>
+                  <hr></hr>
+                </div>
+              ))}
           </div>
           {/* <img className={style.decoracion} src ={fotosola} alt="fotoFondo" /> */}
         </div>
+        <Link to={`/messenger`} className={style.editContainerChat2}>
+          <button className={style.editchat}>
+            <img src={chat} alt="chat" title="Conectar" />
+          </button>
+        </Link>
       </div>
-      {/* <Link to={`/chat`} className={style.editContainerChat}>
+      <Link to={`/chat`} className={style.editContainerChat}>
         <button className={style.editchat}>
           <img src={chat} alt="chat" title="Conectar" />
         </button>
-      </Link> */}
+      </Link>
     </div>
   );
 };
