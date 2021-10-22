@@ -8,6 +8,7 @@ import {
   getAssessment,
   getPreferences,
   getClienteForId,
+  getOrdenReputacion,
 } from "../../actions/index";
 
 import style from "./PerfilWalkerCliente.module.css";
@@ -17,7 +18,7 @@ import Chat from "../Chat/Chat";
 import Nav from "./nav/Nav";
 
 import chat from "../../media/chat.png";
-import chat2 from '../../media/chat2.png'
+import chat2 from "../../media/chat2.png";
 
 import FullCalendar, { EventContentArg } from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -49,6 +50,7 @@ const PerfilWalker = () => {
   const comment = useSelector((state) => state.comment);
   const score = useSelector((state) => state.score);
   const client = useSelector((state) => state.detailCliente);
+  const reputacion = useSelector((state) => state.boolean);
 
   const ordensCliente = useSelector((state) => state.ordensCliente);
   const preferencias = useSelector((state) => state.preferencias);
@@ -66,8 +68,6 @@ const PerfilWalker = () => {
       ...input,
       [e.target.name]: e.target.value,
     });
-   
-
   };
 
   useEffect(() => {
@@ -77,6 +77,7 @@ const PerfilWalker = () => {
     dispatch(getPaseadorForId(id, token));
     dispatch(getClienteForId(idClient, token));
     dispatch(getAssessment(id, token));
+    dispatch(getOrdenReputacion({ userId: id, clientId: idClient }, token));
   }, [dispatch, id, token]);
 
   useEffect(() => {
@@ -125,9 +126,9 @@ const PerfilWalker = () => {
       timer: 1500,
     });
     setInput({
-      score:0,
-      comment:""
-    })
+      score: 0,
+      comment: "",
+    });
 
     // history.push(`/Cliente/${id}`)
   };
@@ -463,87 +464,87 @@ const PerfilWalker = () => {
             </div>
           </div>
           <div className={style.reputacion}>
-            <h2>Deja tu opinon:</h2>
-            <div className={style.opinion}>
-
-              <button
-                className={style.prueba}
-                onClick={(e) => {
-                  estrella(e, 1);
-                }}
-              >
-                {input.score > 0 ? (
-                  <img src={patitallena} alt="" />
-                ) : (
-                  <img src={patitavacia} alt="sas" />
-                )}
-              </button>
-              <button
-                className={style.prueba}
-                onClick={(e) => {
-                  estrella(e, 2);
-                }}
-              >
-                {input.score > 1 ? (
-                  <img src={patitallena} alt="" />
-                ) : (
-                  <img src={patitavacia} alt="sas" />
-                )}
-              </button>
-              <button
-                className={style.prueba}
-                onClick={(e) => {
-                  estrella(e, 3);
-                }}
-              >
-                {input.score > 2 ? (
-                  <img src={patitallena} alt="" />
-                ) : (
-                  <img src={patitavacia} alt="sas" />
-                )}
-              </button>
-              <button
-                className={style.prueba}
-                onClick={(e) => {
-                  estrella(e, 4);
-                }}
-              >
-                {input.score > 3 ? (
-                  <img src={patitallena} alt="" />
-                ) : (
-                  <img src={patitavacia} alt="sas" />
-                )}
-              </button>
-              <button
-                className={style.prueba}
-                onClick={(e) => {
-                  estrella(e, 5);
-                }}
-              >
-                {input.score > 4 ? (
-                  <img src={patitallena} alt="" />
-                ) : (
-                  <img src={patitavacia} alt="sas" />
-                )}
-              </button>
-            </div>
-           
-
-            <form className={style.formulario} onSubmit={handlerSubmit}>
-              <textarea
-                type="text"
-                name="comment"
-                value={input.comment}
-                placeholder="Dejar un comentario..."
-                onChange={(e) => inputChange(e)}
-              />
-              <div className={style.formularioButton}>
-                <button className={style.edit} type="submit">
-                  Enviar
+            {reputacion && (
+              <div className={style.opinion}>
+                <h2>Deja tu opinon:</h2>
+                <button
+                  className={style.prueba}
+                  onClick={(e) => {
+                    estrella(e, 1);
+                  }}
+                >
+                  {input.score > 0 ? (
+                    <img src={patitallena} alt="" />
+                  ) : (
+                    <img src={patitavacia} alt="sas" />
+                  )}
+                </button>
+                <button
+                  className={style.prueba}
+                  onClick={(e) => {
+                    estrella(e, 2);
+                  }}
+                >
+                  {input.score > 1 ? (
+                    <img src={patitallena} alt="" />
+                  ) : (
+                    <img src={patitavacia} alt="sas" />
+                  )}
+                </button>
+                <button
+                  className={style.prueba}
+                  onClick={(e) => {
+                    estrella(e, 3);
+                  }}
+                >
+                  {input.score > 2 ? (
+                    <img src={patitallena} alt="" />
+                  ) : (
+                    <img src={patitavacia} alt="sas" />
+                  )}
+                </button>
+                <button
+                  className={style.prueba}
+                  onClick={(e) => {
+                    estrella(e, 4);
+                  }}
+                >
+                  {input.score > 3 ? (
+                    <img src={patitallena} alt="" />
+                  ) : (
+                    <img src={patitavacia} alt="sas" />
+                  )}
+                </button>
+                <button
+                  className={style.prueba}
+                  onClick={(e) => {
+                    estrella(e, 5);
+                  }}
+                >
+                  {input.score > 4 ? (
+                    <img src={patitallena} alt="" />
+                  ) : (
+                    <img src={patitavacia} alt="sas" />
+                  )}
                 </button>
               </div>
-            </form>
-            
+            )}
+            {reputacion && (
+              <form className={style.formulario} onSubmit={handlerSubmit}>
+                <textarea
+                  type="text"
+                  name="comment"
+                  value={input.comment}
+                  placeholder="Dejar un comentario..."
+                  onChange={(e) => inputChange(e)}
+                />
+                <div className={style.formularioButton}>
+                  <button className={style.edit} type="submit">
+                    Enviar
+                  </button>
+                </div>
+              </form>
+            )}
             <Link to={`/messenger`} className={style.editContainerInfo}>
               <button className={style.editDescription}>
                 <img src={chat2} alt="chat2" />
@@ -564,16 +565,18 @@ const PerfilWalker = () => {
           </div>
           {/* <MapView latitude={Walker.latitude} longitude={Walker.longitude} /> */}
           <div className={style.comentarios}>
-              <h3>Comentarios:</h3>
-              {comment?.length
-                  ? comment.map((el) => (
-                      <div>
-                        <p> {el}</p>
-                        <hr></hr>
-                      </div>
-                    ))
-                  : <p> No hay comentarios sobre este usuario.</p>}
-            </div>
+            <h3>Comentarios:</h3>
+            {comment?.length ? (
+              comment.map((el) => (
+                <div>
+                  <p> {el}</p>
+                  <hr></hr>
+                </div>
+              ))
+            ) : (
+              <p> No hay comentarios sobre este usuario.</p>
+            )}
+          </div>
         </div>
         <div className={style.padding}>
           <h2>Solicita un Turno:</h2>

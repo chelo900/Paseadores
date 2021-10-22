@@ -13,6 +13,7 @@ import {
   PUT_DETAILS_PROFILE_CLIENTE,
   CLEAR_USER,
   GET_WALKERS,
+  GET_ORDEN_REPUTACION,
   GET_CLIENTS,
   ALERT_ADMIN,
   GET_USER_FAVORITES,
@@ -44,6 +45,7 @@ const initialState = {
   preferencias: [],
   comment: [],
   score: 0,
+  boolean: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -183,21 +185,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         allPaseadores: action.payload,
       };
-    /*  case ALERT_ADMIN:
-      alert(action.payload);
-      break;*/
-
-    // case GET_BY_EMAIL_CLIENTE:
-    //   const { token, validate, id, cliente} = action.payload;
-    //    return {
-    //     ...state,
-    //     cliente : {
-    //       token,
-    //       validate,
-    //       id,
-    //       cliente
-    //     },
-    // };
     case "NEW_ORDEN":
       return {
         ...state,
@@ -217,6 +204,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         newId: action.payload.id,
+      };
+    case GET_ORDEN_REPUTACION:
+      return {
+        ...state,
+        boolean: action.payload,
       };
 
     default:

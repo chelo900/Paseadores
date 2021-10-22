@@ -7,7 +7,7 @@ const updateUser = async (req, res) => {
     const detail = req.body;
     const { id } = req.params;
 
-    await User.update(detail, {
+    const user = await User.update(detail, {
       where: {
         id,
       },

@@ -54,7 +54,7 @@ function LocationMarker({
               token
             )
           );
-          dispatch(getClienteForId(id, token));
+          dispatch(getClienteForId(id, token));}
 
           const { lat, lng } = e.latlng;
           setPosition({
@@ -62,17 +62,17 @@ function LocationMarker({
             longitude: lng,
           });
           map.flyTo(e.latlng, map.getZoom());
-        }
+        
       },
     });
-    client && (latitude = position.latitude);
-    client && (longitude = position.longitude);
+    latitude = position.latitude
+    longitude = position.longitude
 
     return (
       <div>
-        {position.latitude !== 0 && !client && (
+        {latitude !== 0 && !client && (
           <CircleMarker
-            center={[position.latitude, position.longitude]}
+            center={[position.latitude,  position.longitude]}
             color="blue"
             fillColor="#0000FF"
             fillOpacity="0.5"
@@ -84,10 +84,10 @@ function LocationMarker({
             </Popup>
           </CircleMarker>
         )}
-        {position.latitude !== 0 && client && (
+        {latitude !== 0 && client && (
           <Markers allUsers={[{ name, surname, latitude, longitude }]} />
         )}
-        {position.latitude === 0 && null}
+        {latitude === 0 && null}
       </div>
     );
   }
