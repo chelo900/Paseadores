@@ -21,13 +21,10 @@ const Edit = () => {
       history.push(`/login`);
     }
   }, []);
-  let servicio;
-  if (paseador.service === "Paseador") servicio = "Walker";
-  if (paseador.service === "Cuidador") servicio = "Carer";
-  if (paseador.service === "Paseador y Cuidador") servicio = "Walker and Carer";
+
   const [input, setInput] = useState({
     status: paseador.status,
-    service: servicio,
+    service: paseador.service,
     phone: paseador.phone,
     email: paseador.email,
     ubication: paseador.ubication,
@@ -103,9 +100,9 @@ const Edit = () => {
           className={style.selector}
         >
           <option>Seleccione Servicio:</option>
-          <option value="Walker">Paseador</option>
-          <option value="Carer">Cuidador</option>
-          <option value="Walker and Carer">Paseador y Cuidador</option>
+          <option value="Paseador">Paseador</option>
+          <option value="Cuidador">Cuidador</option>
+          <option value="Paseador y Cuidador">Paseador y Cuidador</option>
         </select>
         <input
           type="text"

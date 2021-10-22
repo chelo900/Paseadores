@@ -57,7 +57,7 @@ const UsersCards = () => {
 
   useEffect(() => {
     if (walker === "false" && admin === "false") {
-      dispatch(getUserFavorites(id));
+      dispatch(getUserFavorites(id, token));
     }
   }, []);
 
@@ -67,15 +67,15 @@ const UsersCards = () => {
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       setPage(page + 1);
     } else {
-       Swal.fire({
-        title: 'Ultima pagina !',
+      Swal.fire({
+        title: "Ultima pagina !",
         showClass: {
-          popup: 'animate__animated animate__fadeInDown'
+          popup: "animate__animated animate__fadeInDown",
         },
         hideClass: {
-          popup: 'animate__animated animate__fadeOutUp'
-        }
-      })
+          popup: "animate__animated animate__fadeOutUp",
+        },
+      });
     }
   }
 
@@ -83,16 +83,15 @@ const UsersCards = () => {
     e.preventDefault();
     if (page === 0) {
       Swal.fire({
-        title: 'Primer pagina !',
+        title: "Primer pagina !",
         showClass: {
-          popup: 'animate__animated animate__fadeInDown'
+          popup: "animate__animated animate__fadeInDown",
         },
         hideClass: {
-          popup: 'animate__animated animate__fadeOutUp'
-        }
-      })
-    }
-    else {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+      });
+    } else {
       setPage(page - 1);
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     }
@@ -261,7 +260,10 @@ const UsersCards = () => {
                 <option> Filtrar por Servicio </option>
                 <option value="Paseador"> Paseador </option>
                 <option value="Cuidador"> Cuidador </option>
-                <option value=" Paseador y Cuidador"> Paseador y Cuidador </option>
+                <option value=" Paseador y Cuidador">
+                  {" "}
+                  Paseador y Cuidador{" "}
+                </option>
               </select>
             </div>
             <div>
@@ -341,7 +343,6 @@ const UsersCards = () => {
             </button>
             {/* )} */}
           </div>
-
         </div>
       </div>
     </div>

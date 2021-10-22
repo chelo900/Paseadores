@@ -29,7 +29,7 @@ module.exports = (sequelize) => {
     },
     ubicacion:{
         type: DataTypes.STRING,
-        allowNull: false
+        defaultValue: "yellow"
     }
     
     },
