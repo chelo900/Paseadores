@@ -37,6 +37,7 @@ import { store } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import LocationMarker from "../../ComponentsMaps/LocationMarker";
 import AddMarkerToClick from "../../ComponentsMaps/AddMarkerToClick";
+
 dotenv.config();
 
 // import Footer from './footer/Footer';
@@ -60,8 +61,6 @@ const PerfilWalker = () => {
   const [ordenload, setOrdenLoad] = useState(false);
   const [delImage, setDelImage] = useState(false);
   const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
-  const [open, setOpen] = useState(false);
-  const [img, setImg] = useState("");
 
   useEffect(() => {
     dispatch(getPreferences(id, token));
@@ -111,8 +110,8 @@ const PerfilWalker = () => {
   // };
 
   useEffect(() => {
-    if (Walker.premium === false)
-      handleNotPremium();
+    if(Walker.premium === false)
+    handleNotPremium();
   }, []);
 
   useEffect(() => {
@@ -132,7 +131,7 @@ const PerfilWalker = () => {
         ordenes.color.toString() === "yellow"
     );
     setTimeout(() => {
-      if (ordenespendientes.length > 0) {
+      if (ordenespendientes.length >0 ) {
         swal({
           title: "Tenes ordenes pendientes que contestar!",
           info: "info",
@@ -226,7 +225,7 @@ const PerfilWalker = () => {
   //     }
 
   // }
-
+  
   const handleEventClick = (clickInfo) => {
     if (clickInfo.event.extendedProps.estadoReserva === "pendiente") {
       Swal.fire({
@@ -312,19 +311,11 @@ const PerfilWalker = () => {
     });
   };
 
-  const handleOpenImg = (event) => {
-    setOpen(true);
-    setImg(event.target.src);
-  }
-
-  const handleCloseImg = () => {
-    setOpen(false);
-    setImg("");
-  }
 
   return (
     <div className={style.container}>
-      <Nav className={style.nav} />
+      <Nav />
+
       <div className={style.containerPerfil}>
         <ReactNotification />
 
@@ -361,19 +352,14 @@ const PerfilWalker = () => {
               <li className={style.liPhone}>{Walker.phone}</li>
               <li className={style.liEmail}>{Walker.email}</li>
               <li className={style.liDni}>{Walker.dni}</li>
-              <li className={style.liUbication}>{Walker.ubication}</li>
+              {/* <li className={style.liUbication}>{Walker.ubication}</li> */}
             </ul>
             <Link
               to={`/walker/editInformation/${id}`}
               className={style.editContainerInfo}
             >
               <button className={style.edit}>Editar Informacion</button>
-              <button
-                className={style.editDescription}
-                onClick={(e) => handleNotPremium(e)}
-              >
-                Editar Informacion
-              </button>
+              
             </Link>
           </div>
           <div className={style.preferencias}>
@@ -382,21 +368,26 @@ const PerfilWalker = () => {
               <button className={style.edit}>Editar preferencias</button>
             </Link>
           </div>
-          <button
-            onClick={(e) => {
-              handleOnClick1(e);
-            }}
-          >
-            Detectar mi ubicación
-          </button>
+          <div >
+            <h2 className={style.ubicacion}>Ubicacion:</h2>
+            <button
+            className={style.botones}
+              onClick={(e) => {
+                handleOnClick1(e);
+              }}
+            >
+              Detectar 
+            </button>
 
-          <button
-            onClick={(e) => {
-              handleOnClick2(e);
-            }}
-          >
-            Agregar ubicacion manualmente
-          </button>
+            <button
+            className={style.botones}
+              onClick={(e) => {
+                handleOnClick2(e);
+              }}
+            >
+              Agregar manualmente
+            </button>
+          </div>
 
           {Walker.latitude && mapa === "" && (
             <SelectorMap
@@ -424,41 +415,34 @@ const PerfilWalker = () => {
           )}
         </div>
         <div className={style.caracteristicas}>
-          {Walker.premium ? (
-            <div></div>)
-            : (
-              <div className={style.Premuim}>
-                <Premium />
-              </div>)
-          }
+          <div className={style.Premuim}>
+            <Premium />
+          </div>
           <div className={style.descripcion}>
             <h2>Descripcion:</h2>
             <div className={style.textDescription}>
               {Walker.description ? (
                 <p className={style.textDescriptionNew}>{Walker.description}</p>
               ) : (
-                <p>Agrega una descripción</p>
+                <p>Agrega una descripcion</p>
               )}
             </div>
             <Link
               to={`/walker/editDescription/${id}`}
               className={style.editContainer}
-            >
-              <div className={style.editDescription}>
-                <span class="material-icons-outlined">edit</span>
+            > 
                 <button
                   className={style.editDescription}
                 >
-                  Editar Descripcion
+                   <span class="material-icons-outlined">edit</span>
                 </button>
-              </div>
             </Link>
           </div>
           <div className={style.price}>
             <h2>Precio por Hora:</h2>
             <div className={style.textDescription}>
-            {Walker.price != 0 ? (
-                <p>$ {Walker.price}</p>
+              {Walker.price != 0 ? (
+                <p>${Walker.price}</p>
               ) : (
                 <p>Ponle un precio a tu servicio</p>
               )}
@@ -469,9 +453,6 @@ const PerfilWalker = () => {
             >
               <button className={style.editDescription}>
                 <span class="material-icons-outlined">edit</span>
-                <button className={style.editDescription}>
-                  Editar Precio
-                </button>
               </button>
             </Link>
           </div>
@@ -494,23 +475,15 @@ const PerfilWalker = () => {
               {score === 5 && <img src={patitallena} alt="" />}
               {score < 5 && <img src={patitavacia} alt="sas" />}
             </div>
-            <h2>Comentarios:</h2>
-            {comment?.length &&
-              comment.map((el) => (
-                <div>
-                  <p> {el}</p>
-                </div>
-              ))}
+            
           </div>
           <div className={style.fotos}>
             <div className={style.fondoFotos}>
               <h2>Fotos</h2>
               <div className={style.galeria}>
                 {Walker.images?.map((i) => (
-                  <div className={style.containerImg} key={i.public_id}>
-                    <button className={style.btnI} onClick={handleOpenImg}>
-                      <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
-                    </button>
+                  <div key={i.public_id}>
+                    <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
                     <button
                       onClick={() => handleDelete(i.public_id, token)}
                       className="p"
@@ -525,69 +498,17 @@ const PerfilWalker = () => {
                 action={`${baseURL}/postimages/${id}`}
                 method="POST"
                 encType="multipart/form-data"
-                className={style.formImg}
               >
-                <input className={style.inputImg} type="file" name="image" />
+                <input type="file" name="image" />
                 <button className={style.subir} type="submit">
                   Subir
                 </button>
               </form>
-              <Link to={`/messenger`} className={style.editContainerInfo}>
-                <button className={style.editDescription}>CHAT</button>
-              </Link>
-              {
-                open ? (
-                  <div className={style.modal}>
-                    <div className={style.containerImgGrande}>
-                      <button
-                        className={style.closeModal}
-                        onClick={handleCloseImg}>
-                        X
-                      </button>
-                      <img src={`${img}`} alt="Imagen" className={style.imagenModal} />
-                    </div>
-                  </div>
-                ) : (
-                  <div></div>
-                )
-              }
+            </div>
+            <div>
               <div>
-                <div>
-                  <span>🟢 Paseos Confirmados</span>
-                  <span>🟡 Pendientes</span>
-                </div>
-                <FullCalendar
-                  eventClassNames={style.calendar}
-                  plugins={[
-                    dayGridPlugin,
-                    timeGridPlugin,
-                    interactionPlugin,
-                    listPlugin,
-                  ]}
-                  headerToolbar={{
-                    left: "prev,next today",
-                    center: "title",
-                    right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
-                  }}
-                  initialView="timeGridWeek"
-                  locale={esLocale}
-                  editable={true}
-                  selectable={false}
-                  selectMirror={false}
-                  dayMaxEvents={true}
-                  select={handleDateSelect}
-                  eventClick={handleEventClick}
-                  contentHeight="auto"
-                  slotDuration={preferencias.duracion_paseos || "03:00:00"}
-                  events={ordensCliente}
-                  slotMinTime={preferencias.comienzo_jornada || "08:00:00"}
-                  slotMaxTime={preferencias.fin_jornada || "23:00:00"}
-                  allDaySlot={false}
-                  weekends={preferencias.dias_trabajo === "LV" ? false : true}
-                  hiddenDays={
-                    preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
-                  }
-                />
+                <span>🟢 Paseos Confirmados</span>
+                <span>🟡 Pendientes</span>
               </div>
               <FullCalendar
                 eventClassNames={style.calendar}
@@ -668,14 +589,24 @@ const PerfilWalker = () => {
             events={ordensCliente}
             locale={esLocale}
           />
+          <div className={style.comentariosWalker}> 
+            <h3>Comentarios:</h3>
+              {comment?.length &&
+                comment.map((el) => (
+                  <div>
+                    <p> {el}</p>
+                    <hr></hr>
+                  </div>
+                ))}
+          </div>
           {/* <img className={style.decoracion} src ={fotosola} alt="fotoFondo" /> */}
         </div>
       </div>
-      <Link to={`/chat`} className={style.editContainerChat}>
+      {/* <Link to={`/chat`} className={style.editContainerChat}>
         <button className={style.editchat}>
           <img src={chat} alt="chat" title="Conectar" />
         </button>
-      </Link>
+      </Link> */}
     </div>
   );
 };

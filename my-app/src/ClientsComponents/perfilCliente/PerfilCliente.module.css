@@ -7,7 +7,10 @@
     /* background-color: rgb(58,84,180, 0.2); */
     /* background-image: url("../../media/fondo1.jpg");
     background-size: cover; */
-    background-color: rgb(58,84,180, 0.2);
+    /* background-color: rgb(58,84,180, 0.2); */
+    background-image: url('../../media/fondocliente.jpg');
+    object-position: center;
+    object-fit: cover;
     width: 100%;
     height: 330px;
     display: flex;
@@ -16,16 +19,16 @@
 }
 
 .fotoPerfil img {
-    height: 200px;
-    width: 200px;
+    height: 250px;
+    width: 250px;
     border-radius: 50% ;
     /* position: relative; */
     /* top: 6px;
     left: 6px; */
-    /* object-fit: cover;
-    object-position: center; */
+    object-fit: cover;
+    object-position: center;
     border: 6px solid white;
-    margin-top: 60px;
+    margin-top: 40px;
 }
 
 .containerPerfil{
@@ -38,8 +41,9 @@
     grid-column: 1span;
     background-color: white;
     width: 400px;
-    height: 750px;
+    height: 700PX;
     margin-left: 100px;
+    margin-top: 80px;
 }
 
 .informacion{
@@ -58,14 +62,14 @@
 }
 
 .liPhone{
-    margin: 30px 0 20px 0;
+    margin: 30px 10px 20px 0;
     list-style-image: url("../../media/iconPhone.png");
     font-family: 'Nunito', sans-serif;
     font-size: 20px;
 }
 
 .liEmail{
-    margin: 10px 0 20px 0;
+    margin: 10px 10px 20px 0;
     list-style-image: url("../../media/iconEmail.png");
     font-family: 'Nunito', sans-serif;
     font-size: 20px;
@@ -79,13 +83,14 @@
 }
 
 .caracteristicas{
-    grid-column: 1span;
+    grid-column: 2 span;
     width: 100%;
+    margin-top: 90px;
 }
 
 .descripcion{
     margin: 0 20px 0 20px;
-    width: 600px;
+    width: 70%;
     height: auto;
     background-color: white;
     /* box-shadow: 1px 1px 5px rgb(0, 0, 0); */
@@ -183,7 +188,7 @@
 
 .favoritos{
     margin: 26px 20px 0 20px;
-  
+  width: 70%;
     background-color: white;
 }
 
@@ -201,9 +206,55 @@
    
 }
 
+.botones{
+    height: 30px;
+    width: 250px;
+    margin: 10px;
+    margin-left: 70px;
+    background-color: green;
+    color: white;
+    border: none;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+    cursor: pointer;
+  }
+  .botones:hover{
+   
+    box-shadow:none;
+  }
+  .ubicacion{
+    color: rgb(58,84,180);
+    margin-top: 10px;
+    padding: 20px;
+  }
 
+.local{
+   margin-left: 15px;
+   background-color: white;
+   width: 70%;
+}
 
+.editNew{
+    background-color: transparent;
+    border:none;
+    margin:20px;
 
+}
+
+.mapaNuevo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 99;
+}
+
+.cara{
+    position: absolute;
+    width: 400px;
+    top: 50px;
+    right: 0;
+}
 
 
 

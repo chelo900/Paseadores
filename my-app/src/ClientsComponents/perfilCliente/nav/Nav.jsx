@@ -61,10 +61,12 @@ const Nav = ({id}) => {
             <div className={style.serviceContainer}>
                 <h2 className={style.service}> Happy Dog! </h2>
             </div>
-            <div className={style.log} >
+            <div >
                 <Link to={`/cardsUsers`} className={style.textdeco}>
-                <span class="material-icons-outlined">home</span>
-                    <p>Home</p>
+                    <div className={style.home2}>
+                        <span class="material-icons-outlined">home</span>
+                        <p>Home</p>
+                    </div>
                 </Link>
             </div>
             <div>

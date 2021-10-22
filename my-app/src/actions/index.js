@@ -1,6 +1,5 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-const queryString = require("query-string");
 export const GET_PASEADORES = "GET_PASEADORES";
 export const GET_PASEADOR_FOR_ID = "GET_PASEADOR_FOR_ID";
 export const PUT_DETAILS_PROFILE = "PUT_DETAILS_PROFILE";
@@ -30,6 +29,7 @@ export const GET_ASSESSMENT = "GET_ASSESSMENT";
 export const GET_WALKERS_FOR_MAP = "GET_WALKERS_FOR_MAP";
 export const GET_WALKERS_BY_NAME = "GET_WALKERS_BY_NAME";
 
+const queryString = require("query-string");
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES";
 
