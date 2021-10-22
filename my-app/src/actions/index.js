@@ -28,16 +28,18 @@ export const POST_ASSESSMENT = "POST_ASSESSMENT";
 export const GET_ASSESSMENT = "GET_ASSESSMENT";
 export const GET_WALKERS_FOR_MAP = "GET_WALKERS_FOR_MAP";
 export const GET_WALKERS_BY_NAME = "GET_WALKERS_BY_NAME";
-const queryString = require("query-string");
+export const GET_ORDEN_REPUTACION = "GET_ORDEN_REPUTACION";
+
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES";
+const queryString = require("query-string");
 
 export function login(payload) {
   return async function (dispatch) {
     try {
       return axios
-        .post("/login", payload)
-        .then((res) => dispatch({ type: LOGIN, payload: res.data }));
+      .post("/login", payload)
+      .then((res) => dispatch({ type: LOGIN, payload: res.data }));
     } catch (error) {
       console.error("Action login: ", error);
     }
@@ -668,6 +670,22 @@ export function contacto(payload) {
         title: "No se pudo enviar el mensaje",
         showConfirmButton: false,
       });
+    }
+  };
+}
+
+export function getOrdenReputacion(payload, token) {
+  return async function (dispatch) {
+    try {
+      let result = await axios.post(`/getOrdenReputacion`, payload, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return dispatch({
+        type: "GET_ORDEN_REPUTACION",
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 }
