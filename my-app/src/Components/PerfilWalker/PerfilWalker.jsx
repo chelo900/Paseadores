@@ -38,6 +38,7 @@ import "react-notifications-component/dist/theme.css";
 import LocationMarker from "../../ComponentsMaps/LocationMarker";
 import AddMarkerToClick from "../../ComponentsMaps/AddMarkerToClick";
 import styled from "styled-components";
+const frontURL = process.env.REACT_APP || "http://localhost:3000";
 dotenv.config();
 
 // import Footer from './footer/Footer';
@@ -49,6 +50,8 @@ const PerfilWalker = () => {
 
   const history = useHistory();
   const [mapa, setMapa] = useState("");
+  const [open, setOpen] = useState(false);
+  const [img, setImg] = useState("");
 
   const Walker = useSelector((state) => state.detailWalker);
 
@@ -61,6 +64,7 @@ const PerfilWalker = () => {
   const [ordenload, setOrdenLoad] = useState(false);
   const [delImage, setDelImage] = useState(false);
   const baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+  const frontURL = process.env.REACT_APP || "http://localhost:3000";
 
   useEffect(() => {
     dispatch(getPreferences(id, token));
@@ -196,7 +200,7 @@ const PerfilWalker = () => {
         html:
           `Tenes una solicitud!! ` +
           `Ingresa a ` +
-          `<a href=http://localhost:3000/Walker/Cliente/${clickInfo.event.extendedProps.clientId}>Click aqui</a>` +
+          `<a href=${frontURL}/Walker/Cliente/${clickInfo.event.extendedProps.clientId}>Click aqui</a>` +
           ` para ver mas detalles del cliente y su ubicación`,
         icon: "info",
         showCloseButton: true,
@@ -478,9 +482,13 @@ const StyleWrapper = styled.div`
           )}
         </div>
         <div className={style.caracteristicas}>
-          <div className={style.Premuim}>
-            <Premium />
-          </div>
+          {!Walker.premium ? (
+            <div className={style.Premuim}>
+              <Premium />
+            </div>
+          ) : (
+            <div></div>
+          )}
           <div className={style.descripcion}>
             <h2>Descripcion:</h2>
             <div className={style.textDescription}>
@@ -542,8 +550,10 @@ const StyleWrapper = styled.div`
               <h2>Fotos</h2>
               <div className={style.galeria}>
                 {Walker.images?.map((i) => (
-                  <div key={i.public_id}>
-                    <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
+                  <div className={style.containerImg} key={i.public_id}>
+                    <button className={style.btnI} onClick={handleOpenImg}>
+                      <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
+                    </button>
                     <button
                       onClick={() => handleDelete(i.public_id, token)}
                       className="p"
@@ -558,8 +568,9 @@ const StyleWrapper = styled.div`
                 action={`${baseURL}/postimages/${id}`}
                 method="POST"
                 encType="multipart/form-data"
+                className={style.formImg}
               >
-                <input type="file" name="image" />
+                <input className={style.inputImg} type="file" name="image" />
                 <button className={style.subir} type="submit">
                   Subir
                 </button>
@@ -652,13 +663,13 @@ const StyleWrapper = styled.div`
           </Agenda>
           <div className={style.comentariosWalker}>
             <h3>Comentarios:</h3>
-            {comment?.length &&
+            {comment?.length ?(
               comment.map((el) => (
                 <div>
                   <p> {el}</p>
                   <hr></hr>
                 </div>
-              ))}
+              ))): <p>No hay comentarios.</p>}
           </div>
           {/* <img className={style.decoracion} src ={fotosola} alt="fotoFondo" /> */}
         </div>
@@ -673,6 +684,22 @@ const StyleWrapper = styled.div`
           <img src={chat} alt="chat" title="Conectar" />
         </button>
       </Link>
+      {
+              open ? (
+                <div className={style.modal}>
+                  <div className={style.containerImgGrande}>
+                    <button
+                      className={style.closeModal}
+                      onClick={handleCloseImg}>
+                      X
+                    </button>
+                    <img src={`${img}`} alt="Imagen" className={style.imagenModal} />
+                  </div>
+                </div>
+              ) : (
+                <div></div>
+              )
+            }
     </div>
   );
 };

@@ -6,17 +6,18 @@
 .tt{
     height: 100vh;
     width: 100%;
-    background-color: #fff;
+    background-color: rgb(254,247, 237);
     opacity: 0.8;
-    background-image:  linear-gradient(30deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(150deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(30deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(150deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(60deg, #fef7ed77 25%, transparent 25.5%, transparent 75%, #fef7ed77 75%, #fef7ed77), linear-gradient(60deg, #fef7ed77 25%, transparent 25.5%, transparent 75%, #fef7ed77 75%, #fef7ed77);
+    /* background-image:  linear-gradient(30deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(150deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(30deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(150deg, #fef7ed 12%, transparent 12.5%, transparent 87%, #fef7ed 87.5%, #fef7ed), linear-gradient(60deg, #fef7ed77 25%, transparent 25.5%, transparent 75%, #fef7ed77 75%, #fef7ed77), linear-gradient(60deg, #fef7ed77 25%, transparent 25.5%, transparent 75%, #fef7ed77 75%, #fef7ed77);
     background-size: 20px 35px;
-    background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
+    background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px; */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .total {
-    background-color: rgb(219, 219, 219);
+    background-color: white;
+    box-shadow: 1px 2px 10px rgb(0, 0, 0);
     text-align: left;
     padding: 20px 20px;
     width: 750px;
@@ -34,20 +35,17 @@
     font-size: 15px;
 }
 
-.form{
+.title2 {
+    text-align: center;
     color: rgb(58,84,180);
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
+
 }
+
 .title {
     text-align: center;
     color: rgb(58,84,180);
-    border-bottom: 1px solid rgb(58,84,180);
+    margin: 10px;
+
 }
 
 .izquierda{
@@ -197,6 +195,7 @@
     transition: all .3s;
     color: #fff;
 }
+
 .volver{
     border: none;
     background-color: green;
@@ -207,10 +206,15 @@
     cursor: pointer;
     box-shadow: 1px 1px 2px rgb(0, 0, 0);
 }
-.btnEnviar:hover,
+.btnEnviar:hover{
+    background-color: #fff;
+    color: rgb(58,84,180);
+    border: solid 2px rgb(58,84,180);
+}
 .voler:hover{
     background-color: #fff;
     color: rgb(58,84,180);
+
 }
 
 .textArea{

@@ -2,6 +2,8 @@ const { Router } = require("express");
 const { User, Client, Administrator } = require("../../db");
 const { Op } = require("sequelize");
 const {sendEmail} = require("../../utils/utils");
+require("dotenv").config();
+const frontURL = process.env.REACT_APP || "http://localhost:3000";
 
 const router = Router();
 
@@ -24,7 +26,7 @@ router.post("/", async (req, res) => {
       //GET BY NAME
 
      
-      const verificaciónLink = `http://localhost:3000/new-password/${client.name}`
+      const verificaciónLink = `${frontURL}/new-password/${client.name}`
 
       const body =  
       {from: '"Cambio Contraseña 👻" <paseadorescuidadores@gmail.com>',

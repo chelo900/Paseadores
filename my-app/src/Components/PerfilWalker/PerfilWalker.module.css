@@ -1,3 +1,4 @@
+
 .container {
   background-color: rgb(254, 247, 237);
   min-height: 100vh;
@@ -327,18 +328,13 @@
 }
 
 .preferencias {
-  margin-left: 30px;
   line-height: 30px;
+  padding: 10px;
+  background-color:rgb(58, 84, 180, 0.4); 
+  text-align: center;
+  font-weight: 600;
 }
 
-.preferencias button {
-  margin-top: 20px;
-  margin-left: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
 .editDescription:hover {
   box-shadow: none;

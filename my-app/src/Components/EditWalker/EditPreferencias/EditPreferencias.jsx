@@ -138,6 +138,10 @@ function EditPreferencias() {
     });
   }
 
+  const handelerBack =()=>{
+    history.push(`/walker/perfil/${userId}`);
+  }
+
   const handleDias = (e) => {
     setNewPreferencias({
       ...newPreferencias,
@@ -167,6 +171,7 @@ function EditPreferencias() {
       history.push(`/walker/perfil/${userId}`);
     }, 1500);
   };
+
 
   const [array, setArray] = useState([]);
 
@@ -232,9 +237,10 @@ function EditPreferencias() {
     <div className={style.tt}>
       <form className={style.total} onSubmit={(e) => handleSubmit(e)}>
         <h1 className={style.title}>Completa tus preferencias de trabajo</h1>
-        <h2 className={style.title}>
-          Así tus clientes te encuentran más fácil
+        <h2 className={style.title2}>
+          Y conectate con mas facilidad...
         </h2>
+        <hr></hr>
         <div className={style.form}>
           <div className={style.izquierda}>
             <div className={style.container}>
@@ -371,13 +377,14 @@ function EditPreferencias() {
           </div>
         </div>
         <div className={style.containerBtn}>
+          <button className={style.btnEnviar} onClick={e=>handelerBack()}>Atrás</button>
           {
             newPreferencias.dias_trabajo && newPreferencias.dias_trabajo.length !== 0 &&
               newPreferencias.perros_por_paseo && newPreferencias.perros_por_paseo.length !== 0 &&
               newPreferencias.duracion_paseos && newPreferencias.duracion_paseos.length !== 0 &&
               newPreferencias.comienzo_jornada && newPreferencias.comienzo_jornada.length !== 0 &&
               newPreferencias.fin_jornada && newPreferencias.fin_jornada.length !== 0 ?
-              <button className={style.btn} type="submit">
+              <button className={style.btnEnviar} type="submit">
                 {" "}
                 Enviar Preferencias{" "}
               </button>
