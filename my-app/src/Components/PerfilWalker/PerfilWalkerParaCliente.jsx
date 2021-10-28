@@ -34,7 +34,7 @@ import mediapatita from "../../media/mediapatita.png";
 import swal from "sweetalert";
 import axios from "axios";
 import MapView from "../../ComponentsMaps/MapView";
-
+import styled from "styled-components";
 import favorito from "../../media/favorito.png";
 import media from "../../media/media.png";
 import estrella from "../../media/estrella.png";
@@ -241,6 +241,7 @@ const PerfilWalker = () => {
               fechaFinal: selectInfo.endStr,
               userId: id,
               clientId: idClient,
+              ubicacion: client.name
             })
           );
           setTimeout(() => {
@@ -268,8 +269,49 @@ const PerfilWalker = () => {
     }
   };
 
-  // useEffect(() => {
-  // }, [ubicacion.provincia,ubicacion.municipio,ubicacion.localidad ])
+  const StyleWrapper = styled.div`
+  .fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+    margin-left: -
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: rgb(58, 84, 180, 0.8);;
+    color: white;
+  }
+  .fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: rgb(58, 84, 180, 0.8);;
+    color: white;
+  }
+  .fc .fc-toolbar-title {
+    font-size: 1.10em;
+    margin: 0;
+    color: black;
+  }
+  .fc .fc-toolbar-title:after {
+    content: 'Solicita tu turno';
+    display: block;
+    color: rgb(58, 84, 180, 0.8);
+  }
+  .fc .fc-button-primary {
+    border-color: var(--fc-button-border-color, #2C3E50);
+    background-color:rgb(58, 84, 180, 0.8);
+}
+.fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link{
+  width: 12px;
+  height: 12px;
+  margin-right: 1px;
+  border-radius: 80%;
+  display: flex;
+  top: 10px;
+  font-size: 0em;
+}
+.fc .fc-scroller {
+  -webkit-overflow-scrolling: touch;
+
+  background-color: gokzuw .fc .fc-button-primary:disabled { border-color: #2C3E50; border-color: var(--fc-button-border-color,rgb(58,84,180,0.8);); background-color: rgb(58, 84, 180, 0.8);};
+  background-color: rgb(203, 233, 251);
+  }`
 
   return (
     <div className={style.container}>
@@ -466,13 +508,14 @@ const PerfilWalker = () => {
             <span>🟡 Pendientes</span>
           </div>
           <div>
+            <StyleWrapper>
             <FullCalendar
               eventClassNames={style.calendar}
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
               headerToolbar={{
                 left: "prev,next today",
                 center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay",
+                right: "dayGridMonth,timeGridWeek",
               }}
               initialView="timeGridWeek"
               locale={esLocale}
@@ -493,6 +536,8 @@ const PerfilWalker = () => {
                 preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
               }
             />
+            </StyleWrapper>
+
           </div>
         </div>
       </div>

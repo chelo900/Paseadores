@@ -7,14 +7,14 @@ const router = Router();
 
 router.post("/",  async (req,res)=>{
     // const {userId, clientId} = req.params;
-    const {fechaInicio,fechaFinal,userId, clientId} = req.body;
+    const {fechaInicio,fechaFinal,userId, clientId,ubicacion} = req.body;
     try {
     const orden = await Orden.create({
         userId: userId,
         clientId: clientId,
         fechaInicio,
         fechaFinal,
-        
+        ubicacion
     })
 
     if(orden){

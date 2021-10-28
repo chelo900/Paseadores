@@ -704,3 +704,42 @@
 .comentariosWalker p {
   margin: 20px;
 }
+
+.paseos{
+  width: auto;
+  height: 25px;
+  background-color: rgb(58, 84, 180, 0.8);
+  border: none;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+  box-shadow: 1px 1px 2px rgb(0 0 0);
+  margin: 5px 20px 20px 0;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-left: 10px;
+}
+.paseos:hover {
+  box-shadow: none;
+}
+
+.answer{
+  width: auto;
+  height: 25px;
+  background-color: hsl(60, 84%, 52%);
+  border: none;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+  box-shadow: 1px 1px 2px rgb(0 0 0);
+  margin: 5px 20px 20px 0;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-left: 10px;
+  color: black;
+}
+.paseos:hover {
+  box-shadow: none;
+}
