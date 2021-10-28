@@ -241,6 +241,7 @@ const PerfilWalker = () => {
               fechaFinal: selectInfo.endStr,
               userId: id,
               clientId: idClient,
+              ubicacion: client.name
             })
           );
           setTimeout(() => {
@@ -304,7 +305,13 @@ const PerfilWalker = () => {
   display: flex;
   top: 10px;
   font-size: 0em;
-}`
+}
+.fc .fc-scroller {
+  -webkit-overflow-scrolling: touch;
+
+  background-color: gokzuw .fc .fc-button-primary:disabled { border-color: #2C3E50; border-color: var(--fc-button-border-color,rgb(58,84,180,0.8);); background-color: rgb(58, 84, 180, 0.8);};
+  background-color: rgb(203, 233, 251);
+  }`
 
   return (
     <div className={style.container}>

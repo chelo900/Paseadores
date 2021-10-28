@@ -38,6 +38,8 @@ import "react-notifications-component/dist/theme.css";
 import LocationMarker from "../../ComponentsMaps/LocationMarker";
 import AddMarkerToClick from "../../ComponentsMaps/AddMarkerToClick";
 import styled from "styled-components";
+import Modal from "./Modal/Modal";
+import { useModal } from "./Modal/useModal";
 const frontURL = process.env.REACT_APP || "http://localhost:3000";
 dotenv.config();
 
@@ -154,6 +156,8 @@ const PerfilWalker = () => {
     }, 1500);
   }, [dispatch]);
 
+  const [isOpen, openModal, closeModal] = useModal (false)
+
   const handleDateSelect = (selectInfo) => {
     let calendarApi = selectInfo.view.calendar;
     let title = prompt(`Confirma reserva con ${Walker.name}`);
@@ -191,7 +195,19 @@ const PerfilWalker = () => {
     setMapa("manual");
   }
 
-  
+
+  const handleOpenImg = (event) => {
+    setOpen(true);
+    setImg(event.target.src);
+  }
+
+  const handleCloseImg = () => {
+    setOpen(false);
+    setImg("");
+  }
+
+ 
+
 
   const handleEventClick = (clickInfo) => {
     if (clickInfo.event.extendedProps.estadoReserva === "pendiente") {
@@ -283,32 +299,32 @@ const PerfilWalker = () => {
   margin-left: 1
   background-color: rgb(58, 84, 180, 0.8);;
   color: white;
-}
-.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+  }
+  .fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
   margin-left: -1px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   background-color: rgb(58, 84, 180, 0.8);
-}
-.gokzuw .fc .fc-button-primary:disabled {
+  }
+  .gokzuw .fc .fc-button-primary:disabled {
   border-color: #2C3E50;
   border-color: var(--fc-button-border-color,rgb(58,84,180,0.8););
   background-color: rgb(58, 84, 180, 0.8);
-}
+  }
 
 
-.fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
+  .fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   background-color: rgb(58, 84, 180, 0.8);;
   color: white;
-}
-.fc .fc-button-primary:disabled {
+  }
+  .fc .fc-button-primary:disabled {
   border-color: #2C3E50;
   border-color: var(--fc-button-border-color, rgb(58, 84, 180, 0.8););
   background-color: blue;
-}
-.fc .fc-view-harness {
+  }
+  .fc .fc-view-harness {
   flex-grow: 1;
   position: relative;
   background-color: rgb(203, 233, 251);   
@@ -317,49 +333,54 @@ const PerfilWalker = () => {
   backdrop-filter: drop-shadow(4px 4px 10px blue);
   backdrop-filter: invert(70%);
   backdrop-filter: opacity(20%);
-}
-.fc .fc-toolbar-title {
+  }
+  .fc .fc-toolbar-title {
   font-family: "Work Sans", sans-serif;
   color: rgb(58, 84, 180, 0.8);;
   font-size: 1.25em;
   margin: 0;
-}
-.fc .fc-toolbar-title:after {
+  }
+  .fc .fc-toolbar-title:after {
   content: 'Lista de Paseos';
   display: block
-}` 
+  }
+  .fc .fc-list-event-title a {
+    color: inherit;
+    text-decoration: none;
+}
+` 
 
-const StyleWrapper = styled.div`
-.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+  const StyleWrapper = styled.div`
+  .fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
   margin-left: -
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   background-color: rgb(58, 84, 180, 0.8);;
   color: white;
-}
-.fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
+  }
+  .fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   background-color: rgb(58, 84, 180, 0.8);;
   color: white;
-}
-.fc .fc-toolbar-title {
+  }
+  .fc .fc-toolbar-title {
   font-size: 1.10em;
   margin: 0;
   color: black;
-}
-.fc .fc-toolbar-title:after {
+  }
+  .fc .fc-toolbar-title:after {
   content: 'Chequea si tenes paseos pendientes';
   display: block;
   color: rgb(58, 84, 180, 0.8);;
-}
-.eLsSpQ .fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+  }
+  .eLsSpQ .fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
   margin-left: - border-top-left-radius:0;
   border-bottom-left-radius: 0;
   background-color: rgb(58, 84, 180, 0.8);;
   color: white;
-}
-.fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link{
+  }
+  .fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link{
   width: 12px;
   height: 12px;
   margin-right: 1px;
@@ -367,18 +388,32 @@ const StyleWrapper = styled.div`
   display: flex;
   top: 10px;
   font-size: 0em;
-}
-.fc-theme-standard td, .fc-theme-standard th { border: 1px solid var(--fc-border-color, black);
-}
+  }
+  .fc-theme-standard td, .fc-theme-standard th { border: 1px solid var(--fc-border-color, black);
+  } 
 
 
-.fc .fc-scroller {
+  .fc .fc-scroller {
   -webkit-overflow-scrolling: touch;
- ;
+
   background-color: gokzuw .fc .fc-button-primary:disabled { border-color: #2C3E50; border-color: var(--fc-button-border-color,rgb(58,84,180,0.8);); background-color: rgb(58, 84, 180, 0.8);};
   background-color: rgb(203, 233, 251);
-}`
+  }
+  .fc-daygrid-dot-event .fc-event-title {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: visible;
+    font-weight: bold;
+}
+ `
 
+  const ordenespendientes = ordensCliente.filter(
+    (ordenes) => 
+      ordenes.estadoReserva.toString() === "pendiente" &&
+      ordenes.color.toString() === "yellow")
+
+      
 
   return (
     <div className={style.container}>
@@ -576,7 +611,8 @@ const StyleWrapper = styled.div`
                 </button>
               </form>
             </div>
-            <div>
+            <Modal isOpen={isOpen} closeModal={closeModal}   >
+            <div >
               <div>
                 <span>🟢 Paseos Confirmados</span>
                 <span>🟡 Pendientes</span>
@@ -613,10 +649,11 @@ const StyleWrapper = styled.div`
                 hiddenDays={
                   preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
                 }
-              />
+                />
               </StyleWrapper>
 
             </div>
+            </Modal>
             {/* <FullCalendar
               eventClassNames={style.calendar}
               plugins={[
@@ -652,6 +689,13 @@ const StyleWrapper = styled.div`
           </div>
         </div>
         <div className={style.paddingWalker}>
+          {
+            
+
+            ordenespendientes.length > 0 ? <button className={style.answer} onClick={openModal}> Tenes paseos por confirmar!</button> :
+            <button className={style.paseos} onClick={openModal}>  Controla tus paseos</button>
+          }
+         
           <Agenda>
           <FullCalendar
             className={style.calendario}
