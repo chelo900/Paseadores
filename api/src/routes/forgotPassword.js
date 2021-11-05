@@ -1,7 +1,8 @@
 const { Router } = require("express");
 const { User } = require("../db");
 const {sendEmail} = require("../utils/utils")
-
+require("dotenv").config();
+const frontURL = process.env.REACT_APP || "http://localhost:3000";
 const router = Router();
 
 router.put("/", async (req, res) => {
@@ -16,8 +17,7 @@ router.put("/", async (req, res) => {
                 email: email
             }
         })
-        
-        const verificaciónLink = `http://localhost:3000/new-password/${paseador.name}`
+        const verificaciónLink = `${frontURL}/new-password/${paseador.name}`
 
         const body =  
         {from: '"Cambio Contraseña 🐶" <paseadorescuidadores@gmail.com>',

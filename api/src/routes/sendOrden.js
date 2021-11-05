@@ -15,7 +15,6 @@ router.post("/",  async (req,res)=>{
         fechaInicio,
         fechaFinal,
         ubicacion
-        
     })
 
     if(orden){
@@ -36,7 +35,7 @@ router.post("/",  async (req,res)=>{
         {from: '"Tenés una solicitud de un turno 🐶" <paseadorescuidadores@gmail.com>',
          to: paseador.email, 
          subject: "Solicitud de turno", 
-         html: `<b>Hola ${paseador.name}, te queremos informar que ${dueño.name} requiere tus servicios durante el dia y las horas: ${orden.fechaInicio} - ${orden.fechaFinal} en la ubicación: ${orden.ubicacion}.</b>
+         html: `<b>Hola ${paseador.name}, te queremos informar que ${dueño.name} requiere tus servicios durante el dia y las horas: ${orden.fechaInicio} - ${orden.fechaFinal}.</b>
           <b>Responde cuanto antes esta solitud!</b>`
         }
         

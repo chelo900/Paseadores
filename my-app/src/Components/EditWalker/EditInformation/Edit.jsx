@@ -21,13 +21,10 @@ const Edit = () => {
       history.push(`/login`);
     }
   }, []);
-  let servicio;
-  if (paseador.service === "Paseador") servicio = "Walker";
-  if (paseador.service === "Cuidador") servicio = "Carer";
-  if (paseador.service === "Paseador y Cuidador") servicio = "Walker and Carer";
+
   const [input, setInput] = useState({
     status: paseador.status,
-    service: servicio,
+    service: paseador.service,
     phone: paseador.phone,
     email: paseador.email,
     ubication: paseador.ubication,

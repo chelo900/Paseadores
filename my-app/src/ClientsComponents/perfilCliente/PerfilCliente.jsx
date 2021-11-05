@@ -87,7 +87,11 @@ const PerfilCliente = () => {
               className={style.editContainer}
             >
               <button className={style.editNew}>
+<<<<<<< HEAD
                 <span class="material-icons-outlined">edit</span>
+=======
+               <span class="material-icons-outlined">edit</span>
+>>>>>>> b2c96b291e83d10412aa5e4b17d1ec30ee475b06
               </button>
             </Link>
           </div>

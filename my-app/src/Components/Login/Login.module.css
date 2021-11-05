@@ -80,7 +80,7 @@
 }
 
 .pass {
-  margin: -5px 0 20px 5px;
+  margin: -5px 0 0 5px;
   color: rgb(70, 70, 70);
   cursor: pointer;
 }
@@ -130,4 +130,5 @@
   width: 100%;
   text-align: center;
   margin-bottom: 15px;
+  margin-top: 10px;
 }

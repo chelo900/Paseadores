@@ -57,7 +57,7 @@ const UsersCards = () => {
 
   useEffect(() => {
     if (walker === "false" && admin === "false") {
-      dispatch(getUserFavorites(id));
+      dispatch(getUserFavorites(id, token));
     }
   }, []);
 
@@ -67,14 +67,30 @@ const UsersCards = () => {
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       setPage(page + 1);
     } else {
-      return alert("hol");
+      Swal.fire({
+        title: "Ultima pagina !",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+      });
     }
   }
 
   function handlePrevPage(e) {
     e.preventDefault();
     if (page === 0) {
-      return alert("Hola");
+      Swal.fire({
+        title: "Primer pagina !",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+      });
     } else {
       setPage(page - 1);
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -136,10 +152,10 @@ const UsersCards = () => {
     <div className={style.container}>
       <Nav />
       <img className={style.fotoFondo} src={fotoFondo} alt="fotoFondo" />
-      {allUsers.content?.length > 0 ? (
+      {allUsers.content?.length > 1 ? (
         <img className={style.fotoFondo2} src={fotoFondo2} alt="fotoFondo" />
       ) : null}
-      {allUsers.content?.length > 2 ? (
+      {allUsers.content?.length > 3 ? (
         <img className={style.fotoFondo3} src={fotoFondo3} alt="fotoFondo" />
       ) : null}
       {allUsers.content?.length > 4 ? (

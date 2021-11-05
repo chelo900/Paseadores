@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router";
-import FormWalker from "../Components/FormWalker/FormWalker";
 import Home from "../Components/Home/home";
+import FormWalker from "../Components/FormWalker/FormWalker";
 import PreLogin from "../Components/Home/PreLogin/PreLogin";
 import Login from "../Components/Login/Login.jsx";
 import recoverPassword from "../Components/Login/RecoverPassword";

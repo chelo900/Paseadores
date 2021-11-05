@@ -136,9 +136,15 @@ function EditPreferencias() {
     });
   }
 
+<<<<<<< HEAD
   const handelerBack = () => {
     history.push(`/walker/perfil/${userId}`);
   };
+=======
+  const handelerBack =()=>{
+    history.push(`/walker/perfil/${userId}`);
+  }
+>>>>>>> b2c96b291e83d10412aa5e4b17d1ec30ee475b06
 
   const handleDias = (e) => {
     setNewPreferencias({
@@ -169,6 +175,7 @@ function EditPreferencias() {
       history.push(`/walker/perfil/${userId}`);
     }, 1500);
   };
+
 
   const [array, setArray] = useState([]);
 
@@ -234,7 +241,13 @@ function EditPreferencias() {
     <div className={style.tt}>
       <form className={style.total} onSubmit={(e) => handleSubmit(e)}>
         <h1 className={style.title}>Completa tus preferencias de trabajo</h1>
+<<<<<<< HEAD
         <h2 className={style.title2}>Y conectate con mas facilidad...</h2>
+=======
+        <h2 className={style.title2}>
+          Y conectate con mas facilidad...
+        </h2>
+>>>>>>> b2c96b291e83d10412aa5e4b17d1ec30ee475b06
         <hr></hr>
         <div className={style.form}>
           <div className={style.izquierda}>
@@ -367,6 +380,7 @@ function EditPreferencias() {
           </div>
         </div>
         <div className={style.containerBtn}>
+<<<<<<< HEAD
           <button className={style.btnEnviar} onClick={(e) => handelerBack()}>
             Atrás
           </button>
@@ -387,6 +401,21 @@ function EditPreferencias() {
           ) : (
             <></>
           )}
+=======
+          <button className={style.btnEnviar} onClick={e=>handelerBack()}>Atrás</button>
+          {
+            newPreferencias.dias_trabajo && newPreferencias.dias_trabajo.length !== 0 &&
+              newPreferencias.perros_por_paseo && newPreferencias.perros_por_paseo.length !== 0 &&
+              newPreferencias.duracion_paseos && newPreferencias.duracion_paseos.length !== 0 &&
+              newPreferencias.comienzo_jornada && newPreferencias.comienzo_jornada.length !== 0 &&
+              newPreferencias.fin_jornada && newPreferencias.fin_jornada.length !== 0 ?
+              <button className={style.btnEnviar} type="submit">
+                {" "}
+                Enviar Preferencias{" "}
+              </button>
+              : <></>
+          }
+>>>>>>> b2c96b291e83d10412aa5e4b17d1ec30ee475b06
         </div>
       </form>
     </div>

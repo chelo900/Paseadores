@@ -55,7 +55,7 @@ const Form = () => {
         `${baseURL}/updatePremium`,
         {
           id,
-          amount: 200,
+          amount: 1200,
           email: walker.email,
         },
         { headers: header }
