@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Card from "../Card/Card";
+import CardsContainer from "./CardsContainer";
 import Carrusel from "../Carrusel/Carrusel";
 import Nav from "./Nav/Nav";
+import FiltersAndSortSection from "./FiltersAndSortSection";
+import BackgroundImages from "./BackgroundImages";
+import Pagination from "./Pagination";
 import style from "../UsersCards/UsersCards.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPaseadores, getUserFavorites } from "../../actions/index";
-import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import fotoFondo from "../../media/proceso2.jpg";
-import fotoFondo2 from "../../media/foto2Service.jpg";
-import fotoFondo3 from "../../media/premiumcortada.jpg";
-import fotoFondo4 from "../../media/fotoAbout.jpg";
 
 const UsersCards = () => {
   const dispatch = useDispatch();
@@ -29,7 +27,7 @@ const UsersCards = () => {
   });
   const [sortData, setSortData] = useState({ sortField: "" });
 
-  // Paginado
+  // Pagination
   const [page, setPage] = useState(0);
   // eslint-disable-next-line no-unused-vars
   const [pageSize, setLimitPerPage] = useState(5);
@@ -63,7 +61,7 @@ const UsersCards = () => {
 
   function handleNextPage(e) {
     e.preventDefault();
-    if (page < allUsers.totalPages) {
+    if (page < allUsers.totalPages - 1) {
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       setPage(page + 1);
     } else {
@@ -140,8 +138,7 @@ const UsersCards = () => {
     setSelectFilters({ ...selectFilters, [name]: value });
   }
 
-  function handleOnClick(event) {
-    event.preventDefault();
+  function handleOnClick() {
     setSelectFilters({ horario: "", service: "" });
     setInputFilters({ min: "", max: "", ubication: "" });
     setSortData({ sortField: "" });
@@ -151,173 +148,32 @@ const UsersCards = () => {
   return (
     <div className={style.container}>
       <Nav />
-      <img className={style.fotoFondo} src={fotoFondo} alt="fotoFondo" />
-      {allUsers.content?.length > 1 ? (
-        <img className={style.fotoFondo2} src={fotoFondo2} alt="fotoFondo" />
-      ) : null}
-      {allUsers.content?.length > 3 ? (
-        <img className={style.fotoFondo3} src={fotoFondo3} alt="fotoFondo" />
-      ) : null}
-      {allUsers.content?.length > 4 ? (
-        <img className={style.fotoFondo4} src={fotoFondo4} alt="fotoFondo" />
-      ) : null}
+      <BackgroundImages allUsers={allUsers} />
       <div className={style.containerDOS}>
         <div className={style.carrusel}>
           <Carrusel />
         </div>
         <div className={style.costado}>
-          <div>
-            <select
-              name="reputation"
-              className={style.rep}
-              onChange={handleSort}
-              value={sortData.sortField}
-            >
-              <option value="order"> Ordenar por Reputacion </option>
-              <option value="DESC"> Mayor reputacion </option>
-              <option value="ASC"> Menor reputacion </option>
-            </select>
-          </div>
-          <div>
-            <select
-              name="price"
-              className={style.pre}
-              onChange={handleSort}
-              value={sortData.sortField}
-            >
-              <option value="order"> Ordenar por Precio</option>
-              <option value="DESC"> Mayor precio </option>
-              <option value="ASC"> Menor precio </option>
-            </select>
-          </div>
-          <form onSubmit={handleFiltersSubmit} name={"price"}>
-            <div className={style.precio}>
-              <label className={style.pri}> Precio : </label>
-              <hr></hr>
-              <input
-                className={style.min}
-                type="number"
-                placeholder=" $ Mínimo "
-                name="min"
-                value={inputFilters.min}
-                onChange={handleFiltersOnChange}
-              />
-
-              <input
-                className={style.max}
-                type="number"
-                placeholder=" $ Maximo "
-                name="max"
-                value={inputFilters.max}
-                onChange={handleFiltersOnChange}
-              />
-              <button className={style.btn}> Buscar </button>
-            </div>
-          </form>
-          <div>
-            <form
-              autocomplete="off"
-              className={style.precio}
-              onSubmit={handleFiltersSubmit}
-            >
-              <label className={style.ubi}> Ubicacion : </label>
-              <input
-                className={style.zon}
-                type="search"
-                placeholder="Zona"
-                name="ubication"
-                value={inputFilters.ubication}
-                onChange={handleFiltersOnChange}
-                list="ubi"
-              />
-              <datalist id="ubi">
-                {ubica?.map((t) => {
-                  return <option key={t} value={t}></option>;
-                })}
-              </datalist>
-              <button className={style.btn}> Buscar </button>
-            </form>
-            <div>
-              <select
-                className={style.hora}
-                onChange={handleSelectFilters}
-                name={"horario"}
-                value={selectFilters.horario}
-              >
-                <option> Filtrar por Horario </option>
-                <option value="Mañana"> Mañana </option>
-                <option value="Tarde/Noche"> Tarde </option>
-                <option value="Full"> Todos </option>
-              </select>
-            </div>
-            <div>
-              <select
-                className={style.serv}
-                onChange={handleSelectFilters}
-                name={"service"}
-                value={selectFilters.service}
-              >
-                <option> Filtrar por Servicio </option>
-                <option value="Paseador"> Paseador </option>
-                <option value="Cuidador"> Cuidador </option>
-                <option value=" Paseador y Cuidador">
-                  {" "}
-                  Paseador y Cuidador{" "}
-                </option>
-              </select>
-            </div>
-            <div>
-              <button className={style.atc} onClick={handleOnClick}>
-                {" "}
-                Todos los Paseadores{" "}
-              </button>
-              <Link to="/cardsUsers/map">
-                <button className={style.atc}>Ver en mapa</button>
-              </Link>
-            </div>
-          </div>
+          <FiltersAndSortSection
+            sortData={sortData}
+            handleSort={handleSort}
+            inputFilters={inputFilters}
+            handleFiltersSubmit={handleFiltersSubmit}
+            handleFiltersOnChange={handleFiltersOnChange}
+            ubica={ubica}
+            selectFilters={selectFilters}
+            handleSelectFilters={handleSelectFilters}
+            handleOnClick={handleOnClick}
+          />
         </div>
 
         <div className={style.cards}>
-          {allUsers.content?.length > 0 ? (
-            allUsers.content.map((el) => {
-              var fv;
-
-              for (var i = 0; i < favorites.length; i++) {
-                if (favorites[i] === el.id) {
-                  fv = true;
-                }
-              }
-
-              return (
-                <Card
-                  key={el.id}
-                  id={el.id}
-                  name={el.name}
-                  surname={el.surname}
-                  image={el.image}
-                  service={el.service}
-                  price={el.price}
-                  reputation={el.reputation}
-                  description={el.description}
-                  ubication={el.ubication}
-                  fv={fv}
-                />
-              );
-            })
-          ) : (
-            <div>
-              <p>No se encontraron usuarios</p>
-            </div>
-          )}
-
+          <CardsContainer allUsers={allUsers} favorites={favorites} />
           <div className={style.pagination}>
-            <button className={style.prev} onClick={handlePrevPage}>
-              <p>&#60;</p>
-            </button>
-            <button className={style.next} onClick={handleNextPage}>
-              <p>&#62;</p>
-            </button>
+            <Pagination
+              handleNextPage={handleNextPage}
+              handlePrevPage={handlePrevPage}
+            />
           </div>
         </div>
       </div>
