@@ -27,10 +27,6 @@ export default function Messenger() {
   const id = localStorage.getItem("userId");
   const scrollRef = useRef();
 
-  // useEffect(() => {
-  //   setSocket(io(`ws://localhost:3001`));
-  // }, []);
-
   useEffect(() => {
     socket.current = io(`ws://${baseURL}`);
     socket.current.on("getMessage", (data) => {
@@ -54,12 +50,6 @@ export default function Messenger() {
       setOnlineUsers(users);
     });
   }, [id]);
-
-  // useEffect(() => {
-  //   socket?.on("bienvenido", (message) => {
-  //     console.log(message);
-  //   });
-  // }, [socket]);
 
   useEffect(() => {
     const getConversations = async () => {
@@ -112,12 +102,6 @@ export default function Messenger() {
       console.log(e);
     }
   };
-
-  // useEffect(() => {
-  //   socket.current.on("getMessage", data => {
-
-  //   })
-  // }, [])
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -174,16 +158,6 @@ export default function Messenger() {
             )}
           </div>
         </div>
-
-        {/* <div className="chatOnline">
-          <div className="chatOnlineWrapper">
-            <ChatOnline
-              onlineUsers={onlineUsers}
-              currentId={id}
-              setCurrentChat={setCurrentChat}
-            />
-          </div>
-        </div> */}
       </div>
     </div>
   );

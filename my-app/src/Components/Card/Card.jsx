@@ -12,23 +12,9 @@ import {
   getUserFavorites,
   deleteUserFavorite,
 } from "../../actions/index";
-
 import foto from "../../media/fotosola.png";
-
-// function Card({
-//   id,
-//   name,
-//   surname,
-//   image,
-//   reputation,
-//   service,
-//   price,
-//   description,
-// }) {
-//   const [fav, setFav] = useState(true);
-//   const handlerFavorite = () => {
-//     console.log("estaentrando", fav);
 import mediapatita from "../../media/mediapatita.png";
+
 function Card({
   id,
   name,
@@ -97,14 +83,6 @@ function Card({
           <h1 className={styles.name}>{name + " " + surname}</h1>
           <hr></hr>
           <h2>{service}</h2>
-          {/* <h3>Descripcion:</h3>
-        {description ? (
-          <span>{description}</span>
-          ) : (
-            <span>
-            Informacion no disponible .
-            </span>
-          )} */}
           <h3>Precio:</h3>
           <p> ${price}</p>
           <h3>Ubicación:</h3>

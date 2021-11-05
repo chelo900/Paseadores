@@ -8,7 +8,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { getPaseadorForId } from "../../actions/index";
 import style from "./Premium.module.css";
 import Swal from "sweetalert2";

@@ -156,7 +156,7 @@ const PerfilWalker = () => {
     }, 1500);
   }, [dispatch]);
 
-  const [isOpen, openModal, closeModal] = useModal (false)
+  const [isOpen, openModal, closeModal] = useModal(false);
 
   const handleDateSelect = (selectInfo) => {
     let calendarApi = selectInfo.view.calendar;
@@ -195,19 +195,15 @@ const PerfilWalker = () => {
     setMapa("manual");
   }
 
-
   const handleOpenImg = (event) => {
     setOpen(true);
     setImg(event.target.src);
-  }
+  };
 
   const handleCloseImg = () => {
     setOpen(false);
     setImg("");
-  }
-
- 
-
+  };
 
   const handleEventClick = (clickInfo) => {
     if (clickInfo.event.extendedProps.estadoReserva === "pendiente") {
@@ -311,8 +307,6 @@ const PerfilWalker = () => {
   border-color: var(--fc-button-border-color,rgb(58,84,180,0.8););
   background-color: rgb(58, 84, 180, 0.8);
   }
-
-
   .fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -348,7 +342,7 @@ const PerfilWalker = () => {
     color: inherit;
     text-decoration: none;
 }
-` 
+`;
 
   const StyleWrapper = styled.div`
   .fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
@@ -391,11 +385,8 @@ const PerfilWalker = () => {
   }
   .fc-theme-standard td, .fc-theme-standard th { border: 1px solid var(--fc-border-color, black);
   } 
-
-
   .fc .fc-scroller {
   -webkit-overflow-scrolling: touch;
-
   background-color: gokzuw .fc .fc-button-primary:disabled { border-color: #2C3E50; border-color: var(--fc-button-border-color,rgb(58,84,180,0.8);); background-color: rgb(58, 84, 180, 0.8);};
   background-color: rgb(203, 233, 251);
   }
@@ -406,14 +397,13 @@ const PerfilWalker = () => {
     overflow: visible;
     font-weight: bold;
 }
- `
+ `;
 
   const ordenespendientes = ordensCliente.filter(
-    (ordenes) => 
+    (ordenes) =>
       ordenes.estadoReserva.toString() === "pendiente" &&
-      ordenes.color.toString() === "yellow")
-
-      
+      ordenes.color.toString() === "yellow"
+  );
 
   return (
     <div className={style.container}>
@@ -611,48 +601,47 @@ const PerfilWalker = () => {
                 </button>
               </form>
             </div>
-            <Modal isOpen={isOpen} closeModal={closeModal}   >
-            <div >
+            <Modal isOpen={isOpen} closeModal={closeModal}>
               <div>
-                <span>🟢 Paseos Confirmados</span>
-                <span>🟡 Pendientes</span>
+                <div>
+                  <span>🟢 Paseos Confirmados</span>
+                  <span>🟡 Pendientes</span>
+                </div>
+                <StyleWrapper>
+                  <FullCalendar
+                    eventClassNames={style.calendar}
+                    plugins={[
+                      dayGridPlugin,
+                      timeGridPlugin,
+                      interactionPlugin,
+                      listPlugin,
+                    ]}
+                    headerToolbar={{
+                      left: "prev,next today",
+                      center: "title",
+                      right: "dayGridMonth,timeGridWeek",
+                    }}
+                    initialView="timeGridWeek"
+                    locale={esLocale}
+                    editable={true}
+                    selectable={false}
+                    selectMirror={false}
+                    dayMaxEvents={true}
+                    select={handleDateSelect}
+                    eventClick={handleEventClick}
+                    contentHeight="auto"
+                    slotDuration={preferencias.duracion_paseos || "01:00:00"}
+                    events={ordensCliente}
+                    slotMinTime={preferencias.comienzo_jornada || "06:00:00"}
+                    slotMaxTime={preferencias.fin_jornada || "23:00:00"}
+                    allDaySlot={false}
+                    weekends={preferencias.dias_trabajo === "LV" ? false : true}
+                    hiddenDays={
+                      preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
+                    }
+                  />
+                </StyleWrapper>
               </div>
-              <StyleWrapper>
-              <FullCalendar
-                eventClassNames={style.calendar}
-                plugins={[
-                  dayGridPlugin,
-                  timeGridPlugin,
-                  interactionPlugin,
-                  listPlugin,
-                ]}
-                headerToolbar={{
-                  left: "prev,next today",
-                  center: "title",
-                  right: "dayGridMonth,timeGridWeek",
-                }}
-                initialView="timeGridWeek"
-                locale={esLocale}
-                editable={true}
-                selectable={false}
-                selectMirror={false}
-                dayMaxEvents={true}
-                select={handleDateSelect}
-                eventClick={handleEventClick}
-                contentHeight="auto"
-                slotDuration={preferencias.duracion_paseos || "01:00:00"}
-                events={ordensCliente}
-                slotMinTime={preferencias.comienzo_jornada || "06:00:00"}
-                slotMaxTime={preferencias.fin_jornada || "23:00:00"}
-                allDaySlot={false}
-                weekends={preferencias.dias_trabajo === "LV" ? false : true}
-                hiddenDays={
-                  preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
-                }
-                />
-              </StyleWrapper>
-
-            </div>
             </Modal>
             {/* <FullCalendar
               eventClassNames={style.calendar}
@@ -689,31 +678,39 @@ const PerfilWalker = () => {
           </div>
         </div>
         <div className={style.paddingWalker}>
-          {
-            
+          {ordenespendientes.length > 0 ? (
+            <button className={style.answer} onClick={openModal}>
+              {" "}
+              Tenes paseos por confirmar!
+            </button>
+          ) : (
+            <button className={style.paseos} onClick={openModal}>
+              {" "}
+              Controla tus paseos
+            </button>
+          )}
 
-            ordenespendientes.length > 0 ? <button className={style.answer} onClick={openModal}> Tenes paseos por confirmar!</button> :
-            <button className={style.paseos} onClick={openModal}>  Controla tus paseos</button>
-          }
-         
           <Agenda>
-          <FullCalendar
-            className={style.calendario}
-            plugins={[listPlugin]}
-            initialView="listWeek"
-            events={ordensCliente}
-            locale={esLocale}
-          />
+            <FullCalendar
+              className={style.calendario}
+              plugins={[listPlugin]}
+              initialView="listWeek"
+              events={ordensCliente}
+              locale={esLocale}
+            />
           </Agenda>
           <div className={style.comentariosWalker}>
             <h3>Comentarios:</h3>
-            {comment?.length ?(
+            {comment?.length ? (
               comment.map((el) => (
                 <div>
                   <p> {el}</p>
                   <hr></hr>
                 </div>
-              ))): <p>No hay comentarios.</p>}
+              ))
+            ) : (
+              <p>No hay comentarios.</p>
+            )}
           </div>
           {/* <img className={style.decoracion} src ={fotosola} alt="fotoFondo" /> */}
         </div>
@@ -728,22 +725,18 @@ const PerfilWalker = () => {
           <img src={chat} alt="chat" title="Conectar" />
         </button>
       </Link>
-      {
-              open ? (
-                <div className={style.modal}>
-                  <div className={style.containerImgGrande}>
-                    <button
-                      className={style.closeModal}
-                      onClick={handleCloseImg}>
-                      X
-                    </button>
-                    <img src={`${img}`} alt="Imagen" className={style.imagenModal} />
-                  </div>
-                </div>
-              ) : (
-                <div></div>
-              )
-            }
+      {open ? (
+        <div className={style.modal}>
+          <div className={style.containerImgGrande}>
+            <button className={style.closeModal} onClick={handleCloseImg}>
+              X
+            </button>
+            <img src={`${img}`} alt="Imagen" className={style.imagenModal} />
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

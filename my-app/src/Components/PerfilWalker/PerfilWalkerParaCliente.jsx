@@ -138,12 +138,12 @@ const PerfilWalker = () => {
   const handleOpenImg = (event) => {
     setOpen(true);
     setImg(event.target.src);
-  }
+  };
 
   const handleCloseImg = () => {
     setOpen(false);
     setImg("");
-  }
+  };
 
   async function estrella(e, number) {
     setInput({
@@ -241,7 +241,7 @@ const PerfilWalker = () => {
               fechaFinal: selectInfo.endStr,
               userId: id,
               clientId: idClient,
-              ubicacion: client.name
+              ubicacion: client.name,
             })
           );
           setTimeout(() => {
@@ -308,10 +308,9 @@ const PerfilWalker = () => {
 }
 .fc .fc-scroller {
   -webkit-overflow-scrolling: touch;
-
   background-color: gokzuw .fc .fc-button-primary:disabled { border-color: #2C3E50; border-color: var(--fc-button-border-color,rgb(58,84,180,0.8);); background-color: rgb(58, 84, 180, 0.8);};
   background-color: rgb(203, 233, 251);
-  }`
+  }`;
 
   return (
     <div className={style.container}>
@@ -509,35 +508,34 @@ const PerfilWalker = () => {
           </div>
           <div>
             <StyleWrapper>
-            <FullCalendar
-              eventClassNames={style.calendar}
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              headerToolbar={{
-                left: "prev,next today",
-                center: "title",
-                right: "dayGridMonth,timeGridWeek",
-              }}
-              initialView="timeGridWeek"
-              locale={esLocale}
-              editable={true}
-              selectable={true}
-              selectMirror={true}
-              dayMaxEvents={3}
-              select={handleDateSelect}
-              // eventClick={handleEventClick}
-              contentHeight="auto"
-              slotDuration={preferencias.duracion_paseos || "01:00:00"}
-              events={ordensCliente}
-              slotMinTime={preferencias.comienzo_jornada || "06:00:00"}
-              slotMaxTime={preferencias.fin_jornada || "23:00:00"}
-              allDaySlot={false}
-              weekends={preferencias.dias_trabajo === "LV" ? false : true}
-              hiddenDays={
-                preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
-              }
-            />
+              <FullCalendar
+                eventClassNames={style.calendar}
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                headerToolbar={{
+                  left: "prev,next today",
+                  center: "title",
+                  right: "dayGridMonth,timeGridWeek",
+                }}
+                initialView="timeGridWeek"
+                locale={esLocale}
+                editable={true}
+                selectable={true}
+                selectMirror={true}
+                dayMaxEvents={3}
+                select={handleDateSelect}
+                // eventClick={handleEventClick}
+                contentHeight="auto"
+                slotDuration={preferencias.duracion_paseos || "01:00:00"}
+                events={ordensCliente}
+                slotMinTime={preferencias.comienzo_jornada || "06:00:00"}
+                slotMaxTime={preferencias.fin_jornada || "23:00:00"}
+                allDaySlot={false}
+                weekends={preferencias.dias_trabajo === "LV" ? false : true}
+                hiddenDays={
+                  preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
+                }
+              />
             </StyleWrapper>
-
           </div>
         </div>
       </div>
@@ -547,22 +545,18 @@ const PerfilWalker = () => {
           <img src={chat} alt="chat" title="Conectar" />
         </button>
       </Link>
-      {
-              open ? (
-                <div className={style.modal}>
-                  <div className={style.containerImgGrande}>
-                    <button
-                      className={style.closeModal}
-                      onClick={handleCloseImg}>
-                      X
-                    </button>
-                    <img src={`${img}`} alt="Imagen" className={style.imagenModal} />
-                  </div>
-                </div>
-              ) : (
-                <div></div>
-              )
-            }
+      {open ? (
+        <div className={style.modal}>
+          <div className={style.containerImgGrande}>
+            <button className={style.closeModal} onClick={handleCloseImg}>
+              X
+            </button>
+            <img src={`${img}`} alt="Imagen" className={style.imagenModal} />
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

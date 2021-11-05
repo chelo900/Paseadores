@@ -4,12 +4,8 @@ import { getPaseadorPremuim } from "../../actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import style from "./Carrusel.module.css";
-// const shuffle = require("lodash/shuffle");
-import { shuffle } from "lodash";
 
-// import Carousel from "react-multi-carousel";
-// import "react-multi-carousel/lib/styles.css";
-// import Paginado from './Paginado';
+import { shuffle } from "lodash";
 
 function Carrusel() {
   const usersPremium = useSelector((state) => state.premium);
@@ -20,16 +16,6 @@ function Carrusel() {
   useEffect(() => {
     dispatch(getPaseadorPremuim(token));
   }, [dispatch, token]);
-
-  // const index = Math.floor(Math.random() * usersPremium.length);
-
-  // function Aleatorios(usersPremium) {
-  //   return [...usersPremium]
-  //   .sort(() => (Math.random() > 0.5 ? 1 : -1))
-
-  // random = function (usersPremium) {
-  //   return usersPremium[Math.floor((Math.random()*usersPremium.length))];
-  // }
 
   return (
     <div className={style.carrusel}>

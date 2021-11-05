@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router";
 import styles from "./SearchBar.module.css";
 import { getAllPaseadores } from "../../actions";
 import { useDispatch } from "react-redux";
 
 const SearchBar = ({ page, pageSize }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const [name, setName] = useState("");
   const token = localStorage.getItem("userToken");
 
@@ -15,7 +13,6 @@ const SearchBar = ({ page, pageSize }) => {
   };
 
   const handleOnClick = () => {
-    // history.push(`/main?name=${name}`)
     dispatch(getAllPaseadores({ name, token, page, pageSize }));
     setName("");
   };
@@ -29,11 +26,7 @@ const SearchBar = ({ page, pageSize }) => {
         type="text"
         placeholder="Search..."
       />
-      <button
-        className={styles.buscarbtn}
-        // type="submit"
-        onClick={handleOnClick}
-      >
+      <button className={styles.buscarbtn} onClick={handleOnClick}>
         <i class="fas fa-search"></i>
       </button>
     </div>

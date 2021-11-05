@@ -8,7 +8,7 @@ export const NEW_PASEADOR = "NEW_PASEADOR";
 export const LOGIN = "LOGIN";
 export const UBICATION_MATCH = "UBICATION_MATCH";
 export const RECOVER_PASSWORD = "RECOVER_PASSWORD";
-export const NEW_PASSWORD = "NEW_PASSWORD"; 
+export const NEW_PASSWORD = "NEW_PASSWORD";
 export const GET_CLIENTE_FOR_ID = "GET_CLIENTE_FOR_ID";
 export const PUT_DETAILS_CLIENT = "PUT_DETAILS_CLIENT";
 export const PUT_DETAILS_PROFILE_CLIENTE = "PUT_DETAILS_PROFILE_CLIENTE";
@@ -38,8 +38,8 @@ export function login(payload) {
   return async function (dispatch) {
     try {
       return axios
-      .post("/login", payload)
-      .then((res) => dispatch({ type: LOGIN, payload: res.data }));
+        .post("/login", payload)
+        .then((res) => dispatch({ type: LOGIN, payload: res.data }));
     } catch (error) {
       console.error("Action login: ", error);
     }

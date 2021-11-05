@@ -29,8 +29,6 @@ function EditPreferencias() {
     }
   }, []);
 
-
-
   const [newPreferencias, setNewPreferencias] = useState({
     turno: "",
     // (newPreferencias.comienzo_jornada > '6' && newPreferencias.fin_jornada <= '13') ? "Mañana" :
@@ -129,18 +127,18 @@ function EditPreferencias() {
       ...newPreferencias,
       turno:
         parseInt(newPreferencias.comienzo_jornada) >= 6 &&
-          parseInt(newPreferencias.fin_jornada) <= 13
+        parseInt(newPreferencias.fin_jornada) <= 13
           ? "Mañana"
           : parseInt(newPreferencias.comienzo_jornada) >= 13 &&
             parseInt(newPreferencias.fin_jornada) <= 23
-            ? "Tarde/Noche"
-            : "Full",
+          ? "Tarde/Noche"
+          : "Full",
     });
   }
 
-  const handelerBack =()=>{
+  const handelerBack = () => {
     history.push(`/walker/perfil/${userId}`);
-  }
+  };
 
   const handleDias = (e) => {
     setNewPreferencias({
@@ -171,7 +169,6 @@ function EditPreferencias() {
       history.push(`/walker/perfil/${userId}`);
     }, 1500);
   };
-
 
   const [array, setArray] = useState([]);
 
@@ -237,9 +234,7 @@ function EditPreferencias() {
     <div className={style.tt}>
       <form className={style.total} onSubmit={(e) => handleSubmit(e)}>
         <h1 className={style.title}>Completa tus preferencias de trabajo</h1>
-        <h2 className={style.title2}>
-          Y conectate con mas facilidad...
-        </h2>
+        <h2 className={style.title2}>Y conectate con mas facilidad...</h2>
         <hr></hr>
         <div className={style.form}>
           <div className={style.izquierda}>
@@ -283,13 +278,8 @@ function EditPreferencias() {
               </label>
             </div>
             <div className={style.container}>
-              <label className={style.label}>
-                Elegí tus días de trabajo
-              </label>
-              <select
-                className={style.select}
-                onChange={(e) => handleDias(e)}
-              >
+              <label className={style.label}>Elegí tus días de trabajo</label>
+              <select className={style.select} onChange={(e) => handleDias(e)}>
                 <option value=""> Dias de trabajo</option>
                 <option value="LD"> Lunes a Domingo</option>
                 <option value="LV">Lunes a Viernes</option>
@@ -301,7 +291,8 @@ function EditPreferencias() {
                 Hora de comienzo jornada laboral:
                 <select
                   className={style.select}
-                  onChange={(e) => handleSelect(e)}>
+                  onChange={(e) => handleSelect(e)}
+                >
                   <option id="Hora Inicio" selected value="">
                     Hora Inicio
                   </option>
@@ -334,12 +325,11 @@ function EditPreferencias() {
               </select>
             </div>
             <div className={style.container}>
-              <label className={style.label}>
-                Elegí tu Provincia
-              </label>
+              <label className={style.label}>Elegí tu Provincia</label>
               <select
                 className={style.select}
-                onChange={(e) => handleProvincias(e)}>
+                onChange={(e) => handleProvincias(e)}
+              >
                 <option value="">Provincia</option>
                 {provincias.map((prov) => (
                   <option value={prov}>{prov}</option>
@@ -352,7 +342,8 @@ function EditPreferencias() {
               </label>
               <select
                 className={style.select}
-                onChange={(e) => handleMunicipios(e)}>
+                onChange={(e) => handleMunicipios(e)}
+              >
                 <option value="">Municipios/Departamentos</option>
                 {municipios &&
                   municipios.map((munis) => (
@@ -361,12 +352,11 @@ function EditPreferencias() {
               </select>
             </div>
             <div className={style.container}>
-              <label className={style.label}>
-                Elegí Localidad
-              </label>
+              <label className={style.label}>Elegí Localidad</label>
               <select
                 className={style.select}
-                onChange={(e) => handleLocalidades(e)}>
+                onChange={(e) => handleLocalidades(e)}
+              >
                 <option value="">Localidad</option>
                 {localidad &&
                   localidad.map((local) => (
@@ -377,19 +367,26 @@ function EditPreferencias() {
           </div>
         </div>
         <div className={style.containerBtn}>
-          <button className={style.btnEnviar} onClick={e=>handelerBack()}>Atrás</button>
-          {
-            newPreferencias.dias_trabajo && newPreferencias.dias_trabajo.length !== 0 &&
-              newPreferencias.perros_por_paseo && newPreferencias.perros_por_paseo.length !== 0 &&
-              newPreferencias.duracion_paseos && newPreferencias.duracion_paseos.length !== 0 &&
-              newPreferencias.comienzo_jornada && newPreferencias.comienzo_jornada.length !== 0 &&
-              newPreferencias.fin_jornada && newPreferencias.fin_jornada.length !== 0 ?
-              <button className={style.btnEnviar} type="submit">
-                {" "}
-                Enviar Preferencias{" "}
-              </button>
-              : <></>
-          }
+          <button className={style.btnEnviar} onClick={(e) => handelerBack()}>
+            Atrás
+          </button>
+          {newPreferencias.dias_trabajo &&
+          newPreferencias.dias_trabajo.length !== 0 &&
+          newPreferencias.perros_por_paseo &&
+          newPreferencias.perros_por_paseo.length !== 0 &&
+          newPreferencias.duracion_paseos &&
+          newPreferencias.duracion_paseos.length !== 0 &&
+          newPreferencias.comienzo_jornada &&
+          newPreferencias.comienzo_jornada.length !== 0 &&
+          newPreferencias.fin_jornada &&
+          newPreferencias.fin_jornada.length !== 0 ? (
+            <button className={style.btnEnviar} type="submit">
+              {" "}
+              Enviar Preferencias{" "}
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
       </form>
     </div>
