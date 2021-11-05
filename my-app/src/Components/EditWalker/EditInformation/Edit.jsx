@@ -103,9 +103,9 @@ const Edit = () => {
           className={style.selector}
         >
           <option>Seleccione Servicio:</option>
-          <option value="Walker">Paseador</option>
-          <option value="Carer">Cuidador</option>
-          <option value="Walker and Carer">Paseador y Cuidador</option>
+          <option value="Paseador">Paseador</option>
+          <option value="Cuidador">Cuidador</option>
+          <option value="Paseador y Cuidador">Paseador y Cuidador</option>
         </select>
         <input
           type="text"

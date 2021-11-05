@@ -8,6 +8,7 @@ import {
   getAssessment,
   getPreferences,
   getClienteForId,
+  getOrdenReputacion,
 } from "../../actions/index";
 
 import style from "./PerfilWalkerCliente.module.css";
@@ -17,7 +18,7 @@ import Chat from "../Chat/Chat";
 import Nav from "./nav/Nav";
 
 import chat from "../../media/chat.png";
-import chat2 from '../../media/chat2.png'
+import chat2 from "../../media/chat2.png";
 
 import FullCalendar, { EventContentArg } from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -33,7 +34,7 @@ import mediapatita from "../../media/mediapatita.png";
 import swal from "sweetalert";
 import axios from "axios";
 import MapView from "../../ComponentsMaps/MapView";
-
+import styled from "styled-components";
 import favorito from "../../media/favorito.png";
 import media from "../../media/media.png";
 import estrella from "../../media/estrella.png";
@@ -49,24 +50,26 @@ const PerfilWalker = () => {
   const comment = useSelector((state) => state.comment);
   const score = useSelector((state) => state.score);
   const client = useSelector((state) => state.detailCliente);
+  const reputacion = useSelector((state) => state.boolean);
 
   const ordensCliente = useSelector((state) => state.ordensCliente);
   const preferencias = useSelector((state) => state.preferencias);
   var idClient = localStorage.getItem("userId");
 
   const [ordenload, setOrdenLoad] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [img, setImg] = useState("");
 
   const [input, setInput] = useState({
     score: 0,
     comment: "",
   });
+
   const inputChange = (e) => {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
-   
-
   };
 
   useEffect(() => {
@@ -76,8 +79,23 @@ const PerfilWalker = () => {
     dispatch(getPaseadorForId(id, token));
     dispatch(getClienteForId(idClient, token));
     dispatch(getAssessment(id, token));
+    dispatch(getOrdenReputacion({ userId: id, clientId: idClient }, token));
   }, [dispatch, id, token]);
 
+  useEffect(() => {
+    dispatch(getOrdenCliente(id, token));
+  }, [dispatch]);
+  // const [file, setFile] = useState('')
+  // const handleInputChange = (e) => {
+  //     setFile(e.target.files[0])
+  // };
+
+  // const handleSubmitImage = (e) => {
+  //     e.preventDefault();
+  //     if (!file) return;
+  //     console.log('file', file)
+  //     // upLoadImage(previewSource)
+  //     addImage(file)
   // }
 
   // const handleLogout = (event) => {
@@ -110,11 +128,21 @@ const PerfilWalker = () => {
       timer: 1500,
     });
     setInput({
-      score:0,
-      comment:""
-    })
+      score: 0,
+      comment: "",
+    });
 
     // history.push(`/Cliente/${id}`)
+  };
+
+  const handleOpenImg = (event) => {
+    setOpen(true);
+    setImg(event.target.src);
+  };
+
+  const handleCloseImg = () => {
+    setOpen(false);
+    setImg("");
   };
 
   async function estrella(e, number) {
@@ -207,154 +235,22 @@ const PerfilWalker = () => {
         cancelButtonText: "Cancelar",
       }).then((respuesta) => {
         if (respuesta.value) {
-          Swal.fire({
-            title: "Por favor ingresa tu ubicación",
-            input: "select",
-            inputOptions: provincias,
-            showCancelButton: true,
-            confirmButtonText: "Confirmar",
-            cancelButtonText: "Cancelar",
-            preConfirm: () => {
-              const provin = Swal.getInput();
-              console.log(provin.value);
-              if (!provin) {
-                Swal.showValidationMessage(`Please enter login and password`);
-              }
-              setProvincia(provincias[provin.value]);
-              if (provincias[provin.value] == "Buenos Aires") {
-                axios
-                  .get(
-                    `https://apis.datos.gob.ar/georef/api/municipios?provincia=${
-                      provincias[provin.value]
-                    }&orden=nombre&max=135`
-                  )
-                  .then((munis) => {
-                    console.log(munis);
-                    let m = munis.data.municipios.map((mun) => mun.nombre);
-                    // setMunicipios(m)
-                    console.log(m);
-                    // setMunicipios(m)
-                    // handleMunicipios(m)
-                    Swal.fire({
-                      title: "Por favor ingresa tu Municipio",
-                      input: "select",
-                      inputOptions: m,
-                      preConfirm: () => {
-                        const muni = Swal.getInput();
-                        setMunicipio(m[muni.value]);
-                        // console.log(muni.value)
-                        // console.log(m[muni.value])
-                        axios
-                          .get(
-                            `https://apis.datos.gob.ar/georef/api/localidades?provincia=${
-                              provincias[provin.value]
-                            }&departamento=${m[muni.value]}&orden=nombre&max=50`
-                          )
-                          .then((local) => {
-                            console.log(local);
-                            let l = local.data.localidades.map(
-                              (local) => local.nombre
-                            );
-                            console.log(l);
-                            Swal.fire({
-                              title: "Por favor ingresa tu Localidad",
-                              input: "select",
-                              inputOptions: l,
-                              preConfirm: () => {
-                                const local = Swal.getInput();
-                                setLocalidad(l[local.value]);
-                                console.log(l[local.value]);
+          dispatch(
+            clientSendOrden({
+              fechaInicio: selectInfo.startStr,
+              fechaFinal: selectInfo.endStr,
+              userId: id,
+              clientId: idClient,
+              ubicacion: client.name,
+            })
+          );
+          setTimeout(() => {
+            setOrdenLoad(true);
+          }, 1000);
 
-                                dispatch(
-                                  clientSendOrden({
-                                    fechaInicio: selectInfo.startStr,
-                                    fechaFinal: selectInfo.endStr,
-                                    userId: id,
-                                    clientId: idClient,
-                                    ubicacion: `${provincias[provin.value]}, ${
-                                      m[muni.value]
-                                    }, ${l[local.value]}`,
-                                  })
-                                );
-                                setTimeout(() => {
-                                  setOrdenLoad(true);
-                                }, 1000);
-
-                                setTimeout(() => {
-                                  setOrdenLoad(false);
-                                }, 1000);
-                              },
-                            });
-                          });
-                      },
-                    });
-                  });
-              } else {
-                axios
-                  .get(
-                    `https://apis.datos.gob.ar/georef/api/departamentos?provincia=${
-                      provincias[provin.value]
-                    }&orden=nombre&max=200`
-                  )
-                  .then((depas) => {
-                    console.log(depas);
-                    let d = depas.data.departamentos.map((dep) => dep.nombre);
-                    console.log(d);
-                    // setMunicipios(m)
-                    // handleMunicipios(d)
-                    Swal.fire({
-                      title: "Por favor ingresa tu Departamento/Comuna",
-                      input: "select",
-                      inputOptions: d,
-                      preConfirm: () => {
-                        const deptos = Swal.getInput();
-                        setMunicipio(d[deptos.value]);
-                        axios
-                          .get(
-                            `https://apis.datos.gob.ar/georef/api/localidades?provincia=${
-                              provincias[provin.value]
-                            }&departamento=${
-                              d[deptos.value]
-                            }&orden=nombre&max=50`
-                          )
-                          .then((local) => {
-                            let l = local.data.localidades.map(
-                              (local) => local.nombre
-                            );
-                            Swal.fire({
-                              title: "Por favor ingresa tu Localidad",
-                              input: "select",
-                              inputOptions: l,
-                              preConfirm: () => {
-                                const local = Swal.getInput();
-                                setLocalidad(l[local.value]);
-                                console.log(l[local.value]);
-                                dispatch(
-                                  clientSendOrden({
-                                    fechaInicio: selectInfo.startStr,
-                                    fechaFinal: selectInfo.endStr,
-                                    userId: id,
-                                    clientId: idClient,
-                                    ubicacion: `${provincias[provin.value]}, ${
-                                      d[deptos.value]
-                                    }, ${l[local.value]}`,
-                                  })
-                                );
-                                setTimeout(() => {
-                                  setOrdenLoad(true);
-                                }, 1000);
-                                setTimeout(() => {
-                                  setOrdenLoad(false);
-                                }, 1000);
-                              },
-                            });
-                          });
-                      },
-                    });
-                  });
-              }
-            },
-          });
+          setTimeout(() => {
+            setOrdenLoad(false);
+          }, 1000);
         } else {
           calendarApi.unselect();
           Swal.fire({
@@ -372,6 +268,49 @@ const PerfilWalker = () => {
       return clickInfo.event.title; // will render immediately. will call handleEventRemove
     }
   };
+
+  const StyleWrapper = styled.div`
+  .fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+    margin-left: -
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: rgb(58, 84, 180, 0.8);;
+    color: white;
+  }
+  .fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: rgb(58, 84, 180, 0.8);;
+    color: white;
+  }
+  .fc .fc-toolbar-title {
+    font-size: 1.10em;
+    margin: 0;
+    color: black;
+  }
+  .fc .fc-toolbar-title:after {
+    content: 'Solicita tu turno';
+    display: block;
+    color: rgb(58, 84, 180, 0.8);
+  }
+  .fc .fc-button-primary {
+    border-color: var(--fc-button-border-color, #2C3E50);
+    background-color:rgb(58, 84, 180, 0.8);
+}
+.fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link{
+  width: 12px;
+  height: 12px;
+  margin-right: 1px;
+  border-radius: 80%;
+  display: flex;
+  top: 10px;
+  font-size: 0em;
+}
+.fc .fc-scroller {
+  -webkit-overflow-scrolling: touch;
+  background-color: gokzuw .fc .fc-button-primary:disabled { border-color: #2C3E50; border-color: var(--fc-button-border-color,rgb(58,84,180,0.8);); background-color: rgb(58, 84, 180, 0.8);};
+  background-color: rgb(203, 233, 251);
+  }`;
 
   return (
     <div className={style.container}>
@@ -445,87 +384,87 @@ const PerfilWalker = () => {
             </div>
           </div>
           <div className={style.reputacion}>
-            <h2>Deja tu opinon:</h2>
-            <div className={style.opinion}>
-
-              <button
-                className={style.prueba}
-                onClick={(e) => {
-                  estrella(e, 1);
-                }}
-              >
-                {input.score > 0 ? (
-                  <img src={patitallena} alt="" />
-                ) : (
-                  <img src={patitavacia} alt="sas" />
-                )}
-              </button>
-              <button
-                className={style.prueba}
-                onClick={(e) => {
-                  estrella(e, 2);
-                }}
-              >
-                {input.score > 1 ? (
-                  <img src={patitallena} alt="" />
-                ) : (
-                  <img src={patitavacia} alt="sas" />
-                )}
-              </button>
-              <button
-                className={style.prueba}
-                onClick={(e) => {
-                  estrella(e, 3);
-                }}
-              >
-                {input.score > 2 ? (
-                  <img src={patitallena} alt="" />
-                ) : (
-                  <img src={patitavacia} alt="sas" />
-                )}
-              </button>
-              <button
-                className={style.prueba}
-                onClick={(e) => {
-                  estrella(e, 4);
-                }}
-              >
-                {input.score > 3 ? (
-                  <img src={patitallena} alt="" />
-                ) : (
-                  <img src={patitavacia} alt="sas" />
-                )}
-              </button>
-              <button
-                className={style.prueba}
-                onClick={(e) => {
-                  estrella(e, 5);
-                }}
-              >
-                {input.score > 4 ? (
-                  <img src={patitallena} alt="" />
-                ) : (
-                  <img src={patitavacia} alt="sas" />
-                )}
-              </button>
-            </div>
-           
-
-            <form className={style.formulario} onSubmit={handlerSubmit}>
-              <textarea
-                type="text"
-                name="comment"
-                value={input.comment}
-                placeholder="Dejar un comentario..."
-                onChange={(e) => inputChange(e)}
-              />
-              <div className={style.formularioButton}>
-                <button className={style.edit} type="submit">
-                  Enviar
+            {reputacion && (
+              <div className={style.opinion}>
+                <h2>Deja tu opinon:</h2>
+                <button
+                  className={style.prueba}
+                  onClick={(e) => {
+                    estrella(e, 1);
+                  }}
+                >
+                  {input.score > 0 ? (
+                    <img src={patitallena} alt="" />
+                  ) : (
+                    <img src={patitavacia} alt="sas" />
+                  )}
+                </button>
+                <button
+                  className={style.prueba}
+                  onClick={(e) => {
+                    estrella(e, 2);
+                  }}
+                >
+                  {input.score > 1 ? (
+                    <img src={patitallena} alt="" />
+                  ) : (
+                    <img src={patitavacia} alt="sas" />
+                  )}
+                </button>
+                <button
+                  className={style.prueba}
+                  onClick={(e) => {
+                    estrella(e, 3);
+                  }}
+                >
+                  {input.score > 2 ? (
+                    <img src={patitallena} alt="" />
+                  ) : (
+                    <img src={patitavacia} alt="sas" />
+                  )}
+                </button>
+                <button
+                  className={style.prueba}
+                  onClick={(e) => {
+                    estrella(e, 4);
+                  }}
+                >
+                  {input.score > 3 ? (
+                    <img src={patitallena} alt="" />
+                  ) : (
+                    <img src={patitavacia} alt="sas" />
+                  )}
+                </button>
+                <button
+                  className={style.prueba}
+                  onClick={(e) => {
+                    estrella(e, 5);
+                  }}
+                >
+                  {input.score > 4 ? (
+                    <img src={patitallena} alt="" />
+                  ) : (
+                    <img src={patitavacia} alt="sas" />
+                  )}
                 </button>
               </div>
-            </form>
-            
+            )}
+            {reputacion && (
+              <form className={style.formulario} onSubmit={handlerSubmit}>
+                <textarea
+                  type="text"
+                  name="comment"
+                  value={input.comment}
+                  placeholder="Dejar un comentario..."
+                  onChange={(e) => inputChange(e)}
+                />
+                <div className={style.formularioButton}>
+                  <button className={style.edit} type="submit">
+                    Enviar
+                  </button>
+                </div>
+              </form>
+            )}
             <Link to={`/messenger`} className={style.editContainerInfo}>
               <button className={style.editDescription}>
                 <img src={chat2} alt="chat2" />
@@ -537,8 +476,10 @@ const PerfilWalker = () => {
               <h2>Fotos</h2>
               <div className={style.galeria}>
                 {Walker.images?.map((i) => (
-                  <div key={i.public_id}>
-                    <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
+                  <div className={style.containerImg} key={i.public_id}>
+                    <button className={style.btnI} onClick={handleOpenImg}>
+                      <img src={i.imageURL ? i.imageURL : foto1} alt="a" />
+                    </button>
                   </div>
                 ))}
               </div>
@@ -546,16 +487,18 @@ const PerfilWalker = () => {
           </div>
           {/* <MapView latitude={Walker.latitude} longitude={Walker.longitude} /> */}
           <div className={style.comentarios}>
-              <h3>Comentarios:</h3>
-              {comment?.length
-                  ? comment.map((el) => (
-                      <div>
-                        <p> {el}</p>
-                        <hr></hr>
-                      </div>
-                    ))
-                  : <p> No hay comentarios sobre este usuario.</p>}
-            </div>
+            <h3>Comentarios:</h3>
+            {comment?.length ? (
+              comment.map((el) => (
+                <div>
+                  <p> {el}</p>
+                  <hr></hr>
+                </div>
+              ))
+            ) : (
+              <p> No hay comentarios sobre este usuario.</p>
+            )}
+          </div>
         </div>
         <div className={style.padding}>
           <h2>Solicita un Turno:</h2>
@@ -564,33 +507,35 @@ const PerfilWalker = () => {
             <span>🟡 Pendientes</span>
           </div>
           <div>
-            <FullCalendar
-              eventClassNames={style.calendar}
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              headerToolbar={{
-                left: "prev,next today",
-                center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay",
-              }}
-              initialView="timeGridWeek"
-              locale={esLocale}
-              editable={true}
-              selectable={true}
-              selectMirror={true}
-              dayMaxEvents={3}
-              select={handleDateSelect}
-              // eventClick={handleEventClick}
-              contentHeight="auto"
-              slotDuration={preferencias.duracion_paseos || "01:00:00"}
-              events={ordensCliente}
-              slotMinTime={preferencias.comienzo_jornada || "06:00:00"}
-              slotMaxTime={preferencias.fin_jornada || "23:00:00"}
-              allDaySlot={false}
-              weekends={preferencias.dias_trabajo === "LV" ? false : true}
-              hiddenDays={
-                preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
-              }
-            />
+            <StyleWrapper>
+              <FullCalendar
+                eventClassNames={style.calendar}
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                headerToolbar={{
+                  left: "prev,next today",
+                  center: "title",
+                  right: "dayGridMonth,timeGridWeek",
+                }}
+                initialView="timeGridWeek"
+                locale={esLocale}
+                editable={true}
+                selectable={true}
+                selectMirror={true}
+                dayMaxEvents={3}
+                select={handleDateSelect}
+                // eventClick={handleEventClick}
+                contentHeight="auto"
+                slotDuration={preferencias.duracion_paseos || "01:00:00"}
+                events={ordensCliente}
+                slotMinTime={preferencias.comienzo_jornada || "06:00:00"}
+                slotMaxTime={preferencias.fin_jornada || "23:00:00"}
+                allDaySlot={false}
+                weekends={preferencias.dias_trabajo === "LV" ? false : true}
+                hiddenDays={
+                  preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
+                }
+              />
+            </StyleWrapper>
           </div>
         </div>
       </div>
@@ -600,6 +545,18 @@ const PerfilWalker = () => {
           <img src={chat} alt="chat" title="Conectar" />
         </button>
       </Link>
+      {open ? (
+        <div className={style.modal}>
+          <div className={style.containerImgGrande}>
+            <button className={style.closeModal} onClick={handleCloseImg}>
+              X
+            </button>
+            <img src={`${img}`} alt="Imagen" className={style.imagenModal} />
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

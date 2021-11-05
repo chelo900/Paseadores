@@ -262,26 +262,6 @@ const UsersCards = () => {
           </div>
         </div>
 
-        {/* <div className = {style.premium}>
-          {usersPremium.length > 0 ? (
-            usersPremium.map((pr) => {
-              return (
-                <CardCarrusel
-                    key={pr.id}
-                    id={pr.id}
-                    name={pr.name}
-                    surname={pr.surname}
-                    image={pr.image}
-                    />
-                    );
-                  })
-                  ) : (
-                    <div>
-                    <p>No hay usuarios premium</p>
-                    </div>
-                    )}
-                  </div> */}
-
         <div className={style.cards}>
           {allUsers.content?.length > 0 ? (
             allUsers.content.map((el) => {
@@ -316,16 +296,12 @@ const UsersCards = () => {
           )}
 
           <div className={style.pagination}>
-            {/* {page === 0 ? null : ( */}
             <button className={style.prev} onClick={handlePrevPage}>
               <p>&#60;</p>
             </button>
-            {/* )} */}
-            {/* {page === allUsers.totalPages - 1 ? null : ( */}
             <button className={style.next} onClick={handleNextPage}>
               <p>&#62;</p>
             </button>
-            {/* )} */}
           </div>
         </div>
       </div>

@@ -105,6 +105,15 @@ const PerfilWalker = () => {
     }
   }, []);
 
+  // useEffect(() => {
+  //   if (delImage === true) dispatch(getPaseadorForId(id, token));
+  // }, [dispatch]);
+
+  // const [file, setFile] = useState('')
+  // const handleInputChange = (e) => {
+  //     setFile(e.target.files[0])
+  // };
+
   useEffect(() => {
     if (Walker.premium === false) handleNotPremium();
   }, []);
@@ -162,6 +171,7 @@ const PerfilWalker = () => {
           title,
           start: selectInfo.startStr,
           end: selectInfo.endStr,
+          // allDay: selectInfo.allDay
         },
         true
       ); // temporary=true, will get overwritten when reducer gives new events
@@ -571,6 +581,7 @@ const PerfilWalker = () => {
                     </button>
                     <button
                       onClick={() => handleDelete(i.public_id, token)}
+                      className="p"
                       className="btn"
                     >
                       <i className="fa fa-trash"></i>
@@ -632,6 +643,38 @@ const PerfilWalker = () => {
                 </StyleWrapper>
               </div>
             </Modal>
+            {/* <FullCalendar
+              eventClassNames={style.calendar}
+              plugins={[
+                dayGridPlugin,
+                timeGridPlugin,
+                interactionPlugin,
+                listPlugin,
+              ]}
+              headerToolbar={{
+                left: "prev,next today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+              }}
+              initialView="timeGridWeek"
+              locale={esLocale}
+              editable={true}
+              selectable={false}
+              selectMirror={false}
+              dayMaxEvents={true}
+              // select={handleDateSelect}
+              eventClick={handleEventClick}
+              contentHeight="auto"
+              slotDuration={preferencias.duracion_paseos || "03:00:00"}
+              events={ordensCliente}
+              slotMinTime={preferencias.comienzo_jornada || "08:00:00"}
+              slotMaxTime={preferencias.fin_jornada || "23:00:00"}
+              allDaySlot={false}
+              weekends={preferencias.dias_trabajo === "LV" ? false : true}
+              hiddenDays={
+                preferencias.dias_trabajo === "W" ? [1, 2, 3, 4, 5] : []
+              }
+            /> */}
           </div>
         </div>
         <div className={style.paddingWalker}>
@@ -669,6 +712,7 @@ const PerfilWalker = () => {
               <p>No hay comentarios.</p>
             )}
           </div>
+          {/* <img className={style.decoracion} src ={fotosola} alt="fotoFondo" /> */}
         </div>
         <Link to={`/messenger`} className={style.editContainerChat2}>
           <button className={style.editchat}>

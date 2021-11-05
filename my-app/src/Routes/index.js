@@ -7,8 +7,6 @@ import Login from "../Components/Login/Login.jsx";
 import recoverPassword from "../Components/Login/RecoverPassword";
 import NewPassword from "../Components/Login/NewPassword";
 import UsersCards from "../Components/UsersCards/UsersCards";
-import Form from "../Components/Home/Form/Form";
-import SelectType from "../Components/SelectType/SelectType";
 import PerfilWalker from "../Components/PerfilWalker/PerfilWalker";
 import EditInformation from "../Components/EditWalker/EditInformation/Edit.jsx";
 import EditPrice from "../Components/EditWalker/EditPrice/Edit.jsx";
@@ -27,7 +25,6 @@ import MapWalkers from "../Components/UsersCards/MapWalkers";
 import Chat from "../Components/Chat/Chat";
 import Messenger from "../Components/Messenger/Messenger";
 
-
 const index = () => {
   return (
     <div>
@@ -43,8 +40,6 @@ const index = () => {
           component={recoverPassword}
         />
         <Route exact path="/new-password/:token" component={NewPassword} />
-        <Route exact path="/formWalker" component={Form} />
-        <Route exact path="/selectType" component={SelectType} />
         <Route exact path="/cardsUsers" component={UsersCards} />
         <Route exact path="/walker/perfil/:id" component={PerfilWalker} />
         <Route
@@ -77,10 +72,22 @@ const index = () => {
         {/* Rutas del cliente  */}
         <Route exact path="/login-client" component={FormClient} />
         <Route exact path="/Cliente/:id" component={PerfilCliente} />
-        <Route exact path="/Cliente/editDescription/:id" component={Descripcion}/>
-        <Route exact path="/Cliente/editInformation/:id" component={Informacion}/>
-        <Route exact path="/Walker/Cliente/:id" component={PerfilClienteParaWalker}/>
-    
+        <Route
+          exact
+          path="/Cliente/editDescription/:id"
+          component={Descripcion}
+        />
+        <Route
+          exact
+          path="/Cliente/editInformation/:id"
+          component={Informacion}
+        />
+        <Route
+          exact
+          path="/Walker/Cliente/:id"
+          component={PerfilClienteParaWalker}
+        />
+
         {/* Ruta del admin  */}
         <Route exact path="/admin" component={admin} />
       </Switch>

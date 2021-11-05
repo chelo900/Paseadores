@@ -1,6 +1,5 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-const queryString = require("query-string");
 export const GET_PASEADORES = "GET_PASEADORES";
 export const GET_PASEADOR_FOR_ID = "GET_PASEADOR_FOR_ID";
 export const PUT_DETAILS_PROFILE = "PUT_DETAILS_PROFILE";
@@ -29,8 +28,11 @@ export const POST_ASSESSMENT = "POST_ASSESSMENT";
 export const GET_ASSESSMENT = "GET_ASSESSMENT";
 export const GET_WALKERS_FOR_MAP = "GET_WALKERS_FOR_MAP";
 export const GET_WALKERS_BY_NAME = "GET_WALKERS_BY_NAME";
+export const GET_ORDEN_REPUTACION = "GET_ORDEN_REPUTACION";
+
 // export const GET_BY_EMAIL_CLIENTE = "GET_BY_EMAIL_CLIENTE"
 export const EDIT_FAVORITES = "EDIT_FAVORITES";
+const queryString = require("query-string");
 
 export function login(payload) {
   return async function (dispatch) {
@@ -369,6 +371,17 @@ export function putDetailsCliente(payload, id, token) {
   };
 }
 
+// export function getByEmailCliente (payload) {
+//   return async function (dispatch) {
+//       return axios.post("/login", payload)
+//       .then((reclientes) =>
+//         dispatch({
+//           type: "GET_BY_EMAIL_CLIENTE",
+//           payload: cliente.data
+//         }));
+//   };
+// }
+
 export function clientSendOrden(payload, token) {
   return async function (dispatch) {
     return axios
@@ -385,6 +398,18 @@ export function clientSendOrden(payload, token) {
       });
   };
 }
+
+// export function getOrdenPaseador(userId){
+//   console.log('geeetorden')
+//   return (dispatch) => {
+//     axios.get(`/getOrden/paseador/${userId}`)
+//     .then((orden)=>
+//     dispatch({
+//       type: "GET_ORDENSUSER_PASEADOR",
+//       payload: orden.data
+//     }))
+//   }
+// }
 
 export function getOrdenCliente(userId, token) {
   return (dispatch) => {
@@ -645,6 +670,22 @@ export function contacto(payload) {
         title: "No se pudo enviar el mensaje",
         showConfirmButton: false,
       });
+    }
+  };
+}
+
+export function getOrdenReputacion(payload, token) {
+  return async function (dispatch) {
+    try {
+      let result = await axios.post(`/getOrdenReputacion`, payload, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return dispatch({
+        type: "GET_ORDEN_REPUTACION",
+        payload: result.data,
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 }
